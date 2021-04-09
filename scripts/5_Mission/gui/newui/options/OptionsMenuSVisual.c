@@ -1,3 +1,11 @@
+enum UISettingsID{
+	HEADBOB = 0,
+	DDOF,
+	MOTION_BLUR,
+	BLOOM,
+	HEAD_LEAN
+}
+
 class OptionsMenuSVisual extends ScriptedWidgetEventHandler{
 	
 	protected ref SUserConfig m_sUserConfig;
@@ -89,7 +97,13 @@ class OptionsMenuSVisual extends ScriptedWidgetEventHandler{
 				
 		
 		
-		FillTextMap();
+		////////////////// TOOLTIP ////////////////////////
+		m_TextMap = new map<int, ref Param2<string, string>>;
+		addDescriptionTooltip(m_HeadBobSlider, UISettingsID.HEADBOB, "#STR_SUDE_LAYOUT_OPTIONS_CAMERA_HEADBOB","#STR_SUDE_LAYOUT_OPTIONS_CAMERA_HEADBOB_DESCRIPTION");
+		addDescriptionTooltip(m_DoFSlider, UISettingsID.DDOF, "#STR_SUDE_LAYOUT_OPTIONS_CAMERA_DOF","#STR_SUDE_LAYOUT_OPTIONS_CAMERA_DOF_DESCRIPTION");
+		addDescriptionTooltip(m_MotionBlurSlider, UISettingsID.MOTION_BLUR, "#STR_SUDE_LAYOUT_OPTIONS_CAMERA_MOTIONBLUR","#STR_SUDE_LAYOUT_OPTIONS_CAMERA_MOTIONBLUR_DESCRIPTION");
+		addDescriptionTooltip(m_BloomSlider, UISettingsID.BLOOM, "#STR_SUDE_LAYOUT_OPTIONS_CAMERA_BLOOM","#STR_SUDE_LAYOUT_OPTIONS_CAMERA_BLOOM_DESCRIPTION");
+		addDescriptionTooltip(m_RollSlider, UISettingsID.HEAD_LEAN, "#STR_SUDE_LAYOUT_OPTIONS_CAMERA_ROLL","#STR_SUDE_LAYOUT_OPTIONS_CAMERA_ROLL_DESCRIPTION");
 		
 		////////////////// CAMERA ////////////////////////
 		m_HeadBobSlider.SetHandler(this);
@@ -207,44 +221,29 @@ class OptionsMenuSVisual extends ScriptedWidgetEventHandler{
 	}
 	
 	override bool OnFocus( Widget w, int x, int y ){		
-		if( m_Menu ){
-			m_Menu.OnFocus( w, x, y );
-		}
+		
 		
 		if( w ){
-			if ( TextMapUpdateWidget( w.GetUserID() ) ) {
+			Param2<string, string> p = m_TextMap.Get( w.GetUserID() );
+			if( p ){
+				SLog.d("onFocus");
+				m_DetailsRoot.Show( true );
+				m_DetailsLabel.SetText( p.param1 );
+				m_DetailsText.SetText( p.param2 );
+								
+				m_DetailsText.Update();
+				m_DetailsLabel.Update();
+				m_DetailsRoot.Update();
 				return true;
-			}		
+			}	
 		}
 		m_DetailsRoot.Show( false );
 		return ( w != null );
 	}
 	
-	
-	bool TextMapUpdateWidget(int key){
-		Param2<string, string> p = m_TextMap.Get( key );
-		if( p ){
-			m_DetailsRoot.Show( true );
-			m_DetailsLabel.SetText( p.param1 );
-			m_DetailsText.SetText( p.param2 );
-			
-			//float lines = m_DetailsText.GetContentHeight();
-			//m_DetailsText.SetSize( 1, lines );
-			
-			m_DetailsText.Update();
-			m_DetailsLabel.Update();
-			m_DetailsRoot.Update();
-			return true;
-		}
-		return false;
-	}
-	
-	void FillTextMap(){ //to-do finish option description
-		m_TextMap = new map<int, ref Param2<string, string>>;
-		m_TextMap.Insert( 1, new Param2<string, string>( "Title", "description" ) );
-		m_TextMap.Insert( 2, new Param2<string, string>( "Title", "description" ) );
-		m_TextMap.Insert( 3, new Param2<string, string>( "Title", "description" ) );
-		m_TextMap.Insert( 4, new Param2<string, string>( "Title", "description" ) );
+	private void addDescriptionTooltip(Widget w, int userID, string title, string description){
+		w.SetUserID(userID);
+		m_TextMap.Insert(userID, new Param2<string, string>(title, description));
 	}
 
 }

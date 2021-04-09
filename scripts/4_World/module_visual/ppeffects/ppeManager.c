@@ -59,7 +59,8 @@ class PPEManager extends PluginBase {
 	}
 	
 	override void OnInit(){
-		loadMaterials();		
+		loadMaterials();	
+		loadDefaultParams();	
 		activateInitialPPE();
 	}
 	
