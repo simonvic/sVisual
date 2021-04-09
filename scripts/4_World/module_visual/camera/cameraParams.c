@@ -1,7 +1,6 @@
 //to-do remove all these when player settings are done
 
 class HeadLeanParams {
-	static bool enabled = true;	
 	static float leanAngle = 15;
 }
 

@@ -195,7 +195,7 @@ class OptionsMenuSVisual extends ScriptedWidgetEventHandler{
 	
 	void UpdateRollOption( float new_value){
 		HeadLeanParams.leanAngle = new_value;
-		HeadLeanParams.enabled = (new_value != 0);
+		//HeadLeanParams.enabled = (new_value != 0);
 		m_RollValue.SetText(new_value.ToString());
 		
 		m_sUserConfig.module_visual.headLeanAngle = new_value;

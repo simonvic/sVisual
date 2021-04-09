@@ -5,7 +5,6 @@ modded class StaminaHandler{
 	override protected void CheckStaminaState(){
 		super.CheckStaminaState();
 		if(m_StaminaDepleted){
-			ppeExhaustAnim.setDuration(6);
 			PPEManager.activate(ppeExhaustAnim);
 		}
 	}

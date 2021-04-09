@@ -82,7 +82,6 @@ class PPEParamNames { //just a precaution for future updates... because who know
 	
 }
 
-//to-do ffs... find a solution for Generics
 //to-do make this managed?
 class PPEParams {
 	
@@ -201,7 +200,6 @@ class PPEParams {
 	
 	/**
 	* @brief Reset all parameters to their default values
-	* //to-do change method name?
 	*/
 	void resetAllToDefault(){
 		resetFloatToDefault();

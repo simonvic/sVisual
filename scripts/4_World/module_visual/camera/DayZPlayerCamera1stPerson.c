@@ -22,7 +22,7 @@ modded class DayZPlayerCamera1stPerson{
 			updateHeadBob(pDt, pOutResult);
 		}
 
-		if( HeadLeanParams.enabled ){
+		if( HeadLeanParams.leanAngle > 0 ){
 			updateHeadLean(pDt, pOutResult);
 		}
 		

@@ -1,9 +1,6 @@
 typedef set<ref PPEParams> TPPEParamsList;
 typedef set<ref PPEAnimatedParams> TPPEAnimatedParamsList;
 
-
-//to-do keep like now or put everything in the same PPEParams??? 
-
 class PPEManager extends PluginBase {
 	
 	protected static float m_time;
@@ -63,12 +60,6 @@ class PPEManager extends PluginBase {
 	
 	override void OnInit(){
 		loadMaterials();		
-		if(canLoadParamsFromCfg()){
-			loadParamsFromCfg();
-		}else{
-			loadDefaultParams();		
-		}		
-		
 		activateInitialPPE();
 	}
 	
@@ -88,14 +79,6 @@ class PPEManager extends PluginBase {
 		gaussBlur = GetGame().GetWorld().GetMaterial(MaterialNames.GAUSS_BLUR);
 		chromAber = GetGame().GetWorld().GetMaterial(MaterialNames.CHROM_ABER);
 		filmgrain = GetGame().GetWorld().GetMaterial(MaterialNames.FILM_GRAIN);
-	}
-	
-	protected bool canLoadParamsFromCfg(){
-		return false;
-	}
-	
-	protected void loadParamsFromCfg(){
-		//to-do load material params from config. (JSON?)		
 	}
 	
 	protected void loadDefaultParams(){
@@ -240,8 +223,7 @@ class PPEManager extends PluginBase {
 
 	
 	/**
-	* @brief Iterate over all (float) parameters for each material and apply them
-	* 	//to-do update only if the parameter has changed (for performance)
+	* @brief Iterate over all (float) parameters for each material and apply them	
 	*/
 	protected static void applyFloatParams(PPEParams params){
 		TPPEFloatParamsMap ppeParams = params.getFloatParams();
@@ -255,7 +237,6 @@ class PPEManager extends PluginBase {
 	
 	/**
 	* @brief Iterate over all (TPPEColor) parameters for each material and apply them
-	* 	//to-do update only if the parameter has changed (for performance)
 	*/
 	protected static void applyColorParams(PPEParams params){
 		TPPEColorParamsMap ppeParams = params.getColorParams();

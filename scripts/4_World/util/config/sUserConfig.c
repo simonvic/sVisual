@@ -1,7 +1,6 @@
 class SUserConfig{
 	
 	static const string USER_CONFIG_PATH = "$saves:\\sVisual\\config\\config.json";
-	static const string USER_CONFIG_PATH_DEBUG = "$saves:\\sVisual\\config\\config_debug.json";
 	static const string DEFAULT_USER_CONFIG_PATH = "$saves:\\sVisual\\config\\default.json";
 	
 	private static ref JsonFileLoader<SUserConfig> jsonLoader = new JsonFileLoader<SUserConfig>();

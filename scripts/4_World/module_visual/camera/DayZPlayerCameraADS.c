@@ -5,7 +5,7 @@ modded class DayZPlayerCameraIronsights{
 	
 	override void OnUpdate(float pDt, out DayZPlayerCameraResult pOutResult){
 		super.OnUpdate(pDt, pOutResult);
-		if( HeadLeanParams.enabled ){
+		if( HeadLeanParams.leanAngle > 0 ){
 			updateHeadLean(pDt, pOutResult);
 		}
 	}
