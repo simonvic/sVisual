@@ -496,10 +496,10 @@ class PPEManager extends PluginBase {
 	static void setMotionBlurStrength(float strength){
 		if(strength <= 0){
 			m_MotionBlur_Enabled = false;
-			m_defaultPPE.setParam(MaterialNames.MOTION_BLUR, PPEParamNames.MOTION_BLUR_POWER, 0.0);
+			m_defaultPPE.setMotionBlurPower(0.0);
 		}else{
 			m_MotionBlur_Enabled = true;
-			m_defaultPPE.setParam(MaterialNames.MOTION_BLUR, PPEParamNames.MOTION_BLUR_POWER, strength);
+			m_defaultPPE.setMotionBlurPower(strength);
 		}
 		
 	}
@@ -524,10 +524,10 @@ class PPEManager extends PluginBase {
 	static void setBloomStrength(float strength){
 		if(strength <= 0){
 			m_Bloom_Enabled = false;
-			m_defaultPPE.setParam(MaterialNames.GLOW, PPEParamNames.BLOOM_STEEPNESS, 0.0);
+			m_defaultPPE.setBloomSteepness(0.0);
 		}else{
 			m_Bloom_Enabled = true;
-			m_defaultPPE.setParam(MaterialNames.GLOW, PPEParamNames.BLOOM_STEEPNESS, strength);
+			m_defaultPPE.setBloomSteepness(strength);
 		}
 		
 	}

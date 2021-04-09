@@ -610,6 +610,40 @@ class PPEParams {
 		setParam(MaterialNames.MOTION_BLUR, PPEParamNames.MOTION_BLUR_MAXDEPTH, maxDepth);
 	}
 	
+	/**
+	* @brief Quickly set motion blur intensity
+	* 	@param intensity \p float - Intensity
+	*/
+	void setMotionBlurIntensity(float intensity){
+		setParam(MaterialNames.MOTION_BLUR, PPEParamNames.MOTION_BLUR_INTENSITY, intensity);
+	}
+	
+	/**
+	* @brief Quickly set motion blur power
+	* 	@param power \p float - Power
+	*/
+	void setMotionBlurPower(float power){
+		setParam(MaterialNames.MOTION_BLUR, PPEParamNames.MOTION_BLUR_POWER, power);
+	}
+	
+	/**
+	* @brief Quickly set motion blur minimum depth
+	* 	@param minDepth \p float - Minimum depth from the camera position
+	*/
+	void setMotionBlurMinDepth(float minDepth){
+		setParam(MaterialNames.MOTION_BLUR, PPEParamNames.MOTION_BLUR_MINDEPTH, minDepth);
+	}
+	
+	/**
+	* @brief Quickly set motion blur maximum depth
+	* 	@param maxDepth \p float - Maximum depth from the camera position
+	*/
+	void setMotionBlurMaxDepth(float maxDepth){
+		setParam(MaterialNames.MOTION_BLUR, PPEParamNames.MOTION_BLUR_MAXDEPTH, maxDepth);
+	}
+	
+	
+	
 	
 	
 	
@@ -687,7 +721,7 @@ class PPEParams {
 	
 	
 	//----------------------------------------------------------
-	//				LOW LEVEL SETTER //to-do make this protected???
+	//				LOW LEVEL SETTER
 	//----------------------------------------------------------
 
 	
@@ -697,7 +731,7 @@ class PPEParams {
 	* 	@param paramValue \p float - Value of the parameter
 	* 	@param mat \p TPPEMaterial - Material of the parameter to
 	*/
-	void setParam(TPPEMaterial mat, TPPEParamName paramName, float paramValue){
+	protected void setParam(TPPEMaterial mat, TPPEParamName paramName, float paramValue){
 		if(!m_params) 		m_params = new TPPEFloatParamsMap();
 		if(!m_params[mat]) 	m_params[mat] = new TPPEFloatParams();
 		
@@ -712,7 +746,7 @@ class PPEParams {
 	* 	@param paramValue \p TPPEColor - Value of the parameter
 	* 	@param mat \p TPPEMaterial - Material of the parameter to
 	*/
-	void setParam(TPPEMaterial mat, TPPEParamName paramName, TPPEColor paramValue){
+	protected void setParam(TPPEMaterial mat, TPPEParamName paramName, TPPEColor paramValue){
 		if(!paramValue) 			return;
 		if(!m_colorParams) 			m_colorParams = new TPPEColorParamsMap();
 		if(!m_colorParams[mat]) 	m_colorParams[mat] = new TPPEColorParams();
