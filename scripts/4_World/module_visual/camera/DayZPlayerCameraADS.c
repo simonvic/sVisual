@@ -1,18 +1,24 @@
 //////////////////////////////////////////
 // IRONSIGHT
 //////////////////////////////////////////
-modded class DayZPlayerCameraIronsights{
+modded class DayZPlayerCameraIronsights {
 	
 	override void OnUpdate(float pDt, out DayZPlayerCameraResult pOutResult){
 		super.OnUpdate(pDt, pOutResult);
-		if( HeadLeanParams.leanAngle > 0 ){
-			updateHeadLean(pDt, pOutResult);
-		}
+		m_camManager.onUpdate(pDt, pOutResult);
 	}
 	
 	override void AdjustCameraParameters(float pDt, inout DayZPlayerCameraResult pOutResult){ 
 		super.AdjustCameraParameters(pDt, pOutResult);
 		pOutResult.m_iDirectBoneMode = 3;
+	}
+	
+	override bool isHeadbobEnabled(){
+		return false;
+	}
+	
+	override bool isHeadLeanEnabled(){
+		return true;
 	}
 	
 }
@@ -22,8 +28,10 @@ modded class DayZPlayerCameraIronsights{
 //////////////////////////////////////////
 modded class DayZPlayerCameraOptics {
 	
-	protected int m_currentStepFOV;
-
+	override void OnUpdate(float pDt, out DayZPlayerCameraResult pOutResult){
+		super.OnUpdate(pDt, pOutResult);
+	}
+	
 	override void AdjustCameraParameters(float pDt, inout DayZPlayerCameraResult pOutResult){
 		super.AdjustCameraParameters(pDt, pOutResult);
 		pOutResult.m_iDirectBoneMode = 3;

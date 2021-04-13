@@ -74,16 +74,17 @@ class Cfg_sUDE{
 		class Camera{
 			peakMitigationEnabled = 1;
 			class HeadBob{
-				idle[] =                    { 0.0, 0.0, 1.1, 0.5 };
-				erect_walking[] = 			{ 0.5, 5.75, 0.5, 11.5 };
-				erect_jogging[] = 			{ 1.0, 9.0, 0.5, 18.0 };
-				erect_running[] = 			{ 2.4, 11.5, 0.5, 23.0 };
-				erect_raised_walking[] = 	{ 0.5, 1.75, 0.5, 6.5 };
-				erect_raised_jogging[] = 	{ 1.0, 8.75, 0.5, 17.5 };
-				crouch_walking[] = 			{ 0.5, 5.75, 0.5, 11.5 };
-				crouch_running[] = 			{ 1.0, 9.0, 0.5, 18.0 };
-				crouch_raised_walking[] = 	{ 0.5, 5.75, 0.5, 11.5 };
-				prone_walking[] = 			{ 0.5, 5.75, 0.5, 11.5 };
+				//                       yawStrenght, yawFrequency, pitchStrenght, pitchFrequency
+				idle[] =                    { 0.0,        0.0,         1.1,            0.5 };
+				erect_walking[] =           { 0.5,        5.75,        0.5,            11.5 };
+				erect_jogging[] =           { 1.0,        9.0,         0.5,            18.0 };
+				erect_running[] =           { 2.4,        11.5,        0.5,            23.0 };
+				erect_raised_walking[] =    { 0.5,        1.75,        0.5,             6.5 };
+				erect_raised_jogging[] =    { 1.0,        8.75,        0.5,            17.5 };
+				crouch_walking[] =          { 0.5,        5.75,        0.5,            11.5 };
+				crouch_running[] =          { 1.0,        9.0,         0.5,            18.0 };
+				crouch_raised_walking[] =   { 0.5,        5.75,        0.5,            11.5 };
+				prone_walking[] =           { 0.5,        5.75,        0.5,            11.5 };
 			};
 		};
 		class PPEffects{

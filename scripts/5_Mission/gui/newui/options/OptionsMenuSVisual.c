@@ -9,7 +9,7 @@ enum UISettingsID{
 class OptionsMenuSVisual extends ScriptedWidgetEventHandler{
 	
 	protected ref SUserConfig m_sUserConfig;
-	
+		
 	static const string HEADBOB_WIDGET_NAME = "sude_headbob_setting_";
 	static const string DOF_WIDGET_NAME = "sude_dof_setting_";
 	static const string MOTIONBLUR_WIDGET_NAME = "sude_motionblur_setting_";
@@ -209,7 +209,6 @@ class OptionsMenuSVisual extends ScriptedWidgetEventHandler{
 	
 	void UpdateRollOption( float new_value){
 		HeadLeanParams.leanAngle = new_value;
-		//HeadLeanParams.enabled = (new_value != 0);
 		m_RollValue.SetText(new_value.ToString());
 		
 		m_sUserConfig.module_visual.headLeanAngle = new_value;
@@ -221,12 +220,10 @@ class OptionsMenuSVisual extends ScriptedWidgetEventHandler{
 	}
 	
 	override bool OnFocus( Widget w, int x, int y ){		
-		
-		
 		if( w ){
 			Param2<string, string> p = m_TextMap.Get( w.GetUserID() );
 			if( p ){
-				SLog.d("onFocus");
+				
 				m_DetailsRoot.Show( true );
 				m_DetailsLabel.SetText( p.param1 );
 				m_DetailsText.SetText( p.param2 );

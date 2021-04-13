@@ -1,63 +1,126 @@
-class CameraManager : PluginBase{
+class CameraManager {
 	
+	protected float m_time;	
 	
-	void CameraManager(){
+	protected PlayerBase m_player;
+	protected DayZPlayerCameraBase m_camera;
+	
+	void CameraManager(DayZPlayerCameraBase camera, PlayerBase player){
+		m_camera = camera;
+		m_player = player;
+		onInit();
 	}
 	
 	void ~CameraManager(){
+		onDestroy();
 	}
 	
-	override void OnInit(){
+	void onInit(){
 	}
 	
-	override void OnUpdate(float delta_time){
-
+	void onUpdate(float pDt, out DayZPlayerCameraResult pOutResult){
+		m_time += pDt;
+		
+		vector rotation = Math3D.MatrixToAngles(pOutResult.m_CameraTM);
+		if(m_camera.isHeadbobEnabled()){
+			TFloatArray headbobParams = getHeadbobParameters(); //to-do use player speed modifier		
+			float yawStrenght = headbobParams[0];
+			float yawFrequency = headbobParams[1];
+			float pitchStrenght = headbobParams[2];
+			float pitchFrequency = headbobParams[3];
+			
+			yawStrenght *= HeadBobParams.multiplier;
+			pitchStrenght *= HeadBobParams.multiplier;
+						
+			
+			//to-do smooth the transition using movSpeed
+			rotation[0] = rotation[0] + yawStrenght * Math.Sin(m_time * yawFrequency);
+			rotation[1] = rotation[1] + pitchStrenght * Math.Sin(m_time * pitchFrequency); 
+		}
+		
+		if(m_camera.isHeadLeanEnabled()){
+			rotation[2] = rotation[2] + m_camera.getLeanRollAngle();
+		}
+		
+		Math3D.YawPitchRollMatrix(rotation, pOutResult.m_CameraTM);
 	}
 	
-	override void OnDestroy(){
+	void onDestroy(){
 	}
 		
 	/**
 	@brief GOD PLEASE FORGIVE ME!!!
 	*/
-	static TFloatArray getHeadbobParameters(DayZPlayerImplement player ){
+	TFloatArray getHeadbobParameters(){
 		TFloatArray headbobParams = new TFloatArray;
 		
-		switch(player.m_MovementState.m_iMovement){ 
+		switch(m_player.m_MovementState.m_iMovement){ 
 			case 0:	//idle
-				headbobParams.Init(HeadBobConstants.IDLE);
+				headbobParams.Init(HeadBobParams.IDLE);
 				break;
 			case 1:	//walking
-				if(player.IsPlayerInStance(DayZPlayerConstants.STANCEMASK_ERECT)){
-					headbobParams.Init(HeadBobConstants.ERECT_WALKING);
-				}else if(player.IsPlayerInStance(DayZPlayerConstants.STANCEMASK_RAISEDERECT)){
-					headbobParams.Init(HeadBobConstants.ERECT_RAISED_WALKING);
-				}else if(player.IsPlayerInStance(DayZPlayerConstants.STANCEMASK_CROUCH)){
-					headbobParams.Init(HeadBobConstants.CROUCH_WALKING);
-				}else if(player.IsPlayerInStance(DayZPlayerConstants.STANCEMASK_RAISEDCROUCH)){
-					headbobParams.Init(HeadBobConstants.CROUCH_RAISED_WALKING);
-				} else if(player.IsPlayerInStance(DayZPlayerConstants.STANCEMASK_PRONE)){
-					headbobParams.Init(HeadBobConstants.PRONE_WALKING);
+				if(m_player.IsPlayerInStance(DayZPlayerConstants.STANCEMASK_ERECT)){
+					headbobParams.Init(HeadBobParams.ERECT_WALKING);
+				}else if(m_player.IsPlayerInStance(DayZPlayerConstants.STANCEMASK_RAISEDERECT)){
+					headbobParams.Init(HeadBobParams.ERECT_RAISED_WALKING);
+				}else if(m_player.IsPlayerInStance(DayZPlayerConstants.STANCEMASK_CROUCH)){
+					headbobParams.Init(HeadBobParams.CROUCH_WALKING);
+				}else if(m_player.IsPlayerInStance(DayZPlayerConstants.STANCEMASK_RAISEDCROUCH)){
+					headbobParams.Init(HeadBobParams.CROUCH_RAISED_WALKING);
+				} else if(m_player.IsPlayerInStance(DayZPlayerConstants.STANCEMASK_PRONE)){
+					headbobParams.Init(HeadBobParams.PRONE_WALKING);
 				}
 				break;
 			case 2:	//jogging
-				if(player.IsPlayerInStance(DayZPlayerConstants.STANCEMASK_ERECT)){
-					headbobParams.Init(HeadBobConstants.ERECT_JOGGING);
-				}else if(player.IsPlayerInStance(DayZPlayerConstants.STANCEMASK_RAISEDERECT)){
-					headbobParams.Init(HeadBobConstants.ERECT_RAISED_JOGGING);
+				if(m_player.IsPlayerInStance(DayZPlayerConstants.STANCEMASK_ERECT)){
+					headbobParams.Init(HeadBobParams.ERECT_JOGGING);
+				}else if(m_player.IsPlayerInStance(DayZPlayerConstants.STANCEMASK_RAISEDERECT)){
+					headbobParams.Init(HeadBobParams.ERECT_RAISED_JOGGING);
 				}
 				break;
 			case 3: //running
-				if(player.IsPlayerInStance(DayZPlayerConstants.STANCEMASK_ERECT)){
-					headbobParams.Init(HeadBobConstants.ERECT_RUNNING);
-				}else if(player.IsPlayerInStance(DayZPlayerConstants.STANCEMASK_CROUCH)){
-					headbobParams.Init(HeadBobConstants.CROUCH_RUNNING);
+				if(m_player.IsPlayerInStance(DayZPlayerConstants.STANCEMASK_ERECT)){
+					headbobParams.Init(HeadBobParams.ERECT_RUNNING);
+				}else if(m_player.IsPlayerInStance(DayZPlayerConstants.STANCEMASK_CROUCH)){
+					headbobParams.Init(HeadBobParams.CROUCH_RUNNING);
 				}
 				break;
 			default: //flying? lol
-				headbobParams.Init(HeadBobConstants.IDLE);
+				headbobParams.Init(HeadBobParams.IDLE);
 		}
 		return headbobParams;
 	}
 	
+	protected void updateHeadLean(float pDt, out DayZPlayerCameraResult pOutResult){
+		vector angles = Math3D.MatrixToAngles(pOutResult.m_CameraTM);
+		angles[2] = angles[2] + m_camera.getLeanRollAngle();
+		Math3D.YawPitchRollMatrix(angles, pOutResult.m_CameraTM);		
+	}
+	
+}
+
+
+class HeadLeanParams {
+	static float leanAngle = 15;
+}
+
+class HeadBobParams {
+	static bool enabled = true;
+	static float multiplier = 0.5;	
+	
+	//                                            yawStrenght, yawFrequency, pitchStrenght, pitchFrequency
+ 	static const float IDLE[4] =                     { 0.0,        0.0,         1.1,             0.5   };
+	
+	static const float ERECT_WALKING[4] =            { 0.5,        5.75,        0.5,             11.5  };
+	static const float ERECT_JOGGING[4] =            { 1.0,        9.0,         0.5,             18.0  };
+	static const float ERECT_RUNNING[4] =            { 2.4,        11.5,        0.5,             23.0  };
+	static const float ERECT_RAISED_WALKING[4] =     { 0.5,        1.75,        0.5,             6.5   };
+	static const float ERECT_RAISED_JOGGING[4] =     { 1.0,        8.75,        0.5,             17.5  };
+	
+	static const float CROUCH_WALKING[4] =           { 0.5,        5.75,        0.5,             11.5  };
+	static const float CROUCH_RUNNING[4] =           { 1.0,        9.0,         0.5,             18.0  };
+	static const float CROUCH_RAISED_WALKING[4] =    { 0.5,        5.75,        0.5,             11.5  };
+	
+	static const float PRONE_WALKING[4] =            { 0.5,        5.75,        0.5,             11.5  };
+
 }

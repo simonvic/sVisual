@@ -135,6 +135,6 @@ class SConfigVisual : SModuleConfig{
 		return PPEManager.getPPEColor(c[0], c[1], c[2], c[3]);
 	}
 	
-	
+		
 
 }
