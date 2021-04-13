@@ -2,6 +2,9 @@ class CameraManager {
 	
 	protected float m_time;	
 	
+	protected float m_yawVel[1];
+	protected float m_pitchVel[1];
+	
 	protected PlayerBase m_player;
 	protected DayZPlayerCameraBase m_camera;
 	
@@ -32,10 +35,10 @@ class CameraManager {
 			yawStrenght *= HeadBobParams.multiplier;
 			pitchStrenght *= HeadBobParams.multiplier;
 						
-			
 			//to-do smooth the transition using movSpeed
-			rotation[0] = rotation[0] + yawStrenght * Math.Sin(m_time * yawFrequency);
-			rotation[1] = rotation[1] + pitchStrenght * Math.Sin(m_time * pitchFrequency); 
+
+			rotation[0] = Math.SmoothCD(rotation[0], rotation[0] + yawStrenght * Math.Sin(m_time * yawFrequency), m_yawVel, 0.2, 1000, pDt);
+			rotation[1] = Math.SmoothCD(rotation[1], rotation[1] + pitchStrenght * Math.Sin(m_time * pitchFrequency), m_pitchVel, 0.2, 1000, pDt); 
 		}
 		
 		if(m_camera.isHeadLeanEnabled()){
