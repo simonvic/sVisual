@@ -15,7 +15,7 @@ modded class StaminaHandler{
 	}
 	
 	protected bool ppeShouldActivate(){
-		return m_StaminaDepleted;
+		return m_StaminaDepleted && !ppeExhaustAnim.isActive();
 	}
 	
 	protected bool ppeShouldDeactivate(){
