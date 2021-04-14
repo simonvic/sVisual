@@ -88,6 +88,7 @@ class PPEParams {
 	protected ref TPPEFloatParamsMap m_params = new TPPEFloatParamsMap();
 	protected ref TPPEColorParamsMap m_colorParams = new TPPEColorParamsMap();
 	protected bool m_hasChanged = true;
+	protected bool m_isActive = false;
 		
 	/**
 	* @brief Init the parameters with multiple PPEPresets
@@ -332,8 +333,16 @@ class PPEParams {
 		return true;
 	}
 	
+	bool isActive(){
+		return m_isActive;
+	}
+	
 	bool hasChanged(){
 		return m_hasChanged;
+	}
+	
+	void onActivate(){
+		m_isActive = true;
 	}
 	
 	void onApply(){
@@ -346,6 +355,10 @@ class PPEParams {
 	
 	protected void onChange(){
 		m_hasChanged = true;
+	}
+	
+	void onDeactivate(){
+		m_isActive = false;
 	}
 	
 	

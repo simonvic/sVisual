@@ -110,6 +110,7 @@ class PPEManager extends PluginBase {
 		}else{
 			m_persistentPPE.Insert(params);
 		}
+		params.onActivate();
 	}
 	
 	/**
@@ -124,6 +125,7 @@ class PPEManager extends PluginBase {
 		}else{
 			m_persistentPPE.Remove(m_persistentPPE.Find(params));			
 		}
+		params.onDeactivate();
 	}
 	
 	/**
@@ -135,12 +137,16 @@ class PPEManager extends PluginBase {
 	}
 	
 	static void deactivateAllPersitentPPE(){
+		foreach(PPEParams params : m_persistentPPE){
+			params.onDeactivate();
+		}
 		m_persistentPPE.Clear();
 	}
 	
 	static void deactivateAllAnimations(){
 		foreach(auto ppeAp : m_animatedPPE){
 			ppeAp.stop();
+			ppeAp.onDeactivate();
 		}
 		m_animatedPPE.Clear();
 	}
