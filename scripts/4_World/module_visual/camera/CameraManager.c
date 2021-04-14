@@ -24,31 +24,42 @@ class CameraManager {
 	void onUpdate(float pDt, out DayZPlayerCameraResult pOutResult){
 		m_time += pDt;
 		
-		vector rotation = Math3D.MatrixToAngles(pOutResult.m_CameraTM);
+		//Convert camera transformation matrix to yaw pitch roll angles
+		vector camAngles = Math3D.MatrixToAngles(pOutResult.m_CameraTM);
+		
 		if(m_camera.isHeadbobEnabled()){
-			TFloatArray headbobParams = getHeadbobParameters(); //to-do use player speed modifier		
-			float yawStrenght = headbobParams[0];
-			float yawFrequency = headbobParams[1];
-			float pitchStrenght = headbobParams[2];
-			float pitchFrequency = headbobParams[3];
-			
-			yawStrenght *= HeadBobParams.multiplier;
-			pitchStrenght *= HeadBobParams.multiplier;
-						
-			//to-do smooth the transition using movSpeed
-
-			rotation[0] = Math.SmoothCD(rotation[0], rotation[0] + yawStrenght * Math.Sin(m_time * yawFrequency), m_yawVel, 0.2, 1000, pDt);
-			rotation[1] = Math.SmoothCD(rotation[1], rotation[1] + pitchStrenght * Math.Sin(m_time * pitchFrequency), m_pitchVel, 0.2, 1000, pDt); 
+			applyHeadBob(pDt, camAngles);
 		}
 		
 		if(m_camera.isHeadLeanEnabled()){
-			rotation[2] = rotation[2] + m_camera.getLeanRollAngle();
+			applyHeadLean(pDt, camAngles);
 		}
 		
-		Math3D.YawPitchRollMatrix(rotation, pOutResult.m_CameraTM);
+		//Apply the transformation to the camera
+		Math3D.YawPitchRollMatrix(camAngles, pOutResult.m_CameraTM);
 	}
 	
 	void onDestroy(){
+	}
+	
+	protected void applyHeadBob(float pDt, out vector angles){
+		TFloatArray headbobParams = getHeadbobParameters(); //to-do use player speed modifier		
+		float yawStrenght = headbobParams[0];
+		float yawFrequency = headbobParams[1];
+		float pitchStrenght = headbobParams[2];
+		float pitchFrequency = headbobParams[3];
+		
+		yawStrenght *= HeadBobParams.multiplier;
+		pitchStrenght *= HeadBobParams.multiplier;
+					
+		//to-do smooth the transition using movSpeed
+		
+		angles[0] = Math.SmoothCD(angles[0], angles[0] + yawStrenght * Math.Sin(m_time * yawFrequency), m_yawVel, 0.2, 1000, pDt);
+		angles[1] = Math.SmoothCD(angles[1], angles[1] + pitchStrenght * Math.Sin(m_time * pitchFrequency), m_pitchVel, 0.2, 1000, pDt); 
+	}
+	
+	protected void applyHeadLean(float pDt, out vector angles){
+		angles[2] = angles[2] + m_camera.getLeanRollAngle();
 	}
 		
 	/**

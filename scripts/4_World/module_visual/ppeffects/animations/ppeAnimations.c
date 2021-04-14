@@ -15,11 +15,17 @@ class PPEEpinephrineAnimation : PPELoopedParams {
 	}
 }
 
-class PPEExhaustedAnimation : PPETimedParams {	
+class PPEExhaustedAnimation : PPELoopedParams {	
+	protected float stamina = 100;
+	
 	override void onAnimate(float deltaTime){
-		float power = Math.AbsFloat(Math.Sin(getTime() * 2.5)) * 0.01;
-		setRadialBlur(power * 5, power * 5);
-		setVignette(power * 50, PPEManager.getPPEColor(0,0,0,0));
+		float power = Math.AbsFloat(Math.Sin(getTime() * 2.5) / Math.Clamp(stamina, 10, 100) * 1.3 );
+		setRadialBlur(power, power);
+		setVignette(power * 10, PPEManager.getPPEColor(0,0,0,0));
+	}
+	
+	void setStamina(float stamina){
+		this.stamina = stamina;
 	}
 }
 
