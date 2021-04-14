@@ -4,10 +4,10 @@ modded class StaminaHandler{
 		
 	override protected void CheckStaminaState(){
 		super.CheckStaminaState();
-		ppeExhaustAnim.setStamina(m_Stamina);
+		ppeExhaustAnim.setStamina(getStaminaPercentage());
 		if(ppeShouldActivate()){
 			PPEManager.activate(ppeExhaustAnim);
-		}
+		}		
 		
 		if(ppeShouldDeactivate()){
 			PPEManager.deactivate(ppeExhaustAnim);
@@ -15,11 +15,15 @@ modded class StaminaHandler{
 	}
 	
 	protected bool ppeShouldActivate(){
-		return m_StaminaDepleted && !ppeExhaustAnim.isActive();
+		return ( getStaminaPercentage() <= PPEConstants.EXHAUSTED_DEACTIVATION_TRESHOLD && !ppeExhaustAnim.isActive();
 	}
 	
 	protected bool ppeShouldDeactivate(){
+		return ( getStaminaPercentage() > PPEConstants.EXHAUSTED_DEACTIVATION_TRESHOLD);
+	}
+	
+	private float getStaminaPercentage(){
 		//to-do use m_StaminaSynced
-		return ((m_Stamina * GameConstants.STAMINA_MAX / m_StaminaCap)  > PPEConstants.EXHAUSTED_DEACTIVATION_TRESHOLD);
+		return (m_Stamina * 100 / m_StaminaCap);
 	}
 }
