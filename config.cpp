@@ -131,7 +131,7 @@ class Cfg_sUDE{
 
 class CfgMods {
 	class sVisual {
-		dir = "sVisual";
+		dir = "MyMODS/sVisual";
 		picture = "";
 		action = "";
 		hideName = 1;
@@ -150,16 +150,16 @@ class CfgMods {
 		class defs {
 			class gameScriptModule {
 				value = "";
-				files[] = {"sVisual/scripts/3_Game"};
+				files[] = {"MyMODS/sVisual/scripts/3_Game"};
 			};
 			class worldScriptModule {
 				value = "";
-				files[] = {"sVisual/scripts/4_World"};
+				files[] = {"MyMODS/sVisual/scripts/4_World"};
 			};
 			
 			class missionScriptModule {
 				value = "";
-				files[] = {"sVisual/scripts/5_Mission"};
+				files[] = {"MyMODS/sVisual/scripts/5_Mission"};
 			};
 		};
 	};

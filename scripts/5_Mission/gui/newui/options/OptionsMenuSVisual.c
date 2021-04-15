@@ -121,7 +121,7 @@ class OptionsMenuSVisual extends ScriptedWidgetEventHandler{
 	}
 	
 	string GetLayoutName(){
-		return "sVisual/scripts/5_Mission/gui/newui/options/sVisual_tab.layout";
+		return "MyMODS/sVisual/scripts/5_Mission/gui/newui/options/sVisual_tab.layout";
 	}
 	
 	
