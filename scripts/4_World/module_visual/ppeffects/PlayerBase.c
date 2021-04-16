@@ -1,9 +1,9 @@
 modded class PlayerBase{
-
-	protected ref PPETimedParams ppeSpawn = new PPETimedParams(5);                       //Used when spawning	
-	protected ref PPEHitReceivedAnimation ppeHitAnim = new PPEHitReceivedAnimation(4.5); //Used when being hit
-	protected ref PPEEyegearPreset ppeEye = new PPEEyegearPreset();                      //Used when wearing AviatorGlasses
-	protected ref PPEBleedingAnimation ppeBleeding = new PPEBleedingAnimation();         //Used when bleeding
+	
+	protected ref PPETimedParams ppeSpawn = new PPETimedParams(5, true);                       //Used when spawning	
+	protected ref PPEHitReceivedAnimation ppeHitAnim = new PPEHitReceivedAnimation(4.5, true); //Used when being hit
+	protected ref PPEEyegearPreset ppeEye = new PPEEyegearPreset();                            //Used when wearing AviatorGlasses
+	protected ref PPEBleedingAnimation ppeBleeding = new PPEBleedingAnimation();               //Used when bleeding
 	
 	//Ddebug
 	protected ref PPEAnimatedParams ppeDebug = new PPEDebugAnimation();
@@ -36,6 +36,7 @@ modded class PlayerBase{
 		}
 	}
 	
+	//to-do fix this, EEHitBy gets called only on server
 	override void EEHitBy(TotalDamageResult damageResult, int damageType, EntityAI source, int component, string dmgZone, string ammo, vector modelPos, float speedCoef){
 		super.EEHitBy(damageResult, damageType, source, component, dmgZone, ammo, modelPos, speedCoef);
 				
@@ -56,11 +57,12 @@ modded class PlayerBase{
 		super.EEKilled(killer);	
 	}
 		
+	//to-do don't use on select player
 	override void OnSelectPlayer(){
 		super.OnSelectPlayer();
 
-		ppeSpawn.setVignette(10, PPEManager.getPPEColor(0,0,0,0));
-		PPEManager.activate(ppeSpawn);
+		//ppeSpawn.setVignette(10, PPEManager.getPPEColor(0,0,0,0));
+		//PPEManager.activate(ppeSpawn);
 	}
 	
 	
