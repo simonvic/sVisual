@@ -19,11 +19,10 @@ modded class StaminaHandler{
 	}
 	
 	protected bool ppeShouldDeactivate(){
-		return ( getStaminaPercentage() > PPEConstants.EXHAUSTED_DEACTIVATION_TRESHOLD);
+		return ( getStaminaPercentage() > PPEConstants.EXHAUSTED_DEACTIVATION_TRESHOLD && ppeExhaustAnim.isActive());
 	}
 	
 	private float getStaminaPercentage(){
-		//to-do use m_StaminaSynced
 		return (m_Stamina * 100 / m_StaminaCap);
 	}
 }
