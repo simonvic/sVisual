@@ -65,7 +65,7 @@ class PPEManager extends PluginBase {
 	}
 	
 	protected void activateInitialPPE(){
-		activate(m_focusVignette);
+		//activate(m_focusVignette);
 	}
 	
 	override void OnDestroy(){
@@ -164,7 +164,7 @@ class PPEManager extends PluginBase {
 	//----------------------------------------------------------
 	//				UPDATING PROCESS
 	//----------------------------------------------------------
-
+	
 	override void OnUpdate(float delta_time){
 		m_time += delta_time;
 		
@@ -180,8 +180,14 @@ class PPEManager extends PluginBase {
 	*/
 	protected static void animateParams(float deltaTime){
 		foreach(PPEAnimatedParams ap : m_animatedPPE){
-			if(!ap.hasStopped() && !ap.isPaused()){
-				ap.animate(deltaTime);
+			if(!ap.hasStopped()){
+				if(!ap.isPaused()){
+					ap.animate(deltaTime);
+				}
+			}else{
+				if(PPETimedParams.Cast(ap) && PPETimedParams.Cast(ap).shouldDeactivateOnStop()){
+					deactivate(ap);
+				}
 			}
 		}
 	}

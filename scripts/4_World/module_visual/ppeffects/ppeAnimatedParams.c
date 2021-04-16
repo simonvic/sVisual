@@ -81,9 +81,11 @@ class PPELoopedParams : PPEAnimatedParams {}
 
 class PPETimedParams : PPEAnimatedParams {
 	protected float m_duration;
+	protected bool m_deactivationOnStop;
 	
-	void PPETimedParams(float duration){
+	void PPETimedParams(float duration, bool deactivationOnStop = true){
 		m_duration = duration;
+		m_deactivationOnStop = deactivationOnStop;
 	}
 
 	override void animate(float deltaTime){
@@ -120,6 +122,14 @@ class PPETimedParams : PPEAnimatedParams {
 	*/
 	float getRemaining() {
 		return m_duration - m_time;
+	}
+	
+	/**
+	* @brief Get if the animation should be deactivated when ends
+	*
+	*/
+	bool shouldDeactivateOnStop(){
+		return m_deactivationOnStop;
 	}
 	
 }
