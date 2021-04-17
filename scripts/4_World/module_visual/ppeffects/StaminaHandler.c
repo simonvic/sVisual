@@ -1,7 +1,7 @@
 modded class StaminaHandler{
 	
 	protected ref PPEExhaustedAnimation ppeExhaustAnim = new PPEExhaustedAnimation();
-		
+	
 	override protected void CheckStaminaState(){
 		super.CheckStaminaState();
 		ppeExhaustAnim.setStamina(getStaminaPercentage());

@@ -12,9 +12,9 @@ modded class PPEffects{
 	}
 	
 	override static void SetShockVignette(float value){}
-		
+	
 	override static void SetMenuVignette(float value){}
-
+	
 	override static void ResetVignettes(){}
 	
 	override static void UpdateVignette(){}

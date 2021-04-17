@@ -62,7 +62,7 @@ class PPEParamNames { //just a precaution for future updates... because who know
 	static const TPPEParamName FILM_GRAIN_GRAIN_SIZE = "GrainSize";
 	
 	static const TPPEParamName GAUSS_BLUR_INTENSITY = "Intensity";
-		
+	
 	static const TPPEParamName GODRAYS_SUN_INTENSITY = "Intensity";
 	static const TPPEParamName GODRAYS_SUN_OVERBURN_INTENSITY = "OverBurnIntensity";
 	static const TPPEParamName GODRAYS_SUN_OVERBURN_START = "OverBurnStart";
@@ -82,14 +82,14 @@ class PPEParamNames { //just a precaution for future updates... because who know
 	
 }
 
-//to-do make this managed?
+//@todo make this managed?
 class PPEParams {
 	
 	protected ref TPPEFloatParamsMap m_params = new TPPEFloatParamsMap();
 	protected ref TPPEColorParamsMap m_colorParams = new TPPEColorParamsMap();
 	protected bool m_hasChanged = true;
 	protected bool m_isActive = false;
-		
+	
 	/**
 	* @brief Init the parameters with multiple PPEPresets
 	* 	@param presets \p TPPEMaterialPresets - Presets parameters to be added
@@ -135,7 +135,7 @@ class PPEParams {
 		add(ppeParams.getFloatParams());
 		add(ppeParams.getColorParams());
 	}
-		
+	
 	/**
 	* @brief Add float parameters
 	* 	@param params \p TPPEFloatParamsMap - Parameters to be added
@@ -184,8 +184,9 @@ class PPEParams {
 		foreach(auto ppeMaterial, auto ppeParam : tempColor){
 			foreach(auto ppeParamName, auto ppeParamValue : ppeParam){
 				TPPEColor prevColor = getColorParam(ppeMaterial, ppeParamName);
-				if(!prevColor) 
+				if(!prevColor){ 
 					prevColor = PPEManager.getColorDefaultValue(ppeMaterial, ppeParamName);
+				}
 				setParam(ppeMaterial, ppeParamName, PPEManager.mixColors(ppeParamValue, prevColor, coeff ));
 			}
 		}
@@ -235,7 +236,7 @@ class PPEParams {
 			setParam(ppeMaterial, ppeParamName, colorDefault);
 			return;
 		}
-			
+		
 		float floatDefault = PPEManager.getFloatDefaultValue(ppeMaterial,ppeParamName);	
 		setParam(ppeMaterial, ppeParamName, floatDefault);
 	}
@@ -263,7 +264,7 @@ class PPEParams {
 	}
 	
 	int count(){
-		return countFloat() + countColor(); //to-do improve this
+		return countFloat() + countColor(); //@todo improve this
 	}
 	
 	int countFloat(){
@@ -367,7 +368,7 @@ class PPEParams {
 	//----------------------------------------------------------
 	//				SETTER HELPER
 	//----------------------------------------------------------
-
+	
 	
 	////////////// VIGNETTE
 	
@@ -729,14 +730,14 @@ class PPEParams {
 		setParam(MaterialNames.GLOW, PPEParamNames.GLOW_COLORIZATION, colorization);
 	}
 	
-
+	
 	
 	
 	
 	//----------------------------------------------------------
 	//				LOW LEVEL SETTER
 	//----------------------------------------------------------
-
+	
 	
 	/**
 	* @brief Set a float parameter, (instantiate the maps if not instantiated)

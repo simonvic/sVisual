@@ -66,7 +66,7 @@ class PPEUnconsciousAnimation : PPELoopedParams {
 class PPEBleedingAnimation : PPELoopedParams {
 	
 	private int bleedingBits = 0;
-		
+	
 	override void onAnimate(float deltaTime){
 		float temp = Math.AbsFloat(Math.Sin(getTime() * bleedingBits));
 		float red = -(temp * 0.2) + 1;

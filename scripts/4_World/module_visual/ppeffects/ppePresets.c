@@ -60,7 +60,7 @@ class PPEMaterialPresetBase : PPEParams{
 	void init(){};
 }
 
-//to-do replace set param with setter helpers
+//@todo replace set param with setter helpers
 class PPEDefaultPreset : PPEMaterialPresetBase{
 	override void init(){
 		
@@ -92,9 +92,9 @@ class PPEDefaultPreset : PPEMaterialPresetBase{
 		setParam(MaterialNames.CHROM_ABER,  PPEParamNames.CHROM_ABER_POWER_Y,    cfg.getDefaultPPEFloat("chrom_aber_power_y") );
 		setParam(MaterialNames.FILM_GRAIN,  PPEParamNames.FILM_GRAIN_SHARPNESS,  cfg.getDefaultPPEFloat("film_grain_sharpness") );
 		setParam(MaterialNames.FILM_GRAIN,  PPEParamNames.FILM_GRAIN_GRAIN_SIZE, cfg.getDefaultPPEFloat("film_grain_grain_size") );
-			
-		/*to-do fix flickering (it happens when looking straight at the sun
-		//to-do reimplement godrays params
+		
+		/*@todo fix flickering (it happens when looking straight at the sun
+		//@todo reimplement godrays params
 		setParam(MaterialNames.GODRAYS_SUN,      PPEParamNames.GODRAYS_SUN_INTENSITY,          cfg.getDefaultPPEFloat("godrays_sun_intensity") );
 		setParam(MaterialNames.GODRAYS_SUN,      PPEParamNames.GODRAYS_SUN_OVERBURN_INTENSITY, cfg.getDefaultPPEFloat("godrays_sun_overburn_intensity") );
 		setParam(MaterialNames.GODRAYS_SUN,      PPEParamNames.GODRAYS_SUN_OVERBURN_START,     cfg.getDefaultPPEFloat("godrays_sun_overburn_start") );
@@ -176,7 +176,7 @@ class PPELensPreset : PPEMaterialPresetBase{
 }
 
 class PPECameraEffectPreset : PPEMaterialPresetBase{
-	 void initPreset(float saturation, TPPEColor colorization){
+	void initPreset(float saturation, TPPEColor colorization){
 		setParam(MaterialNames.GLOW, PPEParamNames.SATURATION, saturation);
 		setParam(MaterialNames.GLOW, PPEParamNames.GLOW_COLORIZATION, colorization);		
 	}

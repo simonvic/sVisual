@@ -70,7 +70,7 @@ class SUserConfig{
 	*	 @param path \p string - Path of file to validate
 	*/
 	static bool isValid(string path){
-		return true; //to-do complete configuration file validation
+		return true; //@todo complete configuration file validation
 	}
 
 }

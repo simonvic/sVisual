@@ -2,7 +2,7 @@ modded class UnconsciousnessMdfr {
 	
 	protected ref PPEAnimatedParams m_ppeAnimation = new PPEUnconsciousAnimation();
 	
-	//to-do this also get called only on server :(
+	//@todo this also get called only on server :(
 	override void OnActivate(PlayerBase player){
 		super.OnActivate(player);
 		activatePPE();

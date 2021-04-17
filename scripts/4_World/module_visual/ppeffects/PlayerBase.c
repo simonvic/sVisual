@@ -36,7 +36,7 @@ modded class PlayerBase{
 		}
 	}
 	
-	//to-do fix this, EEHitBy gets called only on server
+	//@todo fix this, EEHitBy gets called only on server
 	override void EEHitBy(TotalDamageResult damageResult, int damageType, EntityAI source, int component, string dmgZone, string ammo, vector modelPos, float speedCoef){
 		super.EEHitBy(damageResult, damageType, source, component, dmgZone, ammo, modelPos, speedCoef);
 				
@@ -57,7 +57,7 @@ modded class PlayerBase{
 		super.EEKilled(killer);	
 	}
 		
-	//to-do don't use on select player
+	//@todo don't use on select player
 	override void OnSelectPlayer(){
 		super.OnSelectPlayer();
 
@@ -70,7 +70,7 @@ modded class PlayerBase{
 		}
 	}
 	
-	//to-do complete activation/deactivation on connection/disconnection
+	//@todo complete activation/deactivation on connection/disconnection
 	//this gets called on server
 	override void OnDisconnect(){
 		//PPEManager.deactivateAll();

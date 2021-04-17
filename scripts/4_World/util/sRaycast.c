@@ -1,4 +1,4 @@
-//to-do managed?
+//@todo managed?
 class SRaycast {
 	
 	protected vector m_begPos;

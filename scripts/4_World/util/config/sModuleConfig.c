@@ -17,7 +17,7 @@ class SModuleConfig{
 	
 	bool getIsEnabled(){
 		bool temp;
-		SConfig.get(getModulePath() + " enabled", temp); //to-do add check if module is not present
+		SConfig.get(getModulePath() + " enabled", temp); //@todo add check if module is not present
 		return temp;
 	}
 }

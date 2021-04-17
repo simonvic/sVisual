@@ -215,7 +215,7 @@ class OptionsMenuSVisual extends ScriptedWidgetEventHandler{
 		onConfigChange();
 	}
 	
-	private void onConfigChange(){ //to-do lol change this shit
+	private void onConfigChange(){ //@todo lol change this shit
 		m_sUserConfig.save();
 	}
 	

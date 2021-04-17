@@ -72,7 +72,7 @@ class PPEManager extends PluginBase {
 		
 	}
 	
-	//to-do find a way of caching material instead of getting it every time
+	//@todo find a way of caching material instead of getting it every time
 	protected void loadMaterials(){
 		glow = GetGame().GetWorld().GetMaterial(MaterialNames.GLOW);
 		radialBlur = GetGame().GetWorld().GetMaterial(MaterialNames.RADIAL_BLUR);
@@ -180,7 +180,7 @@ class PPEManager extends PluginBase {
 	*/
 	protected static void animateParams(float deltaTime){
 		foreach(PPEAnimatedParams ap : m_animatedPPE){
-			//to-do null pointer to ap ????
+			//@todo null pointer to ap ????
 			if(!ap.hasStopped()){
 				if(!ap.isPaused()){
 					ap.animate(deltaTime);
@@ -441,7 +441,7 @@ class PPEManager extends PluginBase {
 		}
 	}
 	
-	static void requestIronsightDOF(){ //to-do add ironsight dof preset or use "per-weapon" dof like vanilla
+	static void requestIronsightDOF(){ //@todo add ironsight dof preset or use "per-weapon" dof like vanilla
 		PPEffects.OverrideDOF(m_WeaponDOF_Enabled, m_weaponDOF.focusDistance, m_weaponDOF.focusLenght, m_weaponDOF.focusLenghtNear, m_weaponDOF.blurStrenght * 0.9, m_weaponDOF.focusDepthOffset);
 	}
 	

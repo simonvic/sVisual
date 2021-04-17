@@ -1,6 +1,6 @@
 modded class DayZPlayerCameraBase{
 	
-	protected DayZPlayerImplement m_iPlayer; //to-do just a quick thing, change this absolutely
+	protected DayZPlayerImplement m_iPlayer; //@todo just a quick thing, change this absolutely
 	protected ref CameraManager m_camManager;
 	
 	
@@ -28,7 +28,7 @@ modded class DayZPlayerCameraBase{
 	}
 	
 	protected void updateDoF(float pDt){
-
+		
 		vector direction = GetGame().GetCurrentCameraDirection();
 		vector from = m_pPlayer.GetBonePositionWS(m_ddofStartBoneIdx);
 		vector to = from + (direction * PPEManager.getDDOFMaxDistance());
@@ -47,7 +47,7 @@ modded class DayZPlayerCameraBase{
 	protected void updateMotionBlur(float pDt){
 		PPEManager.requestMotionBlur();
 	}
-
+	
 	bool isHeadbobEnabled(){
 		return false;
 	}
