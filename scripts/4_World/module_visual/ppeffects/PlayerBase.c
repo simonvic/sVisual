@@ -63,9 +63,19 @@ modded class PlayerBase{
 
 		//ppeSpawn.setVignette(10, PPEManager.getPPEColor(0,0,0,0));
 		//PPEManager.activate(ppeSpawn);
+		
+		if(IsBleeding()){
+			updateBleedingEffect();
+			PPEManager.activate(ppeBleeding);
+		}
 	}
 	
-	
+	//to-do complete activation/deactivation on connection/disconnection
+	//this gets called on server
+	override void OnDisconnect(){
+		//PPEManager.deactivateAll();
+		super.OnDisconnect();
+	}
 	
 	override void OnBleedingBegin(){
 		super.OnBleedingBegin();

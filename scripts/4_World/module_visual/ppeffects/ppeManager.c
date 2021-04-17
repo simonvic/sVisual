@@ -180,6 +180,7 @@ class PPEManager extends PluginBase {
 	*/
 	protected static void animateParams(float deltaTime){
 		foreach(PPEAnimatedParams ap : m_animatedPPE){
+			//to-do null pointer to ap ????
 			if(!ap.hasStopped()){
 				if(!ap.isPaused()){
 					ap.animate(deltaTime);
