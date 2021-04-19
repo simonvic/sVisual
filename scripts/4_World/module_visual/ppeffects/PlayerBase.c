@@ -4,6 +4,7 @@ modded class PlayerBase{
 	protected ref PPEHitReceivedAnimation ppeHitAnim = new PPEHitReceivedAnimation(4.5, true); //Used when being hit
 	protected ref PPEEyegearPreset ppeEye = new PPEEyegearPreset();                            //Used when wearing AviatorGlasses
 	protected ref PPEBleedingAnimation ppeBleeding = new PPEBleedingAnimation();               //Used when bleeding
+	protected ref PPEUnconsciousAnimation m_ppeUnconscious = new PPEUnconsciousAnimation();    //Used when going uncoscious
 	
 	//Ddebug
 	protected ref PPEAnimatedParams ppeDebug = new PPEDebugAnimation();
@@ -71,12 +72,21 @@ modded class PlayerBase{
 	}
 	
 	//@todo complete activation/deactivation on connection/disconnection
-	//this gets called on server
-	override void OnDisconnect(){
-		//PPEManager.deactivateAll();
-		super.OnDisconnect();
+		
+	
+	///////////////// UNCONSCIOUSNESS ///////////////////////////////
+	override void OnUnconsciousStart(){
+		super.OnUnconsciousStart();
+		PPEManager.activate(m_ppeUnconscious);
 	}
 	
+	override void OnUnconsciousStop(int pCurrentCommandID){
+		super.OnUnconsciousStop(pCurrentCommandID);
+		PPEManager.deactivate(m_ppeUnconscious);
+	}
+	
+	
+	///////////////// BLEEDING ///////////////////////////////
 	override void OnBleedingBegin(){
 		super.OnBleedingBegin();
 		PPEManager.activate(ppeBleeding);

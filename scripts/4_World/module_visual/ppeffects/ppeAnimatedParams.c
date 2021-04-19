@@ -4,6 +4,7 @@ enum ePPEAnimationStates {
 	STOPPED	
 }
 
+// @todo add onInit 
 class PPEAnimatedParams : PPEParams {
 
 	protected ePPEAnimationStates m_animationState = ePPEAnimationStates.STOPPED;
