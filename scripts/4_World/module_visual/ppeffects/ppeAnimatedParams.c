@@ -4,11 +4,16 @@ enum ePPEAnimationStates {
 	STOPPED	
 }
 
-// @todo add onInit 
 class PPEAnimatedParams : PPEParams {
 
 	protected ePPEAnimationStates m_animationState = ePPEAnimationStates.STOPPED;
 	protected float m_time;
+	
+	void PPEAnimatedParams() {
+		onInit();
+	}
+	
+	protected void onInit(){}
 	
 	void animate(float deltaTime){
 		if(!isPlaying()) return;
