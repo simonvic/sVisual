@@ -6,7 +6,7 @@ modded class PlayerBase{
 	protected ref PPEBleedingAnimation ppeBleeding = new PPEBleedingAnimation();               //Used when bleeding
 	protected ref PPEUnconsciousAnimation m_ppeUnconscious = new PPEUnconsciousAnimation();    //Used when going uncoscious
 	
-	//Ddebug
+	//Debug
 	protected ref PPEAnimatedParams ppeDebug = new PPEDebugAnimation();
 	
 	override void OnInventoryMenuOpen(){
@@ -22,8 +22,9 @@ modded class PlayerBase{
 	override void EEItemAttached(EntityAI item, string slot_name){
 		super.EEItemAttached(item, slot_name);
 		
+		//@todo quick fix for main menu eyewear
 		// Apply colored overlay when wearing AviatorGlasses
-		if( slot_name == "Eyewear" && AviatorGlasses.Cast(item)){
+		if( GetInstanceType() == DayZPlayerInstanceType.INSTANCETYPE_CLIENT && slot_name == "Eyewear" && AviatorGlasses.Cast(item)){
 			PPEManager.activate(ppeEye);
 		}
 	}
@@ -53,26 +54,45 @@ modded class PlayerBase{
 	override void OnJumpStart(){		
 		super.OnJumpStart();
 	}
-	
-	override void EEKilled(Object killer){
-		super.EEKilled(killer);	
-	}
-		
+			
 	//@todo don't use on select player
 	override void OnSelectPlayer(){
 		super.OnSelectPlayer();
-
-		//ppeSpawn.setVignette(10, PPEManager.getPPEColor(0,0,0,0));
-		//PPEManager.activate(ppeSpawn);
 		
+		//Remove all ppeffects
+		PPEManager.deactivateAll();
+		PPEManager.applyDefault();
+		
+		//Proceed to apply effect only if controlled player 
+		if( GetInstanceType() == DayZPlayerInstanceType.INSTANCETYPE_CLIENT ){
+			
+			//@todo complete activation/deactivation on connection/disconnection	
+			playSpawnPPE();		
+			checkForGlassesPPE();
+			checkForBleedingPPE();		
+		}
+	}
+	
+	protected void playSpawnPPE(){
+		ppeSpawn.setVignette(20, PPEManager.getPPEColor(0,0,0,0));
+		PPEManager.activate(ppeSpawn);
+	}
+	
+	protected void checkForBleedingPPE(){
 		if(IsBleeding()){
 			updateBleedingEffect();
 			PPEManager.activate(ppeBleeding);
 		}
 	}
 	
-	//@todo complete activation/deactivation on connection/disconnection
-		
+	protected void checkForGlassesPPE(){
+		if ( AviatorGlasses.Cast( GetInventory().FindAttachment(InventorySlots.EYEWEAR)) ){
+			PPEManager.activate(ppeEye);
+		}
+	}	
+	
+	
+	
 	
 	///////////////// UNCONSCIOUSNESS ///////////////////////////////
 	override void OnUnconsciousStart(){

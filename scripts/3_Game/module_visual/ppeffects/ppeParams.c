@@ -90,6 +90,10 @@ class PPEParams {
 	protected bool m_hasChanged = true;
 	protected bool m_isActive = false;
 	
+	void ~PPEParams(){
+		//PPEManager.deactivate(this);
+	}
+	
 	/**
 	* @brief Init the parameters with multiple PPEPresets
 	* 	@param presets \p TPPEMaterialPresets - Presets parameters to be added
@@ -122,7 +126,7 @@ class PPEParams {
 	* 	@param presets \p TPPEMaterialPresets - Presets parameters to be added
 	*/
 	void add(TPPEMaterialPresets presets){
-		foreach(auto preset : presets){
+		foreach(PPEMaterialPresetBase preset : presets){
 			add(preset);
 		}
 	}
@@ -772,7 +776,7 @@ class PPEParams {
 	void debugPrint(bool logsEnabled = true){
 		if(logsEnabled == false) return;
 		SLog.d("ppeParams debug printing","",0);
-		Print(this);
+		SLog.d(this);
 		SLog.d("float parameters","",1);
 		foreach(auto ppeMaterial, auto ppeParam : m_params){
 			SLog.d("" + ppeMaterial,"",2);

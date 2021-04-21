@@ -10,7 +10,9 @@ modded class BloodLoss{
 			m_BloodSet = player.GetTransferValues().GetBlood();
 			ppeBloodLoss.setSaturation( player.GetTransferValues().GetBlood() );
 			if(m_BloodSet < 1){
-				PPEManager.activate(ppeBloodLoss);
+				if(!ppeBloodLoss.isActive()) {
+					PPEManager.activate(ppeBloodLoss);
+				}
 			}else{
 				PPEManager.deactivate(ppeBloodLoss);
 			}

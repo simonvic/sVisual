@@ -39,6 +39,7 @@ class PPEManager {
 	
 	//=========== PostProcess Effects Parameters ==============
 	protected static ref PPEParams m_defaultPPE = new PPEParams(); //default params with no modifiers
+	protected static ref PPEParams m_vanillaPPE = new PPEParams(); // used by vanilla PPEffects class
 	
 	protected static ref TPPEParamsList m_persistentPPE = new TPPEParamsList; //all "non-animated" params
 	protected static ref TPPEAnimatedParamsList m_animatedPPE = new TPPEAnimatedParamsList; //all animated params
@@ -53,29 +54,25 @@ class PPEManager {
 	////////////////////////////////////////////////////////////
 	
 	void PPEManager(){
-		onInit();
+		
 	}
 	
 	void ~PPEManager(){
 		onDestroy();
 	}
 	
-	protected void onInit(){
+	static void onInit(){
 		loadMaterials();	
 		loadDefaultParams();	
 		activateInitialPPE();
 	}
-	
-	protected void activateInitialPPE(){
-		//activate(m_focusVignette);
-	}
-	
-	protected void onDestroy(){
+		
+	protected static void onDestroy(){
 		
 	}
 	
 	//@todo find a way of caching material instead of getting it every time
-	protected void loadMaterials(){
+	protected static void loadMaterials(){
 		glow = GetGame().GetWorld().GetMaterial(MaterialNames.GLOW);
 		radialBlur = GetGame().GetWorld().GetMaterial(MaterialNames.RADIAL_BLUR);
 		motionBlur = GetGame().GetWorld().GetMaterial(MaterialNames.MOTION_BLUR);
@@ -84,9 +81,13 @@ class PPEManager {
 		filmgrain = GetGame().GetWorld().GetMaterial(MaterialNames.FILM_GRAIN);
 	}
 	
-	protected void loadDefaultParams(){
+	protected static void loadDefaultParams(){
 		m_defaultPPE.init(new PPEDefaultPreset);
 		//m_resultPPE.init(new PPEDefaultPreset);
+	}
+	
+	protected static void activateInitialPPE(){
+		//activate(m_vanillaPPE); //merged manually
 	}
 	
 	
@@ -113,6 +114,7 @@ class PPEManager {
 			m_persistentPPE.Insert(params);
 		}
 		params.onActivate();
+		SLog.d("ACTIVATING " + params,"PPEManager", 0, m_debugMode);
 	}
 	
 	/**
@@ -128,29 +130,43 @@ class PPEManager {
 			m_persistentPPE.Remove(m_persistentPPE.Find(params));			
 		}
 		params.onDeactivate();
+		SLog.d("DEACTIVATING " + params,"PPEManager", 0, m_debugMode);
 	}
 	
 	/**
 	* @brief Remove all modifiers
 	*/
 	static void deactivateAll(){
+		SLog.d("DEACTIVATING ALL", "", 0, m_debugMode);
 		deactivateAllPersitentPPE();
 		deactivateAllAnimations();		
 	}
 	
 	static void deactivateAllPersitentPPE(){
 		foreach(PPEParams params : m_persistentPPE){
-			params.onDeactivate();
+			if(params){
+				deactivate(params);
+			}else{
+				SLog.d("Null persistent params found","",1, m_debugMode);
+			}
 		}
-		m_persistentPPE.Clear();
 	}
 	
 	static void deactivateAllAnimations(){
 		foreach(auto ppeAp : m_animatedPPE){
-			ppeAp.stop();
-			ppeAp.onDeactivate();
+			if(ppeAp){
+				deactivate(ppeAp);
+			}else{
+				SLog.d("Null animated params found","",1, m_debugMode);
+			}
 		}
-		m_animatedPPE.Clear();
+	}
+	
+	/**
+	*	@brief Immediately apply default params
+	*/
+	static void applyDefault(){
+		applyParams(m_defaultPPE);
 	}
 	
 	
@@ -217,6 +233,9 @@ class PPEManager {
 				ap.onMerge();
 			}
 		}
+		
+		//Apply vanilla effects
+		m_resultPPE.merge(m_vanillaPPE, 0.95);
 		
 	}
 	
@@ -370,30 +389,77 @@ class PPEManager {
 		return m_animatedPPE;
 	}
 	
-	static void debugPrintAll(){
+	static void debugPrintAll(bool printParamsValues = false){
 		SLog.d("debugPrintAll","PluginPPEffect",0);
 		
-		SLog.d("==================== m_defaultPPE ====================", "",1);
+		SLog.d("======================================================", "",0);
+		SLog.d("-------------------- m_defaultPPE --------------------", "",1);
 		m_defaultPPE.debugPrint();
-
-		SLog.d("==================== m_persistentPPE ====================", "",1);
+				
+		SLog.d("-------------------- m_persistentPPE --------------------", "",1);
 		foreach(PPEParams p : m_persistentPPE){
-			p.debugPrint();
+			SLog.d(p);
+			if (printParamsValues) p.debugPrint();
 		}
 		
-		SLog.d("==================== m_animatedPPE ====================", "",1);
+		SLog.d("-------------------- m_animatedPPE --------------------", "",1);
 		foreach(PPEParams ap : m_animatedPPE){
-			ap.debugPrint();
+			SLog.d(ap);
+			if (printParamsValues) ap.debugPrint();
 		}
 		
-		SLog.d("==================== m_resultPPE ====================", "",1);
+		SLog.d("-------------------- m_vanillaPPE --------------------", "",1);
+		SLog.d(m_vanillaPPE);
+		if (true) m_vanillaPPE.debugPrint();
+		
+		SLog.d("-------------------- m_resultPPE --------------------", "",1);
 		m_resultPPE.debugPrint();
+		SLog.d("======================================================", "",0);
+
 	}
 	
 	
 	
 	
+	////////////////////////////////////////////////////////////
+	//				VANILLA
+	////////////////////////////////////////////////////////////
 	
+	static void vanillaSetGausBlur(float value){
+		m_vanillaPPE.setGausBlur(value);
+	}
+	
+	static void vanillaSetLensChromAber(float value){
+		m_vanillaPPE.setLensChromAber(value);
+	}
+	
+	static void vanillaSetOverlay(float factor, TPPEColor color){
+		m_vanillaPPE.setOverlay(factor, color);
+	}
+	
+	static void vanillaSetLens(float intensity, float centerX, float centerY, float chromAberIntensity){
+		m_vanillaPPE.setLens(intensity, centerX, centerY, chromAberIntensity);
+	}
+	
+	static void vanillaSetVignette(float intensity, TPPEColor color){
+		m_vanillaPPE.setVignette(intensity, color);
+	}
+	
+	static void vanillaSetSaturation(float saturation){
+		m_vanillaPPE.setSaturation(saturation);
+	}
+	
+	static void vanillaSetColorization(TPPEColor color){
+		m_vanillaPPE.setColorization(color);
+	}
+	
+	static void vanillaSetFilmGrain(float sharpness, float grainSize){
+		m_vanillaPPE.setFilmGrain(sharpness, grainSize);
+	}
+	
+	static void vanillaSetBloom(float steepness, float intensity, float threshold){
+		m_vanillaPPE.setBloom(steepness, intensity, threshold);
+	}
 	
 	////////////////////////////////////////////////////////////
 	//				VIGNETTE
