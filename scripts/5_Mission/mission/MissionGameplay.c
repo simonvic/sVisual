@@ -8,4 +8,9 @@ modded class MissionGameplay{
 		super.OnInit();
 		// @todo add ppeffects here?
 	}
+
+	override void OnUpdate(float timeslice){
+		super.OnUpdate(timeslice);
+		PPEManager.onUpdate(timeslice);
+	}
 }

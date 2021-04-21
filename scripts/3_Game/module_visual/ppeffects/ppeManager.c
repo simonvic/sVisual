@@ -1,7 +1,7 @@
 typedef set<ref PPEParams> TPPEParamsList;
 typedef set<ref PPEAnimatedParams> TPPEAnimatedParamsList;
 
-class PPEManager extends PluginBase {
+class PPEManager {
 	
 	protected static float m_time;
 	static bool m_debugMode = false;
@@ -52,13 +52,15 @@ class PPEManager extends PluginBase {
 	//				INIT
 	////////////////////////////////////////////////////////////
 	
-	void PPEManager(){	
+	void PPEManager(){
+		onInit();
 	}
 	
 	void ~PPEManager(){
+		onDestroy();
 	}
 	
-	override void OnInit(){
+	protected void onInit(){
 		loadMaterials();	
 		loadDefaultParams();	
 		activateInitialPPE();
@@ -68,7 +70,7 @@ class PPEManager extends PluginBase {
 		//activate(m_focusVignette);
 	}
 	
-	override void OnDestroy(){
+	protected void onDestroy(){
 		
 	}
 	
@@ -165,7 +167,7 @@ class PPEManager extends PluginBase {
 	//				UPDATING PROCESS
 	////////////////////////////////////////////////////////////
 	
-	override void OnUpdate(float delta_time){
+	static void onUpdate(float delta_time){
 		m_time += delta_time;
 		
 		animateParams(delta_time);

@@ -1,18 +1,11 @@
 class SModuleConfig{
-	private string moduleName;
-	private bool isEnabled;
-	
-	void SModuleConfig(){
-		this.moduleName = getModuleName();
-		this.isEnabled = getIsEnabled();
+			
+	string getModulePath(){
+		return SConfig.getCfgName() + " " + getModuleName();
 	}
 	
 	string getModuleName(){
 		return "";
-	}
-	
-	string getModulePath(){
-		return SConfig.getCfgName() + " " + getModuleName());
 	}
 	
 	bool getIsEnabled(){
