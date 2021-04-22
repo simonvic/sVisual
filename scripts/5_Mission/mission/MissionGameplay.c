@@ -1,17 +1,13 @@
-modded class MissionBase{
+modded class MissionGameplay{
 	
-	void MissionBase() {
+	void MissionGameplay() {
 		PPEManager.onInit();
 		loadUserConfig();
 	}
 	
-	void ~MissionBase(){
+	void ~MissionGameplay(){
 		PPEManager.deactivateAll();
 		PPEManager.applyDefault();
-	}
-	
-	override void OnInit(){
-		super.OnInit();
 	}
 	
 	override void OnUpdate(float timeslice){
