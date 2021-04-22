@@ -235,7 +235,9 @@ class PPEManager {
 		}
 		
 		//Apply vanilla effects
-		m_resultPPE.merge(m_vanillaPPE, 0.95);
+		//if(m_vanillaPPE.hasChanged()){
+			m_resultPPE.merge(m_vanillaPPE, 0.95);
+		//}
 		
 	}
 	
@@ -409,7 +411,6 @@ class PPEManager {
 		}
 		
 		SLog.d("-------------------- m_vanillaPPE --------------------", "",1);
-		SLog.d(m_vanillaPPE);
 		if (true) m_vanillaPPE.debugPrint();
 		
 		SLog.d("-------------------- m_resultPPE --------------------", "",1);

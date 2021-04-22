@@ -37,22 +37,24 @@ modded class PlayerBase{
 			PPEManager.deactivate(ppeEye);
 		}
 	}
-	
-	//@todo fix this, EEHitBy gets called only on server
-	override void EEHitBy(TotalDamageResult damageResult, int damageType, EntityAI source, int component, string dmgZone, string ammo, vector modelPos, float speedCoef){
-		super.EEHitBy(damageResult, damageType, source, component, dmgZone, ammo, modelPos, speedCoef);
-				
-		// Apply hit effect based on the damage received
-		float dmgReceived = damageResult.GetHighestDamage("Health");
-		ppeHitAnim.setDuration(dmgReceived * 0.25);
-		ppeHitAnim.setHitStrength(dmgReceived);
 		
-		PPEManager.activate(ppeHitAnim);
-		
-	}
-	
 	override void OnJumpStart(){		
 		super.OnJumpStart();
+	}
+	
+	
+	override void SpawnDamageDealtEffect(){
+		if(ppeHitAnim.isActive()){
+			ppeHitAnim.setDuration(ppeHitAnim.getDuration() * 2);
+			ppeHitAnim.setHitStrength(ppeHitAnim.getHitStrength() * 1.5);
+		}else{
+			ppeHitAnim.setDuration(4.5);
+			ppeHitAnim.setHitStrength(1);
+			
+			PPEManager.activate(ppeHitAnim);
+		}
+		super.SpawnDamageDealtEffect();
+		
 	}
 			
 	//@todo don't use on select player

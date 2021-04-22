@@ -39,12 +39,20 @@ class PPEOpticZoomChangeAnimation : PPETimedParams {
 
 
 class PPEHitReceivedAnimation : PPETimedParams {		
-	protected float hitStrength = 50;
+	protected float hitStrength = 1;
 	
-	override void onAnimate(float deltaTime){		
-		float power = Math.AbsFloat(Math.Sin(getTime() * Math.PI)) * 0.001 * hitStrength;
-		setChromAber(power * 1.5, power * 1.5);
-		setVignette(power * 5, PPEManager.getPPEColor(0.5,0,0,0));
+	override void onAnimate(float deltaTime){
+		float power = Math.AbsFloat(Math.Sin(getTime() * Math.PI)) * hitStrength * Math.AbsFloat(SMath.mapTo(getRemaining(), 0.01, PPEConstants.HIT_RECEIVED_MAX_DURATION));
+		float chromAberPower = Math.Clamp(power * 0.005, 0, PPEConstants.HIT_RECEIVED_MAX_CHROM_ABER);
+		float vignettePower  = Math.Clamp(power * 0.08, 0, PPEConstants.HIT_RECEIVED_MAX_VIGNETTE);
+		
+		setChromAber(chromAberPower, chromAberPower);
+		setVignette(vignettePower, PPEManager.getPPEColor(0.05,0,0,0));
+	}
+	
+	override void setDuration(float duration){
+		m_time = 0;
+		m_duration = Math.Clamp(duration, 0.1, PPEConstants.HIT_RECEIVED_MAX_DURATION);
 	}
 	
 	float getHitStrength(){
@@ -52,7 +60,7 @@ class PPEHitReceivedAnimation : PPETimedParams {
 	}
 	
 	void setHitStrength(float strength){
-		hitStrength = strength;
+		hitStrength = Math.Clamp(strength, 0, PPEConstants.HIT_RECEIVED_MAX_STRENGTH);
 	}
 }
 
