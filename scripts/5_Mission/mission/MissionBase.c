@@ -1,7 +1,22 @@
 modded class MissionBase{
+	
+	void MissionBase() {
+		PPEManager.onInit();
+		loadUserConfig();
+	}
+	
+	void ~MissionBase(){
+		PPEManager.deactivateAll();
+		PPEManager.applyDefault();
+	}
+	
 	override void OnInit(){
 		super.OnInit();
-		loadUserConfig();
+	}
+	
+	override void OnUpdate(float timeslice){
+		super.OnUpdate(timeslice);
+		PPEManager.onUpdate(timeslice);
 	}
 	
 	protected void loadUserConfig(){
@@ -10,6 +25,6 @@ modded class MissionBase{
 		HeadLeanParams.leanAngle = userCfg.module_visual.headLeanAngle;
 		PPEManager.setDDOFBlurStrength(userCfg.module_visual.ddofIntensity);
 		PPEManager.setMotionBlurStrength(userCfg.module_visual.motionBlurIntensity);
-		PPEManager.setBloomStrength(userCfg.module_visual.bloomIntensity);		
+		PPEManager.setBloomStrength(userCfg.module_visual.bloomIntensity);
 	}
 }
