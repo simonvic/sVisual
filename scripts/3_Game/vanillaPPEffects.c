@@ -261,7 +261,7 @@ modded class PPEffects{
 		float B = 0;
 		float A = Math.Lerp(Math.Clamp(m_ColorValueTotal[0], 0, 1), 1, value);
 		
-		PPEManager.vanillaSetOverlay(0.9, PPEManager.getPPEColor(R,G,B,A));
+		PPEManager.vanillaSetOverlay(0.05, PPEManager.getPPEColor(R,G,B,A));
 	}
 
 	override static void SetShockEffectColor(float value) {

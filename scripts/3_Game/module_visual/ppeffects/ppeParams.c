@@ -1,4 +1,3 @@
-
 typedef string TPPEMaterial; //I have to use material name instead of Material because it crashes (maybe the problem is passing the material which is int[] ? )
 typedef string TPPEParamName; //name of the post process effect parameter
 typedef array<float> TPPEColor; // dynamic array of float representing RGBA color
@@ -169,21 +168,21 @@ class PPEParams {
 	* 	@param params \p PPEParams - Parameters to be merged with
 	* 	@param coeff \p float - Interpolation coefficient
 	*/
-	void merge(PPEParams params, float coeff = 0.5){
-		mergeFloatParams(params, coeff);
-		mergeColorParams(params, coeff);
+	void merge(PPEParams params, PPEMergeFlags mergeFlags = PPEMergeFlags.SIMPLE, float coeff = 0.5){
+		mergeFloatParams(params, mergeFlags, coeff);
+		mergeColorParams(params, mergeFlags, coeff);
 	} 
 	
-	void mergeFloatParams(PPEParams params, float coeff = 0.5){
+	void mergeFloatParams(PPEParams params, PPEMergeFlags mergeFlags = PPEMergeFlags.SIMPLE, float coeff = 0.5){
 		TPPEFloatParamsMap tempFloat = params.getFloatParams();
 		foreach(auto ppeMaterial, auto ppeParam : tempFloat){
 			foreach(auto ppeParamName, auto ppeParamValue : ppeParam){
-				setParam(ppeMaterial, ppeParamName, Math.Lerp(ppeParamValue, getFloatParam(ppeMaterial, ppeParamName), coeff ));				
+				setParam(ppeMaterial, ppeParamName, performMerge(ppeParamValue, getFloatParam(ppeMaterial, ppeParamName), mergeFlags, coeff));
 			}
 		}
 	}
 	
-	void mergeColorParams(PPEParams params, float coeff = 0.5){
+	void mergeColorParams(PPEParams params, PPEMergeFlags mergeFlags = PPEMergeFlags.SIMPLE, float coeff = 0.5){
 		TPPEColorParamsMap tempColor = params.getColorParams();
 		foreach(auto ppeMaterial, auto ppeParam : tempColor){
 			foreach(auto ppeParamName, auto ppeParamValue : ppeParam){
@@ -195,6 +194,77 @@ class PPEParams {
 			}
 		}
 	}
+	
+	float performMerge(float value1, float value2, PPEMergeFlags mergeFlags = PPEMergeFlags.SIMPLE, float coeff = 0.5){
+		float result = value1;
+		FlagOperation fop = new FlagOperation(mergeFlags);
+		
+		bool log = false;
+		if(log){
+			string before;
+			if(fop.check(PPEMergeFlags.SIMPLE)) before += "SIMPLE ";
+			if(fop.check(PPEMergeFlags.MAX)) before += "MAX ";
+			if(fop.check(PPEMergeFlags.MIN)) before += "MIN ";
+			if(fop.check(PPEMergeFlags.ADDITIVE)) before += "ADDITIVE ";
+			if(fop.check(PPEMergeFlags.INTERPOLATE)) before += "INTERPOLATE ";
+			SLog.d("FOP: " + FlagOperation.toBinaryString(fop.collect()) + " - [ " + fop.collect() + " ] " + before);
+		}
+		
+		if(fop.check(PPEMergeFlags.SIMPLE)){
+			fop.reset(PPEMergeFlags.MAX).reset(PPEMergeFlags.MIN).reset(PPEMergeFlags.ADDITIVE);
+			
+		}else if(fop.check(PPEMergeFlags.MAX)){
+			fop.reset(PPEMergeFlags.SIMPLE).reset(PPEMergeFlags.MIN).reset(PPEMergeFlags.ADDITIVE);
+			
+		}else if(fop.check(PPEMergeFlags.MIN)){
+			fop.reset(PPEMergeFlags.SIMPLE).reset(PPEMergeFlags.MAX).reset(PPEMergeFlags.ADDITIVE);
+			
+		}else if(fop.check(PPEMergeFlags.ADDITIVE)){
+			fop.reset(PPEMergeFlags.SIMPLE).reset(PPEMergeFlags.MAX).reset(PPEMergeFlags.MIN);
+			
+		}
+		
+		
+		if(fop.check(PPEMergeFlags.SIMPLE)){
+			result = Math.Lerp(value1, value2, coeff);
+			
+		}else if(fop.check(PPEMergeFlags.MAX)){
+			if(fop.check(PPEMergeFlags.INTERPOLATE)){
+				result = Math.Lerp(value1, Math.Max(value1, value2), coeff);				
+			}else{
+				result = Math.Max(value1, value2);
+			}
+			
+		}else if(fop.check(PPEMergeFlags.MIN)){
+			if(fop.check(PPEMergeFlags.INTERPOLATE)){
+				result = Math.Lerp(value1, Math.Min(value1, value2), coeff);
+			}else{
+				result = Math.Min(value1, value2);
+			}
+			
+		}else if(fop.check(PPEMergeFlags.ADDITIVE)){
+			if(fop.check(PPEMergeFlags.INTERPOLATE)){
+				result = Math.Lerp(value1, value1 + value2, coeff);
+			}else{
+				result = value1 + value2;
+			}
+		}
+		
+		
+		if(log){
+			string after;
+			if(fop.check(PPEMergeFlags.SIMPLE)) after += "SIMPLE ";
+			if(fop.check(PPEMergeFlags.MAX)) after += "MAX ";
+			if(fop.check(PPEMergeFlags.MIN)) after += "MIN ";
+			if(fop.check(PPEMergeFlags.ADDITIVE)) after += "ADDITIVE ";
+			if(fop.check(PPEMergeFlags.INTERPOLATE)) after += "INTERPOLATE ";
+			SLog.d("FOP: " + fop.collectBinaryString() + " - [ " + fop.collect() + " ] " + after);
+		}
+
+		return result;
+	}
+	
+	
 	
 	/**
 	* @brief Delete all parameters

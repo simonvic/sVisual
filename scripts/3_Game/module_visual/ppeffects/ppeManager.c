@@ -212,16 +212,16 @@ class PPEManager {
 	}
 	
 	protected static void mergeResult(){
-		
+
 		//if the final result of PPEffects are altered, return to default values at RESET_SPEED
 		if(!m_resultPPE.equals(m_defaultPPE)){
-			m_resultPPE.merge(m_defaultPPE, PPEConstants.RESET_SPEED);			
+			m_resultPPE.merge(m_defaultPPE, PPEMergeFlags.SIMPLE, PPEConstants.RESET_SPEED);
 		}
 		
 		//Apply persistent PPEffects
 		foreach(PPEParams p : m_persistentPPE){
 			//if(p.hasChanged()){
-				m_resultPPE.merge(p);
+				m_resultPPE.merge(p, PPEMergeFlags.MAX | PPEMergeFlags.INTERPOLATE);
 				p.onMerge();
 			//}
 		}
@@ -229,14 +229,14 @@ class PPEManager {
 		//Apply animated PPEffects
 		foreach(PPEAnimatedParams ap : m_animatedPPE){
 			if(ap.hasChanged()){
-				m_resultPPE.merge(ap);
+				m_resultPPE.merge(ap, PPEMergeFlags.MAX);
 				ap.onMerge();
 			}
 		}
 		
 		//Apply vanilla effects
 		//if(m_vanillaPPE.hasChanged()){
-			m_resultPPE.merge(m_vanillaPPE, 0.95);
+			m_resultPPE.merge(m_vanillaPPE, PPEMergeFlags.MAX, PPEConstants.VANILLA_COEFF);
 		//}
 		
 	}

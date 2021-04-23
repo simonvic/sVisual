@@ -1,5 +1,7 @@
 class PPEConstants{
 	static const float RESET_SPEED = 0.95; //how slow post process effects will return to normal. (0.0 = immediate | 0.5 = almost immediate | 0.95 = normal | 0.999 very slow)
+	static const float VANILLA_COEFF = 0.91; //coefficient used when merging with vanilla values. (0.1 = very high | 0.5 = high | 0.90 normal | 0.999 very low)
+	
 	static const float EPSILON = 1e-3; //used when comparing two float values (PPEffects.equals())
 	
 	static const float EXHAUSTED_DEACTIVATION_TRESHOLD = 50; //[0% - 100%] treshold for Exhausted PPEffect. Percentage of stamina available [0 - m_StaminaCap]
@@ -11,4 +13,14 @@ class PPEConstants{
 	
 	static const float FOCUS_VIGNETTE_MULTIPLIER = 1; // multiplier for vignette effect when focusing
 	
+}
+
+enum PPEMergeFlags {
+	SIMPLE = 1,
+	MAX = 2,
+	MIN = 4,
+	ADDITIVE = 8,
+	INTERPOLATE = 16,
+	
+	COUNT
 }
