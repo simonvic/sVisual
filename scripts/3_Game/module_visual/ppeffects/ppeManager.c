@@ -106,7 +106,7 @@ class PPEManager {
 	* 	@params params \p PPEParams - Modifier Parameters to be added
 	*/
 	static void activate(PPEParams params){
-		SLog.d("ACTIVATING " + params,"PPEManager::activate", 0, true);
+		SLog.d("ACTIVATING " + params,"PPEManager::activate", 0, m_debugMode);
 		if(params.IsInherited(PPEAnimatedParams)){
 			PPEAnimatedParams ppeAp = PPEAnimatedParams.Cast(params);
 			m_animatedPPE.Insert(ppeAp); // https://www.youtube.com/watch?v=Ct6BUPvE2sM
@@ -122,14 +122,7 @@ class PPEManager {
 	* 	@params params \p PPEParams - Modifier Parameters to be removed
 	*/
 	static void deactivate(PPEParams params){
-		SLog.d("DEACTIVATING " + params,"PPEManager::deactivate", 0, true);
-		//@todo null here :(
-		/*
-		if(!params){
-			SLog.e("Trying to deactivate a null params. Ignoring...", "PPEMAnager::deactivate", 0, true);
-			return;
-		}
-		*/
+		SLog.d("DEACTIVATING " + params,"PPEManager::deactivate", 0, m_debugMode);
 		if(params.IsInherited(PPEAnimatedParams)){
 			PPEAnimatedParams ppeAp = PPEAnimatedParams.Cast(params);
 			ppeAp.stop();

@@ -4,13 +4,7 @@ class CfgPatches {
 		weapons[] = {};
 		requiredVersion = 0.1;
 		requiredAddons[] = {
-			"DZ_Weapons_Optics",
-			//"DZ_Data",
-			"DZ_Gear_Food",
-			//"DZ_Characters",
-			"DZ_Characters_Tops",
-			"DZ_Characters_Pants",
-			"DZ_Characters_Backpacks"
+			"DZ_Scripts"
 		};
 	};
 };
