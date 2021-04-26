@@ -1,6 +1,8 @@
+class PPEBloodLoss : PPEParams{}
+
 modded class BloodLoss{
 	
-	protected ref PPEParams ppeBloodLoss = new PPEParams();
+	protected ref PPEBloodLoss ppeBloodLoss = new PPEBloodLoss();
 	
 	override void OnUpdateClient(PlayerBase player, float deltatime){
 		//super.OnUpdateClient(player, deltatime);

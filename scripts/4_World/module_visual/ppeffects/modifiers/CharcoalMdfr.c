@@ -5,16 +5,17 @@ modded class CharcoalMdfr {
 	//@todo this also get called only on server :(	
 	override void OnActivate(PlayerBase player){
 		super.OnActivate(player);
-		activatePPE();
+		//activatePPE();
 	}
 	
 	override void OnDeactivate(PlayerBase player){
 		super.OnDeactivate(player);
-		deactivatePPE();
+		//deactivatePPE();
 	}
 	
 	
 	override void activatePPE(){
+		//@todo send rpc
 		PPEManager.activate(m_ppeAnimation);
 	}
 	

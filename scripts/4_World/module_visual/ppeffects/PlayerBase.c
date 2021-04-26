@@ -33,7 +33,7 @@ modded class PlayerBase{
 		super.EEItemDetached(item, slot_name);
 		
 		// Remove colored overlay when removing AviatorGlasses
-		if( slot_name == "Eyewear" && AviatorGlasses.Cast(item)){		
+		if( GetInstanceType() == DayZPlayerInstanceType.INSTANCETYPE_CLIENT && slot_name == "Eyewear" && AviatorGlasses.Cast(item)){		
 			PPEManager.deactivate(ppeEye);
 		}
 	}
@@ -44,14 +44,16 @@ modded class PlayerBase{
 	
 	
 	override void SpawnDamageDealtEffect(){
-		if(ppeHitAnim.isActive()){
-			ppeHitAnim.setDuration(ppeHitAnim.getDuration() * 2);
-			ppeHitAnim.setHitStrength(ppeHitAnim.getHitStrength() * 1.5);
-		}else{
-			ppeHitAnim.setDuration(4.5);
-			ppeHitAnim.setHitStrength(1);
-			
-			PPEManager.activate(ppeHitAnim);
+		if( GetInstanceType() == DayZPlayerInstanceType.INSTANCETYPE_CLIENT ){
+			if(ppeHitAnim.isActive()){
+				ppeHitAnim.setDuration(ppeHitAnim.getDuration() * 2);
+				ppeHitAnim.setHitStrength(ppeHitAnim.getHitStrength() * 1.5);
+			}else{
+				ppeHitAnim.setDuration(4.5);
+				ppeHitAnim.setHitStrength(1);
+				
+				PPEManager.activate(ppeHitAnim);
+			}
 		}
 		super.SpawnDamageDealtEffect();
 		
@@ -60,13 +62,13 @@ modded class PlayerBase{
 	//@todo don't use on select player
 	override void OnSelectPlayer(){
 		super.OnSelectPlayer();
-		
-		//Remove all ppeffects
-		PPEManager.deactivateAll();
-		PPEManager.applyDefault();
-		
-		//Proceed to apply effect only if controlled player 
+				
+		//Proceed to only if client
 		if( GetInstanceType() == DayZPlayerInstanceType.INSTANCETYPE_CLIENT ){
+			
+			//Remove all ppeffects
+			PPEManager.deactivateAll();
+			PPEManager.applyDefault();
 			
 			//@todo complete activation/deactivation on connection/disconnection	
 			playSpawnPPE();		
@@ -99,24 +101,32 @@ modded class PlayerBase{
 	///////////////// UNCONSCIOUSNESS ///////////////////////////////
 	override void OnUnconsciousStart(){
 		super.OnUnconsciousStart();
-		PPEManager.activate(m_ppeUnconscious);
+		if( GetInstanceType() == DayZPlayerInstanceType.INSTANCETYPE_CLIENT ){
+			PPEManager.activate(m_ppeUnconscious);
+		}
 	}
 	
 	override void OnUnconsciousStop(int pCurrentCommandID){
 		super.OnUnconsciousStop(pCurrentCommandID);
-		PPEManager.deactivate(m_ppeUnconscious);
+		if( GetInstanceType() == DayZPlayerInstanceType.INSTANCETYPE_CLIENT ){
+			PPEManager.deactivate(m_ppeUnconscious);
+		}
 	}
 	
 	
 	///////////////// BLEEDING ///////////////////////////////
 	override void OnBleedingBegin(){
 		super.OnBleedingBegin();
-		PPEManager.activate(ppeBleeding);
+		if( GetInstanceType() == DayZPlayerInstanceType.INSTANCETYPE_CLIENT ){
+			PPEManager.activate(ppeBleeding);
+		}
 	}
 	
 	override void OnBleedingEnd(){
 		super.OnBleedingEnd();
-		PPEManager.deactivate(ppeBleeding);
+		if( GetInstanceType() == DayZPlayerInstanceType.INSTANCETYPE_CLIENT ){
+			PPEManager.deactivate(ppeBleeding);
+		}
 	}
 	
 	override void OnBleedingSourceAdded(){
@@ -131,7 +141,9 @@ modded class PlayerBase{
 	}
 	
 	protected void updateBleedingEffect(){
-		ppeBleeding.setBleedingBits(GetBleedingSourceCount());
+		if( GetInstanceType() == DayZPlayerInstanceType.INSTANCETYPE_CLIENT ){
+			ppeBleeding.setBleedingBits(GetBleedingSourceCount());
+		}
 	}
 	
 }
