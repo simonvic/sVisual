@@ -21,7 +21,7 @@ class PPEExhaustedAnimation : PPELoopedParams {
 	override void onAnimate(float deltaTime){
 		float power = Math.AbsFloat(Math.Sin(getTime() * 2.5) / Math.Clamp(stamina, 10, 100) * 1.3 );
 		setRadialBlur(power, power);
-		setVignette(power * 10, PPEManager.getPPEColor(0,0,0,0));
+		setVignette(power * 5, PPEManager.getPPEColor(0,0,0,0));
 	}
 	
 	void setStamina(float stamina){
@@ -80,7 +80,7 @@ class PPEBleedingAnimation : PPELoopedParams {
 	
 	override void onAnimate(float deltaTime){
 		float temp = Math.AbsFloat(Math.Sin(getTime() * bleedingBits));
-		float red = -(temp * 0.2) + 0.5;
+		float red = -(temp * 0.2) + 0.7 - bleedingBits * 0.1;
 		float chrom = temp * bleedingBits / 100;
 		setChromAber(chrom, chrom);
 		setColorization(PPEManager.getPPEColor(1, red, red, 0));
