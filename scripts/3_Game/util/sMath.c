@@ -20,13 +20,12 @@ class SMath {
 	
 	/**
 	* @brief Return position on the GaussBell (probability density function)		⁅ 1/(𝑤√2𝜋) 𝑒^((−1/2) ((𝑥−𝑐)/𝑤)^2 ) ⁆
-	* 	@param height \p float Height of the curve
 	* 	@param center \p float Center of the curve
 	* 	@param width \p float Standard deviation of the curve (Gaussian RMS width) ( > 0 )
 	* 	@param x \p float Input value
 	* 	@return \p float - position on curve
 	*/
-	static float GaussPDF(float height, float center, float width, float x){
+	static float GaussPDF(float center, float width, float x){
 		return ( 1 / width * Math.Sqrt(2 * Math.PI) ) * Exp((- Math.Pow(x - center,2)) / 2 * Math.Pow(width,2));
 	}
 	
