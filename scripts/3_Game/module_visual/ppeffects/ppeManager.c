@@ -106,6 +106,7 @@ class PPEManager {
 	* 	@params params \p PPEParams - Modifier Parameters to be added
 	*/
 	static void activate(PPEParams params){
+		SLog.d("ACTIVATING " + params,"PPEManager::activate", 0, true);
 		if(params.IsInherited(PPEAnimatedParams)){
 			PPEAnimatedParams ppeAp = PPEAnimatedParams.Cast(params);
 			m_animatedPPE.Insert(ppeAp); // https://www.youtube.com/watch?v=Ct6BUPvE2sM
@@ -114,7 +115,6 @@ class PPEManager {
 			m_persistentPPE.Insert(params);
 		}
 		params.onActivate();
-		SLog.d("ACTIVATING " + params,"PPEManager", 0, true);
 	}
 	
 	/**
@@ -122,6 +122,14 @@ class PPEManager {
 	* 	@params params \p PPEParams - Modifier Parameters to be removed
 	*/
 	static void deactivate(PPEParams params){
+		SLog.d("DEACTIVATING " + params,"PPEManager::deactivate", 0, true);
+		//@todo null here :(
+		/*
+		if(!params){
+			SLog.e("Trying to deactivate a null params. Ignoring...", "PPEMAnager::deactivate", 0, true);
+			return;
+		}
+		*/
 		if(params.IsInherited(PPEAnimatedParams)){
 			PPEAnimatedParams ppeAp = PPEAnimatedParams.Cast(params);
 			ppeAp.stop();
@@ -130,36 +138,25 @@ class PPEManager {
 			m_persistentPPE.Remove(m_persistentPPE.Find(params));			
 		}
 		params.onDeactivate();
-		SLog.d("DEACTIVATING " + params,"PPEManager", 0, true);
 	}
 	
 	/**
 	* @brief Remove all modifiers
 	*/
 	static void deactivateAll(){
-		SLog.d("DEACTIVATING ALL", "", 0, m_debugMode);
 		deactivateAllPersitentPPE();
 		deactivateAllAnimations();		
 	}
 	
 	static void deactivateAllPersitentPPE(){
-		foreach(PPEParams params : m_persistentPPE){
-			if(params){
-				deactivate(params);
-			}else{
-				SLog.d("Null persistent params found","",1, m_debugMode);
-			}
-		}
+		m_persistentPPE.Clear();
 	}
 	
 	static void deactivateAllAnimations(){
 		foreach(auto ppeAp : m_animatedPPE){
-			if(ppeAp){
-				deactivate(ppeAp);
-			}else{
-				SLog.d("Null animated params found","",1, m_debugMode);
-			}
+			ppeAp.stop();
 		}
+		m_animatedPPE.Clear();
 	}
 	
 	/**
@@ -197,6 +194,7 @@ class PPEManager {
 	* @brief Iterate over all animated parameters and animate
 	*/
 	protected static void animateParams(float deltaTime){
+		TPPEAnimatedParamsList toDeactivate = new TPPEAnimatedParamsList;
 		foreach(PPEAnimatedParams ap : m_animatedPPE){
 			//@todo null pointer to ap ????
 			if(!ap.hasStopped()){
@@ -205,9 +203,15 @@ class PPEManager {
 				}
 			}else{
 				if(PPETimedParams.Cast(ap) && PPETimedParams.Cast(ap).shouldDeactivateOnStop()){
-					deactivate(ap);
+					//deactivate(ap); //is it because I deactivate it from inside the loop? 
+					toDeactivate.Insert(ap);
 				}
 			}
+		}
+		
+		foreach(PPEAnimatedParams apToDeactivate : toDeactivate){
+			SLog.d("" + apToDeactivate + " has stopped. Deactivating it...","PPEManager::animateParams",0,m_debugMode);
+			deactivate(apToDeactivate);
 		}
 	}
 	
