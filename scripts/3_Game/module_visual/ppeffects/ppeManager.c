@@ -114,7 +114,7 @@ class PPEManager {
 			m_persistentPPE.Insert(params);
 		}
 		params.onActivate();
-		SLog.d("ACTIVATING " + params,"PPEManager", 0, m_debugMode);
+		SLog.d("ACTIVATING " + params,"PPEManager", 0, true);
 	}
 	
 	/**
@@ -130,7 +130,7 @@ class PPEManager {
 			m_persistentPPE.Remove(m_persistentPPE.Find(params));			
 		}
 		params.onDeactivate();
-		SLog.d("DEACTIVATING " + params,"PPEManager", 0, m_debugMode);
+		SLog.d("DEACTIVATING " + params,"PPEManager", 0, true);
 	}
 	
 	/**

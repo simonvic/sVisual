@@ -4,3 +4,9 @@ class PPEEyegearPreset : PPEMaterialPresetBase{
 		//setGodrays(...)
 	}
 }
+
+class PPESpawnEffect : PPETimedParams{
+	override void onInit(){
+		setVignette(20, PPEManager.getPPEColor(0,0,0,0));
+	}
+}
