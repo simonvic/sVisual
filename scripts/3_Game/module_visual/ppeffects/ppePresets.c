@@ -60,7 +60,6 @@ class PPEMaterialPresetBase : PPEParams{
 	void init(){};
 }
 
-//@todo replace set param with setter helpers
 class PPEDefaultPreset : PPEMaterialPresetBase{
 	override void init(){
 		
@@ -114,76 +113,60 @@ class PPEDefaultPreset : PPEMaterialPresetBase{
 
 class PPEMotionBlurPreset : PPEMaterialPresetBase{
 	void initPreset(float blurPower, float blurIntensity, float minimumDepth, float maximumDepth){
-		setParam(MaterialNames.MOTION_BLUR, PPEParamNames.MOTION_BLUR_POWER, blurPower);
-		setParam(MaterialNames.MOTION_BLUR, PPEParamNames.MOTION_BLUR_INTENSITY, blurIntensity);
-		setParam(MaterialNames.MOTION_BLUR, PPEParamNames.MOTION_BLUR_MINDEPTH, minimumDepth);
-		setParam(MaterialNames.MOTION_BLUR, PPEParamNames.MOTION_BLUR_MAXDEPTH, maximumDepth);
+		setMotionBlur(blurIntensity, blurPower, minimumDepth, maximumDepth);
 	}
 }
 
 class PPEVignettePreset : PPEMaterialPresetBase{
 	void initPreset(float strength, TPPEColor color ){
-		setParam(MaterialNames.GLOW, PPEParamNames.VIGNETTE_STRENGTH, strength);
-		setParam(MaterialNames.GLOW, PPEParamNames.VIGNETTE_COLOR, color);
+		setVignette(strength, color);
 	}
 }
 
 class PPERadialBlurPreset : PPEMaterialPresetBase{
 	void initPreset(float powerX, float powerY, float offsetX, float offsetY){
-		setParam(MaterialNames.RADIAL_BLUR, PPEParamNames.RADIAL_BLUR_POWER_X, powerX);
-		setParam(MaterialNames.RADIAL_BLUR, PPEParamNames.RADIAL_BLUR_POWER_Y, powerY);
-		setParam(MaterialNames.RADIAL_BLUR, PPEParamNames.RADIAL_BLUR_OFFSET_X, offsetX);
-		setParam(MaterialNames.RADIAL_BLUR, PPEParamNames.RADIAL_BLUR_OFFSET_Y, offsetY);
+		setRadialBlur(powerX, powerY, offsetX, offsetY);
 	}
 }
 
 class PPEChromAberPreset : PPEMaterialPresetBase{
 	void initPreset(float powerX, float powerY){
-		setParam(MaterialNames.CHROM_ABER, PPEParamNames.CHROM_ABER_POWER_X, powerX);
-		setParam(MaterialNames.CHROM_ABER, PPEParamNames.CHROM_ABER_POWER_Y, powerY);
+		setChromAber(powerX, powerY);
 	}
 }
 
 class PPEBloomPreset : PPEMaterialPresetBase{
-	void initPreset(float treshold, float steepness, float intensity){
-		setParam(MaterialNames.GLOW, PPEParamNames.CHROM_ABER_POWER_X, treshold);
-		setParam(MaterialNames.GLOW, PPEParamNames.CHROM_ABER_POWER_Y, steepness);
-		setParam(MaterialNames.GLOW, PPEParamNames.CHROM_ABER_POWER_Y, intensity);
+	void initPreset(float threshold, float steepness, float intensity){
+		setBloom(steepness, intensity, threshold);
 	}
 }
 
 class PPEOverlayPreset : PPEMaterialPresetBase{
 	void initPreset(float factor, TPPEColor color){
-		setParam(MaterialNames.GLOW, PPEParamNames.OVERLAY_FACTOR, factor);
-		setParam(MaterialNames.GLOW, PPEParamNames.OVERLAY_COLOR, color);
+		setOverlay(factor, color);
 	}
 }
 
 class PPEFilmGrainPreset : PPEMaterialPresetBase{
 	void initPreset(float sharpness, float grainSize){
-		setParam(MaterialNames.FILM_GRAIN, PPEParamNames.FILM_GRAIN_SHARPNESS, sharpness);
-		setParam(MaterialNames.FILM_GRAIN, PPEParamNames.FILM_GRAIN_GRAIN_SIZE, grainSize);
+		setFilmGrain(sharpness, grainSize);
 	}
 }
 
 class PPELensPreset : PPEMaterialPresetBase{
 	void initPreset(float distortStrength, float centerX, float centerY, float chromAber){
-		setParam(MaterialNames.GLOW, PPEParamNames.LENS_DISTORT, distortStrength);
-		setParam(MaterialNames.GLOW, PPEParamNames.LENS_CENTER_X, centerX);
-		setParam(MaterialNames.GLOW, PPEParamNames.LENS_CENTER_Y, centerY);
-		setParam(MaterialNames.GLOW, PPEParamNames.LENS_CHROM_ABER, chromAber);
+		setLens(distortStrength, centerX, centerY, chromAber);
 	}
 }
 
 class PPECameraEffectPreset : PPEMaterialPresetBase{
 	void initPreset(float saturation, TPPEColor colorization){
-		setParam(MaterialNames.GLOW, PPEParamNames.SATURATION, saturation);
-		setParam(MaterialNames.GLOW, PPEParamNames.GLOW_COLORIZATION, colorization);		
+		setCameraEffects(saturation, colorization);
 	}
 }
 
 class PPEBlurPreset : PPEMaterialPresetBase{
 	void initPreset(float intensity){
-		setParam(MaterialNames.GLOW, PPEParamNames.GAUSS_BLUR_INTENSITY, intensity);
+		setGausBlur(intensity);
 	}
 }

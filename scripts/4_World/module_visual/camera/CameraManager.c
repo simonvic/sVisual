@@ -109,12 +109,6 @@ class CameraManager {
 		return headbobParams;
 	}
 	
-	protected void updateHeadLean(float pDt, out DayZPlayerCameraResult pOutResult){
-		vector angles = Math3D.MatrixToAngles(pOutResult.m_CameraTM);
-		angles[2] = angles[2] + m_camera.getLeanRollAngle();
-		Math3D.YawPitchRollMatrix(angles, pOutResult.m_CameraTM);		
-	}
-	
 }
 
 

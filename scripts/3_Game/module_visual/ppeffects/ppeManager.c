@@ -21,7 +21,7 @@ class PPEManager {
 	protected static ref PPEFocusingVignettePreset m_focusVignette = new PPEFocusingVignettePreset(); //vignette effect used when focusing
 	 
 	//=========== Misc ==============
-	protected static ref PPEOpticZoomChangeAnimation m_opticZoomChange = new PPEOpticZoomChangeAnimation(0.5); //vignette effect used when focusing
+	protected static ref PPEOpticZoomChangeAnimation m_opticZoomChange = new PPEOpticZoomChangeAnimation(0.5); //effect used when changing optic zoom
 	
 	//=========== Motion Blur ==============
 	protected static bool m_MotionBlur_Enabled = true;
@@ -100,6 +100,8 @@ class PPEManager {
 	////////////////////////////////////////////////////////////
 	//				ACTIVATION / DEACTIVATION
 	////////////////////////////////////////////////////////////
+	
+	//@todo check for IsClient inside activate/deactivate ?
 	
 	/**
 	* @brief Add a post process effect modifier 
@@ -189,14 +191,12 @@ class PPEManager {
 	protected static void animateParams(float deltaTime){
 		TPPEAnimatedParamsList toDeactivate = new TPPEAnimatedParamsList;
 		foreach(PPEAnimatedParams ap : m_animatedPPE){
-			//@todo null pointer to ap ????
 			if(!ap.hasStopped()){
 				if(!ap.isPaused()){
 					ap.animate(deltaTime);
 				}
 			}else{
 				if(PPETimedParams.Cast(ap) && PPETimedParams.Cast(ap).shouldDeactivateOnStop()){
-					//deactivate(ap); //is it because I deactivate it from inside the loop? 
 					toDeactivate.Insert(ap);
 				}
 			}
@@ -423,6 +423,11 @@ class PPEManager {
 	//				VANILLA
 	////////////////////////////////////////////////////////////
 	
+	/**
+	*	@deprecated
+	*	Methods used by vanilla code... Planned to be removed when vanilla code is replaced
+	*/
+
 	static void vanillaSetGausBlur(float value){
 		m_vanillaPPE.setGausBlur(value);
 	}

@@ -18,13 +18,14 @@ modded class DayZPlayerCameraBase{
 		m_iPlayer = DayZPlayerImplement.Cast(pPlayer);
 		m_ddofStartBoneIdx = pPlayer.GetBoneIndexByName("Head");
 		m_camManager = new CameraManager(this, PlayerBase.Cast(m_pPlayer));
+		
+		m_sRaycast = new SRaycast("0 0 0", "0 0 0", 0.05, ObjIntersectView, CollisionFlags.NEARESTCONTACT);
 	}
 	
 	
 	override void OnUpdate(float pDt, out DayZPlayerCameraResult pOutResult){
 		super.OnUpdate(pDt, pOutResult);
 		m_camManager.onUpdate(pDt, pOutResult);
-		pOutResult.m_fShootFromCamera = 0; //AHAHAHAHHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHH YEAH 
 	}
 	
 	protected void updateDoF(float pDt){
@@ -33,7 +34,8 @@ modded class DayZPlayerCameraBase{
 		vector from = m_pPlayer.GetBonePositionWS(m_ddofStartBoneIdx);
 		vector to = from + (direction * PPEManager.getDDOFMaxDistance());
 		
-		m_sRaycast = new SRaycast(from, to, 0.05, ObjIntersectView, CollisionFlags.NEARESTCONTACT);
+		m_sRaycast.setBegPos(from);
+		m_sRaycast.setEndPos(to);
 		m_sRaycast.addIgnoredObject(m_pPlayer);
 		m_sRaycast.addIgnoredObject(m_pPlayer.GetDrivingVehicle());
 		m_sRaycast.launch();

@@ -1,7 +1,7 @@
 modded class PlayerBase{
 	
 	protected ref PPESpawnEffect ppeSpawn = new PPESpawnEffect(5, true);                       //Used when spawning	
-	protected ref PPEHitReceivedAnimation ppeHitAnim = new PPEHitReceivedAnimation(4.5, true); //Used when being hit
+	protected ref PPEHitReceivedAnimation ppeHitAnim = new PPEHitReceivedAnimation(PPEConstants.HIT_RECEIVED_MIN_DURATION, true); //Used when being hit
 	protected ref PPEEyegearPreset ppeEye = new PPEEyegearPreset();                            //Used when wearing AviatorGlasses
 	protected ref PPEBleedingAnimation ppeBleeding = new PPEBleedingAnimation();               //Used when bleeding
 	protected ref PPEUnconsciousAnimation m_ppeUnconscious = new PPEUnconsciousAnimation();    //Used when going uncoscious
@@ -22,7 +22,6 @@ modded class PlayerBase{
 	override void EEItemAttached(EntityAI item, string slot_name){
 		super.EEItemAttached(item, slot_name);
 		
-		//@todo quick fix for main menu eyewear
 		// Apply colored overlay when wearing AviatorGlasses
 		if( GetGame().IsClient() && slot_name == "Eyewear" && AviatorGlasses.Cast(item)){
 			PPEManager.activate(ppeEye);
@@ -46,11 +45,11 @@ modded class PlayerBase{
 	override void SpawnDamageDealtEffect(){
 		if( GetGame().IsClient() ){
 			if(ppeHitAnim.isActive()){
-				ppeHitAnim.setDuration(ppeHitAnim.getDuration() * 2);
-				ppeHitAnim.setHitStrength(ppeHitAnim.getHitStrength() * 1.5);
+				ppeHitAnim.setDuration(ppeHitAnim.getDuration() * PPEConstants.HIT_RECEIVED_DURATION_MULTIPLIER);
+				ppeHitAnim.setHitStrength(ppeHitAnim.getHitStrength() * PPEConstants.HIT_RECEIVED_STRENGTH_MULTIPLIER);
 			}else{
-				ppeHitAnim.setDuration(4.5);
-				ppeHitAnim.setHitStrength(1);
+				ppeHitAnim.setDuration(PPEConstants.HIT_RECEIVED_MIN_DURATION);
+				ppeHitAnim.setHitStrength(PPEConstants.HIT_RECEIVED_MIN_STRENGTH);
 				
 				PPEManager.activate(ppeHitAnim);
 			}
@@ -58,19 +57,17 @@ modded class PlayerBase{
 		super.SpawnDamageDealtEffect();
 		
 	}
-			
-	//@todo don't use on select player
+	
 	override void OnSelectPlayer(){
 		super.OnSelectPlayer();
 				
-		//Proceed to only if client
+		//Proceed only if client
 		if( GetGame().IsClient() ){
 			
 			//Remove all ppeffects
 			PPEManager.deactivateAll();
 			PPEManager.applyDefault();
 			
-			//@todo complete activation/deactivation on connection/disconnection	
 			playSpawnPPE();		
 			checkForGlassesPPE();
 			checkForBleedingPPE();		

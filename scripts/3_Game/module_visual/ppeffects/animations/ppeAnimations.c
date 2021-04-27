@@ -39,7 +39,7 @@ class PPEOpticZoomChangeAnimation : PPETimedParams {
 
 
 class PPEHitReceivedAnimation : PPETimedParams {		
-	protected float hitStrength = 1;
+	protected float hitStrength = PPEConstants.HIT_RECEIVED_MIN_STRENGTH;
 	
 	override void onAnimate(float deltaTime){
 		float power = Math.AbsFloat(Math.Sin(getTime() * Math.PI)) * hitStrength * Math.AbsFloat(SMath.mapTo(getRemaining(), 0.01, PPEConstants.HIT_RECEIVED_MAX_DURATION));
