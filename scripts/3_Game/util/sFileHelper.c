@@ -41,18 +41,4 @@ class SFileHelper {
 			MakeDirectory(temp);
 		}
 	}
-	
-	
-	
-	static void sandbox(){
-				
-		SUserConfig userCfg = SUserConfig.load();
-		SLog.d("========================================");
-		SLog.d(userCfg.module_visual.ddofIntensity,"",1);
-		SLog.d(userCfg.module_visual.headbobIntensity,"",1);
-		SLog.d(userCfg.module_visual.motionBlurIntensity,"",1);
-		SLog.d(userCfg.module_visual.bloomIntensity,"",1);
-		SLog.d(userCfg.module_visual.headLeanAngle,"",1);
-		SLog.d("========================================");
-	}
 }

@@ -2,7 +2,15 @@ modded class MissionGameplay{
 	
 	void MissionGameplay() {
 		PPEManager.onInit();
-		loadUserConfig();
+		
+		//@todo load only enabled modules from config.cpp
+		SUserConfigVisual userVisualCfg = SUserConfig.getInstance().visual();
+		HeadBobParams.multiplier = userVisualCfg.headbobIntensity;
+		HeadLeanParams.leanAngle = userVisualCfg.headLeanAngle;
+		PPEManager.setDDOFBlurStrength(userVisualCfg.ddofIntensity);
+		PPEManager.setMotionBlurStrength(userVisualCfg.motionBlurIntensity);
+		PPEManager.setBloomStrength(userVisualCfg.bloomIntensity);
+		
 	}
 	
 	void ~MissionGameplay(){
@@ -13,14 +21,5 @@ modded class MissionGameplay{
 	override void OnUpdate(float timeslice){
 		super.OnUpdate(timeslice);
 		PPEManager.onUpdate(timeslice);
-	}
-	
-	protected void loadUserConfig(){
-		SUserConfig userCfg = SUserConfig.load();
-		HeadBobParams.multiplier = userCfg.module_visual.headbobIntensity;
-		HeadLeanParams.leanAngle = userCfg.module_visual.headLeanAngle;
-		PPEManager.setDDOFBlurStrength(userCfg.module_visual.ddofIntensity);
-		PPEManager.setMotionBlurStrength(userCfg.module_visual.motionBlurIntensity);
-		PPEManager.setBloomStrength(userCfg.module_visual.bloomIntensity);
 	}
 }

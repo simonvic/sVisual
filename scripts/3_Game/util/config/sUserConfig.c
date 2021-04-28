@@ -1,94 +1,103 @@
+typedef map<typename, ref SUserModuleConfig> TSUserModuleConfigs;
+
+/*
+*	@Singleton
+*/
 class SUserConfig{
 	
-	static const string USER_CONFIG_PATH = "$saves:\\sVisual\\config\\config.json";
-	static const string DEFAULT_USER_CONFIG_PATH = "$profile:\\sVisual\\config\\default.json";
+	private static ref SUserConfig INSTANCE = new SUserConfig();
+	private void SUserConfig(){}
+	static SUserConfig getInstance(){
+		return INSTANCE;
+	}
 	
-	private static ref JsonFileLoader<SUserConfig> jsonLoader = new JsonFileLoader<SUserConfig>();
-	
-	ref SUserConfigBaseBuilding module_baseBuilding = new SUserConfigBaseBuilding;
-	ref SUserConfigCaves module_caves               = new SUserConfigCaves;
-	ref SUserConfigCharacter module_character       = new SUserConfigCharacter;
-	ref SUserConfigDriving module_driving           = new SUserConfigDriving;
-	ref SUserConfigInventory module_inventory       = new SUserConfigInventory;
-	ref SUserConfigLooting module_looting           = new SUserConfigLooting;
-	ref SUserConfigMedical module_medical           = new SUserConfigMedical;
-	ref SUserConfigGunplay module_gunplay           = new SUserConfigGunplay;
-	ref SUserConfigSoftSkills module_softSkills     = new SUserConfigSoftSkills;
-	ref SUserConfigSurvival module_survival         = new SUserConfigSurvival;
-	ref SUserConfigVisual module_visual             = new SUserConfigVisual;
-	
+	protected ref TSUserModuleConfigs modulesConfigs = new TSUserModuleConfigs;
+		
 	/**
-	*	@brief Get a copy of user configuration file
-	*	 @return SUserConfig
+	*	@brief Load a module config file
+	*	 @param moduleType typename - Typename of the module to load
+	*	 @param reload bool - Choose to load even if it's been already loaded
 	*/
-	static SUserConfig load(){
-		// Check if it's ok to load the config
-		if(!FileExist(USER_CONFIG_PATH) || !isValid(USER_CONFIG_PATH)){
-			SFileHelper.touch(USER_CONFIG_PATH);
-			if(FileExist(DEFAULT_USER_CONFIG_PATH) && isValid(DEFAULT_USER_CONFIG_PATH)){
-				CopyFile(DEFAULT_USER_CONFIG_PATH, USER_CONFIG_PATH);
-			}else{
-				SLog.c("Couldn't load neither user config [ " + USER_CONFIG_PATH + " ] nor default config [ " + DEFAULT_USER_CONFIG_PATH + " ]", "SUserConfig");
-				return createDefault(true);
-			}
+	void load(typename moduleType, bool reload = false){
+		
+		if(isModuleLoaded(moduleType) && !reload) return;
+		
+		//Check if correct typename
+		SUserModuleConfig moduleCfg = SUserModuleConfig.Cast(moduleType.Spawn());
+		if(!moduleCfg){
+			SLog.e("Error while loading < " + moduleType + " > Maybe not a module type?. Ignoring....","SUserConfig::load");
+			return;
 		}
 
-		// Load config
-		SUserConfig config = new SUserConfig();
-		jsonLoader.JsonLoadFile(USER_CONFIG_PATH, config);
+		SLog.d("Loading " + moduleType,"SUserConfig::load");
+		validateModuleCfgFile(moduleCfg);
 		
-		return config;
+		// Load config
+		moduleCfg.load();
+		modulesConfigs.Set(moduleType, moduleCfg);
+		SLog.d("Done","",1);
 	}
 	
 	/**
-	*	@brief Save the configuration
+	*	@brief Validate a module config file. Copy the default if not present; create default file if also not present
+	*	 @param moduleCfg SUserModuleConfig - Module to validate
+	*/
+	protected void validateModuleCfgFile(SUserModuleConfig moduleCfg){
+		string path = moduleCfg.getPath();
+		
+		if(!FileExist(path)){
+			SFileHelper.touch(path);
+			string defaultPath = moduleCfg.getDefaultPath();
+			if(FileExist(defaultPath)){
+				CopyFile(defaultPath, path);
+			}else{
+				SLog.w("Couldn't load neither user config [ " + path + " ] nor default config [ " + defaultPath + " ]", "SUserConfig");
+				SLog.i("Creating " + moduleCfg.Type() + " default config file : " + defaultPath,"SUserConfig",1);
+				SFileHelper.touch(defaultPath);
+				moduleCfg.createDefault();
+				SLog.i("Done","",2);
+				SLog.i("Creating " + moduleCfg.Type() + " config file : " + path,"SUserConfig",1);
+				moduleCfg.save();
+				SLog.i("Done","",2);				
+			}
+		}
+	}
+	
+	protected bool isModuleLoaded(typename module){
+		return modulesConfigs.Contains(module);
+	}
+	
+	/**
+	*	@brief Save modules configuration
 	*/
 	void save(){
-		jsonLoader.JsonSaveFile(USER_CONFIG_PATH, this);
+		foreach(SUserModuleConfig module : modulesConfigs){
+			module.save();
+		}
 	}
 	
-	/**
-	*	@brief Create the default configuration file
-	*	 @param verbose \p bool - Be verbose with logs
-	*/
-	private static SUserConfig createDefault(bool verbose = false){
-		SLog.i("Creating new default config file...", "SUserConfig", 1, verbose);
-		SUserConfig newDefault = new SUserConfig();
-		SFileHelper.touch(DEFAULT_USER_CONFIG_PATH);
-		jsonLoader.JsonSaveFile(DEFAULT_USER_CONFIG_PATH, newDefault);
-		SLog.i("Done", "", 2, verbose);
-		
-		SLog.i("Creating new config file...", "SUserConfig", 1, verbose);
-		newDefault.save();
-		SLog.i("Done", "", 2, verbose);
-		
-		return newDefault;
+	
+	bool isValid(){
+		foreach(SUserModuleConfig module : modulesConfigs){
+			if(!module.isValid()) return false;
+		}
+		return true;
 	}
 	
-	/**
-	*	@brief Check if the configuration file is isValid
-	*	 @param path \p string - Path of file to validate
-	*/
-	static bool isValid(string path){
-		return true; //@todo complete configuration file validation
+	void printLoadedModules(){
+		foreach(SUserModuleConfig module : modulesConfigs){
+			SLog.d(module);
+		}
+	}
+	
+	
+	
+	
+	
+	
+	SUserConfigVisual visual(bool reload = false){
+		load(SUserConfigVisual, reload);
+		return SUserConfigVisual.Cast(modulesConfigs.Get(SUserConfigVisual));
 	}
 
-}
-
-class SUserConfigBaseBuilding{}
-class SUserConfigCaves{}
-class SUserConfigCharacter{}
-class SUserConfigDriving{}
-class SUserConfigInventory{}
-class SUserConfigLooting{}
-class SUserConfigMedical{}
-class SUserConfigGunplay{}
-class SUserConfigSoftSkills{}
-class SUserConfigSurvival{}
-class SUserConfigVisual{
-	float ddofIntensity = 20.0;
-	float headbobIntensity = 1.0;
-	float motionBlurIntensity = 0.01;
-	float bloomIntensity = 0;
-	float headLeanAngle = 15;
 }

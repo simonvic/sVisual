@@ -8,7 +8,7 @@ enum UISettingsID{
 
 class OptionsMenuSVisual extends ScriptedWidgetEventHandler{
 	
-	protected ref SUserConfig m_sUserConfig;
+	protected ref SUserConfigVisual m_sUserConfig;
 		
 	static const string HEADBOB_WIDGET_NAME = "sude_headbob_setting_";
 	static const string DOF_WIDGET_NAME = "sude_dof_setting_";
@@ -58,7 +58,7 @@ class OptionsMenuSVisual extends ScriptedWidgetEventHandler{
 	void OptionsMenuSVisual( Widget parent, Widget details_root, OptionsMenu menu ){
 		
 		//////////////// USER CONFIG ///////////////////
-		m_sUserConfig = SUserConfig.load();
+		m_sUserConfig = SUserConfig.getInstance().visual();
 		
 		//////////////// UI ///////////////////
 		m_Root = GetGame().GetWorkspace().CreateWidgets( GetLayoutName(), parent );			
@@ -179,7 +179,7 @@ class OptionsMenuSVisual extends ScriptedWidgetEventHandler{
 		HeadBobParams.multiplier = new_value;
 		m_HeadBobValue.SetText(new_value.ToString());
 		
-		m_sUserConfig.module_visual.headbobIntensity = new_value;
+		m_sUserConfig.headbobIntensity = new_value;
 		onConfigChange();
 	}
 	
@@ -187,7 +187,7 @@ class OptionsMenuSVisual extends ScriptedWidgetEventHandler{
 		PPEManager.setDDOFBlurStrength(new_value);
 		m_DoFValue.SetText(new_value.ToString());
 		
-		m_sUserConfig.module_visual.ddofIntensity = new_value;
+		m_sUserConfig.ddofIntensity = new_value;
 		onConfigChange();
 	}
 	
@@ -195,7 +195,7 @@ class OptionsMenuSVisual extends ScriptedWidgetEventHandler{
 		PPEManager.setMotionBlurStrength(new_value);
 		m_MotionBlurValue.SetText(new_value.ToString());
 		
-		m_sUserConfig.module_visual.motionBlurIntensity = new_value;
+		m_sUserConfig.motionBlurIntensity = new_value;
 		onConfigChange();
 	}
 	
@@ -203,7 +203,7 @@ class OptionsMenuSVisual extends ScriptedWidgetEventHandler{
 		PPEManager.setBloomStrength(new_value);
 		m_BloomValue.SetText(new_value.ToString());
 		
-		m_sUserConfig.module_visual.bloomIntensity = new_value;
+		m_sUserConfig.bloomIntensity = new_value;
 		onConfigChange();
 	}
 	
@@ -211,7 +211,7 @@ class OptionsMenuSVisual extends ScriptedWidgetEventHandler{
 		HeadLeanParams.leanAngle = new_value;
 		m_RollValue.SetText(new_value.ToString());
 		
-		m_sUserConfig.module_visual.headLeanAngle = new_value;
+		m_sUserConfig.headLeanAngle = new_value;
 		onConfigChange();
 	}
 	

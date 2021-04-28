@@ -1,16 +1,10 @@
 class SConfig {
 
-	private static string cfgName = "Cfg_sUDE";
-	private static ref SConfigVisual m_visual = new SConfigVisual();
+	static const string CFG_BASENAME = "Cfg_sUDE";
 	
 	static string getCfgName(){
-		return cfgName;
+		return CFG_BASENAME;
 	}
-		
-	static SConfigVisual visual(){
-		return m_visual;
-	}
-		
 	
 	static void get(string path, out int value){
 		value = GetGame().ConfigGetInt(path);
@@ -23,7 +17,7 @@ class SConfig {
 	static void get(string path, out bool value){
 		value = GetGame().ConfigGetInt(path);
 	}
-		
+	
 	static void get(string path, out string value){
 		GetGame().ConfigGetText(path, value);
 	}
@@ -43,5 +37,11 @@ class SConfig {
 	static void get(string path, inout TStringArray values){
 		GetGame().ConfigGetTextArray(path, values);
 	}
-		
+	
+	
+	private static ref SConfigVisual m_visual = new SConfigVisual();
+	static SConfigVisual visual(){
+		return m_visual;
+	}
+	
 }
