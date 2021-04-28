@@ -80,11 +80,11 @@ class SConfigMedical : SModuleConfig{
 }
 
 /////////////////////////////////////////////
-// PvP Module
+// Gunplay Module
 /////////////////////////////////////////////
-class SConfigPvP : SModuleConfig{	
+class SConfigGunplay : SModuleConfig{	
 	override string getModuleName(){
-		return "PvP";
+		return "Gunplay";
 	}
 }
 

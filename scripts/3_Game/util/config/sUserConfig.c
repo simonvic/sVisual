@@ -12,7 +12,7 @@ class SUserConfig{
 	ref SUserConfigInventory module_inventory       = new SUserConfigInventory;
 	ref SUserConfigLooting module_looting           = new SUserConfigLooting;
 	ref SUserConfigMedical module_medical           = new SUserConfigMedical;
-	ref SUserConfigPvP module_pvp                   = new SUserConfigPvP;
+	ref SUserConfigGunplay module_gunplay           = new SUserConfigGunplay;
 	ref SUserConfigSoftSkills module_softSkills     = new SUserConfigSoftSkills;
 	ref SUserConfigSurvival module_survival         = new SUserConfigSurvival;
 	ref SUserConfigVisual module_visual             = new SUserConfigVisual;
@@ -82,7 +82,7 @@ class SUserConfigDriving{}
 class SUserConfigInventory{}
 class SUserConfigLooting{}
 class SUserConfigMedical{}
-class SUserConfigPvP{}
+class SUserConfigGunplay{}
 class SUserConfigSoftSkills{}
 class SUserConfigSurvival{}
 class SUserConfigVisual{
