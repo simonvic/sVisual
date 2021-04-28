@@ -31,7 +31,7 @@ class Cfg_sUDE{
 	class Medical{
 		enabled = 0;
 	};
-	class PvP{
+	class Gunplay{
 		enabled = 0;
 	};
 	class SoftSkills{
