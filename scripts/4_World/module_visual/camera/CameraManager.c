@@ -20,6 +20,9 @@ class CameraManager {
 	
 	void onInit(){
 	}
+
+	void onDestroy(){
+	}
 	
 	void onUpdate(float pDt, out DayZPlayerCameraResult pOutResult){
 		m_time += pDt;
@@ -27,6 +30,14 @@ class CameraManager {
 		//Convert camera transformation matrix to yaw pitch roll angles
 		vector camAngles = Math3D.MatrixToAngles(pOutResult.m_CameraTM);
 		
+		updateCamAngles(pDt, camAngles);
+		
+		//Apply the transformation to the camera
+		Math3D.YawPitchRollMatrix(camAngles, pOutResult.m_CameraTM);
+			
+	}
+	
+	protected void updateCamAngles(float pDt, out vector camAngles){
 		if(m_camera.isHeadbobEnabled()){
 			applyHeadBob(pDt, camAngles);
 		}
@@ -34,12 +45,6 @@ class CameraManager {
 		if(m_camera.isHeadLeanEnabled()){
 			applyHeadLean(pDt, camAngles);
 		}
-		
-		//Apply the transformation to the camera
-		Math3D.YawPitchRollMatrix(camAngles, pOutResult.m_CameraTM);
-	}
-	
-	void onDestroy(){
 	}
 	
 	protected void applyHeadBob(float pDt, out vector angles){

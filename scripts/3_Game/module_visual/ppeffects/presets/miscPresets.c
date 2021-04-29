@@ -1,6 +1,7 @@
 class PPEEyegearPreset : PPEMaterialPresetBase{
 	override void init(){
-		setOverlay(0.2, PPEManager.getPPEColor(0.1, 0.1, 0.3, 0));
+		setBloomSteepness(0);
+		setOverlay(0.6, PPEManager.getPPEColor(0.01, 0.01, 0.015, 0));
 		//setGodrays(...)
 	}
 }

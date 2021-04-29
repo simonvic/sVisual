@@ -10,7 +10,7 @@ modded class DayZPlayerCamera1stPerson{
 			updateDoF(pDt);
 		}
 		
-		if( PPEManager.isMotionBlurEnabled() && !isInventoryOpen() ){
+		if( PPEManager.isMotionBlurEnabled() ){
 			updateMotionBlur(pDt);	
 		}
 		
@@ -36,10 +36,6 @@ modded class DayZPlayerCamera1stPerson{
 		//return m_iPlayer.GetInputController().WeaponADS(); // is this broken? (doesn't set m_bAds to false when releasing mouse button)
 	}
 	
-	protected bool isInventoryOpen(){ //@todo definitely find a better way of doing this
-		UIScriptedMenu menu = GetGame().GetUIManager().GetMenu();
-		return menu && ( menu.GetID() == MENU_INVENTORY || menu.GetID() == MENU_INSPECT );
-	}
 	
 }
 
