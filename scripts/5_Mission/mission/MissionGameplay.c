@@ -5,11 +5,11 @@ modded class MissionGameplay{
 		
 		//@todo load only enabled modules from config.cpp
 		SUserConfigVisual userVisualCfg = SUserConfig.getInstance().visual();
-		HeadBobParams.multiplier = userVisualCfg.headbobIntensity;
-		HeadLeanParams.leanAngle = userVisualCfg.headLeanAngle;
-		PPEManager.setDDOFBlurStrength(userVisualCfg.ddofIntensity);
-		PPEManager.setMotionBlurStrength(userVisualCfg.motionBlurIntensity);
-		PPEManager.setBloomStrength(userVisualCfg.bloomIntensity);
+		HeadBobParams.multiplier = userVisualCfg.getHeadbobIntensity();
+		HeadLeanParams.leanAngle = userVisualCfg.getHeadLeanAngle();
+		PPEManager.setDDOFBlurStrength(userVisualCfg.getDDOFIntensity());
+		PPEManager.setMotionBlurStrength(userVisualCfg.getMotionBlurIntensity());
+		PPEManager.setBloomStrength(userVisualCfg.getBloomIntensity());
 		
 	}
 	

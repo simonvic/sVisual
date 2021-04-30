@@ -50,6 +50,10 @@ modded class DayZPlayerCameraBase{
 		PPEManager.requestMotionBlur();
 	}
 	
+	bool useSimonvicCam(){
+		return false;
+	}
+	
 	bool isHeadbobEnabled(){
 		return false;
 	}

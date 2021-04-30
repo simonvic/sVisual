@@ -152,7 +152,7 @@ class OptionsMenuSVisual extends ScriptedWidgetEventHandler{
 						UpdateRollOption(s.GetCurrent());
 						break;
 					}
-					default: SLog.w("No slider widget name found.","OnChange");
+					default: SLog.w("No slider widget name found.","OptionsMenuSVisual::OnChange");
 				}
 					
 			}else if(w.IsInherited( CheckBoxWidget )){
@@ -165,7 +165,7 @@ class OptionsMenuSVisual extends ScriptedWidgetEventHandler{
 						break;
 					}
 					*/
-					default: SLog.w("No checkbox  widget name found.","OnChange");
+					default: SLog.w("No checkbox  widget name found.","OptionsMenuSVisual::OnChange");
 				}
 					
 			}
@@ -179,7 +179,7 @@ class OptionsMenuSVisual extends ScriptedWidgetEventHandler{
 		HeadBobParams.multiplier = new_value;
 		m_HeadBobValue.SetText(new_value.ToString());
 		
-		m_sUserConfig.headbobIntensity = new_value;
+		m_sUserConfig.setHeadbobIntensity(new_value);
 		onConfigChange();
 	}
 	
@@ -187,7 +187,7 @@ class OptionsMenuSVisual extends ScriptedWidgetEventHandler{
 		PPEManager.setDDOFBlurStrength(new_value);
 		m_DoFValue.SetText(new_value.ToString());
 		
-		m_sUserConfig.ddofIntensity = new_value;
+		m_sUserConfig.setDDOFIntensity(new_value);
 		onConfigChange();
 	}
 	
@@ -195,7 +195,7 @@ class OptionsMenuSVisual extends ScriptedWidgetEventHandler{
 		PPEManager.setMotionBlurStrength(new_value);
 		m_MotionBlurValue.SetText(new_value.ToString());
 		
-		m_sUserConfig.motionBlurIntensity = new_value;
+		m_sUserConfig.setMotionBlurIntensity(new_value);
 		onConfigChange();
 	}
 	
@@ -203,7 +203,7 @@ class OptionsMenuSVisual extends ScriptedWidgetEventHandler{
 		PPEManager.setBloomStrength(new_value);
 		m_BloomValue.SetText(new_value.ToString());
 		
-		m_sUserConfig.bloomIntensity = new_value;
+		m_sUserConfig.setBloomIntensity(new_value);
 		onConfigChange();
 	}
 	
@@ -211,7 +211,7 @@ class OptionsMenuSVisual extends ScriptedWidgetEventHandler{
 		HeadLeanParams.leanAngle = new_value;
 		m_RollValue.SetText(new_value.ToString());
 		
-		m_sUserConfig.headLeanAngle = new_value;
+		m_sUserConfig.setHeadLeanAngle(new_value);
 		onConfigChange();
 	}
 	
