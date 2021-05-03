@@ -16,7 +16,7 @@ modded class DayZPlayerCameraIronsights {
 	}
 	
 	override bool useSimonvicCam(){
-		return true;
+		return false;
 	}
 	
 	override bool isHeadbobEnabled(){

@@ -1,11 +1,19 @@
 modded class DayZPlayerCamera1stPerson{	
 	
 	void DayZPlayerCamera1stPerson(DayZPlayer pPlayer, HumanInputController pInput){
+		PPEManager.enabledDDOF();
+	}
+	
+	//Note: Both 1st and 3rd person camera are alive during the transition
+	void ~DayZPlayerCamera1stPerson(DayZPlayer pPlayer, HumanInputController pInput){
+		if(!PPEManager.isPeakMitigationEnabled()){
+			PPEManager.disableDDOF();		
+		}
 	}
 	
 	override void OnUpdate(float pDt, out DayZPlayerCameraResult pOutResult){
 		super.OnUpdate(pDt, pOutResult);
-		
+
 		if( PPEManager.isDDOFEnabled() && !isADS() ){
 			updateDoF(pDt);
 		}

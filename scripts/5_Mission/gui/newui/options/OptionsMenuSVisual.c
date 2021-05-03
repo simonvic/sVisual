@@ -17,15 +17,7 @@ class OptionsMenuSVisual extends ScriptedWidgetEventHandler{
 	static const string DEADZONE_WIDGET_NAME = "sude_deadzone_setting_";
 	static const string LENSZOOM_WIDGET_NAME = "sude_lensZoom_setting_";
 	static const string ROLL_WIDGET_NAME = "sude_roll_setting_";
-	
-	///////////////// DEBUG /////////////////
-	static const string DEBUG_DEADZONE_HIPFIRE_WIDGET_NAME = "sude_debug_deadzone_setting_";
-	static const string DEBUG_BODYCLIP_ALLCONTACT_WIDGET_NAME = "sude_body_clip_all_contact_setting_";
-	static const string DEBUG_BODYCLIP_CONTACTPOS_WIDGET_NAME = "sude_body_clip_contact_pos_setting_";
-	static const string DEBUG_CROSSHAIR_WIDGET_NAME = "sude_crosshair_setting_";
-	static const string DEBUG_PEAKMITIGATION_WIDGET_NAME = "sude_peakMitigation_setting_";
-	//////////////////////////////////
-	
+		
 	protected Widget						m_Root;
 	
 	protected Widget						m_DetailsRoot;

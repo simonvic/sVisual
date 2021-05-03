@@ -11,7 +11,7 @@ class PPEManager {
 	protected static ref DoFPreset m_weaponDOF = new WeaponDOFPreset(); //default Depth of Field while aiming down sight
 	
 	protected static bool m_DDOF_Enabled = true; // Dynamic Depth of Field (used in 1st person view)	
-	protected static bool m_peakMitigationEnabled = true; // Dynamic Depth of Field (used in 3rd person view as shoulder peak mitigation)	
+	protected static bool m_peakMitigationEnabled = false; // Dynamic Depth of Field (used in 3rd person view as shoulder peak mitigation)	
 	protected static ref DoFPreset m_DDOF = new DDOFPreset(); //default Dynamic Depth of Field values
 	
 	protected static float m_DOF_BlurStrength = 0; // final computed DoF blur strength
@@ -529,9 +529,13 @@ class PPEManager {
 	}
 	
 	static void requestDDOF(float focusDistance){
-		m_DDOF_Enabled = true;
+		enabledDDOF();
 		m_DDOF.focusDistance = focusDistance;
 		applyDOF();		
+	}
+	
+	static void enabledDDOF(){
+		m_DDOF_Enabled = true;
 	}
 	
 	static void disableDDOF(){

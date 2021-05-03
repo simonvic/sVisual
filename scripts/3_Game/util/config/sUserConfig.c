@@ -29,13 +29,13 @@ class SUserConfig{
 			return;
 		}
 
-		SLog.d("Loading " + moduleType,"SUserConfig::load");
+		SLog.i("Loading " + moduleType,"SUserConfig::load");
 		validateModuleCfgFile(moduleCfg);
 		
 		// Load config
 		moduleCfg.load();
 		modulesConfigs.Set(moduleType, moduleCfg);
-		SLog.d("Done","",1);
+		SLog.i("Done","",1);
 	}
 	
 	/**
