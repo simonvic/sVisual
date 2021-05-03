@@ -60,8 +60,8 @@ modded class PPEffects{
 	}
 	
 	override static void SetBlurOptics(float value) {
-		SetBlurValue(m_BlurOptics, value);
-		UpdateBlur();
+		//SetBlurValue(m_BlurOptics, value);
+		//UpdateBlur();
 	}
 	
 	override static void SetBlurFlashbang(float value) {
@@ -233,23 +233,21 @@ modded class PPEffects{
 		}
 	}
 	
-	/* VANILLA CODE
 	override static void OverrideDOF(bool enable, float focusDistance, float focusLength, float focusLengthNear, float blur, float focusDepthOffset) {
-		GetGame().OverrideDOF(enable, focusDistance, focusLength, focusLengthNear, blur, focusDepthOffset);
+		PPEManager.vanillaOverrideDOF(enable, focusDistance, focusLength, focusLengthNear, blur, focusDepthOffset);
 	}
 
 	override static void AddPPMask(float ndcX, float ndcY, float ndcRadius, float ndcBlur) {
-		GetGame().AddPPMask(ndcX, ndcY, ndcRadius, ndcBlur);
+		PPEManager.vanillaAddPPMask(ndcX, ndcY, ndcRadius, ndcBlur);
 	}
 
 	override static void ResetPPMask() {
-		if (GetGame()) GetGame().ResetPPMask();
+		if (GetGame()) PPEManager.vanillaResetPPMask();
 	}
 
 	override static void ResetDOFOverride() {
-		OverrideDOF(false, 0, 0, 0, 0, 1);
+		PPEManager.vanillaResetDOFOverride();
 	}
-	**/
 	
 	override static void ResetLensEffect() {
 		SetLensEffect(0, 0, 0, 0);

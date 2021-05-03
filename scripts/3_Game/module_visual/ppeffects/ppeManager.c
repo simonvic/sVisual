@@ -464,6 +464,22 @@ class PPEManager {
 		m_vanillaPPE.setBloom(steepness, intensity, threshold);
 	}
 	
+	static void vanillaOverrideDOF(bool enable, float focusDistance, float focusLength, float focusLengthNear, float blur, float focusDepthOffset) {
+		GetGame().OverrideDOF(enable, focusDistance, focusLength, focusLengthNear, blur, focusDepthOffset);
+	}
+	
+	static void vanillaResetDOFOverride(){
+		resetDOF();
+	}
+	
+	static void vanillaAddPPMask(float ndcX, float ndcY, float ndcRadius, float ndcBlur) {
+		requestOpticMask(ndcX, ndcY, ndcRadius, ndcBlur);
+	}
+	
+	static void vanillaResetPPMask() {
+		resetMask();
+	}
+	
 	////////////////////////////////////////////////////////////
 	//				VIGNETTE
 	////////////////////////////////////////////////////////////
@@ -513,28 +529,27 @@ class PPEManager {
 	}
 	
 	static void requestIronsightDOF(){ //@todo add ironsight dof preset or use "per-weapon" dof like vanilla
-		PPEffects.OverrideDOF(m_WeaponDOF_Enabled, m_weaponDOF.focusDistance, m_weaponDOF.focusLenght, m_weaponDOF.focusLenghtNear, m_weaponDOF.blurStrenght * 0.9, m_weaponDOF.focusDepthOffset);
+		GetGame().OverrideDOF(m_WeaponDOF_Enabled, m_weaponDOF.focusDistance, m_weaponDOF.focusLenght, m_weaponDOF.focusLenghtNear, m_weaponDOF.blurStrenght * 0.9, m_weaponDOF.focusDepthOffset);
 	}
 	
 	static void disableIronsightDOF(){
-		PPEffects.ResetDOFOverride();
+		resetDOF();
 	}
 	
 	static void requestOpticDOF(){
-		PPEffects.OverrideDOF(m_WeaponDOF_Enabled, m_weaponDOF.focusDistance, m_weaponDOF.focusLenght, m_weaponDOF.focusLenghtNear, m_weaponDOF.blurStrenght, m_weaponDOF.focusDepthOffset);
+		GetGame().OverrideDOF(m_WeaponDOF_Enabled, m_weaponDOF.focusDistance, m_weaponDOF.focusLenght, m_weaponDOF.focusLenghtNear, m_weaponDOF.blurStrenght, m_weaponDOF.focusDepthOffset);
 	}
 	
 	static void disableOpticDOF(){
-		PPEffects.ResetDOFOverride();
+		resetDOF();
 	}
 	
 	static void requestDDOF(float focusDistance){
-		enabledDDOF();
 		m_DDOF.focusDistance = focusDistance;
 		applyDOF();		
 	}
 	
-	static void enabledDDOF(){
+	static void enableDDOF(){
 		m_DDOF_Enabled = true;
 	}
 	
@@ -559,15 +574,14 @@ class PPEManager {
 		//do all the cool computation stuff here and then apply final result
 		//if is in weapon, if needs glasses, if burlap sacks etc.
 		//for now just use DDOF
-		//PPEffects.ResetDOFOverride();
-		PPEffects.OverrideDOF(true, m_DDOF.focusDistance, m_DDOF.focusLenght, m_DDOF.focusLenghtNear, m_DDOF.blurStrenght, m_DDOF.focusDepthOffset);
+		GetGame().OverrideDOF(true, m_DDOF.focusDistance, m_DDOF.focusLenght, m_DDOF.focusLenghtNear, m_DDOF.blurStrenght, m_DDOF.focusDepthOffset);
 	}
 	
 	/**
 	* @brief Reset Depth of Field
 	*/
 	protected static void resetDOF(){
-		PPEffects.ResetDOFOverride();		
+		GetGame().OverrideDOF(false,0,0,0,0,1);
 	}
 	
 	////////////////////////////////////////////////////////////
@@ -626,11 +640,11 @@ class PPEManager {
 	////////////////////////////////////////////////////////////
 
 	static void requestOpticMask(float positionX, float positionY, float radius, float blur){
-		PPEffects.AddPPMask(positionX, positionY, radius, blur);
+		GetGame().AddPPMask(positionX, positionY, radius, blur);
 	}
 		
 	static void resetMask(){
-		PPEffects.ResetPPMask();
+		GetGame().ResetPPMask();
 	}
 	
 	static void requestOpticLens(float distortStrength, float centerX, float centerY, float chromAberStrength){
