@@ -29,10 +29,11 @@ class PPEParamNames { //just a precaution for future updates... because who know
 	static const TPPEParamName VIGNETTE_STRENGTH = "Vignette";
 	static const TPPEParamName VIGNETTE_COLOR = "VignetteColor";
 	
-	static const TPPEParamName MOTION_BLUR_INTENSITY = "Intensity";
 	static const TPPEParamName MOTION_BLUR_POWER = "Power";
 	static const TPPEParamName MOTION_BLUR_MINDEPTH = "MinDepth";
 	static const TPPEParamName MOTION_BLUR_MAXDEPTH = "MaxDepth";
+	static const TPPEParamName MOTION_BLUR_MIN_ANGLE_PER_SEC = "MinAnglePerSec";
+	static const TPPEParamName MOTION_BLUR_MAX_ANGLE_PER_SEC = "MaxAnglePerSec";
 	
 	static const TPPEParamName RADIAL_BLUR_POWER_X = "PowerX";
 	static const TPPEParamName RADIAL_BLUR_POWER_Y = "PowerY";
@@ -686,24 +687,16 @@ class PPEParams {
 	
 	/**
 	* @brief Quickly set motion blur parameters
-	* 	@param intensity \p float - Intensity
 	* 	@param power \p float - Power
 	* 	@param minDepth \p float - Minimum depth from the camera position
 	* 	@param maxDepth \p float - Maximum depth from the camera position
 	*/
-	void setMotionBlur(float intensity, float power, float minDepth, float maxDepth){
-		setParam(MaterialNames.MOTION_BLUR, PPEParamNames.MOTION_BLUR_INTENSITY, intensity);
+	void setMotionBlur(float power, float minDepth, float maxDepth, float minAnglePerSec, float maxAnglePerSec){
 		setParam(MaterialNames.MOTION_BLUR, PPEParamNames.MOTION_BLUR_POWER, power);
 		setParam(MaterialNames.MOTION_BLUR, PPEParamNames.MOTION_BLUR_MINDEPTH, minDepth);
 		setParam(MaterialNames.MOTION_BLUR, PPEParamNames.MOTION_BLUR_MAXDEPTH, maxDepth);
-	}
-	
-	/**
-	* @brief Quickly set motion blur intensity
-	* 	@param intensity \p float - Intensity
-	*/
-	void setMotionBlurIntensity(float intensity){
-		setParam(MaterialNames.MOTION_BLUR, PPEParamNames.MOTION_BLUR_INTENSITY, intensity);
+		setParam(MaterialNames.MOTION_BLUR, PPEParamNames.MOTION_BLUR_MIN_ANGLE_PER_SEC, minAnglePerSec);
+		setParam(MaterialNames.MOTION_BLUR, PPEParamNames.MOTION_BLUR_MAX_ANGLE_PER_SEC, maxAnglePerSec);
 	}
 	
 	/**
@@ -728,6 +721,22 @@ class PPEParams {
 	*/
 	void setMotionBlurMaxDepth(float maxDepth){
 		setParam(MaterialNames.MOTION_BLUR, PPEParamNames.MOTION_BLUR_MAXDEPTH, maxDepth);
+	}
+	
+	/**
+	* @brief Quickly set motion blur minimum angle per second
+	* 	@param maxDepth \p float - Minimum angle
+	*/
+	void setMotionBlurMinAnglePerSec(float minAnglePerSec){
+		setParam(MaterialNames.MOTION_BLUR, PPEParamNames.MOTION_BLUR_MIN_ANGLE_PER_SEC, minAnglePerSec);
+	}
+	
+	/**
+	* @brief Quickly set motion blur maximum angle per second
+	* 	@param maxDepth \p float - Maximum angle
+	*/
+	void setMotionBlurMaxAnglePerSec(float maxAnglePerSec){
+		setParam(MaterialNames.MOTION_BLUR, PPEParamNames.MOTION_BLUR_MAX_ANGLE_PER_SEC, maxAnglePerSec);
 	}
 	
 	

@@ -17,12 +17,6 @@ class PPEManager {
 	protected static float m_DOF_BlurStrength = 0; // final computed DoF blur strength
 	protected static float m_DOF_FocusDistance = 0; // final computed focus distance
 	
-	//=========== Vignette ==============
-	protected static ref PPEFocusingVignettePreset m_focusVignette = new PPEFocusingVignettePreset(); //vignette effect used when focusing
-	 
-	//=========== Misc ==============
-	protected static ref PPEOpticZoomChangeAnimation m_opticZoomChange = new PPEOpticZoomChangeAnimation(0.5); //effect used when changing optic zoom
-	
 	//=========== Motion Blur ==============
 	protected static bool m_MotionBlur_Enabled = true;
 	
@@ -480,19 +474,6 @@ class PPEManager {
 		resetMask();
 	}
 	
-	////////////////////////////////////////////////////////////
-	//				VIGNETTE
-	////////////////////////////////////////////////////////////
-	
-	static void requestFocusVignette(float intensity){
-		m_focusVignette.setVignetteIntensity(intensity);
-	}
-	
-	static void disableFocusVignette(){
-		m_focusVignette.resetAllToDefault();
-	}
-	
-	
 	
 	////////////////////////////////////////////////////////////
 	//				DEPTH of FIELD
@@ -607,11 +588,6 @@ class PPEManager {
 		
 	}
 	
-	static void requestMotionBlur(){
-		PPEffects.UpdateBlur();
-	}
-	
-	
 	////////////////////////////////////////////////////////////
 	//				BLOOM
 	////////////////////////////////////////////////////////////
@@ -646,16 +622,5 @@ class PPEManager {
 	static void resetMask(){
 		GetGame().ResetPPMask();
 	}
-	
-	static void requestOpticLens(float distortStrength, float centerX, float centerY, float chromAberStrength){
-		PPEffects.SetLensEffect(distortStrength, chromAberStrength, centerX, centerY);
-	}
-		
-	static void disableOpticLens(){
-		PPEffects.ResetLensEffect();
-	}
-	
-	static void requestOpticZoomChange(){
-		activate(m_opticZoomChange);
-	}
+
 }

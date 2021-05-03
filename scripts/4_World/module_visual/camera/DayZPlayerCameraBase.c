@@ -47,7 +47,7 @@ modded class DayZPlayerCameraBase{
 	}
 	
 	protected void updateMotionBlur(float pDt){
-		PPEManager.requestMotionBlur();
+		//@todo smooth motion blur value here
 	}
 	
 	bool useSimonvicCam(){

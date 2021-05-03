@@ -94,9 +94,10 @@ class Cfg_sUDE{
 				lens_center_y = 0.0;
 				lens_chrom_aber = 0.0;
 				motion_blur_power = 0.01;
-				motion_blur_intensity = 0.1;
 				motion_blur_mindepth = 0.8;
 				motion_blur_maxdepth = 0.9;
+				motion_blur_min_angle_per_sec = 10.0;
+				motion_blur_max_angle_per_sec = 100.0;
 				gauss_blur_intensity = 0.0;
 				radial_blur_power_x = 0.0;
 				radial_blur_power_y = 0.0;
