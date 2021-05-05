@@ -57,11 +57,6 @@ class SUserConfigVisual : SUserModuleConfig{
 		headLeanAngle = angle;
 	}
 	
-	
-	override bool isValid(){
-		return true;
-	}
-	
 	override void load(){
 		JsonFileLoader<SUserConfigVisual> json = new JsonFileLoader<SUserConfigVisual>;
 		load(json);
@@ -85,10 +80,12 @@ class SUserConfigVisual : SUserModuleConfig{
 	}
 	
 	void save(JsonFileLoader<SUserConfigVisual> json){
+		SFileHelper.touch(getPath());
 		json.JsonSaveFile(getPath(), this);
 	}
 	
 	void createDefault(JsonFileLoader<SUserConfigVisual> json){
+		SFileHelper.touch(getDefaultPath());
 		json.JsonSaveFile(getDefaultPath(), this);
 	}
 }

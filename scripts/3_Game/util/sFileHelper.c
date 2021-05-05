@@ -41,4 +41,32 @@ class SFileHelper {
 			MakeDirectory(temp);
 		}
 	}
+	
+	/**
+	*	@brief Read the file
+	*	 @return content of file, empty string on error
+	*/
+	static string cat(string path){
+		if(!FileExist(path)) {
+			SLog.e("The file [ " + path + " ] doesn't exists","SFileHelper::cat");
+			return string.Empty; 
+		}
+				
+		FileHandle handle = OpenFile( path, FileMode.READ );
+		if ( handle == 0 ){
+			SLog.e("Error when reading [ " + path + " ]","SFileHelper::cat");
+			return string.Empty;
+		}
+		
+		string fileContent;
+		string lineContent;
+		
+		while ( FGets( handle,  lineContent ) >= 0 ){
+			fileContent += lineContent;
+		}
+		
+		CloseFile( handle );
+
+		return fileContent;
+	}
 }

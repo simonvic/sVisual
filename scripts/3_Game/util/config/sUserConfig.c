@@ -45,15 +45,13 @@ class SUserConfig{
 	protected void validateModuleCfgFile(SUserModuleConfig moduleCfg){
 		string path = moduleCfg.getPath();
 		
-		if(!FileExist(path)){
-			SFileHelper.touch(path);
+		if(!FileExist(path) || !moduleCfg.isValid()){
 			string defaultPath = moduleCfg.getDefaultPath();
-			if(FileExist(defaultPath)){
+			if(FileExist(defaultPath) && moduleCfg.isDefaultValid()){
 				CopyFile(defaultPath, path);
 			}else{
 				SLog.w("Couldn't load neither user config [ " + path + " ] nor default config [ " + defaultPath + " ]", "SUserConfig");
 				SLog.i("Creating " + moduleCfg.Type() + " default config file : " + defaultPath,"SUserConfig",1);
-				SFileHelper.touch(defaultPath);
 				moduleCfg.createDefault();
 				SLog.i("Done","",2);
 				SLog.i("Creating " + moduleCfg.Type() + " config file : " + path,"SUserConfig",1);
