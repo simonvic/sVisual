@@ -1,11 +1,3 @@
-enum UISettingsID{
-	HEADBOB = 0,
-	DDOF,
-	MOTION_BLUR,
-	BLOOM,
-	HEAD_LEAN
-}
-
 class OptionsMenuSVisual extends ScriptedWidgetEventHandler{
 	
 	protected ref SUserConfigVisual m_sUserConfig;
@@ -91,11 +83,12 @@ class OptionsMenuSVisual extends ScriptedWidgetEventHandler{
 		
 		////////////////// TOOLTIP ////////////////////////
 		m_TextMap = new map<int, ref Param2<string, string>>;
-		addDescriptionTooltip(m_HeadBobSlider, UISettingsID.HEADBOB, "#STR_SUDE_LAYOUT_OPTIONS_CAMERA_HEADBOB","#STR_SUDE_LAYOUT_OPTIONS_CAMERA_HEADBOB_DESCRIPTION");
-		addDescriptionTooltip(m_DoFSlider, UISettingsID.DDOF, "#STR_SUDE_LAYOUT_OPTIONS_CAMERA_DOF","#STR_SUDE_LAYOUT_OPTIONS_CAMERA_DOF_DESCRIPTION");
-		addDescriptionTooltip(m_MotionBlurSlider, UISettingsID.MOTION_BLUR, "#STR_SUDE_LAYOUT_OPTIONS_CAMERA_MOTIONBLUR","#STR_SUDE_LAYOUT_OPTIONS_CAMERA_MOTIONBLUR_DESCRIPTION");
-		addDescriptionTooltip(m_BloomSlider, UISettingsID.BLOOM, "#STR_SUDE_LAYOUT_OPTIONS_CAMERA_BLOOM","#STR_SUDE_LAYOUT_OPTIONS_CAMERA_BLOOM_DESCRIPTION");
-		addDescriptionTooltip(m_RollSlider, UISettingsID.HEAD_LEAN, "#STR_SUDE_LAYOUT_OPTIONS_CAMERA_ROLL","#STR_SUDE_LAYOUT_OPTIONS_CAMERA_ROLL_DESCRIPTION");
+		int uid = 0;
+		addDescriptionTooltip(m_HeadBobSlider,    ++uid, "#STR_SUDE_LAYOUT_OPTIONS_CAMERA_HEADBOB","#STR_SUDE_LAYOUT_OPTIONS_CAMERA_HEADBOB_DESCRIPTION");
+		addDescriptionTooltip(m_DoFSlider,        ++uid, "#STR_SUDE_LAYOUT_OPTIONS_CAMERA_DOF","#STR_SUDE_LAYOUT_OPTIONS_CAMERA_DOF_DESCRIPTION");
+		addDescriptionTooltip(m_MotionBlurSlider, ++uid, "#STR_SUDE_LAYOUT_OPTIONS_CAMERA_MOTIONBLUR","#STR_SUDE_LAYOUT_OPTIONS_CAMERA_MOTIONBLUR_DESCRIPTION");
+		addDescriptionTooltip(m_BloomSlider,      ++uid, "#STR_SUDE_LAYOUT_OPTIONS_CAMERA_BLOOM","#STR_SUDE_LAYOUT_OPTIONS_CAMERA_BLOOM_DESCRIPTION");
+		addDescriptionTooltip(m_RollSlider,       ++uid, "#STR_SUDE_LAYOUT_OPTIONS_CAMERA_ROLL","#STR_SUDE_LAYOUT_OPTIONS_CAMERA_ROLL_DESCRIPTION");
 		
 		////////////////// CAMERA ////////////////////////
 		m_HeadBobSlider.SetHandler(this);
