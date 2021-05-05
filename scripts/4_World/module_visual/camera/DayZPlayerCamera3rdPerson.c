@@ -15,17 +15,21 @@ modded class DayZPlayerCamera3rdPerson {
 		super.OnUpdate(pDt, pOutResult);
 		m_camManager.onUpdate(pDt, pOutResult);
 		
-		if( PPEManager.isPeakMitigationEnabled() ){
+		if( PPEManager.isPeakMitigationEnabled() || isDDOFEnabled()){
 			updateDoF(pDt);
 		}
 	}
 	
 	override bool isHeadbobEnabled(){
-		return false;
+		return m_camManager.isHeadbobEnabledIn3pp();
 	}
 	
 	override bool isHeadLeanEnabled(){
 		return false;
+	}
+	
+	override bool isDDOFEnabled(){
+		return m_camManager.isDDOFEnabledIn3pp();
 	}
 	
 }

@@ -11,7 +11,7 @@ modded class DayZPlayerCamera1stPerson{
 	override void OnUpdate(float pDt, out DayZPlayerCameraResult pOutResult){
 		super.OnUpdate(pDt, pOutResult);
 
-		if( PPEManager.isDDOFEnabled() && !isADS() ){
+		if( (PPEManager.isDDOFEnabled() || isDDOFEnabled()) && !isADS() ){
 			updateDoF(pDt);
 		}
 		
@@ -26,6 +26,10 @@ modded class DayZPlayerCamera1stPerson{
 	}
 	
 	override bool isHeadLeanEnabled(){
+		return true;
+	}
+	
+	override bool isDDOFEnabled(){
 		return true;
 	}
 	

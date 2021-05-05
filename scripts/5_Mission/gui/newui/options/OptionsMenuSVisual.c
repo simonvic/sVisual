@@ -2,13 +2,14 @@ class OptionsMenuSVisual extends ScriptedWidgetEventHandler{
 	
 	protected ref SUserConfigVisual m_sUserConfig;
 		
-	static const string HEADBOB_WIDGET_NAME = "sude_headbob_setting_";
-	static const string DOF_WIDGET_NAME = "sude_dof_setting_";
-	static const string MOTIONBLUR_WIDGET_NAME = "sude_motionblur_setting_";
-	static const string BLOOM_WIDGET_NAME = "sude_bloom_setting_";
-	static const string DEADZONE_WIDGET_NAME = "sude_deadzone_setting_";
-	static const string LENSZOOM_WIDGET_NAME = "sude_lensZoom_setting_";
-	static const string ROLL_WIDGET_NAME = "sude_roll_setting_";
+	static const string WN_HEADBOB = "sude_headbob_setting_";
+	static const string WN_HEADBOB_SWITCH_3PP = "sude_headbob_switch_3pp_";
+	static const string WN_DOF = "sude_dof_setting_";
+	static const string WN_DOF_SWITCH_3PP = "sude_dof_switch_3pp_";
+	static const string WN_DOF_SWITCH_VEHICLE = "sude_dof_switch_vehicle_";
+	static const string WN_MOTIONBLUR = "sude_motionblur_setting_";
+	static const string WN_BLOOM = "sude_bloom_setting_";
+	static const string WN_HEADLEAN = "sude_roll_setting_";
 		
 	protected Widget						m_Root;
 	
@@ -21,9 +22,12 @@ class OptionsMenuSVisual extends ScriptedWidgetEventHandler{
 	////////////////// CAMERA ////////////////////////
 	protected ref SliderWidget				m_HeadBobSlider;
 	protected ref TextWidget				m_HeadBobValue;
+	protected ref CheckBoxWidget            m_headbobSwitch3pp;
 	
 	protected ref SliderWidget				m_DoFSlider;
 	protected ref TextWidget				m_DoFValue;
+	protected ref CheckBoxWidget            m_dofSwitch3PP;
+	protected ref CheckBoxWidget            m_dofSwitchVehicle;
 	
 	protected ref SliderWidget				m_MotionBlurSlider;
 	protected ref TextWidget				m_MotionBlurValue;
@@ -54,29 +58,41 @@ class OptionsMenuSVisual extends ScriptedWidgetEventHandler{
 		m_Menu = menu;
 
 		////////////////// CAMERA ////////////////////////
-		m_HeadBobSlider = SliderWidget.Cast(m_Root.FindAnyWidget( HEADBOB_WIDGET_NAME+"option" ));
+		m_HeadBobSlider = SliderWidget.Cast(m_Root.FindAnyWidget( WN_HEADBOB+"option" ));
 		m_HeadBobSlider.SetCurrent(HeadBobParams.multiplier);
-		m_HeadBobValue = TextWidget.Cast(m_Root.FindAnyWidget( HEADBOB_WIDGET_NAME+"value" ));
+		m_HeadBobValue = TextWidget.Cast(m_Root.FindAnyWidget( WN_HEADBOB+"value" ));
 		m_HeadBobValue.SetText(m_HeadBobSlider.GetCurrent().ToString());
 		
-		m_DoFSlider = SliderWidget.Cast(m_Root.FindAnyWidget( DOF_WIDGET_NAME+"option" ));
+		m_headbobSwitch3pp = CheckBoxWidget.Cast(m_Root.FindAnyWidget( WN_HEADBOB_SWITCH_3PP+"option" ));
+		m_headbobSwitch3pp.SetChecked(m_sUserConfig.isHeadbobEnabledIn3pp());
+		
+		
+		m_DoFSlider = SliderWidget.Cast(m_Root.FindAnyWidget( WN_DOF+"option" ));
 		m_DoFSlider.SetCurrent(PPEManager.getDDOFStrength());
-		m_DoFValue = TextWidget.Cast(m_Root.FindAnyWidget( DOF_WIDGET_NAME+"value" ));
+		m_DoFValue = TextWidget.Cast(m_Root.FindAnyWidget( WN_DOF+"value" ));
 		m_DoFValue.SetText(m_DoFSlider.GetCurrent().ToString());
 		
-		m_MotionBlurSlider = SliderWidget.Cast(m_Root.FindAnyWidget( MOTIONBLUR_WIDGET_NAME+"option" ));
+		
+		m_dofSwitch3PP = CheckBoxWidget.Cast(m_Root.FindAnyWidget( WN_DOF_SWITCH_3PP+"option" ));
+		m_dofSwitch3PP.SetChecked(m_sUserConfig.isDDOFEnabledIn3PP());
+		
+		m_dofSwitchVehicle = CheckBoxWidget.Cast(m_Root.FindAnyWidget( WN_DOF_SWITCH_VEHICLE+"option" ));
+		m_dofSwitchVehicle.SetChecked(m_sUserConfig.isDDOFEnabledInVehicle());
+		
+		
+		m_MotionBlurSlider = SliderWidget.Cast(m_Root.FindAnyWidget( WN_MOTIONBLUR+"option" ));
 		m_MotionBlurSlider.SetCurrent(PPEManager.getMotionBlurStrength());
-		m_MotionBlurValue = TextWidget.Cast(m_Root.FindAnyWidget( MOTIONBLUR_WIDGET_NAME+"value" ));
+		m_MotionBlurValue = TextWidget.Cast(m_Root.FindAnyWidget( WN_MOTIONBLUR+"value" ));
 		m_MotionBlurValue.SetText(m_MotionBlurSlider.GetCurrent().ToString());
 		
-		m_BloomSlider = SliderWidget.Cast(m_Root.FindAnyWidget( BLOOM_WIDGET_NAME+"option" ));
+		m_BloomSlider = SliderWidget.Cast(m_Root.FindAnyWidget( WN_BLOOM+"option" ));
 		m_BloomSlider.SetCurrent(PPEManager.getBloomStrength());
-		m_BloomValue = TextWidget.Cast(m_Root.FindAnyWidget( BLOOM_WIDGET_NAME+"value" ));
+		m_BloomValue = TextWidget.Cast(m_Root.FindAnyWidget( WN_BLOOM+"value" ));
 		m_BloomValue.SetText(m_BloomSlider.GetCurrent().ToString());
 		
-		m_RollSlider = SliderWidget.Cast(m_Root.FindAnyWidget( ROLL_WIDGET_NAME+"option" ));
+		m_RollSlider = SliderWidget.Cast(m_Root.FindAnyWidget( WN_HEADLEAN+"option" ));
 		m_RollSlider.SetCurrent(HeadLeanParams.leanAngle);
-		m_RollValue = TextWidget.Cast(m_Root.FindAnyWidget( ROLL_WIDGET_NAME+"value" ));
+		m_RollValue = TextWidget.Cast(m_Root.FindAnyWidget( WN_HEADLEAN+"value" ));
 		m_RollValue.SetText(m_RollSlider.GetCurrent().ToString());
 				
 		
@@ -92,7 +108,10 @@ class OptionsMenuSVisual extends ScriptedWidgetEventHandler{
 		
 		////////////////// CAMERA ////////////////////////
 		m_HeadBobSlider.SetHandler(this);
+		m_headbobSwitch3pp.SetHandler(this);
 		m_DoFSlider.SetHandler(this);
+		m_dofSwitch3PP.SetHandler(this);
+		m_dofSwitchVehicle.SetHandler(this);
 		m_MotionBlurSlider.SetHandler(this);
 		m_BloomSlider.SetHandler(this);
 		m_RollSlider.SetHandler(this);
@@ -117,23 +136,23 @@ class OptionsMenuSVisual extends ScriptedWidgetEventHandler{
 				SliderWidget s = SliderWidget.Cast(w);
 				
 				switch(s.GetName()){
-					case HEADBOB_WIDGET_NAME+"option":{
+					case WN_HEADBOB+"option":{
 						UpdateHeadBobOption(s.GetCurrent());
 						break;
 					}
-					case DOF_WIDGET_NAME+"option":{
+					case WN_DOF+"option":{
 						UpdateDoFOption(s.GetCurrent());
 						break;
 					}
-					case MOTIONBLUR_WIDGET_NAME+"option":{
+					case WN_MOTIONBLUR+"option":{
 						UpdateMotionBlurOption(s.GetCurrent());
 						break;
 					}
-					case BLOOM_WIDGET_NAME+"option":{
+					case WN_BLOOM+"option":{
 						UpdateBloomOption(s.GetCurrent());
 						break;
 					}
-					case ROLL_WIDGET_NAME+"option":{
+					case WN_HEADLEAN+"option":{
 						UpdateRollOption(s.GetCurrent());
 						break;
 					}
@@ -144,12 +163,15 @@ class OptionsMenuSVisual extends ScriptedWidgetEventHandler{
 				CheckBoxWidget c = CheckBoxWidget.Cast(w);
 				
 				switch(c.GetName()){
-					/*
-					case ROLL_WIDGET_NAME+"option":{
-						UpdateRollOption(c.IsChecked());
+					case WN_HEADBOB_SWITCH_3PP+"option":
+						updateHeadbobSwitch3PP(c.IsChecked());
 						break;
-					}
-					*/
+					case WN_DOF_SWITCH_3PP+"option":
+						updateDOFSwitch3PP(c.IsChecked());
+						break;
+					case WN_DOF_SWITCH_VEHICLE+"option":
+						updateDOFSwitchVehicle(c.IsChecked());
+						break;
 					default: SLog.w("No checkbox  widget name found.","OptionsMenuSVisual::OnChange");
 				}
 					
@@ -168,11 +190,31 @@ class OptionsMenuSVisual extends ScriptedWidgetEventHandler{
 		onConfigChange();
 	}
 	
+	void updateHeadbobSwitch3PP(bool checked){		
+		m_sUserConfig.setHeadbobEnabledIn3pp(checked);
+		onConfigChange();
+	}
+	
+	
 	void UpdateDoFOption( float new_value ){
 		PPEManager.setDDOFBlurStrength(new_value);
 		m_DoFValue.SetText(new_value.ToString());
 		
 		m_sUserConfig.setDDOFIntensity(new_value);
+		onConfigChange();
+	}
+	
+	void updateDOFSwitch3PP(bool checked){
+		if(!checked) PPEManager.disableDDOF();
+		
+		m_sUserConfig.setDDOFEnabledIn3PP(checked);
+		onConfigChange();
+	}
+	
+	void updateDOFSwitchVehicle(bool checked){
+		if(!checked) PPEManager.disableDDOF();
+		
+		m_sUserConfig.setDDOFEnabledInVehicle(checked);
 		onConfigChange();
 	}
 	

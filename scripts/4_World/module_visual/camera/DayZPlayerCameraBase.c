@@ -62,6 +62,10 @@ modded class DayZPlayerCameraBase{
 		return false;
 	}
 	
+	bool isDDOFEnabled(){
+		return false;
+	}
+	
 	float getLeanRollAngle(){
 		return DayZPlayerImplement.Cast(m_pPlayer).m_MovementState.m_fLeaning * HeadLeanParams.leanAngle;
 	}

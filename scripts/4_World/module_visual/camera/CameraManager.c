@@ -8,9 +8,12 @@ class CameraManager {
 	protected PlayerBase m_player;
 	protected DayZPlayerCameraBase m_camera;
 	
+	protected SUserConfigVisual m_sUserConfigVisual;
+	
 	void CameraManager(DayZPlayerCameraBase camera, PlayerBase player){
 		m_camera = camera;
 		m_player = player;
+		m_sUserConfigVisual = SUserConfig.getInstance().visual();
 		onInit();
 	}
 	
@@ -65,6 +68,18 @@ class CameraManager {
 	
 	protected void applyHeadLean(float pDt, out vector angles){
 		angles[2] = angles[2] + m_camera.getLeanRollAngle();
+	}
+	
+	bool isHeadbobEnabledIn3pp(){
+		return m_sUserConfigVisual.isHeadbobEnabledIn3pp();
+	}
+	
+	bool isDDOFEnabledIn3pp(){
+		return m_sUserConfigVisual.isDDOFEnabledIn3PP();
+	}
+	
+	bool isDDOFEnabledInVehicle(){
+		return m_sUserConfigVisual.isDDOFEnabledInVehicle();
 	}
 	
 	/**
