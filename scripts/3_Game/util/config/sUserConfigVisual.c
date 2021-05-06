@@ -1,4 +1,4 @@
-class SUserConfigVisual : SUserModuleConfig{
+class SUserConfigVisual : SUserConfigBase{
 		
 	override string getPath(){
 		return "$saves:\\sUDE\\config\\sVisual.json";

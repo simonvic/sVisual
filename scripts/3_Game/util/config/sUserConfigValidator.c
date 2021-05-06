@@ -35,7 +35,7 @@ class SUserConfigValidator : Managed{
 	*/
 	static bool canBeDeserialized(string stringData, out string deserializationError){
 		JsonSerializer serializer = new JsonSerializer;
-		SUserModuleConfig data = new SUserModuleConfig;
+		SUserConfigBase data = new SUserConfigBase;
 		return serializer.ReadFromString( data, stringData, deserializationError );
 	}
 	

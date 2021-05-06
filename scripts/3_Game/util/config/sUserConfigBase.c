@@ -1,4 +1,4 @@
-class SUserModuleConfig : Managed{
+class SUserConfigBase : Managed{
 	
 	void load(){}	
 	void save(){}	

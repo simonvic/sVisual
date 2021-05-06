@@ -1,4 +1,4 @@
-typedef map<typename, ref SUserModuleConfig> TSUserModuleConfigs;
+typedef map<typename, ref SUserConfigBase> TSUserConfigModules;
 
 /*
 *	@Singleton
@@ -11,7 +11,7 @@ class SUserConfig{
 		return INSTANCE;
 	}
 	
-	protected ref TSUserModuleConfigs modulesConfigs = new TSUserModuleConfigs;
+	protected ref TSUserConfigModules modulesConfigs = new TSUserConfigModules;
 		
 	/**
 	*	@brief Load a module config file
@@ -23,7 +23,7 @@ class SUserConfig{
 		if(isModuleLoaded(moduleType) && !reload) return;
 		
 		//Check if correct typename
-		SUserModuleConfig moduleCfg = SUserModuleConfig.Cast(moduleType.Spawn());
+		SUserConfigBase moduleCfg = SUserConfigBase.Cast(moduleType.Spawn());
 		if(!moduleCfg){
 			SLog.e("Error while loading < " + moduleType + " > Maybe not a module type?. Ignoring....","SUserConfig::load");
 			return;
@@ -40,9 +40,9 @@ class SUserConfig{
 	
 	/**
 	*	@brief Validate a module config file. Copy the default if not present; create default file if also not present
-	*	 @param moduleCfg SUserModuleConfig - Module to validate
+	*	 @param moduleCfg SUserConfigBase - Module to validate
 	*/
-	protected void validateModuleCfgFile(SUserModuleConfig moduleCfg){
+	protected void validateModuleCfgFile(SUserConfigBase moduleCfg){
 		string path = moduleCfg.getPath();
 		
 		if(!FileExist(path) || !moduleCfg.isValid()){
@@ -69,21 +69,21 @@ class SUserConfig{
 	*	@brief Save modules configuration
 	*/
 	void save(){
-		foreach(SUserModuleConfig module : modulesConfigs){
+		foreach(SUserConfigBase module : modulesConfigs){
 			module.save();
 		}
 	}
 	
 	
 	bool isValid(){
-		foreach(SUserModuleConfig module : modulesConfigs){
+		foreach(SUserConfigBase module : modulesConfigs){
 			if(!module.isValid()) return false;
 		}
 		return true;
 	}
 	
 	void printLoadedModules(){
-		foreach(SUserModuleConfig module : modulesConfigs){
+		foreach(SUserConfigBase module : modulesConfigs){
 			SLog.d(module);
 		}
 	}

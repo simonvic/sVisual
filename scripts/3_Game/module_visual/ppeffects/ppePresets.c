@@ -63,7 +63,7 @@ class PPEMaterialPresetBase : PPEParams{
 class PPEDefaultPreset : PPEMaterialPresetBase{
 	override void init(){
 		
-		SConfigVisual cfg = SConfig.visual();
+		SGameConfigVisual cfg = SGameConfig.visual();
 		
 		// ========= Float params =============
 		setParam(MaterialNames.GLOW,        PPEParamNames.SATURATION,                          cfg.getDefaultPPEFloat("saturation") );

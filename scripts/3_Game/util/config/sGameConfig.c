@@ -1,4 +1,4 @@
-class SConfig {
+class SGameConfig {
 
 	static const string CFG_BASENAME = "Cfg_sUDE";
 	
@@ -39,8 +39,8 @@ class SConfig {
 	}
 	
 	
-	private static ref SConfigVisual m_visual = new SConfigVisual();
-	static SConfigVisual visual(){
+	private static ref SGameConfigVisual m_visual = new SGameConfigVisual();
+	static SGameConfigVisual visual(){
 		return m_visual;
 	}
 	
