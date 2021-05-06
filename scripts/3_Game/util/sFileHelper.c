@@ -69,4 +69,22 @@ class SFileHelper {
 
 		return fileContent;
 	}
+	
+	/**
+	*	@brief Echo to the file
+	*	 @param data \p string - data to echo
+	*	 @param path \p string - path of file to be echoed to
+	*/
+	static void echo(string data, string path){
+		FileHandle handle = OpenFile( path, FileMode.WRITE );
+		if ( handle == 0 ){
+			SLog.e("Error when opening [ " + path + " ]","SFileHelper::echo");
+			return;
+		}
+		
+		FPrint( handle, data );
+		
+		CloseFile( handle );
+	}
+	
 }

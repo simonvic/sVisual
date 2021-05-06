@@ -8,6 +8,18 @@ class SUserConfigVisual : SUserConfigBase{
 		return "$profile:\\sUDE\\config\\sVisual_default.json";
 	}
 	
+	override void deserialize(string data, out string error){
+		SUserConfigVisual cfg = this;
+		m_serializer.ReadFromString(cfg, data, error);
+	}
+	
+	override string serialize(){
+		string result;
+		SUserConfigVisual cfg = this; //@todo check why I can't directly  use 'this' (wrong type inference?)
+		m_serializer.WriteToString(cfg, true, result);
+		return result;
+	}
+		
 	///////////////////////////////////////
 	// these go in json
 	protected float ddofIntensity = 20.0;
@@ -84,35 +96,5 @@ class SUserConfigVisual : SUserConfigBase{
 		headLeanAngle = angle;
 	}
 	
-	override void load(){
-		JsonFileLoader<SUserConfigVisual> json = new JsonFileLoader<SUserConfigVisual>;
-		load(json);
-		delete json;
-	}
 	
-	override void save(){
-		JsonFileLoader<SUserConfigVisual> json = new JsonFileLoader<SUserConfigVisual>;
-		save(json);
-		delete json;
-	}
-	
-	override void createDefault(){
-		JsonFileLoader<SUserConfigVisual> json = new JsonFileLoader<SUserConfigVisual>;
-		createDefault(json);
-		delete json;
-	}
-	
-	void load(JsonFileLoader<SUserConfigVisual> json){
-		json.JsonLoadFile(getPath(), this);
-	}
-	
-	void save(JsonFileLoader<SUserConfigVisual> json){
-		SFileHelper.touch(getPath());
-		json.JsonSaveFile(getPath(), this);
-	}
-	
-	void createDefault(JsonFileLoader<SUserConfigVisual> json){
-		SFileHelper.touch(getDefaultPath());
-		json.JsonSaveFile(getDefaultPath(), this);
-	}
 }

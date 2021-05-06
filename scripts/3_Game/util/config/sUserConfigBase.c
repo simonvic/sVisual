@@ -1,8 +1,9 @@
+
 class SUserConfigBase : Managed{
 	
-	void load(){}	
-	void save(){}	
-	void createDefault(){}
+	protected static ref JsonSerializer m_serializer = new JsonSerializer;
+	
+	//protected float serialVersionUID = 69; //@todo use serialVersionUID instead of checking the fields
 	
 	string getPath(){
 		return "";
@@ -12,10 +13,37 @@ class SUserConfigBase : Managed{
 		return "";
 	}
 	
+	void deserialize(string data, out string error){}
+	string serialize(){}
+	
+	void load(){
+		string data = SFileHelper.cat(getPath());
+		if(data == string.Empty) return;
+		
+		string error;
+		deserialize(data, error);
+		if(error != string.Empty){
+			SLog.e(error);
+		}
+	}		
+	
+	void save(){
+		SFileHelper.touch(getPath());
+		SFileHelper.echo(serialize(), getPath());
+	}	
+		
+	void createDefault(){
+		SFileHelper.touch(getDefaultPath());
+		SFileHelper.echo(serialize(), getDefaultPath());
+	}
+		
+		
 	TStringArray getFields(){
 		TStringArray fields = new TStringArray;
 		for(int i = 0; i<Type().GetVariableCount(); i++){
-			fields.Insert(Type().GetVariableName(i));
+			if(Type().GetVariableName(i) != "m_serializer"){ //@todo lol... find a solution for [NonSerialized()]
+				fields.Insert(Type().GetVariableName(i));
+			}
 		}
 		return fields;
 	}
