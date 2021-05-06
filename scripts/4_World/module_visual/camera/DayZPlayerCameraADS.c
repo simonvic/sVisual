@@ -4,7 +4,6 @@
 modded class DayZPlayerCameraIronsights {
 	
 	void DayZPlayerCameraIronsights(DayZPlayer pPlayer, HumanInputController pInput){
-		PPEManager.disableDDOF();		
 	}
 	
 	void ~DayZPlayerCameraIronsights(DayZPlayer pPlayer, HumanInputController pInput){

@@ -6,10 +6,8 @@ modded class DayZPlayerCameraBase{
 	
 	//=========== Depth of Field ==============
 	protected int m_ddofStartBoneIdx = -1;
-	protected float m_currentFocusDistance = 0;
 	protected float m_targetFocusDistance = 1;
 	protected ref SRaycast m_sRaycast;
-	protected float m_ddofVelocity[1];
 	
 	
 	//======================================
@@ -22,14 +20,21 @@ modded class DayZPlayerCameraBase{
 		m_sRaycast = new SRaycast("0 0 0", "0 0 0", 0.05, ObjIntersectView, CollisionFlags.NEARESTCONTACT);
 	}
 	
+	void ~DayZPlayerCameraBase(){
+		
+	}
+	
 	
 	override void OnUpdate(float pDt, out DayZPlayerCameraResult pOutResult){
 		super.OnUpdate(pDt, pOutResult);
 		m_camManager.onUpdate(pDt, pOutResult);
 	}
 	
-	protected void updateDoF(float pDt){
-		
+	protected bool canRequestDDOF(){
+		return PPEManager.isDDOFEnabled() && isDDOFEnabled() && !m_iPlayer.IsCameraBlending())
+	}
+	
+	protected void updateDDOF(float pDt){
 		vector direction = GetGame().GetCurrentCameraDirection();
 		vector from = m_pPlayer.GetBonePositionWS(m_ddofStartBoneIdx);
 		vector to = from + (direction * PPEManager.getDDOFMaxDistance());
@@ -41,9 +46,7 @@ modded class DayZPlayerCameraBase{
 		m_sRaycast.launch();
 		
 		m_targetFocusDistance = vector.Distance( from, m_sRaycast.getContactPos() ); // calculate distance between you and the point
-		m_currentFocusDistance = Math.SmoothCD(m_currentFocusDistance, m_targetFocusDistance, m_ddofVelocity, 0.15, 1000, pDt); //smooth the focus distance over time
-		m_currentFocusDistance = Math.Clamp(m_currentFocusDistance, PPEManager.getDDOFMinDistance(), PPEManager.getDDOFMaxDistance()); //temp-fix
-		PPEManager.requestDDOF(m_currentFocusDistance);
+		PPEManager.requestDDOF(m_targetFocusDistance, pDt);
 	}
 	
 	protected void updateMotionBlur(float pDt){

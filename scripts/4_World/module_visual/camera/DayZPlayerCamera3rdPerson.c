@@ -1,11 +1,6 @@
 modded class DayZPlayerCamera3rdPerson {
 	
 	void DayZPlayerCamera3rdPerson(DayZPlayer pPlayer, HumanInputController pInput){
-		if(PPEManager.isPeakMitigationEnabled()){
-			PPEManager.enableDDOF();
-		}else{
-			PPEManager.disableDDOF();	
-		}
 	}
 	
 	void ~DayZPlayerCamera3rdPerson(DayZPlayer pPlayer, HumanInputController pInput){
@@ -13,10 +8,12 @@ modded class DayZPlayerCamera3rdPerson {
 	
 	override void OnUpdate(float pDt, out DayZPlayerCameraResult pOutResult){
 		super.OnUpdate(pDt, pOutResult);
+		
+		//need to also update here because vanilla doesn't call super
 		m_camManager.onUpdate(pDt, pOutResult);
 		
-		if( PPEManager.isPeakMitigationEnabled() || isDDOFEnabled()){
-			updateDoF(pDt);
+		if(canRequestDDOF()){
+			updateDDOF(pDt);
 		}
 	}
 	

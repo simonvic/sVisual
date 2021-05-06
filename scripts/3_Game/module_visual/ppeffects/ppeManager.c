@@ -7,16 +7,14 @@ class PPEManager {
 	static bool m_debugMode = false;
 	
 	//=========== Depth of Field ==============
-	protected static bool m_WeaponDOF_Enabled = true; // Weapon Depth of Field (used when aiming down sight)
-	protected static ref DoFPreset m_weaponDOF = new WeaponDOFPreset(); //default Depth of Field while aiming down sight
-	
+	protected static ref DDOFPreset m_DDOF = new DDOFPreset(); //default Dynamic Depth of Field values
 	protected static bool m_DDOF_Enabled = true; // Dynamic Depth of Field (used in 1st person view)	
-	protected static bool m_peakMitigationEnabled = false; // Dynamic Depth of Field (used in 3rd person view as shoulder peak mitigation)	
-	protected static ref DoFPreset m_DDOF = new DDOFPreset(); //default Dynamic Depth of Field values
+	protected static float m_DDOFVelocity[1];
 	
-	protected static float m_DOF_BlurStrength = 0; // final computed DoF blur strength
-	protected static float m_DOF_FocusDistance = 0; // final computed focus distance
-	
+	protected static bool m_peakMitigationEnabled = false; // Dynamic Depth of Field (used in 3rd person view as shoulder peak mitigation)
+
+	protected static ref DoFPreset m_weaponDOF = new WeaponDOFPreset(); //default Depth of Field while aiming down sight
+
 	//=========== Motion Blur ==============
 	protected static bool m_MotionBlur_Enabled = true;
 	
@@ -459,11 +457,11 @@ class PPEManager {
 	}
 	
 	static void vanillaOverrideDOF(bool enable, float focusDistance, float focusLength, float focusLengthNear, float blur, float focusDepthOffset) {
-		GetGame().OverrideDOF(enable, focusDistance, focusLength, focusLengthNear, blur, focusDepthOffset);
+		//applyDOF(enable, focusDistance, focusLength, focusLengthNear, blur, focusDepthOffset);
 	}
 	
 	static void vanillaResetDOFOverride(){
-		resetDOF();
+		//resetDOF();
 	}
 	
 	static void vanillaAddPPMask(float ndcX, float ndcY, float ndcRadius, float ndcBlur) {
@@ -480,7 +478,7 @@ class PPEManager {
 	////////////////////////////////////////////////////////////
 	
 	static float getDDOFStrength(){
-		return m_DDOF.blurStrenght;
+		return m_DDOF.blurStrength;
 	}
 	
 	static float getDDOFMaxDistance(){
@@ -501,33 +499,17 @@ class PPEManager {
 	
 	static void setDDOFBlurStrength(float blurStrength){
 		if(blurStrength <= 0){
-			m_DDOF_Enabled = false;
-			m_DDOF.blurStrenght = 0;
+			m_DDOF.blurStrength = 0;
+			disableDDOF();
 		}else{
-			m_DDOF_Enabled = true;
-			m_DDOF.blurStrenght = blurStrength;
+			m_DDOF.blurStrength = blurStrength;
+			enableDDOF();
 		}
 	}
-	
-	static void requestIronsightDOF(){ //@todo add ironsight dof preset or use "per-weapon" dof like vanilla
-		GetGame().OverrideDOF(m_WeaponDOF_Enabled, m_weaponDOF.focusDistance, m_weaponDOF.focusLenght, m_weaponDOF.focusLenghtNear, m_weaponDOF.blurStrenght * 0.9, m_weaponDOF.focusDepthOffset);
-	}
-	
-	static void disableIronsightDOF(){
-		resetDOF();
-	}
-	
-	static void requestOpticDOF(){
-		GetGame().OverrideDOF(m_WeaponDOF_Enabled, m_weaponDOF.focusDistance, m_weaponDOF.focusLenght, m_weaponDOF.focusLenghtNear, m_weaponDOF.blurStrenght, m_weaponDOF.focusDepthOffset);
-	}
-	
-	static void disableOpticDOF(){
-		resetDOF();
-	}
-	
-	static void requestDDOF(float focusDistance){
-		m_DDOF.focusDistance = focusDistance;
-		applyDOF();		
+		
+	static void requestDDOF(float focusDistance, float pDt){
+		m_DDOF.focusDistance = Math.SmoothCD(m_DDOF.focusDistance, focusDistance, m_DDOFVelocity, 0.15, 1000, pDt); //smooth the focus distance over time
+		applyDOF(m_DDOF);
 	}
 	
 	static void enableDDOF(){
@@ -549,21 +531,26 @@ class PPEManager {
 	}
 	
 	/**
-	* @brief Update DoF applying all registered modifiers
+	*	@brief Reset Depth of Field
 	*/
-	protected static void applyDOF(){
-		//do all the cool computation stuff here and then apply final result
-		//if is in weapon, if needs glasses, if burlap sacks etc.
-		//for now just use DDOF
-		GetGame().OverrideDOF(true, m_DDOF.focusDistance, m_DDOF.focusLenght, m_DDOF.focusLenghtNear, m_DDOF.blurStrenght, m_DDOF.focusDepthOffset);
+	static void resetDOF(){
+		applyDOF(false, Math.Clamp(m_DDOF.focusDistance, m_DDOF.focusMinDistance, m_DDOF.focusMaxDistance), m_DDOF.focusLength, m_DDOF.focusLengthNear, m_DDOF.blurStrength, m_DDOF.focusDepthOffset);
 	}
 	
-	/**
-	* @brief Reset Depth of Field
-	*/
-	protected static void resetDOF(){
-		GetGame().OverrideDOF(false,0,0,0,0,1);
+	protected static void applyDOF(DoFPreset dof){
+	
+		applyDOF(true, Math.Clamp(dof.focusDistance, dof.focusMinDistance, dof.focusMaxDistance), dof.focusLength, dof.focusLengthNear, dof.blurStrength, dof.focusDepthOffset);
 	}
+	
+	protected static void applyDOF(bool enabled, float focusDistance, float focusLength, float focusLengthNear, float blurStrength, float focusDepthOffset){
+		//SLog.d(string.Format("Distance: %1 | Blur : %2",focusDistance,blurStrength));
+		GetGame().OverrideDOF(enabled, focusDistance, focusLength, focusLengthNear, blurStrength, focusDepthOffset);
+	}
+	
+	
+	
+	
+	
 	
 	////////////////////////////////////////////////////////////
 	//				MOTION BLUR

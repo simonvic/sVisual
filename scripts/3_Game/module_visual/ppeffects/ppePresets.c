@@ -10,22 +10,36 @@ class PPEPresetBase{
 }
 
 class DoFPreset : PPEPresetBase{
-	float blurStrenght;
+	float blurStrength;
 	float focusDistance;
-	float focusLenght;
-	float focusLenghtNear;
+	float focusLength;
+	float focusLengthNear;
 	float focusDepthOffset;
 	float focusMinDistance;
 	float focusMaxDistance;
 	
+	void initPreset(DoFPreset dof){
+		initPreset(dof.blurStrength, dof.focusDistance, dof.focusLength, dof.focusLengthNear, dof.focusDepthOffset, dof.focusMinDistance, dof.focusMaxDistance);
+	}
+	
 	void initPreset(float blur, float fDistance, float fLength, float fLengthNear, float fDepthOffset, float fMinDistance, float fMaxDistance){
-		blurStrenght = blur;
+		blurStrength = blur;
 		focusDistance = fDistance;
-		focusLenght = fLength;
-		focusLenghtNear = fLengthNear;
+		focusLength = fLength;
+		focusLengthNear = fLengthNear;
 		focusDepthOffset = fDepthOffset;
 		focusMinDistance = fMinDistance;
 		focusMaxDistance = fMaxDistance;
+	}
+	
+	void reset(){
+		blurStrength = 0;
+		focusDistance = 0;
+		focusLength = 0;
+		focusLengthNear = 0;
+		focusDepthOffset = 1;
+		focusMinDistance = 0;
+		focusMaxDistance = 1;
 	}
 }
 
