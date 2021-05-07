@@ -474,11 +474,11 @@ class PPEManager {
 	}
 	
 	static void vanillaOverrideDOF(bool enable, float focusDistance, float focusLength, float focusLengthNear, float blur, float focusDepthOffset) {
-		//applyDOF(enable, focusDistance, focusLength, focusLengthNear, blur, focusDepthOffset);
+		applyDOF(enable, focusDistance, focusLength, focusLengthNear, blur, focusDepthOffset);
 	}
 	
 	static void vanillaResetDOFOverride(){
-		//resetDOF();
+		resetDOF();
 	}
 	
 	static void vanillaAddPPMask(float ndcX, float ndcY, float ndcRadius, float ndcBlur) {
