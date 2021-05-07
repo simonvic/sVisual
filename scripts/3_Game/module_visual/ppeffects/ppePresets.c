@@ -41,6 +41,15 @@ class DoFPreset : PPEPresetBase{
 		focusMinDistance = 0;
 		focusMaxDistance = 1;
 	}
+	
+	bool equals(DoFPreset dof, float epsilon = 1e-32){
+		if(this == dof) return true;
+		if(dof == null) return false;
+		if(this.Type() != dof.Type()) return false;
+		TFloatArray f = {blurStrength, focusDistance, focusLength, focusLengthNear, focusDepthOffset, focusMinDistance, focusMaxDistance};
+		TFloatArray f2 = {dof.blurStrength, dof.focusDistance, dof.focusLength, dof.focusLengthNear, dof.focusDepthOffset, dof.focusMinDistance, dof.focusMaxDistance};
+		return SMath.equal(f, f2, epsilon);
+	}
 }
 
 class PPEMaskPreset : PPEPresetBase{

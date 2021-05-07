@@ -8,13 +8,13 @@ modded class DayZPlayerCamera1stPerson{
 	
 	override void OnUpdate(float pDt, out DayZPlayerCameraResult pOutResult){
 		super.OnUpdate(pDt, pOutResult);
-		PPEManager.resetDOF();
-		if(canRequestDDOF()){
-			updateDDOF(pDt);
-		}
 		
 		if( PPEManager.isMotionBlurEnabled() ){
 			updateMotionBlur(pDt);	
+		}
+		
+		if(canRequestDDOF()) {
+			updateDDOF(pDt);
 		}
 		
 	}

@@ -204,17 +204,15 @@ class OptionsMenuSVisual extends ScriptedWidgetEventHandler{
 		onConfigChange();
 	}
 	
-	void updateDOFSwitch3PP(bool checked){
-		if(!checked) PPEManager.resetDOF();
-		
+	void updateDOFSwitch3PP(bool checked){		
 		m_sUserConfig.setDDOFEnabledIn3PP(checked);
+		PPEManager.setDDOFEnabledIn3PP(checked);
 		onConfigChange();
 	}
 	
-	void updateDOFSwitchVehicle(bool checked){
-		if(!checked) PPEManager.resetDOF();
-		
+	void updateDOFSwitchVehicle(bool checked){		
 		m_sUserConfig.setDDOFEnabledInVehicle(checked);
+		PPEManager.setDDOFEnabledInVehicle(checked);
 		onConfigChange();
 	}
 	

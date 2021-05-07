@@ -7,13 +7,14 @@ class PPEManager {
 	static bool m_debugMode = false;
 	
 	//=========== Depth of Field ==============
-	protected static ref DDOFPreset m_DDOF = new DDOFPreset(); //default Dynamic Depth of Field values
-	protected static bool m_DDOF_Enabled = true; // Dynamic Depth of Field (used in 1st person view)	
+	protected static ref DDOFPreset m_DDOF = new DDOFPreset(); //default Dynamic Depth of Field values 
+	protected static bool m_DDOF_Enabled = true;
 	protected static float m_DDOFVelocity[1];
+	protected static float m_DDOFBlurVelocity[1];
 	
-	protected static bool m_peakMitigationEnabled = false; // Dynamic Depth of Field (used in 3rd person view as shoulder peak mitigation)
+	protected static ref DoFPreset m_targetDOF = new DoFPreset(); //target Depth of field values
 
-	protected static ref DoFPreset m_weaponDOF = new WeaponDOFPreset(); //default Depth of Field while aiming down sight
+	protected static ref DoFPreset m_resultDOF = new DoFPreset(); //final DOF calculated
 
 	//=========== Motion Blur ==============
 	protected static bool m_MotionBlur_Enabled = true;
@@ -54,6 +55,7 @@ class PPEManager {
 	}
 	
 	static void onInit(){
+		initDOF();
 		loadMaterials();	
 		loadDefaultParams();	
 		activateInitialPPE();
@@ -61,6 +63,11 @@ class PPEManager {
 		
 	protected static void onDestroy(){
 		
+	}
+	
+	protected static void initDOF(){
+		m_targetDOF.initPreset(m_DDOF);
+		m_resultDOF.initPreset(m_DDOF);
 	}
 	
 	//@todo find a way of caching material instead of getting it every time
@@ -175,7 +182,17 @@ class PPEManager {
 		if(m_resultPPE.hasChanged()){
 			applyParams(m_resultPPE);
 		}
+		
+		if(isDDOFEnabled() && !m_resultDOF.equals(m_targetDOF, 0.01)){
+			updateDDOF(delta_time);
+			applyDOF(m_resultDOF);
+		}
 	}	
+	
+	protected static void updateDDOF(float pDt){
+		m_resultDOF.blurStrength = Math.SmoothCD(m_resultDOF.blurStrength, m_targetDOF.blurStrength, m_DDOFBlurVelocity, 0.05, 100, pDt); //smooth the blur strength over time
+		m_resultDOF.focusDistance = Math.SmoothCD(m_resultDOF.focusDistance, m_targetDOF.focusDistance, m_DDOFVelocity, 0.15, 1000, pDt); //smooth the focus distance over time
+	}
 		
 	/**
 	* @brief Iterate over all animated parameters and animate
@@ -489,27 +506,20 @@ class PPEManager {
 		return m_DDOF.focusMinDistance;
 	}
 		
-	static bool isDDOFEnabled(){
-		return m_DDOF_Enabled;
-	}
-	
-	static bool isPeakMitigationEnabled(){
-		return m_peakMitigationEnabled;
-	}
-	
 	static void setDDOFBlurStrength(float blurStrength){
 		if(blurStrength <= 0){
 			m_DDOF.blurStrength = 0;
-			disableDDOF();
+			PPEManager.resetDDOF(true);
 		}else{
 			m_DDOF.blurStrength = blurStrength;
-			enableDDOF();
 		}
 	}
 		
-	static void requestDDOF(float focusDistance, float pDt){
-		m_DDOF.focusDistance = Math.SmoothCD(m_DDOF.focusDistance, focusDistance, m_DDOFVelocity, 0.15, 1000, pDt); //smooth the focus distance over time
-		applyDOF(m_DDOF);
+	static void requestDDOF(float focusDistance){		
+		m_DDOF.focusDistance = focusDistance;
+		m_targetDOF.focusDistance = focusDistance;
+		m_targetDOF.blurStrength = m_DDOF.blurStrength;
+		enableDDOF();
 	}
 	
 	static void enableDDOF(){
@@ -518,27 +528,51 @@ class PPEManager {
 	
 	static void disableDDOF(){
 		m_DDOF_Enabled = false;
-		resetDOF();
 	}
 	
-	static void enablePeakMitigation(){
-		m_peakMitigationEnabled = true;
+	static bool isDDOFEnabled(){
+		return m_DDOF_Enabled && m_DDOF.blurStrength != 0;
 	}
 	
-	static void disablePeakMitigation(){
-		m_peakMitigationEnabled = false;
-		resetDOF();
+	static void setDDOFEnabledIn3PP(bool enabled){
+		if(enabled) {
+			enableDDOF();
+		}else{
+			disableDDOF();
+			resetDDOF(true);
+		}
+	}
+	
+	static void setDDOFEnabledInVehicle(bool enabled){
+		if(enabled) {
+			enableDDOF();
+		}else{
+			disableDDOF();
+			resetDDOF(true);
+		}
+	}
+
+	/**
+	*	@brief Reset Dynamic Depth of Field
+	*	 @param immediate \p bool - immediately reset the DoF
+	*/
+	static void resetDDOF(bool immediate = false){
+		if(immediate){
+			resetDOF();
+		}else{
+			m_targetDOF.blurStrength = 0;
+			m_targetDOF.focusDistance = 0;
+		}
 	}
 	
 	/**
 	*	@brief Reset Depth of Field
 	*/
-	static void resetDOF(){
-		applyDOF(false, Math.Clamp(m_DDOF.focusDistance, m_DDOF.focusMinDistance, m_DDOF.focusMaxDistance), m_DDOF.focusLength, m_DDOF.focusLengthNear, m_DDOF.blurStrength, m_DDOF.focusDepthOffset);
+	protected static void resetDOF(){
+		applyDOF(false, 0, 0, 0, 0, 1);
 	}
 	
 	protected static void applyDOF(DoFPreset dof){
-	
 		applyDOF(true, Math.Clamp(dof.focusDistance, dof.focusMinDistance, dof.focusMaxDistance), dof.focusLength, dof.focusLengthNear, dof.blurStrength, dof.focusDepthOffset);
 	}
 	
