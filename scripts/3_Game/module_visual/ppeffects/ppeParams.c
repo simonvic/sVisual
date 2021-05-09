@@ -60,6 +60,13 @@ class PPEParamNames { //just a precaution for future updates... because who know
 	
 	static const TPPEParamName FILM_GRAIN_SHARPNESS = "Sharpness";
 	static const TPPEParamName FILM_GRAIN_GRAIN_SIZE = "GrainSize";
+	static const TPPEParamName FILM_GRAIN_INTENSITY = "Intensity";
+	static const TPPEParamName FILM_GRAIN_INTENSITY_X0 = "IntensityX0";
+	static const TPPEParamName FILM_GRAIN_INTENSITY_X1 = "IntensityX1";
+	static const TPPEParamName FILM_GRAIN_MONOCHROMATIC = "Monochromatic";
+	static const TPPEParamName FILM_GRAIN_SIMPLE = "Simple";
+	static const TPPEParamName FILM_GRAIN_DISTORT = "Distort";
+	static const TPPEParamName FILM_GRAIN_FREQUENCY = "Frequency";
 	
 	static const TPPEParamName GAUSS_BLUR_INTENSITY = "Intensity";
 	

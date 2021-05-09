@@ -11,3 +11,11 @@ class PPESpawnEffect : PPETimedParams{
 		setVignette(20, PPEManager.getPPEColor(0,0,0,0));
 	}
 }
+
+class PPENightVision : PPEMaterialPresetBase{
+	override void init(){
+		setFilmGrain(5.0, 1.5);
+		setColorization(PPEManager.getPPEColor( -0.5, 0.5, -0.5, 0.0));
+		setVignette(1.2, PPEManager.getPPEColor(0, 0, 0, 0));
+	}
+}

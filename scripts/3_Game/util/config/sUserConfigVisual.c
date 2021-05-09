@@ -15,7 +15,7 @@ class SUserConfigVisual : SUserConfigBase{
 	
 	override string serialize(){
 		string result;
-		SUserConfigVisual cfg = this; //@todo check why I can't directly  use 'this' (wrong type inference?)
+		SUserConfigVisual cfg = this;
 		m_serializer.WriteToString(cfg, true, result);
 		return result;
 	}

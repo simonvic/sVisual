@@ -5,16 +5,10 @@ class SUserConfigBase : Managed{
 	
 	//protected float serialVersionUID = 69; //@todo use serialVersionUID instead of checking the fields
 	
-	string getPath(){
-		return "";
-	}
-	
-	string getDefaultPath(){
-		return "";
-	}
-	
-	void deserialize(string data, out string error){}
-	string serialize(){}
+	string getPath();
+	string getDefaultPath();
+	void deserialize(string data, out string error);
+	string serialize();
 	
 	void load(){
 		string data = SFileHelper.cat(getPath());

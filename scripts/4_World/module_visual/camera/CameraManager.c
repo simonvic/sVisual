@@ -131,7 +131,7 @@ class CameraManager {
 	
 }
 
-
+//@todo move this to camera manager
 class HeadLeanParams {
 	static float leanAngle = 15;
 }

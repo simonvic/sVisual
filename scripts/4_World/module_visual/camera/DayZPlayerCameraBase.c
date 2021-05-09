@@ -3,6 +3,8 @@ modded class DayZPlayerCameraBase{
 	protected DayZPlayerImplement m_iPlayer; //@todo just a quick thing, change this absolutely
 	protected ref CameraManager m_camManager;
 	
+	protected static ref PPENightVision m_nightVisionPPE = new PPENightVision(); // used with night vision optic/goggles
+	
 	
 	//=========== Depth of Field ==============
 	protected int m_ddofStartBoneIdx = -1;
@@ -33,7 +35,7 @@ modded class DayZPlayerCameraBase{
 	
 	override void OnUpdate(float pDt, out DayZPlayerCameraResult pOutResult){
 		super.OnUpdate(pDt, pOutResult);
-		m_camManager.onUpdate(pDt, pOutResult);
+		m_camManager.onUpdate(pDt, pOutResult);		
 	}
 	
 	protected bool canRequestDDOF(){
@@ -62,28 +64,51 @@ modded class DayZPlayerCameraBase{
 		//@todo smooth motion blur value here
 	}
 	
-	bool useSimonvicCam(){
-		return false;
-	}
-	
-	bool isHeadbobEnabled(){
-		return false;
-	}
-	
-	bool isHeadLeanEnabled(){
-		return false;
-	}
-	
-	bool isDDOFEnabled(){
-		return false;
-	}
+	bool useSimonvicCam();
+	bool isHeadbobEnabled();	
+	bool isHeadLeanEnabled();
+	bool isDDOFEnabled();
 	
 	float getLeanRollAngle(){
-		return DayZPlayerImplement.Cast(m_pPlayer).m_MovementState.m_fLeaning * HeadLeanParams.leanAngle;
+		return m_iPlayer.m_MovementState.m_fLeaning * HeadLeanParams.leanAngle;
 	}
 	
 	CameraManager getCameraManager(){
 		return m_camManager;
+	}
+	
+	override void SetNVPostprocess(int NVtype){
+		//can't call super
+		switch (NVtype){
+			case NVTypes.NONE:
+				PPEffects.SetEVValuePP(0);
+				GetGame().NightVissionLightParams(1.0, 0.0);
+				PPEManager.deactivate(m_nightVisionPPE);
+			break;
+			
+			case NVTypes.NV_OPTICS_ON:
+				PPEffects.SetEVValuePP(6);
+				GetGame().NightVissionLightParams(3.0, 2.0);
+				PPEManager.activate(m_nightVisionPPE);
+			break;
+			
+			case NVTypes.NV_OPTICS_OFF:
+				PPEffects.SetEVValuePP(10);
+				GetGame().NightVissionLightParams(1.0, 0.0);
+				PPEManager.deactivate(m_nightVisionPPE);
+			break;
+			
+			case NVTypes.NV_GOGGLES:
+				PPEffects.SetEVValuePP(6);
+				GetGame().NightVissionLightParams(2.0, 1.0);
+				PPEManager.activate(m_nightVisionPPE);
+			break;
+		}
+		
+		if (PlayerBaseClient.Cast(m_pPlayer)){
+			PlayerBaseClient.Cast(m_pPlayer).SwitchPersonalLight(NVtype < 1); 
+		}
+
 	}
 	
 }
