@@ -42,13 +42,7 @@ This is a rough (pretty bad) UML diagram of the most important classes, to help 
 ```csharp
 ref PPEParams myPPE = new PPEParams();
 ```
-To add a parameter use the `setParam` method...
-```csharp
-// Set vignette effect intensity and color
-myPPE.setParam(MaterialNames.GLOW, PPEParamNames.VIGNETTE_STRENGTH, 0.69 );
-myPPE.setParam(MaterialNames.GLOW, PPEParamNames.VIGNETTE_COLOR, PPEManager.getPPEColor(R,G,B,A));
-```
-or more easly use the provided setters:
+To add a parameter use the provided setters:
 ```csharp
 myPPE.setVignette(intensity, color);
 myPPE.setRadialBlur(powerX, powerY, offsetX, offsetY);

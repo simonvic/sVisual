@@ -1,3 +1,3 @@
 # sUDE
 
-![Imgur](https://imgur.com/jI5cjTW.png)
+![Imgur](https://i.imgur.com/MXWsaxD.png)
