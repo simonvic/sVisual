@@ -175,7 +175,7 @@ FrameWidgetClass sude_tab_root {
                {
                 SliderWidgetClass sude_dof_setting_option {
                  ignorepointer 0
-                 position -0.00406 0
+                 position 0 0
                  size 1 0.8
                  halign center_ref
                  valign center_ref
