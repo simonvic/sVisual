@@ -64,10 +64,21 @@ modded class DayZPlayerCameraBase{
 		//@todo smooth motion blur value here
 	}
 	
-	bool useSimonvicCam();
-	bool isHeadbobEnabled();	
-	bool isHeadLeanEnabled();
-	bool isDDOFEnabled();
+	bool useSimonvicCam(){
+		return false;
+	}
+	
+	bool isHeadbobEnabled(){
+		return false;
+	}
+	
+	bool isHeadLeanEnabled(){
+		return false;
+	}
+	
+	bool isDDOFEnabled(){
+		return false;
+	}
 	
 	float getLeanRollAngle(){
 		return m_iPlayer.m_MovementState.m_fLeaning * HeadLeanParams.leanAngle;

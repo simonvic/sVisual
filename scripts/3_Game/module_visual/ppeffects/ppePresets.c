@@ -6,7 +6,7 @@ class PPEPresetBase{
 		init();
 	}
 	
-	void init();
+	void init(){};
 }
 
 class DoFPreset : PPEPresetBase{

@@ -183,7 +183,7 @@ class PPEManager {
 			applyParams(m_resultPPE);
 		}
 		
-		if(isDDOFEnabled() && !m_resultDOF.equals(m_targetDOF, 0.01)){
+		if(isDDOFEnabled() /*&& !m_resultDOF.equals(m_targetDOF, 0.01)*/){
 			updateDDOF(delta_time);
 			applyDOF(m_resultDOF);
 		}
