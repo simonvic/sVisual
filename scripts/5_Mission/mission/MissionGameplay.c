@@ -5,8 +5,6 @@ modded class MissionGameplay{
 		
 		SUserConfigVisual userVisualCfg = SUserConfig.getInstance().visual();
 		
-		HeadBobParams.multiplier = userVisualCfg.getHeadbobIntensity();
-		HeadLeanParams.leanAngle = userVisualCfg.getHeadLeanAngle();
 		PPEManager.setDDOFBlurStrength(userVisualCfg.getDDOFIntensity());
 		PPEManager.setMotionBlurStrength(userVisualCfg.getMotionBlurIntensity());
 		PPEManager.setBloomStrength(userVisualCfg.getBloomIntensity());

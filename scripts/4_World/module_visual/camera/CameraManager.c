@@ -57,8 +57,8 @@ class CameraManager {
 		float pitchStrenght = headbobParams[2];
 		float pitchFrequency = headbobParams[3];
 		
-		yawStrenght *= HeadBobParams.multiplier;
-		pitchStrenght *= HeadBobParams.multiplier;
+		yawStrenght *= getHeadbobIntensity();
+		pitchStrenght *= getHeadbobIntensity();
 		
 		//@todo smooth the transition using movSpeed
 		
@@ -68,6 +68,14 @@ class CameraManager {
 	
 	protected void applyHeadLean(float pDt, out vector angles){
 		angles[2] = angles[2] + m_camera.getLeanRollAngle();
+	}
+	
+	float getHeadLeanAngle(){
+		return m_sUserConfigVisual.getHeadLeanAngle();
+	}
+	
+	float getHeadbobIntensity(){
+		return m_sUserConfigVisual.getHeadbobIntensity();
 	}
 	
 	bool isHeadbobEnabledIn3pp(){
@@ -90,69 +98,43 @@ class CameraManager {
 		
 		switch(m_player.m_MovementState.m_iMovement){ 
 			case 0:	//idle
-			headbobParams.Init(HeadBobParams.IDLE);
+			headbobParams.Init(HeadBobConstants.IDLE);
 			break;
 
 			case 1:	//walking
 			if(m_player.IsPlayerInStance(DayZPlayerConstants.STANCEMASK_ERECT)) {
-				headbobParams.Init(HeadBobParams.ERECT_WALKING);
+				headbobParams.Init(HeadBobConstants.ERECT_WALKING);
 			}else if(m_player.IsPlayerInStance(DayZPlayerConstants.STANCEMASK_RAISEDERECT)){
-				headbobParams.Init(HeadBobParams.ERECT_RAISED_WALKING);
+				headbobParams.Init(HeadBobConstants.ERECT_RAISED_WALKING);
 			}else if(m_player.IsPlayerInStance(DayZPlayerConstants.STANCEMASK_CROUCH)){
-				headbobParams.Init(HeadBobParams.CROUCH_WALKING);
+				headbobParams.Init(HeadBobConstants.CROUCH_WALKING);
 			}else if(m_player.IsPlayerInStance(DayZPlayerConstants.STANCEMASK_RAISEDCROUCH)){
-				headbobParams.Init(HeadBobParams.CROUCH_RAISED_WALKING);
+				headbobParams.Init(HeadBobConstants.CROUCH_RAISED_WALKING);
 			} else if(m_player.IsPlayerInStance(DayZPlayerConstants.STANCEMASK_PRONE)){
-				headbobParams.Init(HeadBobParams.PRONE_WALKING);
+				headbobParams.Init(HeadBobConstants.PRONE_WALKING);
 			}
 			break;
 
 			case 2:	//jogging
 			if(m_player.IsPlayerInStance(DayZPlayerConstants.STANCEMASK_ERECT)){
-				headbobParams.Init(HeadBobParams.ERECT_JOGGING);
+				headbobParams.Init(HeadBobConstants.ERECT_JOGGING);
 			}else if(m_player.IsPlayerInStance(DayZPlayerConstants.STANCEMASK_RAISEDERECT)){
-				headbobParams.Init(HeadBobParams.ERECT_RAISED_JOGGING);
+				headbobParams.Init(HeadBobConstants.ERECT_RAISED_JOGGING);
 			}
 			break;
 
 			case 3: //running
 			if(m_player.IsPlayerInStance(DayZPlayerConstants.STANCEMASK_ERECT)){
-				headbobParams.Init(HeadBobParams.ERECT_RUNNING);
+				headbobParams.Init(HeadBobConstants.ERECT_RUNNING);
 			}else if(m_player.IsPlayerInStance(DayZPlayerConstants.STANCEMASK_CROUCH)){
-				headbobParams.Init(HeadBobParams.CROUCH_RUNNING);
+				headbobParams.Init(HeadBobConstants.CROUCH_RUNNING);
 			}
 			break;
 			
 			default: //flying? lol
-			headbobParams.Init(HeadBobParams.IDLE);
+			headbobParams.Init(HeadBobConstants.IDLE);
 		}
 		return headbobParams;
 	}
-	
-}
-
-//@todo move this to camera manager
-class HeadLeanParams {
-	static float leanAngle = 15;
-}
-
-class HeadBobParams {
-	static bool enabled = true;
-	static float multiplier = 0.5;	
-	
-	//                                            yawStrenght, yawFrequency, pitchStrenght, pitchFrequency
-	static const float IDLE[4] =                     { 0.0,        0.0,         1.1,             0.5   };
-	
-	static const float ERECT_WALKING[4] =            { 0.5,        5.75,        0.5,             11.5  };
-	static const float ERECT_JOGGING[4] =            { 1.0,        9.0,         0.5,             18.0  };
-	static const float ERECT_RUNNING[4] =            { 2.4,        11.5,        0.5,             23.0  };
-	static const float ERECT_RAISED_WALKING[4] =     { 0.5,        1.75,        0.5,             6.5   };
-	static const float ERECT_RAISED_JOGGING[4] =     { 1.0,        8.75,        0.5,             17.5  };
-	
-	static const float CROUCH_WALKING[4] =           { 0.5,        5.75,        0.5,             11.5  };
-	static const float CROUCH_RUNNING[4] =           { 1.0,        9.0,         0.5,             18.0  };
-	static const float CROUCH_RAISED_WALKING[4] =    { 0.5,        5.75,        0.5,             11.5  };
-	
-	static const float PRONE_WALKING[4] =            { 0.5,        5.75,        0.5,             11.5  };
 	
 }

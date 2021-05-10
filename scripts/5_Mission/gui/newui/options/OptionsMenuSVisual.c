@@ -59,7 +59,7 @@ class OptionsMenuSVisual extends ScriptedWidgetEventHandler{
 
 		////////////////// CAMERA ////////////////////////
 		m_HeadBobSlider = SliderWidget.Cast(m_Root.FindAnyWidget( WN_HEADBOB+"option" ));
-		m_HeadBobSlider.SetCurrent(HeadBobParams.multiplier);
+		m_HeadBobSlider.SetCurrent(m_sUserConfig.getHeadbobIntensity());
 		m_HeadBobValue = TextWidget.Cast(m_Root.FindAnyWidget( WN_HEADBOB+"value" ));
 		m_HeadBobValue.SetText(m_HeadBobSlider.GetCurrent().ToString());
 		
@@ -68,7 +68,7 @@ class OptionsMenuSVisual extends ScriptedWidgetEventHandler{
 		
 		
 		m_DoFSlider = SliderWidget.Cast(m_Root.FindAnyWidget( WN_DOF+"option" ));
-		m_DoFSlider.SetCurrent(PPEManager.getDDOFStrength());
+		m_DoFSlider.SetCurrent(m_sUserConfig.getDDOFIntensity());
 		m_DoFValue = TextWidget.Cast(m_Root.FindAnyWidget( WN_DOF+"value" ));
 		m_DoFValue.SetText(m_DoFSlider.GetCurrent().ToString());
 		
@@ -81,17 +81,17 @@ class OptionsMenuSVisual extends ScriptedWidgetEventHandler{
 		
 		
 		m_MotionBlurSlider = SliderWidget.Cast(m_Root.FindAnyWidget( WN_MOTIONBLUR+"option" ));
-		m_MotionBlurSlider.SetCurrent(PPEManager.getMotionBlurStrength());
+		m_MotionBlurSlider.SetCurrent(m_sUserConfig.getMotionBlurIntensity());
 		m_MotionBlurValue = TextWidget.Cast(m_Root.FindAnyWidget( WN_MOTIONBLUR+"value" ));
 		m_MotionBlurValue.SetText(m_MotionBlurSlider.GetCurrent().ToString());
 		
 		m_BloomSlider = SliderWidget.Cast(m_Root.FindAnyWidget( WN_BLOOM+"option" ));
-		m_BloomSlider.SetCurrent(PPEManager.getBloomStrength());
+		m_BloomSlider.SetCurrent(m_sUserConfig.getBloomIntensity());
 		m_BloomValue = TextWidget.Cast(m_Root.FindAnyWidget( WN_BLOOM+"value" ));
 		m_BloomValue.SetText(m_BloomSlider.GetCurrent().ToString());
 		
 		m_RollSlider = SliderWidget.Cast(m_Root.FindAnyWidget( WN_HEADLEAN+"option" ));
-		m_RollSlider.SetCurrent(HeadLeanParams.leanAngle);
+		m_RollSlider.SetCurrent(m_sUserConfig.getHeadLeanAngle());
 		m_RollValue = TextWidget.Cast(m_Root.FindAnyWidget( WN_HEADLEAN+"value" ));
 		m_RollValue.SetText(m_RollSlider.GetCurrent().ToString());
 				
@@ -183,7 +183,6 @@ class OptionsMenuSVisual extends ScriptedWidgetEventHandler{
 	
 	
 	void UpdateHeadBobOption( float new_value ){
-		HeadBobParams.multiplier = new_value;
 		m_HeadBobValue.SetText(new_value.ToString());
 		
 		m_sUserConfig.setHeadbobIntensity(new_value);
@@ -233,7 +232,6 @@ class OptionsMenuSVisual extends ScriptedWidgetEventHandler{
 	}
 	
 	void UpdateRollOption( float new_value){
-		HeadLeanParams.leanAngle = new_value;
 		m_RollValue.SetText(new_value.ToString());
 		
 		m_sUserConfig.setHeadLeanAngle(new_value);

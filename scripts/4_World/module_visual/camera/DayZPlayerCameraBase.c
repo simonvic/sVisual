@@ -81,7 +81,7 @@ modded class DayZPlayerCameraBase{
 	}
 	
 	float getLeanRollAngle(){
-		return m_iPlayer.m_MovementState.m_fLeaning * HeadLeanParams.leanAngle;
+		return m_iPlayer.m_MovementState.m_fLeaning * m_camManager.getHeadLeanAngle();
 	}
 	
 	CameraManager getCameraManager(){
