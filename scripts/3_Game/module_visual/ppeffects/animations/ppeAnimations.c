@@ -36,8 +36,6 @@ class PPEOpticZoomChangeAnimation : PPETimedParams {
 	}
 }
 
-
-
 class PPEHitReceivedAnimation : PPETimedParams {		
 	protected float hitStrength = PPEConstants.HIT_RECEIVED_MIN_STRENGTH;
 	
@@ -82,7 +80,7 @@ class PPEBleedingAnimation : PPELoopedParams {
 		float temp = Math.AbsFloat(Math.Sin(getTime() * bleedingBits));
 		float chrom = temp * bleedingBits / 100;
 		setChromAber(chrom, chrom);
-		setVignetteIntensity(temp * 0.2);
+		setVignetteIntensity(temp * 0.4);
 		setVignetteColor(PPEManager.getPPEColor(0.005, -0.1, -0.1, 0));
 	}
 	
