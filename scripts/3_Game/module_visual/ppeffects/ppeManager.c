@@ -200,14 +200,10 @@ class PPEManager {
 	protected static void animateParams(float deltaTime){
 		TPPEAnimatedParamsList toDeactivate = new TPPEAnimatedParamsList;
 		foreach(PPEAnimatedParams ap : m_animatedPPE){
-			if(!ap.hasStopped()){
-				if(!ap.isPaused()){
-					ap.animate(deltaTime);
-				}
-			}else{
-				if(PPETimedParams.Cast(ap) && PPETimedParams.Cast(ap).shouldDeactivateOnStop()){
-					toDeactivate.Insert(ap);
-				}
+			if(ap.isPlaying()) {
+				ap.animate(deltaTime);
+			}else if(ap.hasStopped() && PPETimedParams.Cast(ap) && PPETimedParams.Cast(ap).shouldDeactivateOnStop()){
+				toDeactivate.Insert(ap);
 			}
 		}
 		
@@ -234,7 +230,7 @@ class PPEManager {
 		
 		//Apply animated PPEffects
 		foreach(PPEAnimatedParams ap : m_animatedPPE){
-			if(ap.hasChanged()){
+			if(ap.hasChanged() || ap.isPaused()){
 				m_resultPPE.merge(ap, PPEMergeFlags.MAX);
 				ap.onMerge();
 			}

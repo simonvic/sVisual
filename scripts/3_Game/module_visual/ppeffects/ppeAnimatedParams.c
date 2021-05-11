@@ -23,6 +23,7 @@ class PPEAnimatedParams : PPEParams {
 	*/
 	void start(){
 		m_time = 0;
+		onInit();
 		setAnimationState(ePPEAnimationStates.PLAYING);
 	}
 	

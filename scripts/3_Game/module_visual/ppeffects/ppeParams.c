@@ -867,7 +867,7 @@ class PPEParams {
 	
 	void debugPrint(bool logsEnabled = true){
 		if(logsEnabled == false) return;
-		SLog.d("ppeParams debug printing","",0);
+		SLog.d("printing...","PPEParams::debugPrint",0);
 		SLog.d(this);
 		SLog.d("float parameters","",1);
 		foreach(auto ppeMaterial, auto ppeParam : m_params){
