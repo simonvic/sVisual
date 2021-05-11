@@ -75,16 +75,10 @@ class PPEMaskPreset : PPEPresetBase{
 ////////////////////////////////////////////
 // Material based presets
 ////////////////////////////////////////////
-class PPEMaterialPresetBase : PPEParams{
-	void PPEMaterialPresetBase(){
-		init();
-	}
-	
-	void init(){};
-}
+class PPEMaterialPresetBase : PPEParams{}
 
 class PPEDefaultPreset : PPEMaterialPresetBase{
-	override void init(){
+	override void onInit(){
 		
 		SGameConfigVisual cfg = SGameConfig.visual();
 		

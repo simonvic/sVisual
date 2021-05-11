@@ -26,7 +26,7 @@ class SLog{
 	*	%6 : caller prefix
 	*	%7 : text prefix
 	*/
-	static const string PRINT_FORMAT = "%5 [%1]%2 %6%3%7%4";
+	static const string PRINT_FORMAT = "%5 [%1]%2%6%3%7%4";
 	
 	static const string CALLER_PREFIX = " :: ";
 	static const string TEXT_PREFIX = " : ";

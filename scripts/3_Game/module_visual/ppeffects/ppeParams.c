@@ -97,9 +97,15 @@ class PPEParams {
 	protected bool m_hasChanged = true;
 	protected bool m_isActive = false;
 	
+	void PPEParams(){
+		onInit();
+	}
+	
 	void ~PPEParams(){
 		//PPEManager.deactivate(this);
 	}
+	
+	void onInit(){}
 	
 	/**
 	* @brief Init the parameters with multiple PPEPresets
