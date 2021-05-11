@@ -22,8 +22,24 @@ class SLog{
 	*	%2 : indentation
 	*	%3 : caller
 	*	%4 : text
+	*	%5 : timestamp
+	*	%6 : caller prefix
+	*	%7 : text prefix
 	*/
-	static const string PRINT_FORMAT = "[ %1 ] %2 ::%3 : %4"; 
+	static const string PRINT_FORMAT = "%5 [%1]%2 %6%3%7%4";
+	
+	static const string CALLER_PREFIX = " :: ";
+	static const string TEXT_PREFIX = " : ";
+	
+	/**
+	*	%1 : year
+	*	%2 : month
+	*	%3 : day
+	*	%4 : hour
+	*	%5 : minutes
+	*	%6 : seconds
+	*/
+	static const string DATE_PRINT_FORMAT = "%4:%5:%6";
 	
 	/**
 	*	%1 : typename
@@ -218,12 +234,55 @@ class SLog{
 	*/
 	static void log(string text, SLoggerLevels level = SLoggerLevels.INFO, string caller = "", int indentation = 0, bool enabled = true){
 		if(overrideEnabled && enabled){
-			string output = string.Format(PRINT_FORMAT, getLevel(level), getIndentation(indentation), caller, text);
+			string output = buildOutput(text, level, caller, indentation);
 			PrintFormat(output);
 			if(filePrintEnabled){
-				SLog.logToFile(output);			
+				SLog.logToFile(output);
 			}
 		}
+	}
+	
+	/**
+	*	@brief Build a string with formatted output
+	* 	 @return formatted string
+	*/
+	static string buildOutput(string text, SLoggerLevels level, string caller, int indentation){
+		string callerPrefix;
+		string textPrefix;
+		if(caller == string.Empty) {
+			callerPrefix = string.Empty;
+			textPrefix = string.Empty;
+		}else{
+			callerPrefix = CALLER_PREFIX;
+			textPrefix = TEXT_PREFIX;
+		}
+		return string.Format(PRINT_FORMAT, getLevel(level), getIndentation(indentation), caller, text, buildTimestamp(), callerPrefix, textPrefix);
+	}
+	
+	/**
+	*	@brief Build a string containing current timestamp
+	* 	 @return formatted string
+	*/
+	static string buildTimestamp(string format = DATE_PRINT_FORMAT){
+		int year;
+		int month;
+		int day;
+		int hour;
+		int minute;
+		int second;
+		GetYearMonthDayUTC(year,month,day);
+		GetHourMinuteSecondUTC(hour, minute, second);
+		string monthS = ""+month;
+		string dayS = ""+day;
+		string hourS = ""+hour;
+		string minuteS = ""+minute;
+		string secondS  = ""+second;
+		if(month < 10) monthS = "0"+monthS;
+		if(day < 10) dayS = "0"+dayS;
+		if(hour < 10) hourS = "0"+hourS;
+		if(minute < 10) minuteS = "0"+minuteS;
+		if(second < 10) secondS = "0"+secondS;
+		return string.Format(format, year, monthS, dayS, hourS, minuteS, secondS);
 	}
 	
 	static void log(Class variable, SLoggerLevels level = SLoggerLevels.INFO, string caller = "", int indentation = 0, bool enabled = true){
