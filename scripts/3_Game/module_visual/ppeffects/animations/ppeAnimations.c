@@ -105,9 +105,7 @@ class PPEUnconsciousAnimation : PPELoopedParams {
 class PPEBleedingAnimation : PPELoopedParams {
 	private int bleedingBits = 0;
 	
-	
 	override void onInit(){
-		SLog.d("onInit bleeding animation");
 		setVignetteColor(PPEManager.getPPEColor(0.005, -0.1, -0.1, 0));
 	}
 	
@@ -116,14 +114,8 @@ class PPEBleedingAnimation : PPELoopedParams {
 		float chrom = temp * bleedingBits / 100;
 		setChromAber(chrom, chrom);
 		setVignetteIntensity(temp * 0.4);
-		//setVignetteColor(PPEManager.getPPEColor(0.005, -0.1, -0.1, 0));
 	}
-	
-	override void setVignetteColor(TPPEColor color){
-		SLog.d("set vignette color" + Type());
-		super.setVignetteColor(color);
-	}
-	
+		
 	void setBleedingBits(int cuts){
 		this.bleedingBits = cuts;
 	}
