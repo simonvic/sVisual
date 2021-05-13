@@ -103,8 +103,8 @@ class PPEManager {
 	//@todo check for IsClient inside activate/deactivate ?
 	
 	/**
-	* @brief Add a post process effect modifier 
-	* 	@params params \p PPEParams - Modifier Parameters to be added
+	* @brief Add a post process effect 
+	* 	@params params \p PPEParams - Parameters to be added
 	*/
 	static void activate(PPEParams params){
 		SLog.d("ACTIVATING " + params,"PPEManager::activate", 0, m_debugMode);
@@ -119,8 +119,8 @@ class PPEManager {
 	}
 	
 	/**
-	* @brief Remove a post process effect modifier 
-	* 	@params params \p PPEParams - Modifier Parameters to be removed
+	* @brief Remove a post process effect 
+	* 	@params params \p PPEParams - Parameters to be removed
 	*/
 	static void deactivate(PPEParams params){
 		SLog.d("DEACTIVATING " + params,"PPEManager::deactivate", 0, m_debugMode);
@@ -135,7 +135,20 @@ class PPEManager {
 	}
 	
 	/**
-	* @brief Remove all modifiers
+	*	@brief Toggle the post process effect
+	*	 @params params \p PPEParams - Parameters to be toggled
+	*	 @params activate \p bool - state
+	*/
+	static void toggle(PPEParams params, bool activate){
+		if(activate) 
+			activate(params);
+		else
+			deactivate(params);
+		
+	}
+	
+	/**
+	* @brief Remove all PostProcessing effects
 	*/
 	static void deactivateAll(){
 		deactivateAllPersitentPPE();
