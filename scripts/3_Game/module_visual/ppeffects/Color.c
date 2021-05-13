@@ -181,7 +181,7 @@ class Color {
 	*	 @param b \p int - Blue
 	*	 @return Color
 	*/
-	static Color rgb(int r, int g, int b) {
+	static Color rgb2(int r, int g, int b) {
 		return (new Color(r, g, b));
 	}
 	
@@ -215,7 +215,7 @@ class Color {
 	*	 @return Color
 	*/
 	static Color rgb(int rgb) {
-		return Color.rgba(0xff | rgb);
+		return Color.rgba(0xff000000 | rgb);
 	}
 	
 	/**
