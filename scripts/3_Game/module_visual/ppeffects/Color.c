@@ -215,7 +215,7 @@ class Color {
 	*	 @return Color
 	*/
 	static Color rgb(int rgb) {
-		return Color.rgba(0xff000000 | rgb);
+		return Color.argb(0xff000000 | rgb);
 	}
 	
 	/**
