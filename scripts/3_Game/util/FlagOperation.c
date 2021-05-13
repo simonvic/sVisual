@@ -41,16 +41,16 @@ class FlagOperation : Managed{
 		return flag;
 	}
 	
-	string collectBinaryString(){
-		return toBinaryString(flag);
+	string collectBinaryString(int digits = 32, int spacingEvery = 8){
+		return toBinaryString(flag, digits, spacingEvery);
 	}
 	
-	static string toBinaryString(int x){
+	static string toBinaryString(int x, int digits = 32, int spacingEvery = 8){
 		string result;
 		int pos = 0;
-		int digits = 8;
 		while (x > 0 || pos < digits){
 			result = "" + (x & 1) + result;
+			if((pos + 1) % spacingEvery == 0) result = " " + result;
 			x >>= 1;
 			pos++;
 		}
