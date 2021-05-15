@@ -1,4 +1,4 @@
-0class Color {
+class Color {
 
 	protected int argbValue = 0xff000000; //current color represented in ARGB format
 	
