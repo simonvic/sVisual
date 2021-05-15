@@ -1,3 +1,4 @@
+//@todo use mask when getting values because int are signed
 class Color {
 
 	protected int argbValue = 0xff000000; //current color represented in ARGB format
@@ -144,6 +145,14 @@ class Color {
 	}
 	
 	/**
+	*	@brief Get the current color represented in RGB format
+	*	 @return int - RGB color
+	*/
+	int getRGB(){
+		return (getRGBA() >> 8) & 0xFFFFFF; //@todo masked to reset sign bit. Find general solution to make it unsigned
+	}
+		
+	/**
 	*	@brief Get the current color represented in RGBA format
 	*	 @return int - RGBA color
 	*/
@@ -192,6 +201,13 @@ class Color {
 	}
 	
 	
+	/**
+	*	@brief Get the current color name (if present in RGBColors)
+	*	 @return string - Color name
+	*/
+	string getRGBName(){
+		return Color.getRGBName(this);
+	}
 	
 	bool equals(Color color){
 		return Color.equals(this, color);
@@ -203,22 +219,13 @@ class Color {
 	
 	Color debugPrint(bool verbose = false){
 		SLog.d(string.Format("R: %1 | G: %2 | B: %3 | A: %4", getRed(), getGreen(), getBlue(), getAlpha()), ""+this);
-		SLog.d(string.Format("RGB: %1 | RGBA: %2 | ARGB: %3 ", (getRGBA() >> 8), getRGBA(), getARGB()), "", 1, verbose);
+		SLog.d(string.Format("RGB: %1 | RGBA: %2 | ARGB: %3 ", getRGB(), getRGBA(), getARGB()), "", 1, verbose);
+		SLog.d(string.Format("Name: %1 | Hex: %2 ", getRGBName(), "#696969"), "", 1, verbose);
 		return this;
 	}
 	
 	////////////////////////////////////////////
 	// STATIC METHODS
-	
-	static bool equals(Color color1, Color color2) {
-		if(color1 == color2) return true;
-		if(color1 == null || color2 == null) return false;
-		return equals(color1.getARGB(), color2.getARGB());
-	}
-	
-	static bool equals(int argb1, int argb2) {
-		return argb1 == argb2;
-	}
 	
 	/**
 	*	@brief Build a color using another color represented in RGB format
@@ -226,7 +233,7 @@ class Color {
 	*	 @return Color
 	*/
 	static Color rgb(int rgb) {
-		return Color.argb(0xff000000 | rgb);
+		return (new Color()).setRGB(rgb);
 	}
 	
 	/**
@@ -445,6 +452,20 @@ class Color {
 			if (hue < 0)
 				hue = hue + 1.0;
 		}
+	}
+	
+	static string getRGBName(Color color){
+		return typename.EnumToString(RGBColors, Math.AbsInt(color.getRGB()));
+	}
+	
+	static bool equals(Color color1, Color color2) {
+		if(color1 == color2) return true;
+		if(color1 == null || color2 == null) return false;
+		return equals(color1.getARGB(), color2.getARGB());
+	}
+	
+	static bool equals(int argb1, int argb2) {
+		return argb1 == argb2;
 	}
 	
 }
