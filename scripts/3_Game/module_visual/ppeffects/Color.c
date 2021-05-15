@@ -1,20 +1,19 @@
-class Color {
+0class Color {
 
-	protected int argbValue; //current color represented in ARGB format
+	protected int argbValue = 0xff000000; //current color represented in ARGB format
 	
 	void Color(int r = 0, int g = 0, int b = 0, int a = 255) {
 		setRGBA(r, g, b, a);
 	}
-
+	
 	/**
-	*	@brief Set current color using r g b a values
+	*	@brief Set current color using r g b values
 	*	 @param r \p int - Red
 	*	 @param g \p int - Green
 	*	 @param b \p int - Blue
-	*	 @param a \p int - Alpha
 	*/
-	Color setRGBA(int r, int g, int b, int a) {
-		argbValue = ((a & 0xFF) << 24) | ((r & 0xFF) << 16) | ((g & 0xFF) << 8)  | ((b & 0xFF) << 0);
+	Color setRGB(int r, int g, int b) {
+		argbValue = (getAlpha() << 24 ) | ((r & 0xFF) << 16) | ((g & 0xFF) << 8)  | ((b & 0xFF) << 0);
 		return this;
 	}
 	
@@ -27,12 +26,38 @@ class Color {
 		return this;
 	}
 	
+	
+	/**
+	*	@brief Set current color using r g b a values
+	*	 @param r \p int - Red
+	*	 @param g \p int - Green
+	*	 @param b \p int - Blue
+	*	 @param a \p int - Alpha
+	*/
+	Color setRGBA(int r, int g, int b, int a) {
+		setARGB(a, r, g, b);
+		return this;
+	}
+		
 	/**
 	*	@brief Set current color using RGBA value (e.g. 0xF0544Caa)
 	*	 @param rgba \p int - Color represented in RGBA format
 	*/
 	Color setRGBA(int rgba){
 		argbValue = toARGB(rgba);
+		return this;
+	}
+	
+	
+	/**
+	*	@brief Set current color using a r g b  values
+	*	 @param a \p int - Alpha
+	*	 @param r \p int - Red
+	*	 @param g \p int - Green
+	*	 @param b \p int - Blue
+	*/
+	Color setARGB(int a, int r, int g, int b) {
+		argbValue = ((a & 0xFF) << 24) | ((r & 0xFF) << 16) | ((g & 0xFF) << 8)  | ((b & 0xFF) << 0);
 		return this;
 	}
 	
@@ -168,11 +193,32 @@ class Color {
 	
 	
 	
+	bool equals(Color color){
+		return Color.equals(this, color);
+	}
 	
+	bool equals(int argb){
+		return Color.equals(getARGB(), argb);
+	}
 	
+	Color debugPrint(bool verbose = false){
+		SLog.d(string.Format("R: %1 | G: %2 | B: %3 | A: %4", getRed(), getGreen(), getBlue(), getAlpha()), ""+this);
+		SLog.d(string.Format("RGB: %1 | RGBA: %2 | ARGB: %3 ", (getRGBA() >> 8), getRGBA(), getARGB()), "", 1, verbose);
+		return this;
+	}
 	
 	////////////////////////////////////////////
 	// STATIC METHODS
+	
+	static bool equals(Color color1, Color color2) {
+		if(color1 == color2) return true;
+		if(color1 == null || color2 == null) return false;
+		return equals(color1.getARGB(), color2.getARGB());
+	}
+	
+	static bool equals(int argb1, int argb2) {
+		return argb1 == argb2;
+	}
 	
 	/**
 	*	@brief Build a color using another color represented in RGB format
@@ -191,7 +237,7 @@ class Color {
 	*	 @return Color
 	*/
 	static Color rgb2(int r, int g, int b) {
-		return (new Color(r, g, b));
+		return (new Color()).setRGB(r, g, b);
 	}
 	
 	
@@ -213,7 +259,7 @@ class Color {
 	*	 @return Color
 	*/
 	static Color rgba(int r, int g, int b, int a) {
-		return (new Color(r, g, b, a));
+		return (new Color()).setRGBA(r, g, b, a);
 	}
 	
 	
@@ -235,7 +281,7 @@ class Color {
 	*	 @return Color
 	*/
 	static Color argb(int a, int r, int g, int b){
-		return (new Color(r, g, b, a));
+		return (new Color()).setARGB(a, r, g, b);
 	}
 	
 	
@@ -401,158 +447,160 @@ class Color {
 		}
 	}
 	
-	
-	////////////////////////////////////////////
-	// COLORS PRESETS
-	// Colors from https://www.w3schools.com/cssref/css_colors.asp
-	static const Color ALICE_BLUE               = Color.rgb( 0xF0F8FF );
-	static const Color ANTIQUE_WHITE            = Color.rgb( 0xFAEBD7 );
-	static const Color AQUA                     = Color.rgb( 0x00FFFF );
-	static const Color AQUAMARINE               = Color.rgb( 0x7FFFD4 );
-	static const Color AZURE                    = Color.rgb( 0xF0FFFF );
-	static const Color BEIGE                    = Color.rgb( 0xF5F5DC );
-	static const Color BISQUE                   = Color.rgb( 0xFFE4C4 );
-	static const Color BLACK                    = Color.rgb( 0x000000 );
-	static const Color BLANCHED_ALMOND          = Color.rgb( 0xFFEBCD );
-	static const Color BLUE                     = Color.rgb( 0x0000FF );
-	static const Color BLUE_VIOLET              = Color.rgb( 0x8A2BE2 );
-	static const Color BROWN                    = Color.rgb( 0xA52A2A );
-	static const Color BURLY_WOOD               = Color.rgb( 0xDEB887 );
-	static const Color CADET_BLUE               = Color.rgb( 0x5F9EA0 );
-	static const Color CHARTREUSE               = Color.rgb( 0x7FFF00 );
-	static const Color CHOCOLATE                = Color.rgb( 0xD2691E );
-	static const Color CORAL                    = Color.rgb( 0xFF7F50 );
-	static const Color CORNFLOWER_BLUE          = Color.rgb( 0x6495ED );
-	static const Color CORNSILK                 = Color.rgb( 0xFFF8DC );
-	static const Color CRIMSON                  = Color.rgb( 0xDC143C );
-	static const Color CYAN                     = Color.rgb( 0x00FFFF );
-	static const Color DARK_BLUE                = Color.rgb( 0x00008B );
-	static const Color DARK_CYAN                = Color.rgb( 0x008B8B );
-	static const Color DARK_GOLDENROD           = Color.rgb( 0xB8860B );
-	static const Color DARK_GRAY                = Color.rgb( 0xA9A9A9 );
-	static const Color DARK_GREY                = Color.rgb( 0xA9A9A9 );
-	static const Color DARK_GREEN               = Color.rgb( 0x006400 );
-	static const Color DARK_KHAKI               = Color.rgb( 0xBDB76B );
-	static const Color DARK_MAGENTA             = Color.rgb( 0x8B008B );
-	static const Color DARK_OLIVEGREEN          = Color.rgb( 0x556B2F );
-	static const Color DARK_ORANGE              = Color.rgb( 0xFF8C00 );
-	static const Color DARK_ORCHID              = Color.rgb( 0x9932CC );
-	static const Color DARK_RED                 = Color.rgb( 0x8B0000 );
-	static const Color DARK_SALMON              = Color.rgb( 0xE9967A );
-	static const Color DARK_SEAGREEN            = Color.rgb( 0x8FBC8F );
-	static const Color DARK_SLATEBLUE           = Color.rgb( 0x483D8B );
-	static const Color DARK_SLATEGRAY           = Color.rgb( 0x2F4F4F );
-	static const Color DARK_SLATEGREY           = Color.rgb( 0x2F4F4F );
-	static const Color DARK_TURQUOISE           = Color.rgb( 0x00CED1 );
-	static const Color DARK_VIOLET              = Color.rgb( 0x9400D3 );
-	static const Color DEEP_PINK                = Color.rgb( 0xFF1493 );
-	static const Color DEEP_SKYBLUE             = Color.rgb( 0x00BFFF );
-	static const Color DIM_GRAY                 = Color.rgb( 0x696969 );
-	static const Color DIM_GREY                 = Color.rgb( 0x696969 );
-	static const Color DODGER_BLUE              = Color.rgb( 0x1E90FF );
-	static const Color FIRE_BRICK               = Color.rgb( 0xB22222 );
-	static const Color FLORAL_WHITE             = Color.rgb( 0xFFFAF0 );
-	static const Color FOREST_GREEN             = Color.rgb( 0x228B22 );
-	static const Color FUCHSIA                  = Color.rgb( 0xFF00FF );
-	static const Color GAINSBORO                = Color.rgb( 0xDCDCDC );
-	static const Color GHOST_WHITE              = Color.rgb( 0xF8F8FF );
-	static const Color GOLD                     = Color.rgb( 0xFFD700 );
-	static const Color GOLDEN_ROD               = Color.rgb( 0xDAA520 );
-	static const Color GRAY                     = Color.rgb( 0x808080 );
-	static const Color GREY                     = Color.rgb( 0x808080 );
-	static const Color GREEN                    = Color.rgb( 0x008000 );
-	static const Color GREEN_YELLOW             = Color.rgb( 0xADFF2F );
-	static const Color HONEY_DEW                = Color.rgb( 0xF0FFF0 );
-	static const Color HOT_PINK                 = Color.rgb( 0xFF69B4 );
-	static const Color INDIAN_RED               = Color.rgb( 0xCD5C5C );
-	static const Color INDIGO                   = Color.rgb( 0x4B0082 );
-	static const Color IVORY                    = Color.rgb( 0xFFFFF0 );
-	static const Color KHAKI                    = Color.rgb( 0xF0E68C );
-	static const Color LAVENDER                 = Color.rgb( 0xE6E6FA );
-	static const Color LAVENDER_BLUSH           = Color.rgb( 0xFFF0F5 );
-	static const Color LAWN_GREEN               = Color.rgb( 0x7CFC00 );
-	static const Color LEMON_CHIFFON            = Color.rgb( 0xFFFACD );
-	static const Color LIGHT_BLUE               = Color.rgb( 0xADD8E6 );
-	static const Color LIGHT_CORAL              = Color.rgb( 0xF08080 );
-	static const Color LIGHT_CYAN               = Color.rgb( 0xE0FFFF );
-	static const Color LIGHT_GOLDENRODYELLOW    = Color.rgb( 0xFAFAD2 );
-	static const Color LIGHT_GRAY               = Color.rgb( 0xD3D3D3 );
-	static const Color LIGHT_GREY               = Color.rgb( 0xD3D3D3 );
-	static const Color LIGHT_GREEN              = Color.rgb( 0x90EE90 );
-	static const Color LIGHT_PINK               = Color.rgb( 0xFFB6C1 );
-	static const Color LIGHT_SALMON             = Color.rgb( 0xFFA07A );
-	static const Color LIGHT_SEAGREEN           = Color.rgb( 0x20B2AA );
-	static const Color LIGHT_SKYBLUE            = Color.rgb( 0x87CEFA );
-	static const Color LIGHT_SLATEGRAY          = Color.rgb( 0x778899 );
-	static const Color LIGHT_SLATEGREY          = Color.rgb( 0x778899 );
-	static const Color LIGHT_STEELBLUE          = Color.rgb( 0xB0C4DE );
-	static const Color LIGHT_YELLOW             = Color.rgb( 0xFFFFE0 );
-	static const Color LIME                     = Color.rgb( 0x00FF00 );
-	static const Color LIME_GREEN               = Color.rgb( 0x32CD32 );
-	static const Color LINEN                    = Color.rgb( 0xFAF0E6 );
-	static const Color MAGENTA                  = Color.rgb( 0xFF00FF );
-	static const Color MAROON                   = Color.rgb( 0x800000 );
-	static const Color MEDIUM_AQUAMARINE        = Color.rgb( 0x66CDAA );
-	static const Color MEDIUM_BLUE              = Color.rgb( 0x0000CD );
-	static const Color MEDIUM_ORCHID            = Color.rgb( 0xBA55D3 );
-	static const Color MEDIUM_PURPLE            = Color.rgb( 0x9370DB );
-	static const Color MEDIUM_SEAGREEN          = Color.rgb( 0x3CB371 );
-	static const Color MEDIUM_SLATEBLUE         = Color.rgb( 0x7B68EE );
-	static const Color MEDIUM_SPRINGGREEN       = Color.rgb( 0x00FA9A );
-	static const Color MEDIUM_TURQUOISE         = Color.rgb( 0x48D1CC );
-	static const Color MEDIUM_VIOLETRED         = Color.rgb( 0xC71585 );
-	static const Color MIDNIGHT_BLUE            = Color.rgb( 0x191970 );
-	static const Color MINT_CREAM               = Color.rgb( 0xF5FFFA );
-	static const Color MISTY_ROSE               = Color.rgb( 0xFFE4E1 );
-	static const Color MOCCASIN                 = Color.rgb( 0xFFE4B5 );
-	static const Color NAVAJO_WHITE             = Color.rgb( 0xFFDEAD );
-	static const Color NAVY                     = Color.rgb( 0x000080 );
-	static const Color OLD_LACE                 = Color.rgb( 0xFDF5E6 );
-	static const Color OLIVE                    = Color.rgb( 0x808000 );
-	static const Color OLIVE_DRAB               = Color.rgb( 0x6B8E23 );
-	static const Color ORANGE                   = Color.rgb( 0xFFA500 );
-	static const Color ORANGE_RED               = Color.rgb( 0xFF4500 );
-	static const Color ORCHID                   = Color.rgb( 0xDA70D6 );
-	static const Color PALE_GOLDENROD           = Color.rgb( 0xEEE8AA );
-	static const Color PALE_GREEN               = Color.rgb( 0x98FB98 );
-	static const Color PALE_TURQUOISE           = Color.rgb( 0xAFEEEE );
-	static const Color PALE_VIOLETRED           = Color.rgb( 0xDB7093 );
-	static const Color PAPAYA_WHIP              = Color.rgb( 0xFFEFD5 );
-	static const Color PEACH_PUFF               = Color.rgb( 0xFFDAB9 );
-	static const Color PERU                     = Color.rgb( 0xCD853F );
-	static const Color PINK                     = Color.rgb( 0xFFC0CB );
-	static const Color PLUM                     = Color.rgb( 0xDDA0DD );
-	static const Color POWDER_BLUE              = Color.rgb( 0xB0E0E6 );
-	static const Color PURPLE                   = Color.rgb( 0x800080 );
-	static const Color REBECCA_PURPLE           = Color.rgb( 0x663399 );
-	static const Color RED                      = Color.rgb( 0xFF0000 );
-	static const Color ROSY_BROWN               = Color.rgb( 0xBC8F8F );
-	static const Color ROYAL_BLUE               = Color.rgb( 0x4169E1 );
-	static const Color SADDLE_BROWN             = Color.rgb( 0x8B4513 );
-	static const Color SALMON                   = Color.rgb( 0xFA8072 );
-	static const Color SANDY_BROWN              = Color.rgb( 0xF4A460 );
-	static const Color SEA_GREEN                = Color.rgb( 0x2E8B57 );
-	static const Color SEA_SHELL                = Color.rgb( 0xFFF5EE );
-	static const Color SIENNA                   = Color.rgb( 0xA0522D );
-	static const Color SILVER                   = Color.rgb( 0xC0C0C0 );
-	static const Color SKY_BLUE                 = Color.rgb( 0x87CEEB );
-	static const Color SLATE_BLUE               = Color.rgb( 0x6A5ACD );
-	static const Color SLATE_GRAY               = Color.rgb( 0x708090 );
-	static const Color SLATE_GREY               = Color.rgb( 0x708090 );
-	static const Color SNOW                     = Color.rgb( 0xFFFAFA );
-	static const Color SPRING_GREEN             = Color.rgb( 0x00FF7F );
-	static const Color STEEL_BLUE               = Color.rgb( 0x4682B4 );
-	static const Color TAN                      = Color.rgb( 0xD2B48C );
-	static const Color TEAL                     = Color.rgb( 0x008080 );
-	static const Color THISTLE                  = Color.rgb( 0xD8BFD8 );
-	static const Color TOMATO                   = Color.rgb( 0xFF6347 );
-	static const Color TURQUOISE                = Color.rgb( 0x40E0D0 );
-	static const Color VIOLET                   = Color.rgb( 0xEE82EE );
-	static const Color WHEAT                    = Color.rgb( 0xF5DEB3 );
-	static const Color WHITE                    = Color.rgb( 0xFFFFFF );
-	static const Color WHITE_SMOKE              = Color.rgb( 0xF5F5F5 );
-	static const Color YELLOW                   = Color.rgb( 0xFFFF00 );
-	static const Color YELLOW_GREEN             = Color.rgb( 0x9ACD32 );
+}
 
+////////////////////////////////////////////
+// COLORS PRESETS
+// Colors from https://www.w3schools.com/cssref/css_colors.asp
+
+enum RGBColors{
+	ALICE_BLUE               = 0xF0F8FF ,
+	ANTIQUE_WHITE            = 0xFAEBD7 ,
+	AQUA                     = 0x00FFFF ,
+	AQUAMARINE               = 0x7FFFD4 ,
+	AZURE                    = 0xF0FFFF ,
+	BEIGE                    = 0xF5F5DC ,
+	BISQUE                   = 0xFFE4C4 ,
+	BLACK                    = 0x000000 ,
+	BLANCHED_ALMOND          = 0xFFEBCD ,
+	BLUE                     = 0x0000FF ,
+	BLUE_VIOLET              = 0x8A2BE2 ,
+	BROWN                    = 0xA52A2A ,
+	BURLY_WOOD               = 0xDEB887 ,
+	CADET_BLUE               = 0x5F9EA0 ,
+	CHARTREUSE               = 0x7FFF00 ,
+	CHOCOLATE                = 0xD2691E ,
+	CORAL                    = 0xFF7F50 ,
+	CORNFLOWER_BLUE          = 0x6495ED ,
+	CORNSILK                 = 0xFFF8DC ,
+	CRIMSON                  = 0xDC143C ,
+	CYAN                     = 0x00FFFF ,
+	DARK_BLUE                = 0x00008B ,
+	DARK_CYAN                = 0x008B8B ,
+	DARK_GOLDENROD           = 0xB8860B ,
+	DARK_GRAY                = 0xA9A9A9 ,
+	DARK_GREY                = 0xA9A9A9 ,
+	DARK_GREEN               = 0x006400 ,
+	DARK_KHAKI               = 0xBDB76B ,
+	DARK_MAGENTA             = 0x8B008B ,
+	DARK_OLIVEGREEN          = 0x556B2F ,
+	DARK_ORANGE              = 0xFF8C00 ,
+	DARK_ORCHID              = 0x9932CC ,
+	DARK_RED                 = 0x8B0000 ,
+	DARK_SALMON              = 0xE9967A ,
+	DARK_SEAGREEN            = 0x8FBC8F ,
+	DARK_SLATEBLUE           = 0x483D8B ,
+	DARK_SLATEGRAY           = 0x2F4F4F ,
+	DARK_SLATEGREY           = 0x2F4F4F ,
+	DARK_TURQUOISE           = 0x00CED1 ,
+	DARK_VIOLET              = 0x9400D3 ,
+	DEEP_PINK                = 0xFF1493 ,
+	DEEP_SKYBLUE             = 0x00BFFF ,
+	DIM_GRAY                 = 0x696969 ,
+	DIM_GREY                 = 0x696969 ,
+	DODGER_BLUE              = 0x1E90FF ,
+	FIRE_BRICK               = 0xB22222 ,
+	FLORAL_WHITE             = 0xFFFAF0 ,
+	FOREST_GREEN             = 0x228B22 ,
+	FUCHSIA                  = 0xFF00FF ,
+	GAINSBORO                = 0xDCDCDC ,
+	GHOST_WHITE              = 0xF8F8FF ,
+	GOLD                     = 0xFFD700 ,
+	GOLDEN_ROD               = 0xDAA520 ,
+	GRAY                     = 0x808080 ,
+	GREY                     = 0x808080 ,
+	GREEN                    = 0x008000 ,
+	GREEN_YELLOW             = 0xADFF2F ,
+	HONEY_DEW                = 0xF0FFF0 ,
+	HOT_PINK                 = 0xFF69B4 ,
+	INDIAN_RED               = 0xCD5C5C ,
+	INDIGO                   = 0x4B0082 ,
+	IVORY                    = 0xFFFFF0 ,
+	KHAKI                    = 0xF0E68C ,
+	LAVENDER                 = 0xE6E6FA ,
+	LAVENDER_BLUSH           = 0xFFF0F5 ,
+	LAWN_GREEN               = 0x7CFC00 ,
+	LEMON_CHIFFON            = 0xFFFACD ,
+	LIGHT_BLUE               = 0xADD8E6 ,
+	LIGHT_CORAL              = 0xF08080 ,
+	LIGHT_CYAN               = 0xE0FFFF ,
+	LIGHT_GOLDENRODYELLOW    = 0xFAFAD2 ,
+	LIGHT_GRAY               = 0xD3D3D3 ,
+	LIGHT_GREY               = 0xD3D3D3 ,
+	LIGHT_GREEN              = 0x90EE90 ,
+	LIGHT_PINK               = 0xFFB6C1 ,
+	LIGHT_SALMON             = 0xFFA07A ,
+	LIGHT_SEAGREEN           = 0x20B2AA ,
+	LIGHT_SKYBLUE            = 0x87CEFA ,
+	LIGHT_SLATEGRAY          = 0x778899 ,
+	LIGHT_SLATEGREY          = 0x778899 ,
+	LIGHT_STEELBLUE          = 0xB0C4DE ,
+	LIGHT_YELLOW             = 0xFFFFE0 ,
+	LIME                     = 0x00FF00 ,
+	LIME_GREEN               = 0x32CD32 ,
+	LINEN                    = 0xFAF0E6 ,
+	MAGENTA                  = 0xFF00FF ,
+	MAROON                   = 0x800000 ,
+	MEDIUM_AQUAMARINE        = 0x66CDAA ,
+	MEDIUM_BLUE              = 0x0000CD ,
+	MEDIUM_ORCHID            = 0xBA55D3 ,
+	MEDIUM_PURPLE            = 0x9370DB ,
+	MEDIUM_SEAGREEN          = 0x3CB371 ,
+	MEDIUM_SLATEBLUE         = 0x7B68EE ,
+	MEDIUM_SPRINGGREEN       = 0x00FA9A ,
+	MEDIUM_TURQUOISE         = 0x48D1CC ,
+	MEDIUM_VIOLETRED         = 0xC71585 ,
+	MIDNIGHT_BLUE            = 0x191970 ,
+	MINT_CREAM               = 0xF5FFFA ,
+	MISTY_ROSE               = 0xFFE4E1 ,
+	MOCCASIN                 = 0xFFE4B5 ,
+	NAVAJO_WHITE             = 0xFFDEAD ,
+	NAVY                     = 0x000080 ,
+	OLD_LACE                 = 0xFDF5E6 ,
+	OLIVE                    = 0x808000 ,
+	OLIVE_DRAB               = 0x6B8E23 ,
+	ORANGE                   = 0xFFA500 ,
+	ORANGE_RED               = 0xFF4500 ,
+	ORCHID                   = 0xDA70D6 ,
+	PALE_GOLDENROD           = 0xEEE8AA ,
+	PALE_GREEN               = 0x98FB98 ,
+	PALE_TURQUOISE           = 0xAFEEEE ,
+	PALE_VIOLETRED           = 0xDB7093 ,
+	PAPAYA_WHIP              = 0xFFEFD5 ,
+	PEACH_PUFF               = 0xFFDAB9 ,
+	PERU                     = 0xCD853F ,
+	PINK                     = 0xFFC0CB ,
+	PLUM                     = 0xDDA0DD ,
+	POWDER_BLUE              = 0xB0E0E6 ,
+	PURPLE                   = 0x800080 ,
+	REBECCA_PURPLE           = 0x663399 ,
+	RED                      = 0xFF0000 ,
+	ROSY_BROWN               = 0xBC8F8F ,
+	ROYAL_BLUE               = 0x4169E1 ,
+	SADDLE_BROWN             = 0x8B4513 ,
+	SALMON                   = 0xFA8072 ,
+	SANDY_BROWN              = 0xF4A460 ,
+	SEA_GREEN                = 0x2E8B57 ,
+	SEA_SHELL                = 0xFFF5EE ,
+	SIENNA                   = 0xA0522D ,
+	SILVER                   = 0xC0C0C0 ,
+	SKY_BLUE                 = 0x87CEEB ,
+	SLATE_BLUE               = 0x6A5ACD ,
+	SLATE_GRAY               = 0x708090 ,
+	SLATE_GREY               = 0x708090 ,
+	SNOW                     = 0xFFFAFA ,
+	SPRING_GREEN             = 0x00FF7F ,
+	STEEL_BLUE               = 0x4682B4 ,
+	TAN                      = 0xD2B48C ,
+	TEAL                     = 0x008080 ,
+	THISTLE                  = 0xD8BFD8 ,
+	TOMATO                   = 0xFF6347 ,
+	TURQUOISE                = 0x40E0D0 ,
+	VIOLET                   = 0xEE82EE ,
+	WHEAT                    = 0xF5DEB3 ,
+	WHITE                    = 0xFFFFFF ,
+	WHITE_SMOKE              = 0xF5F5F5 ,
+	YELLOW                   = 0xFFFF00 ,
+	YELLOW_GREEN             = 0x9ACD32
 
 }
