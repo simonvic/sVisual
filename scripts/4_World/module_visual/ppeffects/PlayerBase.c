@@ -11,7 +11,7 @@ modded class PlayerBase{
 	
 	override void OnInventoryMenuOpen(){
 		super.OnInventoryMenuOpen();
-		//PPEManager.activate(ppeDebug);	
+		//PPEManager.toggle(ppeDebug, !ppeDebug.isActive());	
 	}
 	
 	override void OnInventoryMenuClose(){

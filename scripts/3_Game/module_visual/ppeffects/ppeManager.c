@@ -366,12 +366,20 @@ class PPEManager {
 	* 	@return \p TPPEColor - return converted TPPEColor
 	*/
 	static TPPEColor getPPEColor(float R, float G, float B, float A){
-		TPPEColor color = new TPPEColor;
-		color.InsertAt(R, 0); //Red
-		color.InsertAt(G, 1); //Green
-		color.InsertAt(B, 2); //Blue
-		color.InsertAt(A, 3); //Alpha
-		return color;
+		return {R, G, B, A};
+	}
+	
+	/**
+	* @brief Convert a Color to a TPPEColor
+	* 	@param color \p Color 
+	* 	@return \p TPPEColor - return converted TPPEColor
+	*/
+	static TPPEColor getPPEColor(Color color){
+		return getPPEColor(
+			SMath.mapTo(color.getRed(), 0, 255),
+			SMath.mapTo(color.getGreen(), 0, 255),
+			SMath.mapTo(color.getBlue(), 0, 255),
+			SMath.mapTo(color.getAlpha(), 0, 255));
 	}
 	
 	/**

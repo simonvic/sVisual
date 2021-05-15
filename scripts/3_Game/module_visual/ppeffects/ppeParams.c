@@ -471,6 +471,15 @@ class PPEParams {
 	}
 	
 	/**
+	* @brief Quickly set vignette parameters
+	* 	@param intensity \p float - Intensity of vignette
+	* 	@param color \p Color - Color of vignette
+	*/
+	void setVignette(float intensity, Color color){
+		setVignette(intensity, PPEManager.getPPEColor(color));
+	}
+	
+	/**
 	* @brief Quickly set vignette intensity
 	* 	@param intensity \p float - Intensity of vignette
 	*/
@@ -484,6 +493,14 @@ class PPEParams {
 	*/
 	void setVignetteColor(TPPEColor color){
 		setParam(MaterialNames.GLOW, PPEParamNames.VIGNETTE_COLOR, color);
+	}
+	
+	/**
+	* @brief Quickly set vignette color
+	* 	@param color \p Color - Color of vignette
+	*/
+	void setVignetteColor(Color color){
+		setVignetteColor(PPEManager.getPPEColor(color));
 	}
 	
 	
@@ -502,6 +519,15 @@ class PPEParams {
 	}
 	
 	/**
+	* @brief Quickly set overlay parameters
+	* 	@param factor \p float - Factor(strength?) of overlay
+	* 	@param color \p Color - Color of overlay
+	*/
+	void setOverlay(float factor, Color color){
+		setOverlay(factor, PPEManager.getPPEColor(color));
+	}
+	
+	/**
 	* @brief Quickly set overlay factor
 	* 	@param factor \p float - Factor(strength?) of overlay
 	*/
@@ -515,6 +541,14 @@ class PPEParams {
 	*/
 	void setOverlayColor(TPPEColor color){
 		setParam(MaterialNames.GLOW, PPEParamNames.OVERLAY_COLOR, color);
+	}
+	
+	/**
+	* @brief Quickly set overlay color
+	* 	@param color \p Color - Color of overlay
+	*/
+	void setOverlayColor(Color color){
+		setOverlayColor(PPEManager.getPPEColor(color));
 	}
 	
 	
@@ -705,11 +739,11 @@ class PPEParams {
 	* 	@param maxDepth \p float - Maximum depth from the camera position
 	*/
 	void setMotionBlur(float power, float minDepth, float maxDepth, float minAnglePerSec, float maxAnglePerSec){
-		setParam(MaterialNames.MOTION_BLUR, PPEParamNames.MOTION_BLUR_POWER, power);
-		setParam(MaterialNames.MOTION_BLUR, PPEParamNames.MOTION_BLUR_MINDEPTH, minDepth);
-		setParam(MaterialNames.MOTION_BLUR, PPEParamNames.MOTION_BLUR_MAXDEPTH, maxDepth);
-		setParam(MaterialNames.MOTION_BLUR, PPEParamNames.MOTION_BLUR_MIN_ANGLE_PER_SEC, minAnglePerSec);
-		setParam(MaterialNames.MOTION_BLUR, PPEParamNames.MOTION_BLUR_MAX_ANGLE_PER_SEC, maxAnglePerSec);
+		setMotionBlurPower(power);
+		setMotionBlurMinDepth(minDepth);
+		setMotionBlurMaxDepth(maxDepth);
+		setMotionBlurMinAnglePerSec(minAnglePerSec);
+		setMotionBlurMaxAnglePerSec(maxAnglePerSec);
 	}
 	
 	/**
@@ -766,9 +800,9 @@ class PPEParams {
 	* 	@param treshold \p float - Treshold of bloom, lower treshold means bloom on less reflective materials
 	*/
 	void setBloom(float steepness, float intensity, float treshold){
-		setParam(MaterialNames.GLOW, PPEParamNames.BLOOM_STEEPNESS, steepness);		
-		setParam(MaterialNames.GLOW, PPEParamNames.BLOOM_INTENSITY, intensity);		
-		setParam(MaterialNames.GLOW, PPEParamNames.BLOOM_THRESHOLD, treshold);		
+		setBloomSteepness(steepness);		
+		setBloomIntensity(intensity);		
+		setBloomTreshold(treshold);		
 	}
 	
 	/**
@@ -806,8 +840,17 @@ class PPEParams {
 	* 	@param colorization \p TPPEColor - Some kind of instagram color effect lol (pretty cool)
 	*/
 	void setCameraEffects(float saturation, TPPEColor colorization){
-		setParam(MaterialNames.GLOW, PPEParamNames.SATURATION, saturation);
-		setParam(MaterialNames.GLOW, PPEParamNames.GLOW_COLORIZATION, colorization);
+		setSaturation(saturation);
+		setColorization(colorization);
+	}
+	
+	/**
+	* @brief Quickly set camera effects parameters
+	* 	@param saturation \p float - Saturation of the camera
+	* 	@param colorization \p Color - Some kind of instagram color effect lol (pretty cool)
+	*/
+	void setCameraEffects(float saturation, Color colorization){
+		setCameraEffects(saturation, PPEManager.getPPEColor(colorization));
 	}
 	
 	/**
@@ -824,6 +867,14 @@ class PPEParams {
 	*/
 	void setColorization(TPPEColor colorization){
 		setParam(MaterialNames.GLOW, PPEParamNames.GLOW_COLORIZATION, colorization);
+	}
+	
+	/**
+	* @brief Quickly set colorization
+	* 	@param colorization \p Color - Some kind of instagram color effect lol (pretty cool)
+	*/
+	void setColorization(Color colorization){
+		setColorization(PPEManager.getPPEColor(colorization));
 	}
 	
 	
