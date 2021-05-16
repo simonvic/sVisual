@@ -473,9 +473,9 @@ class PPEParams {
 	/**
 	* @brief Quickly set vignette parameters
 	* 	@param intensity \p float - Intensity of vignette
-	* 	@param color \p Color - Color of vignette
+	* 	@param color \p SColor - Color of vignette
 	*/
-	void setVignette(float intensity, Color color){
+	void setVignette(float intensity, SColor color){
 		setVignette(intensity, PPEManager.getPPEColor(color));
 	}
 	
@@ -497,9 +497,9 @@ class PPEParams {
 	
 	/**
 	* @brief Quickly set vignette color
-	* 	@param color \p Color - Color of vignette
+	* 	@param color \p SColor - Color of vignette
 	*/
-	void setVignetteColor(Color color){
+	void setVignetteColor(SColor color){
 		setVignetteColor(PPEManager.getPPEColor(color));
 	}
 	
@@ -521,9 +521,9 @@ class PPEParams {
 	/**
 	* @brief Quickly set overlay parameters
 	* 	@param factor \p float - Factor(strength?) of overlay
-	* 	@param color \p Color - Color of overlay
+	* 	@param color \p SColor - Color of overlay
 	*/
-	void setOverlay(float factor, Color color){
+	void setOverlay(float factor, SColor color){
 		setOverlay(factor, PPEManager.getPPEColor(color));
 	}
 	
@@ -545,9 +545,9 @@ class PPEParams {
 	
 	/**
 	* @brief Quickly set overlay color
-	* 	@param color \p Color - Color of overlay
+	* 	@param color \p SColor - Color of overlay
 	*/
-	void setOverlayColor(Color color){
+	void setOverlayColor(SColor color){
 		setOverlayColor(PPEManager.getPPEColor(color));
 	}
 	
@@ -847,9 +847,9 @@ class PPEParams {
 	/**
 	* @brief Quickly set camera effects parameters
 	* 	@param saturation \p float - Saturation of the camera
-	* 	@param colorization \p Color - Some kind of instagram color effect lol (pretty cool)
+	* 	@param colorization \p SColor - Some kind of instagram color effect lol (pretty cool)
 	*/
-	void setCameraEffects(float saturation, Color colorization){
+	void setCameraEffects(float saturation, SColor colorization){
 		setCameraEffects(saturation, PPEManager.getPPEColor(colorization));
 	}
 	
@@ -871,9 +871,9 @@ class PPEParams {
 	
 	/**
 	* @brief Quickly set colorization
-	* 	@param colorization \p Color - Some kind of instagram color effect lol (pretty cool)
+	* 	@param colorization \p SColor - Some kind of instagram color effect lol (pretty cool)
 	*/
-	void setColorization(Color colorization){
+	void setColorization(SColor colorization){
 		setColorization(PPEManager.getPPEColor(colorization));
 	}
 	

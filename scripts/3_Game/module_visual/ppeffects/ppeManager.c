@@ -370,11 +370,11 @@ class PPEManager {
 	}
 	
 	/**
-	* @brief Convert a Color to a TPPEColor
-	* 	@param color \p Color 
+	* @brief Convert a SColor to a TPPEColor
+	* 	@param color \p SColor 
 	* 	@return \p TPPEColor - return converted TPPEColor
 	*/
-	static TPPEColor getPPEColor(Color color){
+	static TPPEColor getPPEColor(SColor color){
 		return getPPEColor(
 			SMath.mapTo(color.getRed(), 0, 255),
 			SMath.mapTo(color.getGreen(), 0, 255),
