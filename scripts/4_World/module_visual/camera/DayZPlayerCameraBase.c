@@ -104,7 +104,7 @@ modded class DayZPlayerCameraBase{
 			break;
 			
 			case NVTypes.NV_OPTICS_OFF:
-				PPEffects.SetEVValuePP(10);
+				PPEffects.SetEVValuePP(-10);
 				GetGame().NightVissionLightParams(1.0, 0.0);
 				PPEManager.deactivate(m_nightVisionPPE);
 			break;
