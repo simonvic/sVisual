@@ -42,12 +42,11 @@ class SUserConfig{
 	*	@brief Validate a module config file. Copy the default if not present; create default file if also not present
 	*	 @param moduleCfg SUserConfigBase - Module to validate
 	*/
-	protected void validateModuleCfgFile(SUserConfigBase moduleCfg){
-		string path = moduleCfg.getPath();
-		
-		if(!FileExist(path) || !moduleCfg.isValid()){
+	protected void validateModuleCfgFile(SUserConfigBase moduleCfg){		
+		if(!moduleCfg.isValid()){
+			string path = moduleCfg.getPath();
 			string defaultPath = moduleCfg.getDefaultPath();
-			if(FileExist(defaultPath) && moduleCfg.isDefaultValid()){
+			if(moduleCfg.isDefaultValid()){
 				CopyFile(defaultPath, path);
 			}else{
 				SLog.w("Couldn't load neither user config [ " + path + " ] nor default config [ " + defaultPath + " ]", "SUserConfig");
