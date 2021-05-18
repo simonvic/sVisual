@@ -5,20 +5,25 @@ modded class BloodLoss{
 	protected ref PPEBloodLoss ppeBloodLoss = new PPEBloodLoss();
 	
 	override void OnUpdateClient(PlayerBase player, float deltatime){
-		//super.OnUpdateClient(player, deltatime);
-				
-		//override saturation effect
-		if( player.GetTransferValues() && player.GetTransferValues().GetBlood() != m_BloodSet ) { //better to rewrite this, so we don't break other mods
-			m_BloodSet = player.GetTransferValues().GetBlood();
-			ppeBloodLoss.setSaturation( player.GetTransferValues().GetBlood() );
-			if(m_BloodSet < 1){
+			
+		if( player.IsPlayerSelected() && player.GetTransferValues() && player.GetTransferValues().GetBlood() != m_BloodSet ) { 	
+			//the super is called after. Setting bloodset = new value will make vanilla code not change the saturation
+			//m_BloodSet = player.GetTransferValues().GetBlood();
+			
+			ppeBloodLoss.setSaturation( player.GetTransferValues().GetBlood());
+			if(player.GetTransferValues().GetBlood() < 1){
 				if(!ppeBloodLoss.isActive()) {
 					PPEManager.activate(ppeBloodLoss);
 				}
 			}else{
 				PPEManager.deactivate(ppeBloodLoss);
 			}
+			
 		}
+		
+		super.OnUpdateClient(player, deltatime);
+				
+		
 	}
 
 }
