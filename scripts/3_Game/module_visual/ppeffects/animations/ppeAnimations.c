@@ -35,9 +35,9 @@ class PPEExhaustedAnimation : PPELoopedParams {
 	}
 	
 	override void onAnimate(float deltaTime){
-		float power = Math.AbsFloat(Math.Sin(getTime() * 2.5) / Math.Clamp(stamina, 10, 100) * 1.3 );
+		float power = Math.AbsFloat(Math.Sin(getTime() * 2.5) / Math.Clamp(stamina, 40, 100));
 		setRadialBlur(power, power);
-		setVignetteIntensity(power * 5);
+		setVignetteIntensity(power * 20);
 	}
 	
 	void setStamina(float stamina){
