@@ -3,7 +3,7 @@ modded class MissionGameplay{
 	void MissionGameplay() {
 		PPEManager.onInit();
 		
-		SUserConfigVisual userVisualCfg = SUserConfig.getInstance().visual();
+		SUserConfigVisual userVisualCfg = SUserConfig.visual();
 		
 		PPEManager.setDDOFBlurStrength(userVisualCfg.getDDOFIntensity());
 		PPEManager.setMotionBlurStrength(userVisualCfg.getMotionBlurIntensity());

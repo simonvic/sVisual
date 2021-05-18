@@ -93,9 +93,9 @@ class SUserConfig{
 	
 	
 	
-	SUserConfigVisual visual(bool reload = false){
-		load(SUserConfigVisual, reload);
-		return SUserConfigVisual.Cast(modulesConfigs.Get(SUserConfigVisual));
+	static SUserConfigVisual visual(bool reload = false){
+		getInstance().load(SUserConfigVisual, reload);
+		return SUserConfigVisual.Cast(getInstance().modulesConfigs.Get(SUserConfigVisual));
 	}
 
 }

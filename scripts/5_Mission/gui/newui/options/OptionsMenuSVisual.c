@@ -46,7 +46,7 @@ class OptionsMenuSVisual extends ScriptedWidgetEventHandler{
 	void OptionsMenuSVisual( Widget parent, Widget details_root, OptionsMenu menu ){
 		
 		//////////////// USER CONFIG ///////////////////
-		m_sUserConfig = SUserConfig.getInstance().visual();
+		m_sUserConfig = SUserConfig.visual();
 		
 		//////////////// UI ///////////////////
 		m_Root = GetGame().GetWorkspace().CreateWidgets( GetLayoutName(), parent );			
