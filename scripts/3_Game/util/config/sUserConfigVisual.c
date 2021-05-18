@@ -13,9 +13,14 @@ class SUserConfigVisual : SUserConfigBase{
 		m_serializer.ReadFromString(cfg, data, error);
 	}
 	
-	override string serialize(){
+	override string serialize(bool serializeDefault = false){
 		string result;
-		SUserConfigVisual cfg = this;
+		SUserConfigVisual cfg;
+		if(serializeDefault) {
+			cfg = new SUserConfigVisual();
+		}else{
+			cfg = this;
+		}
 		m_serializer.WriteToString(cfg, true, result);
 		return result;
 	}

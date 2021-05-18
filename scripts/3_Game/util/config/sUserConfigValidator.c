@@ -15,12 +15,12 @@ class SUserConfigValidator : Managed{
 		
 		string deserializationError;
 		if(!canBeDeserialized(stringData, deserializationError)) {
-			SLog.e("Error during deserialization of [ " + path + " ] : \n" + deserializationError,"SUserConfigValidator::isValid");
+			SLog.e("Error during deserialization of [ " + path + " ] : \n" + deserializationError,"SUserConfigValidator::isValid",1);
 			return false;
 		}
 		
 		if(!containsCorrectFields(stringData, fields)){
-			SLog.e("The file [ " + path + " ] doesn't contain required fields","SUserConfigValidator::isValid");
+			SLog.e("The file [ " + path + " ] doesn't contain required fields","SUserConfigValidator::isValid",1);
 			return false;
 		}
 		

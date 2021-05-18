@@ -15,7 +15,7 @@ class SUserConfigBase : Managed{
 	
 	void deserialize(string data, out string error){}
 	
-	string serialize(){
+	string serialize(bool serializeDefault = false){
 		return "";
 	}
 	
@@ -37,7 +37,7 @@ class SUserConfigBase : Managed{
 		
 	void createDefault(){
 		SFileHelper.touch(getDefaultPath());
-		SFileHelper.echo(serialize(), getDefaultPath());
+		SFileHelper.echo(serialize(true), getDefaultPath());
 	}
 		
 		
