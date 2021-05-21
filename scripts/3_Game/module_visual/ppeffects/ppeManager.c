@@ -653,12 +653,25 @@ class PPEManager {
 	//				OPTICS (LENSES AND MASKS)
 	////////////////////////////////////////////////////////////
 
+	static void requestOpticMask(TFloatArray mask){
+		requestOpticMask(mask[0],mask[1],mask[2],mask[3]);
+	}
+	
 	static void requestOpticMask(float positionX, float positionY, float radius, float blur){
+		resetMask();
 		GetGame().AddPPMask(positionX, positionY, radius, blur);
 	}
 		
 	static void resetMask(){
 		GetGame().ResetPPMask();
+	}
+	
+	static void requestOpticLens(TFloatArray lens){
+		requestOpticLens(lens[0],lens[1],lens[2],lens[3]);
+	}
+	
+	static void requestOpticLens(float intensity, float centerX, float centerY, float chromAberIntensity){
+		m_defaultPPE.setLens(intensity, centerX, centerY, chromAberIntensity);
 	}
 
 }
