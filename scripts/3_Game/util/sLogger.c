@@ -317,12 +317,16 @@ class SLog{
 		string today = ""+year+"-"+month+"-"+day;
 		string filePath = LOG_PATH+"\\"+today+".slog";
 		
-		SFileHelper.touch(filePath);
+		if(!FileExist(filePath)){
+			SFileHelper.touch(filePath);
+			text = buildHeader() + text;
+		}
+		
 		FileHandle file = OpenFile(filePath, FileMode.APPEND);
 		if (file != 0){
 			FPrintln(file, text);
-			CloseFile(file);
 		}
+		CloseFile(file);
 		
 	}
 		
@@ -349,6 +353,52 @@ class SLog{
 	static string toString(vector variable){
 		return string.Format(VARIABLE_PRINT_FORMAT, "vector", variable.ToString());
 	}	
+	
+	
+	static string buildHeader(){
+		string playerName;
+		float avgFPS = -1;
+		float tickTime = -1;
+		string worldName;
+		string version;
+		string profileName;
+		string machineName;
+		if(GetGame()){
+			GetGame().GetPlayerName(playerName);			
+			avgFPS = GetGame().GetFps();			
+			tickTime = GetGame().GetTickTime();
+			GetGame().GetWorldName(worldName);
+			GetGame().GetVersion(version);
+		}
+		profileName = GetProfileName();
+		machineName = GetMachineName();
+		
+		string mods;
+		if(GetCLIParam("mod", mods)){
+			TStringArray modList = new TStringArray;
+			mods.Split(";",modList);
+			mods = "";
+			foreach(string mod : modList){
+				mods += "\n                  \t- " + mod;
+			}
+		}
+		
+		string header;
+		header += string.Format("====================================================================\n");
+		header += string.Format("                      %1 \n",buildTimestamp("%1/%2/%3 %4:%5:%6"));
+		header += string.Format("--------------------------------------------------------------------\n\n");
+		header += string.Format("                  Profile name  : %1\n", profileName);
+		header += string.Format("                  Machine name  : %1\n", machineName);
+		header += string.Format("                  Player name   : %1\n", playerName);
+		header += string.Format("                  Average FPS   : %1\n", avgFPS);
+		header += string.Format("                  Tick time     : %1\n", tickTime);
+		header += string.Format("                  World name    : %1\n", worldName);
+		header += string.Format("                  Game version  : %1\n", version);
+		header += string.Format("                  Mods          : %1\n", mods);
+		header += string.Format("--------------------------------------------------------------------\n\n");
+		
+		return header;
+	}
 	
 	private static string getIndentation(int indentation){
 		string temp = "";
