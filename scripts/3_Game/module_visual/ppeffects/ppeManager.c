@@ -532,13 +532,6 @@ class PPEManager {
 		}
 	}
 		
-	static void requestDDOF(float focusDistance){		
-		m_DDOF.focusDistance = focusDistance;
-		m_targetDOF.focusDistance = focusDistance;
-		m_targetDOF.blurStrength = m_DDOF.blurStrength;
-		enableDDOF();
-	}
-	
 	static void enableDDOF(){
 		m_DDOF_Enabled = true;
 	}
@@ -587,6 +580,22 @@ class PPEManager {
 	*/
 	protected static void resetDOF(){
 		applyDOF(false, 0, 0, 0, 0, 1);
+	}
+	
+	static void requestDDOF(float focusDistance){
+		m_DDOF.focusDistance = focusDistance;
+		m_targetDOF.focusDistance = focusDistance;
+		m_targetDOF.blurStrength = m_DDOF.blurStrength;
+		enableDDOF();
+	}
+	
+	
+	static void requestWeaponDOF(DoFPreset dof){
+		applyDOF(dof);
+	}
+	
+	static void resetWeaponDOF(){
+		resetDOF();
 	}
 	
 	protected static void applyDOF(DoFPreset dof){
@@ -671,7 +680,9 @@ class PPEManager {
 	}
 	
 	static void requestOpticLens(float intensity, float centerX, float centerY, float chromAberIntensity){
+		m_vanillaPPE.setLens(intensity, centerX, centerY, chromAberIntensity);
 		m_defaultPPE.setLens(intensity, centerX, centerY, chromAberIntensity);
+		m_resultPPE.setLens(intensity, centerX, centerY, chromAberIntensity);
 	}
 
 }

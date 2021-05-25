@@ -102,6 +102,18 @@ class SMath {
 		return ((value - min) / (max - min)) * (mappedMax - mappedMin) + mappedMin;
 	}
 	
+	/**
+	*	@brief Truncate the less significant digits of a float
+	*	 @param value \p float - value
+	*	 @param digits \p int - number of desired deciaml digits (min 1, max 6)
+	*	 @return float - value with reduced precision
+	*/
+	static float reducePrecision(float value, int digits){
+		digits = Math.Clamp(digits, 1, 6);
+		digits = Math.Pow(10, digits);
+		return (float)((int) (value * digits)) / digits;
+	}
+	
 	
 	
 }
