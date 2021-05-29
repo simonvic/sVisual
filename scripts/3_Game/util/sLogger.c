@@ -15,7 +15,7 @@ class SLog{
 	*	$profile
 	*	$saves
 	*/
-	static const string LOG_PATH = "$profile:sVisual\\logs";
+	static const string LOG_PATH = "$profile:sUDE\\logs";
 	
 	/**
 	*	%1 : level
