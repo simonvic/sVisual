@@ -603,7 +603,7 @@ class PPEManager {
 	}
 	
 	protected static void applyDOF(bool enabled, float focusDistance, float focusLength, float focusLengthNear, float blurStrength, float focusDepthOffset){
-		//SLog.d(string.Format("Distance: %1 | Blur : %2",focusDistance,blurStrength));
+		//SLog.d(string.Format("Distance: %1 | Blur : %2",focusDistance,blurStrength),"PPEManager");
 		GetGame().OverrideDOF(enabled, focusDistance, focusLength, focusLengthNear, blurStrength, focusDepthOffset);
 	}
 	
@@ -683,6 +683,12 @@ class PPEManager {
 		m_vanillaPPE.setLens(intensity, centerX, centerY, chromAberIntensity);
 		m_defaultPPE.setLens(intensity, centerX, centerY, chromAberIntensity);
 		m_resultPPE.setLens(intensity, centerX, centerY, chromAberIntensity);
+	}
+	
+	static void resetOpticLens(){
+		m_vanillaPPE.setLens(0, 0, 0, 0);
+		m_defaultPPE.setLens(0, 0, 0, 0);
+		m_resultPPE.setLens(0, 0, 0, 0);
 	}
 
 }
