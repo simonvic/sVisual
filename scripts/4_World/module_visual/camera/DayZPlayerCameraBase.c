@@ -47,17 +47,14 @@ modded class DayZPlayerCameraBase{
 	}
 	
 	protected float getFocusDistance(){
-		vector direction = GetGame().GetCurrentCameraDirection();
-		vector from = m_pPlayer.GetBonePositionWS(m_ddofStartBoneIdx);
-		vector to = from + (direction * PPEManager.getDDOFMaxDistance());
+		vector from = m_pPlayer.GetBonePositionWS(m_ddofStartBoneIdx);		
+		m_sRaycast.init(
+			from,
+			from + (GetGame().GetCurrentCameraDirection() * PPEManager.getDDOFMaxDistance()));
 		
-		m_sRaycast.setBegPos(from);
-		m_sRaycast.setEndPos(to);
-		m_sRaycast.addIgnoredObject(m_pPlayer);
-		m_sRaycast.addIgnoredObject(m_pPlayer.GetDrivingVehicle());
-		m_sRaycast.launch();
+		m_sRaycast.ignore(m_pPlayer, m_pPlayer.GetDrivingVehicle());
 		
-		return vector.Distance( from, m_sRaycast.getContactPos() ); // calculate distance between you and the point
+		return vector.Distance( from, m_sRaycast.launch().getContactPosition() ); // calculate distance between you and the point
 	}
 	
 	protected void updateMotionBlur(float pDt){
