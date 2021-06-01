@@ -1,3 +1,6 @@
+#define S_UDE
+#define S_VISUAL
+
 class CfgPatches {
 	class sVisual {
 		units[] = {};
