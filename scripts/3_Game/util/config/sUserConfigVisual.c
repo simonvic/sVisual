@@ -27,14 +27,14 @@ class SUserConfigVisual : SUserConfigBase{
 		
 	///////////////////////////////////////
 	// these go in json
-	protected float ddofIntensity = 20.0;
+	protected float ddofIntensity = 0.0;
 	protected bool ddofEnabledIn3PP = false;
 	protected bool ddofEnabledInVehicle = true;
-	protected float headbobIntensity = 1.0;
+	protected float headbobIntensity = 0.0;
 	protected bool headbobEnabledIn3PP = false;
-	protected float motionBlurIntensity = 0.01;
-	protected float bloomIntensity = 0;
-	protected float headLeanAngle = 15;
+	protected float motionBlurIntensity = 0.0;
+	protected float bloomIntensity = 0.0;
+	protected float headLeanAngle = 0.0;
 	///////////////////////////////////////
 
 	float getDDOFIntensity(){
