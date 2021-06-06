@@ -67,7 +67,7 @@ class PPEHitReceivedAnimation : PPETimedParams {
 	
 	override void onAnimate(float deltaTime){
 		float power = Math.AbsFloat(Math.Sin(getTime() * Math.PI)) * hitStrength * Math.AbsFloat(SMath.mapTo(getRemaining(), 0.01, PPEConstants.HIT_RECEIVED_MAX_DURATION));
-		float chromAberPower = Math.Clamp(power * 0.005, 0, PPEConstants.HIT_RECEIVED_MAX_CHROM_ABER);
+		float chromAberPower = Math.Clamp(power * 0.001, 0, PPEConstants.HIT_RECEIVED_MAX_CHROM_ABER);
 		float vignettePower  = Math.Clamp(power * 0.08, 0, PPEConstants.HIT_RECEIVED_MAX_VIGNETTE);
 		
 		setChromAber(chromAberPower, chromAberPower);
