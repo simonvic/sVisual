@@ -115,7 +115,7 @@ class PPEBleedingAnimation : PPELoopedParams {
 	override void onAnimate(float deltaTime){
 		float temp = Math.AbsFloat(Math.Sin(getTime() * bleedingBits));
 		float chrom = temp * bleedingBits / 100;
-		setChromAber(chrom, chrom);
+		setChromAber(chrom * 0.25, chrom * 0.25);
 		setVignetteIntensity(temp * 0.4);
 	}
 		
