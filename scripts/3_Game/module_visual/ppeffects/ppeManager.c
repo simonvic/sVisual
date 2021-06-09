@@ -107,6 +107,10 @@ class PPEManager {
 	* 	@params params \p PPEParams - Parameters to be added
 	*/
 	static void activate(PPEParams params){
+		if(GetGame().IsServer()){
+			SLog.w("ACTIVATING " + params + " on server!","PPEManager::activate");
+			return;
+		}
 		SLog.d("ACTIVATING " + params,"PPEManager::activate", 0, m_debugMode);
 		if(params.IsInherited(PPEAnimatedParams)){
 			PPEAnimatedParams ppeAp = PPEAnimatedParams.Cast(params);
@@ -123,6 +127,10 @@ class PPEManager {
 	* 	@params params \p PPEParams - Parameters to be removed
 	*/
 	static void deactivate(PPEParams params){
+		if(GetGame().IsServer()){
+			SLog.w("DEACTIVATING " + params + " on server!","PPEManager::deactivate");
+			return;
+		}
 		SLog.d("DEACTIVATING " + params,"PPEManager::deactivate", 0, m_debugMode);
 		if(params.IsInherited(PPEAnimatedParams)){
 			PPEAnimatedParams ppeAp = PPEAnimatedParams.Cast(params);
