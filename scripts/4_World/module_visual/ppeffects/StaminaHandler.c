@@ -4,6 +4,9 @@ modded class StaminaHandler{
 	
 	override protected void CheckStaminaState(){
 		super.CheckStaminaState();
+		
+		if(GetGame().IsServer()) return;
+		
 		ppeExhaustAnim.setStamina(getStaminaPercentage());
 		if(ppeShouldActivate()){
 			PPEManager.activate(ppeExhaustAnim);
