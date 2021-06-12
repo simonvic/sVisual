@@ -107,7 +107,7 @@ class PPEManager {
 	* 	@params params \p PPEParams - Parameters to be added
 	*/
 	static void activate(PPEParams params){
-		if(GetGame().IsServer()){
+		if(GetGame().IsServer() && GetGame().IsMultiplayer()){
 			SLog.w("ACTIVATING " + params + " on server!","PPEManager::activate");
 			return;
 		}
@@ -127,7 +127,7 @@ class PPEManager {
 	* 	@params params \p PPEParams - Parameters to be removed
 	*/
 	static void deactivate(PPEParams params){
-		if(GetGame().IsServer()){
+		if(GetGame().IsServer() && GetGame().IsMultiplayer()){
 			SLog.w("DEACTIVATING " + params + " on server!","PPEManager::deactivate");
 			return;
 		}
