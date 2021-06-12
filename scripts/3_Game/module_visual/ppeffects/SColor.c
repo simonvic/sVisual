@@ -3,7 +3,7 @@ class SColor {
 
 	protected int argbValue = 0xff000000; //current color represented in ARGB format
 	
-	void Color(int r = 0, int g = 0, int b = 0, int a = 255) {
+	void SColor(int r = 0, int g = 0, int b = 0, int a = 255) {
 		setRGBA(r, g, b, a);
 	}
 	
