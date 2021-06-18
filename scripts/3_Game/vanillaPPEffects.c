@@ -8,6 +8,15 @@ modded class PPEffects{
 			UpdateBlur();
 		}
 	}
+	
+	override static void ResetRadialBlur(){	
+		SetRadialBlur(0,0,0,0);
+	}
+	
+	override static void SetRadialBlur(float powerX, float powerY, float offsetX, float offsetY ){
+		PPEManager.vanillaSetRadialBlur(powerX, powerY, offsetX, offsetY);
+		
+	}
 
 	/* VANILLA CODE
 	override static void SetBlurValue(int index, float value) {

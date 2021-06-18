@@ -461,6 +461,10 @@ class PPEManager {
 	*	@deprecated
 	*	Methods used by vanilla code... Planned to be removed when vanilla code is replaced
 	*/
+	
+	static void vanillaSetRadialBlur(float powerX, float powerY, float offsetX, float offsetY ){
+		m_vanillaPPE.setRadialBlur(powerX, powerY, offsetX, offsetY);
+	}
 
 	static void vanillaSetGausBlur(float value){
 		m_vanillaPPE.setGausBlur(value);
