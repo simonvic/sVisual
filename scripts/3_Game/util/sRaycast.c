@@ -9,7 +9,7 @@ class SRaycast {
 	protected CollisionFlags m_collisionFlags;
 	protected bool m_isSorted;
 	protected bool m_isGroundOnly;
-	protected ref array<ref Object> m_ignoredObjects = {null, null};	
+	protected ref array<Object> m_ignoredObjects = {null, null};	
 
 	protected vector m_contactPos;
 	protected vector m_contactDir;
@@ -139,7 +139,7 @@ class SRaycast {
 		return m_hitObjects;
 	}
 	
-	array<ref Object> getIgnoredObjects(){
+	array<Object> getIgnoredObjects(){
 		return m_ignoredObjects;
 	}
 	
