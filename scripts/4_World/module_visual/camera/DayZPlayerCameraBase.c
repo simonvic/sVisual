@@ -78,6 +78,7 @@ modded class DayZPlayerCameraBase{
 	}
 	
 	float getLeanRollAngle(){
+		//@todo report this. m_fLeaning doesn't reset when going prone while peeking (Q/E)
 		return m_iPlayer.m_MovementState.m_fLeaning * m_camManager.getHeadLeanAngle();
 	}
 	

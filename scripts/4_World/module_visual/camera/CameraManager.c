@@ -45,9 +45,13 @@ class CameraManager {
 			applyHeadBob(pDt, camAngles);
 		}
 		
-		if(m_camera.isHeadLeanEnabled()){
+		if( canApplyHeadLean() ){
 			applyHeadLean(pDt, camAngles);
 		}
+	}
+	
+	protected bool canApplyHeadLean(){
+		return m_camera.isHeadLeanEnabled() && !m_player.IsPlayerInStance(DayZPlayerConstants.STANCEMASK_RAISEDPRONE | DayZPlayerConstants.STANCEMASK_PRONE);
 	}
 	
 	protected void applyHeadBob(float pDt, out vector angles){
