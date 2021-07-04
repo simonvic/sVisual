@@ -235,6 +235,7 @@ FrameWidgetClass sude_tab_root {
                hexactsize 0
                vexactsize 0
                text "#STR_SUDE_LAYOUT_OPTIONS_CAMERA_DOF_SWITCH_3PP"
+               font "gui/fonts/metronlight16"
                checked 0
               }
               CheckBoxWidgetClass sude_dof_switch_vehicle_option {
@@ -244,6 +245,7 @@ FrameWidgetClass sude_tab_root {
                hexactsize 0
                vexactsize 0
                text "#STR_SUDE_LAYOUT_OPTIONS_CAMERA_DOF_SWITCH_VEHICLE"
+               font "gui/fonts/metronlight16"
                checked 0
               }
              }
@@ -379,6 +381,7 @@ FrameWidgetClass sude_tab_root {
                hexactsize 0
                vexactsize 0
                text "#STR_SUDE_LAYOUT_OPTIONS_CAMERA_HEADBOB_SWITCH_3PP"
+               font "gui/fonts/metronlight16"
                checked 0
               }
              }
