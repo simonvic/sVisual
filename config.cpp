@@ -149,16 +149,25 @@ class CfgMods {
 		class defs {
 			class gameScriptModule {
 				value = "";
-				files[] = {"MyMODS/sVisual/scripts/3_Game"};
+				files[] = {
+					"MyMODS/sVisual/scripts/defines",
+					"MyMODS/sVisual/scripts/3_Game"
+				};
 			};
 			class worldScriptModule {
 				value = "";
-				files[] = {"MyMODS/sVisual/scripts/4_World"};
+				files[] = {
+					"MyMODS/sVisual/scripts/defines",
+					"MyMODS/sVisual/scripts/4_World"
+				};
 			};
 			
 			class missionScriptModule {
 				value = "";
-				files[] = {"MyMODS/sVisual/scripts/5_Mission"};
+				files[] = {
+					"MyMODS/sVisual/scripts/defines",
+					"MyMODS/sVisual/scripts/5_Mission"
+				};
 			};
 		};
 	};
