@@ -4,7 +4,7 @@ class PPEConstants{
 	
 	static const float EPSILON = 1e-3; //used when comparing two float values (PPEffects.equals())
 	
-	static const float EXHAUSTED_DEACTIVATION_TRESHOLD = 50; //[0% - 100%] treshold for Exhausted PPEffect. Percentage of stamina available [0 - m_StaminaCap]
+	static const float EXHAUSTED_DEACTIVATION_TRESHOLD = 25; //[0% - 100%] treshold for Exhausted PPEffect. Percentage of stamina available [0 - m_StaminaCap]
 	
 	static const float HIT_RECEIVED_MIN_DURATION = 4.5;        //How long (seconds) the animation will last at least
 	static const float HIT_RECEIVED_MAX_DURATION = 30.0;       //Maximum duration (seconds) of the animation
