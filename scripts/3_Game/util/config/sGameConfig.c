@@ -6,6 +6,54 @@ class SGameConfig {
 		return CFG_BASENAME;
 	}
 	
+	static int getInt(string path){
+		int value;
+		get(path, value);
+		return value;
+	}
+	
+	static float getFloat(string path){
+		float value;
+		get(path, value);
+		return value;
+	}
+	
+	static bool getBool(string path){
+		bool value;
+		get(path, value);
+		return value;
+	}
+	
+	static string getString(string path){
+		string value;
+		get(path, value);
+		return value;
+	}
+	
+	static vector getVector(string path){
+		vector value;
+		get(path, value);
+		return value;
+	}
+	
+	static TIntArray getIntArray(string path){
+		TIntArray value = new TIntArray();
+		get(path, value);
+		return value;
+	}
+	
+	static TFloatArray getfloatArray(string path){
+		TFloatArray value = new TFloatArray();
+		get(path, value);
+		return value;
+	}
+	
+	static TStringArray getStringArray(string path){
+		TStringArray value = new TStringArray();
+		get(path, value);
+		return value;
+	}	
+	
 	static void get(string path, out int value){
 		value = GetGame().ConfigGetInt(path);
 	}

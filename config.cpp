@@ -12,6 +12,73 @@ class CfgPatches {
 	};
 };
 
+class CfgMods {
+	class sVisual {
+		dir = "MyMODS/sVisual";
+		picture = "";
+		action = "";
+		hideName = 1;
+		hidePicture = 1;
+		name = "sVisual";
+		credits = "simonvic";
+		author = "simonvic";
+		authorID = "0";
+		version = "0.1";
+		extra = 0;
+		type = "mod";
+		dependencies[] = {
+			"Game",
+			"World",
+			"Mission"
+		};
+		class defs {
+			class gameScriptModule {
+				value = "";
+				files[] = {
+					"MyMODS/sVisual/scripts/defines",
+					"MyMODS/sVisual/scripts/3_Game"
+				};
+			};
+			class worldScriptModule {
+				value = "";
+				files[] = {
+					"MyMODS/sVisual/scripts/defines",
+					"MyMODS/sVisual/scripts/4_World"
+				};
+			};
+			
+			class missionScriptModule {
+				value = "";
+				files[] = {
+					"MyMODS/sVisual/scripts/defines",
+					"MyMODS/sVisual/scripts/5_Mission"
+				};
+			};
+		};
+	};
+};
+
+class CfgVehicles{
+	class SportGlasses_ColorBase {
+		class sUDE {
+			clothingOverlays[] = {
+				"set:dayz_inventory image:paper",
+				"set:dayz_inventory image:camonet"
+			};
+		};
+	};
+	
+	class AviatorGlasses {
+		class sUDE {
+			clothingOverlays[] = {
+				"set:dayz_inventory image:woodenstick",
+				"set:dayz_inventory image:medicalbandage",
+				"set:dayz_inventory image:enginebelt"
+			};
+		};
+	};
+};
+
 class Cfg_sUDE{
 	class BaseBuilding{
 		enabled = 0;
@@ -122,52 +189,6 @@ class Cfg_sUDE{
 				vignette_color[] = { 0.0, 0.0, 0.0, 0.0 };
 				overlay_color[] = { 0.0, 0.0, 0.0, 0.0 };
 				colorization[] = { 1.0, 1.0, 1.0, 1.0 };
-			};
-		};
-	};
-};
-
-class CfgMods {
-	class sVisual {
-		dir = "MyMODS/sVisual";
-		picture = "";
-		action = "";
-		hideName = 1;
-		hidePicture = 1;
-		name = "sVisual";
-		credits = "simonvic";
-		author = "simonvic";
-		authorID = "0";
-		version = "0.1";
-		extra = 0;
-		type = "mod";
-		dependencies[] = {
-			"Game",
-			"World",
-			"Mission"
-		};
-		class defs {
-			class gameScriptModule {
-				value = "";
-				files[] = {
-					"MyMODS/sVisual/scripts/defines",
-					"MyMODS/sVisual/scripts/3_Game"
-				};
-			};
-			class worldScriptModule {
-				value = "";
-				files[] = {
-					"MyMODS/sVisual/scripts/defines",
-					"MyMODS/sVisual/scripts/4_World"
-				};
-			};
-			
-			class missionScriptModule {
-				value = "";
-				files[] = {
-					"MyMODS/sVisual/scripts/defines",
-					"MyMODS/sVisual/scripts/5_Mission"
-				};
 			};
 		};
 	};

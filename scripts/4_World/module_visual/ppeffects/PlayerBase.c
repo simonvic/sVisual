@@ -11,7 +11,7 @@ modded class PlayerBase{
 	
 	override void OnInventoryMenuOpen(){
 		super.OnInventoryMenuOpen();
-		//PPEManager.toggle(ppeDebug, !ppeDebug.isActive());	
+		//PPEManager.toggle(ppeDebug, !ppeDebug.isActive());
 	}
 	
 	override void OnInventoryMenuClose(){
@@ -26,6 +26,13 @@ modded class PlayerBase{
 		if( GetInstanceType() == DayZPlayerInstanceType.INSTANCETYPE_CLIENT && slot_name == "Eyewear" && AviatorGlasses.Cast(item)){
 			PPEManager.activate(ppeEye);
 		}
+
+		/*
+		if(Clothing.Cast(item)){
+			SClothingOverlaysManager.getInstance().request(Clothing.Cast(item).getOverlaysList());
+		}
+		*/
+		
 	}
 	
 	override void EEItemDetached(EntityAI item, string slot_name){
@@ -34,6 +41,10 @@ modded class PlayerBase{
 		// Remove colored overlay when removing AviatorGlasses
 		if( GetInstanceType() == DayZPlayerInstanceType.INSTANCETYPE_CLIENT && slot_name == "Eyewear" && AviatorGlasses.Cast(item)){		
 			PPEManager.deactivate(ppeEye);
+		}
+		
+		if(Clothing.Cast(item)){
+			SClothingOverlaysManager.getInstance().clear();
 		}
 	}
 		
