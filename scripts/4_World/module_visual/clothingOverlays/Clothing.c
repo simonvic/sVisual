@@ -1,5 +1,3 @@
-typedef array<string> TClothingOverlaysList;
-
 modded class Clothing{
 	
 	protected ref TClothingOverlaysList m_overlays = {};
@@ -13,7 +11,7 @@ modded class Clothing{
 	}
 	
 	protected TClothingOverlaysList loadOverlaysList(){
-		return SGameConfig.getStringArray("cfgVehicles " + GetType() + " sUDE clothingOverlays");
+		return SGameConfig.visual().getOverlaysList(Type());
 	}
 	
 	TClothingOverlaysList getOverlaysList(){

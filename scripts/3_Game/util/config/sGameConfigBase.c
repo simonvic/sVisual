@@ -9,8 +9,6 @@ class SGameConfigBase{
 	}
 	
 	bool getIsEnabled(){
-		bool temp;
-		SGameConfig.get(getModulePath() + " enabled", temp); //@todo add check if module is not present
-		return temp;
+		return SGameConfig.getBool(getModulePath() + " enabled"); //@todo add check if module is not present
 	}
 }
