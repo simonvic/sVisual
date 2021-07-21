@@ -109,7 +109,7 @@ class PPEBleedingAnimation : PPELoopedParams {
 	private int bleedingBits = 0;
 	
 	override void onInit(){
-		setVignetteColor(PPEManager.getPPEColor(0.005, -0.1, -0.1, 0));
+		setVignetteColor(PPEManager.getPPEColor(0.01, -0.1, -0.1, 0));
 	}
 	
 	override void onAnimate(float deltaTime){
