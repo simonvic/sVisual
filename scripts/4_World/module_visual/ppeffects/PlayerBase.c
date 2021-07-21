@@ -27,11 +27,10 @@ modded class PlayerBase{
 			PPEManager.activate(ppeEye);
 		}
 
-		/*
 		if(Clothing.Cast(item)){
-			SClothingOverlaysManager.getInstance().request(Clothing.Cast(item).getOverlaysList());
+			SClothingOverlaysManager.getInstance().request(Clothing.Cast(item).getCurrentHealthOverlay());
 		}
-		*/
+		
 		
 	}
 	

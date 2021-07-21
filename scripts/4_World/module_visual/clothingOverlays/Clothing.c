@@ -18,4 +18,11 @@ modded class Clothing{
 		return m_overlays;
 	}
 	
+	string getCurrentHealthOverlay(){
+		if(m_overlays.Count() - 1 < GetHealthLevel()){
+			return m_overlays[m_overlays.Count() - 1];
+		}
+		return m_overlays[GetHealthLevel()];
+	}
+	
 }

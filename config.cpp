@@ -32,6 +32,11 @@ class CfgMods {
 			"Mission"
 		};
 		class defs {
+			class imageSets{
+                files[]={
+                    "MyMODS/sVisual/GUI/imagesets/clothing_overlays.imageset"
+                };
+            };
 			class gameScriptModule {
 				value = "";
 				files[] = {
@@ -62,8 +67,8 @@ class CfgVehicles{
 	class SportGlasses_ColorBase {
 		class sUDE {
 			clothingOverlays[] = {
-				"set:dayz_inventory image:paper",
-				"set:dayz_inventory image:camonet"
+				"set:sUDE_clothing_overlays image:glasses_pristine",
+				"set:sUDE_clothing_overlays image:burlap_cover"
 			};
 		};
 	};
@@ -71,9 +76,16 @@ class CfgVehicles{
 	class AviatorGlasses {
 		class sUDE {
 			clothingOverlays[] = {
-				"set:dayz_inventory image:woodenstick",
-				"set:dayz_inventory image:medicalbandage",
-				"set:dayz_inventory image:enginebelt"
+				"set:sUDE_clothing_overlays image:burlap_cover",
+				"set:sUDE_clothing_overlays image:glasses_pristine"
+			};
+		};
+	};
+
+	class BurlapSackCover {
+		class sUDE {
+			clothingOverlays[] = {
+				"set:sUDE_clothing_overlays image:burlap_cover"
 			};
 		};
 	};

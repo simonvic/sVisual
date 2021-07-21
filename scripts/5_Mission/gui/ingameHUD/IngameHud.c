@@ -19,8 +19,6 @@ modded class IngameHud {
 			m_clothingOverlaysManager.getInstance().displayOn(sRoot);
 		}
 				
-		sRoot.SetPos(0,0);
-		
 		
 	}
 
