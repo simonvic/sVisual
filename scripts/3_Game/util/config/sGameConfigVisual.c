@@ -1,5 +1,3 @@
-typedef array<string> TClothingOverlaysList;
-
 /////////////////////////////////////////////
 // Visual Module
 /////////////////////////////////////////////
@@ -18,7 +16,7 @@ class SGameConfigVisual : SGameConfigBase{
 		return PPEManager.getPPEColor(c[0], c[1], c[2], c[3]);
 	}
 	
-	TClothingOverlaysList getOverlaysList(typename type){
+	TStringArray getOverlaysList(typename type){
 		return SGameConfig.getStringArray("cfgVehicles " + type + " sUDE clothingOverlays");
 	}
 	

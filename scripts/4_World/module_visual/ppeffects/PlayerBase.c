@@ -16,7 +16,14 @@ modded class PlayerBase{
 	
 	override void OnInventoryMenuClose(){
 		super.OnInventoryMenuClose();
-		//PPEManager.deactivate(ppeDebug);	
+		//PPEManager.deactivate(ppeDebug);
+		array<string> temp = {
+			"set:sUDE_clothing_overlays image:pristine",
+			"set:sUDE_clothing_overlays image:worn",
+			"set:sUDE_clothing_overlays image:damaged",
+			"set:sUDE_clothing_overlays image:badly_damaged"
+		};
+		//SClothingOverlaysManager.getInstance().removeAll();
 	}
 	
 	override void EEItemAttached(EntityAI item, string slot_name){
@@ -28,7 +35,7 @@ modded class PlayerBase{
 		}
 
 		if(Clothing.Cast(item)){
-			SClothingOverlaysManager.getInstance().request(Clothing.Cast(item).getCurrentHealthOverlay());
+			SClothingOverlaysManager.getInstance().add(Clothing.Cast(item).getCurrentHealthOverlay());
 		}
 		
 		
@@ -43,12 +50,16 @@ modded class PlayerBase{
 		}
 		
 		if(Clothing.Cast(item)){
-			SClothingOverlaysManager.getInstance().clear();
+			SClothingOverlaysManager.getInstance().remove(Clothing.Cast(item).getCurrentHealthOverlay());
 		}
 	}
 		
 	override void OnJumpStart(){		
 		super.OnJumpStart();
+		map<string, ref ImageWidget> temp = SClothingOverlaysManager.getInstance().getActiveOverlayWidgets();
+		foreach(string image, auto widg : temp){
+			widg.SetAlpha(widg.GetAlpha() + 0.1);
+		}
 		/*
 		GetGame().CreateObject("AviatorGlasses",GetPosition()).SetHealth("","",100);
 		GetGame().CreateObject("AviatorGlasses",GetPosition()).SetHealth("","",30);

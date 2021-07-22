@@ -63,18 +63,8 @@ class CfgMods {
 	};
 };
 
-class CfgVehicles{
-	class SportGlasses_ColorBase {
-		class sUDE {
-			clothingOverlays[] = {
-				"set:sUDE_clothing_overlays image:pristine",
-				"set:sUDE_clothing_overlays image:worn",
-				"set:sUDE_clothing_overlays image:damaged"
-			};
-		};
-	};
-	
-	class AviatorGlasses {
+class CfgVehicles{	
+	class MotoHelmet_ColorBase {
 		class sUDE {
 			clothingOverlays[] = {
 				"set:sUDE_clothing_overlays image:pristine",
@@ -85,10 +75,12 @@ class CfgVehicles{
 		};
 	};
 
-	class BurlapSackCover {
+	class SportGlasses_ColorBase {
 		class sUDE {
 			clothingOverlays[] = {
-				"set:sUDE_clothing_overlays image:burlap_cover"
+				"set:sUDE_clothing_overlays image:pristine",
+				"set:sUDE_clothing_overlays image:worn",
+				"set:sUDE_clothing_overlays image:damaged"
 			};
 		};
 	};

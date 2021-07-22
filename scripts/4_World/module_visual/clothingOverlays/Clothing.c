@@ -1,6 +1,6 @@
 modded class Clothing{
 	
-	protected ref TClothingOverlaysList m_overlays = {};
+	protected ref TStringArray m_overlays = {};
 	
 	void Clothing(){
 		initOverlays();
@@ -10,11 +10,11 @@ modded class Clothing{
 		m_overlays = loadOverlaysList();
 	}
 	
-	protected TClothingOverlaysList loadOverlaysList(){
+	protected TStringArray loadOverlaysList(){
 		return SGameConfig.visual().getOverlaysList(Type());
 	}
 	
-	TClothingOverlaysList getOverlaysList(){
+	TStringArray getOverlaysList(){
 		return m_overlays;
 	}
 	

@@ -1,10 +1,10 @@
 modded class IngameHud {
 
-	protected SClothingOverlaysManager m_clothingOverlaysManager;	
-	protected Widget sRoot;
+	protected Widget m_overlaysRoot;
+	protected float m_time;
 
 	void IngameHud(){
-		sRoot = GetGame().GetWorkspace().CreateWidgets( getOverlayLayoutName(), m_HudPanelWidget );
+		m_overlaysRoot = GetGame().GetWorkspace().CreateWidgets( getOverlayLayoutName(), m_HudPanelWidget );
 		
 	}
 	
@@ -14,20 +14,21 @@ modded class IngameHud {
 	
 	override void Update( float timeslice ){
 		super.Update( timeslice );
+		m_time += timeslice;
 		
-		
-		if(m_clothingOverlaysManager.getInstance().overlaysHaveChanged()){
-			m_clothingOverlaysManager.getInstance().displayOn(sRoot);
+		if(SClothingOverlaysManager.getInstance().overlaysHaveChanged()){
+			SClothingOverlaysManager.getInstance().updateOn(m_overlaysRoot);
 		}
 		
 		
+		
 		/*
-		ImageWidget img = ImageWidget.Cast(sRoot.FindWidget("img_debug"));
+		ImageWidget img = ImageWidget.Cast(m_overlaysRoot.FindWidget("img_debug"));
 		img.LoadImageFile(0, "set:dayz_crosshairs image:cross_32x32");
 		img.Show(false);
 		*/
-				
 		
 	}
+	
 
 }
