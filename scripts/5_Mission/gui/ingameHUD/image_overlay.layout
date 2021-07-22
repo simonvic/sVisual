@@ -1,5 +1,6 @@
 ImageWidgetClass root_image {
  visible 1
+ inheritalpha 0
  ignorepointer 1
  position 0 0
  size 1 1
@@ -9,7 +10,7 @@ ImageWidgetClass root_image {
  vexactpos 0
  hexactsize 0
  vexactsize 0
- fixaspect fixwidth
+ scaled 1
  image0 "set:dayz_crosshairs image:imperfect"
  mode blend
  "src alpha" 1

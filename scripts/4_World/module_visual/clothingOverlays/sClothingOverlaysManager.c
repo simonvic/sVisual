@@ -17,8 +17,9 @@ class SClothingOverlaysManager {
 		}
 	}
 	
-	void request(string overlaysImage){
-		m_requestedOverlays.Insert(overlaysImage);
+	void request(string overlayImage){
+		if(!isImageValid(overlayImage)) return;
+		m_requestedOverlays.Insert(overlayImage);
 		m_overlaysHaveChanged = true;
 	}
 	
@@ -46,6 +47,10 @@ class SClothingOverlaysManager {
 			m_activeOverlayWidgets.Insert(img);
 		}
 		m_overlaysHaveChanged = false;
+	}
+	
+	static bool isImageValid(string overlayImage){
+		return overlayImage != string.Empty;
 	}
 	
 	protected string getLayoutName(){

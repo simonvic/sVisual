@@ -33,10 +33,10 @@ class CfgMods {
 		};
 		class defs {
 			class imageSets{
-                files[]={
-                    "MyMODS/sVisual/GUI/imagesets/clothing_overlays.imageset"
-                };
-            };
+				files[]={
+					"MyMODS/sVisual/GUI/icons/clothingOverlays/clothing_overlays.imageset"
+				};
+			};
 			class gameScriptModule {
 				value = "";
 				files[] = {
@@ -67,8 +67,9 @@ class CfgVehicles{
 	class SportGlasses_ColorBase {
 		class sUDE {
 			clothingOverlays[] = {
-				"set:sUDE_clothing_overlays image:glasses_pristine",
-				"set:sUDE_clothing_overlays image:burlap_cover"
+				"set:sUDE_clothing_overlays image:pristine",
+				"set:sUDE_clothing_overlays image:worn",
+				"set:sUDE_clothing_overlays image:damaged"
 			};
 		};
 	};
@@ -76,8 +77,10 @@ class CfgVehicles{
 	class AviatorGlasses {
 		class sUDE {
 			clothingOverlays[] = {
-				"set:sUDE_clothing_overlays image:burlap_cover",
-				"set:sUDE_clothing_overlays image:glasses_pristine"
+				"set:sUDE_clothing_overlays image:pristine",
+				"set:sUDE_clothing_overlays image:worn",
+				"set:sUDE_clothing_overlays image:damaged",
+				"set:sUDE_clothing_overlays image:badly_damaged"
 			};
 		};
 	};

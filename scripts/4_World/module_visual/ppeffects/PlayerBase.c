@@ -49,6 +49,12 @@ modded class PlayerBase{
 		
 	override void OnJumpStart(){		
 		super.OnJumpStart();
+		/*
+		GetGame().CreateObject("AviatorGlasses",GetPosition()).SetHealth("","",100);
+		GetGame().CreateObject("AviatorGlasses",GetPosition()).SetHealth("","",30);
+		GetGame().CreateObject("AviatorGlasses",GetPosition()).SetHealth("","",25);
+		GetGame().CreateObject("AviatorGlasses",GetPosition()).SetHealth("","",10);
+		*/
 	}
 	
 	
