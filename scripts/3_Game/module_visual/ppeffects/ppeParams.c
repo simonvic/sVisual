@@ -211,7 +211,7 @@ class PPEParams {
 	
 	float performMerge(float value1, float value2, PPEMergeFlags mergeFlags = PPEMergeFlags.SIMPLE, float coeff = 0.5){
 		float result = value1;
-		FlagOperation fop = new FlagOperation(mergeFlags);
+		SFlagOperator fop = new SFlagOperator(mergeFlags);
 		
 		bool log = false;
 		if(log){
@@ -221,7 +221,7 @@ class PPEParams {
 			if(fop.check(PPEMergeFlags.MIN)) before += "MIN ";
 			if(fop.check(PPEMergeFlags.ADDITIVE)) before += "ADDITIVE ";
 			if(fop.check(PPEMergeFlags.INTERPOLATE)) before += "INTERPOLATE ";
-			SLog.d("FOP: " + FlagOperation.toBinaryString(fop.collect()) + " - [ " + fop.collect() + " ] " + before);
+			SLog.d("FOP: " + fop.collectBinaryString() + " - [ " + fop.collect() + " ] " + before);
 		}
 		
 		if(fop.check(PPEMergeFlags.SIMPLE)){
