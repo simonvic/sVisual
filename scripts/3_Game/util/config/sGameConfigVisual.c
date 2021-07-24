@@ -17,7 +17,7 @@ class SGameConfigVisual : SGameConfigBase{
 	}
 	
 	TStringArray getOverlaysList(typename type){
-		return SGameConfig.getStringArray("cfgVehicles " + type + " sUDE clothingOverlays");
+		return SGameConfig.getStringArray("cfgVehicles " + type + " sUDE CameraOverlays overlays");
 	}
 	
 }

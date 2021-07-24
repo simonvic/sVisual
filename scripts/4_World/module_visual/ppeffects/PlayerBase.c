@@ -35,7 +35,7 @@ modded class PlayerBase{
 		}
 
 		if(Clothing.Cast(item)){
-			SClothingOverlaysManager.getInstance().add(Clothing.Cast(item).getCurrentHealthOverlay());
+			SCameraOverlayManager.getInstance().add(Clothing.Cast(item).getCurrentHealthOverlay());
 		}
 		
 		
@@ -50,16 +50,13 @@ modded class PlayerBase{
 		}
 		
 		if(Clothing.Cast(item)){
-			SClothingOverlaysManager.getInstance().remove(Clothing.Cast(item).getCurrentHealthOverlay());
+			SCameraOverlayManager.getInstance().remove(Clothing.Cast(item).getCurrentHealthOverlay());
 		}
 	}
 		
 	override void OnJumpStart(){		
 		super.OnJumpStart();
-		map<string, ref ImageWidget> temp = SClothingOverlaysManager.getInstance().getActiveOverlayWidgets();
-		foreach(string image, auto widg : temp){
-			widg.SetAlpha(widg.GetAlpha() + 0.1);
-		}
+		SCameraOverlayManager.getInstance().removeAll();
 		/*
 		GetGame().CreateObject("AviatorGlasses",GetPosition()).SetHealth("","",100);
 		GetGame().CreateObject("AviatorGlasses",GetPosition()).SetHealth("","",30);

@@ -1,8 +1,8 @@
-class SClothingOverlaysManager {
+class SCameraOverlayManager {
 	
-	private static ref SClothingOverlaysManager INSTANCE = new SClothingOverlaysManager();
-	private void SClothingOverlaysManager(){}
-	static SClothingOverlaysManager getInstance(){
+	private static ref SCameraOverlayManager INSTANCE = new SCameraOverlayManager();
+	private void SCameraOverlayManager(){}
+	static SCameraOverlayManager getInstance(){
 		return INSTANCE;
 	}
 	

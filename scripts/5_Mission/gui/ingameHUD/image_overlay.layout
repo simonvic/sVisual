@@ -14,8 +14,8 @@ ImageWidgetClass root_image {
  image0 "set:dayz_crosshairs image:imperfect"
  mode blend
  "src alpha" 1
- "no wrap" 1
- stretch 0
+ "no wrap" 0
+ stretch 1
  "flip u" 0
  "flip v" 0
 }

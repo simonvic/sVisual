@@ -16,11 +16,20 @@ modded class IngameHud {
 		super.Update( timeslice );
 		m_time += timeslice;
 		
-		if(SClothingOverlaysManager.getInstance().overlaysHaveChanged()){
-			SClothingOverlaysManager.getInstance().updateOn(m_overlaysRoot);
+		if(SCameraOverlayManager.getInstance().overlaysHaveChanged()){
+			SCameraOverlayManager.getInstance().updateOn(m_overlaysRoot);
 		}
 		
-		
+		map<string, ref ImageWidget> widgets = SCameraOverlayManager.getInstance().getActiveOverlayWidgets();
+		foreach(string i, ImageWidget w : widgets){
+			//w.LoadImageFile(0, "MyMODS/sVisual/GUI/textures/overlays/generic_scratches_damaged.edds");
+			w.SetSize(1,1);
+			w.SetAlpha(0.05);
+			w.LoadMaskTexture("gui/textures/cardial_small_mask.edds");
+			float t = Math.AbsFloat(Math.Sin(m_time * 0.5));
+			w.SetMaskProgress(t);
+			w.SetMaskTransitionWidth(0.1);
+		}
 		
 		/*
 		ImageWidget img = ImageWidget.Cast(m_overlaysRoot.FindWidget("img_debug"));

@@ -66,21 +66,24 @@ class CfgMods {
 class CfgVehicles{	
 	class MotoHelmet_ColorBase {
 		class sUDE {
-			clothingOverlays[] = {
-				"set:sUDE_clothing_overlays image:pristine",
-				"set:sUDE_clothing_overlays image:worn",
-				"set:sUDE_clothing_overlays image:damaged",
-				"set:sUDE_clothing_overlays image:badly_damaged"
+			class CameraOverlays{
+				overlays[] = {
+					"MyMODS/sVisual/GUI/textures/overlays/generic_scratches_pristine.edds",
+					"MyMODS/sVisual/GUI/textures/overlays/generic_scratches_worn.edds",
+					"MyMODS/sVisual/GUI/textures/overlays/generic_scratches_damaged.edds",
+					"MyMODS/sVisual/GUI/textures/overlays/generic_scratches_badlydamaged.edds"
+				};
 			};
 		};
 	};
 
 	class SportGlasses_ColorBase {
 		class sUDE {
-			clothingOverlays[] = {
-				"set:sUDE_clothing_overlays image:pristine",
-				"set:sUDE_clothing_overlays image:worn",
-				"set:sUDE_clothing_overlays image:damaged"
+			class CameraOverlays{
+				overlays[] = {
+					"MyMODS/sVisual/GUI/textures/overlays/generic_scratches_pristine.edds",
+					"MyMODS/sVisual/GUI/textures/overlays/generic_scratches_badlydamaged.edds"
+				};
 			};
 		};
 	};
