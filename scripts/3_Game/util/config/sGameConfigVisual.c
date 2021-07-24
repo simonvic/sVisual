@@ -43,7 +43,10 @@ class SGameConfigVisual : SGameConfigBase{
 			SGameConfig.getFloat(path + " alpha"),
 			SGameConfig.getString(path + " mask"),
 			SGameConfig.getFloat(path + " maskProgress"),
-			SGameConfig.getFloat(path + " maskTransitionWidth"));
+			SGameConfig.getFloat(path + " maskTransitionWidth"),
+			SGameConfig.getVector(path + " position"),
+			SGameConfig.getVector(path + " size"),
+			SGameConfig.getVector(path + " rotation"));
 	}
 	
 }

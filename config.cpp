@@ -70,6 +70,9 @@ class CfgVehicles{
 		mask="";
 		maskProgress=1.0;
 		maskTransitionWidth=1.0;
+		position[] = {0.0, 0.0};
+		size[] = {1.0, 1.0};
+		rotation[] = {0.0, 0.0, 0.0};
 	};
 
 	class MotoHelmet_ColorBase {

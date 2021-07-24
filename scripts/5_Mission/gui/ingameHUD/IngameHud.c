@@ -22,14 +22,19 @@ modded class IngameHud {
 		
 		/*
 		TSCameraOverlaySet overlays = SCameraOverlaysManager.getInstance().getActive();
-		foreach(SCameraOverlay overlay : overlays){
-			//w.LoadImageFile(0, "MyMODS/sVisual/GUI/textures/overlays/generic_scratches_damaged.edds");
-			//overlay.getWidget().SetSize(1,1);
-			overlay.getWidget().SetAlpha(0.2);
-			//overlay.getWidget().LoadMaskTexture("gui/textures/cardial_small_mask.edds");
+		foreach(SCameraOverlay o : overlays){
+			o.setAlpha(1.0);
 			float t = Math.AbsFloat(Math.Sin(m_time * 0.5));
-			//overlay.getWidget().SetMaskProgress(t);
-			//overlay.getWidget().SetMaskTransitionWidth(0.1);
+			ImageWidget w = o.getWidget();
+			//w.LoadImageFile(0, "MyMODS/sVisual/GUI/textures/overlays/generic_scratches_damaged.edds");
+			w.SetSize(2,2);
+			w.SetPos(0.0,0.0);
+			w.SetRotation(0, 0, 0);
+			//w.SetAlpha(0.2);
+			o.setMask("gui/textures/cardial_small_mask.edds");
+			o.setMaskProgress(0.5);
+			o.setMaskTransitionWidth(0.1);
+			
 		}
 		*/
 		/*

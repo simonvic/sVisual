@@ -1,22 +1,40 @@
 typedef array<ref SCameraOverlay> TSCameraOverlaysList;
 typedef set<ref SCameraOverlay> TSCameraOverlaySet;
 
-class SCameraOverlay {
+class SCameraOverlay : Managed {
+	
 	protected string m_image;
-	protected float m_alpha = 1.0;
+	protected float m_alpha;
 	
 	protected string m_mask;
-	protected float m_maskProgress = 1.0;
-	protected float m_maskTransitionWidth = 0.1;
+	protected float m_maskProgress;
+	protected float m_maskTransitionWidth;
 	
-	protected ref ImageWidget m_widget= null;
+	protected vector m_position;
+	protected vector m_size;
+	protected vector m_rotation;
 	
-	void SCameraOverlay(string image, float alpha = 1.0, string mask = "", float maskProgress = 1.0, float maskTransitionWidth = 0.1){
+	protected ref ImageWidget m_widget = null;
+	
+	//maybe use a builder? lol
+	void SCameraOverlay(
+		string image,
+		float alpha = 1.0,
+		string mask = "",
+		float maskProgress = 1.0,
+		float maskTransitionWidth = 0.1,
+		vector position = "0.0 0.0 0.0",
+		vector size = "1.0 1.0 1.0",
+		vector rotation = "0.0 0.0 0.0"){
+		
 		m_image = image;
 		m_alpha = alpha;
 		m_mask = mask;
 		m_maskProgress = maskProgress;
 		m_maskTransitionWidth = maskTransitionWidth;
+		m_position = position;
+		m_size = size;
+		m_rotation = rotation;
 	}
 	
 	string getImageName(){
@@ -25,6 +43,7 @@ class SCameraOverlay {
 	
 	void setImage(string image){
 		m_image = image;
+		if(m_widget) m_widget.LoadImageFile(0, image);
 	}
 	
 	float getAlpha(){
@@ -33,6 +52,7 @@ class SCameraOverlay {
 	
 	void setAlpha(float alpha){
 		m_alpha = alpha;
+		if(m_widget) m_widget.SetAlpha(alpha);
 	}
 	
 	string getMask(){
@@ -41,6 +61,7 @@ class SCameraOverlay {
 	
 	void setMask(string mask){
 		m_mask = mask;
+		if(m_widget) m_widget.LoadMaskTexture(mask);
 	}
 	
 	float getMaskProgress(){
@@ -49,6 +70,7 @@ class SCameraOverlay {
 	
 	void setMaskProgress(float maskProgress){
 		m_maskProgress = maskProgress;
+		if(m_widget) m_widget.SetMaskProgress(maskProgress);
 	}
 	
 	float getMaskTransitionWidth(){
@@ -57,7 +79,51 @@ class SCameraOverlay {
 	
 	void setMaskTransitionWidth(float maskTransitionWidth){
 		m_maskTransitionWidth = maskTransitionWidth;
+		if(m_widget) m_widget.SetMaskTransitionWidth(maskTransitionWidth);
 	}
+	
+	
+	
+	vector getPosition(){
+		return m_position;
+	}
+	
+	void setPosition(float x, float y){
+		setPosition(Vector(x, y, 0));
+	}
+	
+	void setPosition(vector position){
+		m_position = position;
+		if(m_widget) m_widget.SetPos(position[0], position[1]);
+	}
+	
+	
+	
+	
+	vector getSize(){
+		return m_size;
+	}
+	
+	void setSize(float x, float y){
+		setSize(Vector(x, y, 0));
+	}
+	
+	void setSize(vector size){
+		m_size = size;
+		if(m_widget) m_widget.SetSize(size[0], size[1]);
+	}
+	
+	
+	
+	vector getRotation(){
+		return m_rotation;
+	}
+	
+	void setRotation(vector rotation){
+		m_rotation = rotation;
+		if(m_widget) m_widget.SetRotation(rotation[0], rotation[1], rotation[2]);
+	}
+	
 	
 	ImageWidget getWidget(){
 		return m_widget;
@@ -70,6 +136,9 @@ class SCameraOverlay {
 		m_widget.LoadMaskTexture(getMask());
 		m_widget.SetMaskProgress(getMaskProgress());
 		m_widget.SetMaskTransitionWidth(getMaskTransitionWidth());
+		m_widget.SetPos(m_position[0], m_position[1]);
+		m_widget.SetSize(m_size[0], m_size[1]);
+		m_widget.SetRotation(m_rotation[0], m_rotation[1], m_rotation[2]);
 		m_widget.Show(true);
 		return m_widget;
 	}
@@ -84,7 +153,10 @@ class SCameraOverlay {
 			getAlpha(),
 			getMask(),
 			getMaskProgress(),
-			getMaskTransitionWidth());
+			getMaskTransitionWidth(),
+			getPosition(),
+			getSize(),
+			getRotation());
 	}
 	
 	void debugPrint(int depth = 0){
@@ -95,6 +167,9 @@ class SCameraOverlay {
 		SLog.d(getMask(),"mask",depth);
 		SLog.d(getMaskProgress(),"maskProgress",depth);
 		SLog.d(getMaskTransitionWidth(),"maskTranstitionWidth",depth);
+		SLog.d(getPosition(),"position",depth);
+		SLog.d(getSize(),"size",depth);
+		SLog.d(getRotation(),"rotation",depth);
 	}
 }
 
