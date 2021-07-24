@@ -1,24 +1,24 @@
 modded class Clothing{
 	
-	protected ref TStringArray m_overlays = {};
+	protected ref TSCameraOverlaySet m_overlays = new TSCameraOverlaySet();
 	
 	void Clothing(){
 		initOverlays();
 	}
 	
 	protected void initOverlays(){
-		m_overlays = loadOverlaysList();
+		m_overlays = loadCameraOverlaysList();
 	}
 	
-	protected TStringArray loadOverlaysList(){
-		return SGameConfig.visual().getOverlaysList(Type());
+	protected TSCameraOverlaySet loadCameraOverlaysList(){
+		return SGameConfig.visual().getCameraOverlays(Type());
 	}
 	
-	TStringArray getOverlaysList(){
+	TSCameraOverlaySet getOverlaysList(){
 		return m_overlays;
 	}
 	
-	string getCurrentHealthOverlay(){
+	SCameraOverlay getCurrentHealthOverlay(){
 		if(m_overlays.Count() - 1 < GetHealthLevel()){
 			return m_overlays[m_overlays.Count() - 1];
 		}

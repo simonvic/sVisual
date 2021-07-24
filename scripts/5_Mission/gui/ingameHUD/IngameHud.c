@@ -16,21 +16,22 @@ modded class IngameHud {
 		super.Update( timeslice );
 		m_time += timeslice;
 		
-		if(SCameraOverlayManager.getInstance().overlaysHaveChanged()){
-			SCameraOverlayManager.getInstance().updateOn(m_overlaysRoot);
+		if(SCameraOverlaysManager.getInstance().overlaysHaveChanged()){
+			SCameraOverlaysManager.getInstance().updateOn(m_overlaysRoot);
 		}
 		
-		map<string, ref ImageWidget> widgets = SCameraOverlayManager.getInstance().getActiveOverlayWidgets();
-		foreach(string i, ImageWidget w : widgets){
+		/*
+		TSCameraOverlaySet overlays = SCameraOverlaysManager.getInstance().getActive();
+		foreach(SCameraOverlay overlay : overlays){
 			//w.LoadImageFile(0, "MyMODS/sVisual/GUI/textures/overlays/generic_scratches_damaged.edds");
-			w.SetSize(1,1);
-			w.SetAlpha(0.05);
-			w.LoadMaskTexture("gui/textures/cardial_small_mask.edds");
+			//overlay.getWidget().SetSize(1,1);
+			overlay.getWidget().SetAlpha(0.2);
+			//overlay.getWidget().LoadMaskTexture("gui/textures/cardial_small_mask.edds");
 			float t = Math.AbsFloat(Math.Sin(m_time * 0.5));
-			w.SetMaskProgress(t);
-			w.SetMaskTransitionWidth(0.1);
+			//overlay.getWidget().SetMaskProgress(t);
+			//overlay.getWidget().SetMaskTransitionWidth(0.1);
 		}
-		
+		*/
 		/*
 		ImageWidget img = ImageWidget.Cast(m_overlaysRoot.FindWidget("img_debug"));
 		img.LoadImageFile(0, "set:dayz_crosshairs image:cross_32x32");

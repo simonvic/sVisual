@@ -63,15 +63,37 @@ class CfgMods {
 	};
 };
 
-class CfgVehicles{	
+class CfgVehicles{
+	class SCameraOverlay {
+		image="MyMODS/sVisual/GUI/textures/overlays/generic_scratches_pristine.edds";
+		alpha=1.0;
+		mask="";
+		maskProgress=1.0;
+		maskTransitionWidth=1.0;
+	};
+
 	class MotoHelmet_ColorBase {
 		class sUDE {
-			class CameraOverlays{
-				overlays[] = {
-					"MyMODS/sVisual/GUI/textures/overlays/generic_scratches_pristine.edds",
-					"MyMODS/sVisual/GUI/textures/overlays/generic_scratches_worn.edds",
-					"MyMODS/sVisual/GUI/textures/overlays/generic_scratches_damaged.edds",
-					"MyMODS/sVisual/GUI/textures/overlays/generic_scratches_badlydamaged.edds"
+			class CameraOverlays {
+
+				class overlay_0 : SCameraOverlay {
+					image="MyMODS/sVisual/GUI/textures/overlays/generic_scratches_pristine.edds";
+					alpha=0.01;
+				};
+
+				class overlay_1 : SCameraOverlay {
+					image="MyMODS/sVisual/GUI/textures/overlays/generic_scratches_worn.edds";
+					alpha=0.05;
+				};
+
+				class overlay_2 : SCameraOverlay {
+					image="MyMODS/sVisual/GUI/textures/overlays/generic_scratches_damaged.edds";
+					alpha=0.05;
+				};
+				
+				class overlay_3 : SCameraOverlay {
+					image="MyMODS/sVisual/GUI/textures/overlays/generic_scratches_badlydamaged.edds";
+					alpha=0.05;
 				};
 			};
 		};
@@ -80,9 +102,24 @@ class CfgVehicles{
 	class SportGlasses_ColorBase {
 		class sUDE {
 			class CameraOverlays{
-				overlays[] = {
-					"MyMODS/sVisual/GUI/textures/overlays/generic_scratches_pristine.edds",
-					"MyMODS/sVisual/GUI/textures/overlays/generic_scratches_badlydamaged.edds"
+				class overlay_0 : SCameraOverlay {
+					image="MyMODS/sVisual/GUI/textures/overlays/generic_scratches_pristine.edds";
+					alpha=0.01;
+				};
+
+				class overlay_1 : SCameraOverlay {
+					image="MyMODS/sVisual/GUI/textures/overlays/generic_scratches_worn.edds";
+					alpha=0.1;
+				};
+
+				class overlay_2 : SCameraOverlay {
+					image="MyMODS/sVisual/GUI/textures/overlays/generic_scratches_damaged.edds";
+					alpha=0.1;
+				};
+				
+				class overlay_3 : SCameraOverlay {
+					image="MyMODS/sVisual/GUI/textures/overlays/generic_scratches_badlydamaged.edds";
+					alpha=0.1;
 				};
 			};
 		};
