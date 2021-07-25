@@ -32,11 +32,6 @@ class CfgMods {
 			"Mission"
 		};
 		class defs {
-			class imageSets{
-				files[]={
-					"MyMODS/sVisual/GUI/icons/clothingOverlays/clothing_overlays.imageset"
-				};
-			};
 			class gameScriptModule {
 				value = "";
 				files[] = {
@@ -132,6 +127,59 @@ class CfgVehicles{
 				class overlay_3 : SCameraOverlay {
 					image="MyMODS/sVisual/GUI/textures/overlays/generic_scratches_badlydamaged.edds";
 					alpha=0.1;
+				};
+			};
+		};
+	};
+
+	class BurlapSackCover {
+		class sUDE {
+			class CameraOverlays {
+				class overlay_0 : SCameraOverlay {
+					image="MyMODS/sVisual/GUI/textures/overlays/burlap.edds";
+					size[] = {1.1, 1.1};
+				};
+			};
+		};
+	};
+
+	class GasMask {
+		class sUDE {
+			class CameraOverlays {
+				class overlay_0 : SCameraOverlay {
+					image="MyMODS/sVisual/GUI/textures/overlays/black_4x4.edds";
+					mask="MyMODS/sVisual/GUI/textures/masks/binoculars_inverted.edds";
+					maskProgress=0.45;
+					maskTransitionWidth=1.0;
+					size[] = {1.1, 1.05};
+				};
+			};
+		};
+	};
+
+	class GP5GasMask {
+		class sUDE {
+			class CameraOverlays {
+				class overlay_0 : SCameraOverlay {
+					image="MyMODS/sVisual/GUI/textures/overlays/black_4x4.edds";
+					mask="MyMODS/sVisual/GUI/textures/masks/binoculars_inverted.edds";
+					maskProgress=0.8;
+					maskTransitionWidth=0.5;
+					size[] = {1.05, 1.1};
+				};
+			};
+		};
+	};
+
+	class AirborneMask {
+		class sUDE {
+			class CameraOverlays {
+				class overlay_0 : SCameraOverlay {
+					image="MyMODS/sVisual/GUI/textures/overlays/black_4x4.edds";
+					mask="MyMODS/sVisual/GUI/textures/masks/binoculars_inverted.edds";
+					maskProgress=0.45;
+					maskTransitionWidth=1.0;
+					size[] = {1.3, 1.3};
 				};
 			};
 		};

@@ -61,6 +61,15 @@ modded class PlayerBase{
 		*/
 	}
 	
+	/*@todo ipdate overlays when clothing is damaged
+	override void OnSyncJuncture(int pJunctureID, ParamsReadContext pCtx){
+		super.OnSyncJuncture(pJunctureID, pCtx);
+		switch (pJunctureID){
+			case DayZPlayerSyncJunctures.SJ_DAMAGE_HIT:
+				break;
+		}
+	}
+	*/
 	
 	override void SpawnDamageDealtEffect(){
 		if( GetInstanceType() == DayZPlayerInstanceType.INSTANCETYPE_CLIENT ){

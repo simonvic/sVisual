@@ -1,0 +1,17 @@
+MetaFileClass {
+ Name "{6725B73174D8E83B}MyMODS/sVisual/GUI/textures/generic_scratches_damaged.edds"
+ Author "simonvic"
+ ChangeDate -247715080
+ Configurations {
+  TGAResourceClass PC {
+   SourceFile "generic_scratches_damaged.tga"
+   Conversion DXTCompression
+  }
+  TGAResourceClass XBOX_ONE : PC {
+  }
+  TGAResourceClass PS4 : PC {
+  }
+  TGAResourceClass LINUX : PC {
+  }
+ }
+}

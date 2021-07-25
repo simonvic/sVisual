@@ -106,10 +106,25 @@ class PPEUnconsciousAnimation : PPELoopedParams {
 ////////////////////////////////
 // BLEEDING
 class PPEBleedingAnimation : PPELoopedParams {
+	protected ref SCameraOverlay overlay;
 	private int bleedingBits = 0;
+	
+	void PPEBleedingAnimation(){
+		overlay = new SCameraOverlay(
+			"MyMODS/sVisual/GUI/textures/overlays/blood.edds",
+			1.0,
+			"MyMODS/sVisual/GUI/textures/masks/blood.edds",
+			0.0, 0.2);
+	}
 	
 	override void onInit(){
 		setVignetteColor(PPEManager.getPPEColor(0.01, -0.1, -0.1, 0));
+		SCameraOverlaysManager.getInstance().add(overlay);
+	}
+	
+	override void onDeactivate(){
+		super.onDeactivate();
+		SCameraOverlaysManager.getInstance().remove(overlay);
 	}
 	
 	override void onAnimate(float deltaTime){
@@ -117,6 +132,7 @@ class PPEBleedingAnimation : PPELoopedParams {
 		float chrom = temp * bleedingBits / 100;
 		setChromAber(chrom * 0.25, chrom * 0.25);
 		setVignetteIntensity(temp * 0.4);
+		overlay.setMaskProgress(temp * 0.4);
 	}
 		
 	void setBleedingBits(int cuts){

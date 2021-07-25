@@ -1,0 +1,17 @@
+MetaFileClass {
+ Name "{6725A53274D8E83A}MyMODS/sVisual/GUI/textures/overlays/burlap.edds"
+ Author "simonvic"
+ ChangeDate 1068559097
+ Configurations {
+  TGAResourceClass PC {
+   SourceFile "burlap.tga"
+   Conversion DXTCompression
+  }
+  TGAResourceClass XBOX_ONE : PC {
+  }
+  TGAResourceClass PS4 : PC {
+  }
+  TGAResourceClass LINUX : PC {
+  }
+ }
+}

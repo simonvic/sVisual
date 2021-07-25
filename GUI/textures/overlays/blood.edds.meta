@@ -1,0 +1,17 @@
+MetaFileClass {
+ Name "{6725A53274F5E83A}MyMODS/sVisual/GUI/textures/overlays/blood.edds"
+ Author "simonvic"
+ ChangeDate -1760859399
+ Configurations {
+  TGAResourceClass PC {
+   SourceFile "blood.tga"
+   Conversion ColorHQCompression
+  }
+  TGAResourceClass XBOX_ONE : PC {
+  }
+  TGAResourceClass PS4 : PC {
+  }
+  TGAResourceClass LINUX : PC {
+  }
+ }
+}

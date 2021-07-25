@@ -284,14 +284,14 @@ modded class PPEffects{
 	}
 
 	override static void EnableBurlapSackBlindness() {
-		SetColorValue(m_BurlapBlindness, 0, 0, 0, 1, 1.0);
-		UpdateColor();
+		//SetColorValue(m_BurlapBlindness, 0, 0, 0, 1, 1.0);
+		//UpdateColor();
 		g_Game.SetEVValue(-5);
 	}
 
 	override static void DisableBurlapSackBlindness() {
-		SetColorValue(m_BurlapBlindness, 0, 0, 0, 0, 0.0);
-		UpdateColor();
+		//SetColorValue(m_BurlapBlindness, 0, 0, 0, 0, 0.0);
+		//UpdateColor();
 		g_Game.SetEVValue(0);
 	}
 
