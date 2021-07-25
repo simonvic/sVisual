@@ -29,7 +29,7 @@ modded class PlayerBase{
 
 		Clothing clothing = Clothing.Cast(item);
 		if(clothing && clothing.hasOverlays()){
-			SCameraOverlaysManager.getInstance().add(clothing.getCurrentHealthOverlay());
+			SCameraOverlaysManager.getInstance().add(clothing.getOverlayByCurrentHealth());
 		}
 		
 		

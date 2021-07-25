@@ -25,11 +25,22 @@ modded class Clothing{
 		return m_overlays.Count() != 0;
 	}
 	
-	SCameraOverlay getCurrentHealthOverlay(){
-		if(m_overlays.Count() - 1 < GetHealthLevel()){
+	SCameraOverlay getOverlayByCurrentHealth(){
+		return getOverlayByHealth(GetHealthLevel());
+	}
+	
+	SCameraOverlay getOverlayByHealth(int level){
+		if(m_overlays.Count() - 1 < level){
 			return m_overlays[m_overlays.Count() - 1];
 		}
-		return m_overlays[GetHealthLevel()];
+		return m_overlays[level];
+	}
+	
+	override void EEHealthLevelChanged(int oldLevel, int newLevel, string zone){
+		super.EEHealthLevelChanged(oldLevel, newLevel, zone);
+		SCameraOverlaysManager.getInstance().remove(getOverlayByHealth(oldLevel));
+		SCameraOverlaysManager.getInstance().add(getOverlayByHealth(newLevel));
+		
 	}
 	
 }
