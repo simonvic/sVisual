@@ -1,5 +1,5 @@
 modded class AviatorGlasses{
-	override TSCameraOverlaySet loadCameraOverlaysList(){
-		return new TSCameraOverlaySet(); //@todo complete override
+	override TSCameraOverlaysList loadCameraOverlaysList(){
+		return SGameConfig.visual().getCameraOverlays(MotoHelmet_ColorBase);
 	}
 }

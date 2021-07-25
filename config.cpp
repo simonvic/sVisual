@@ -81,22 +81,30 @@ class CfgVehicles{
 
 				class overlay_0 : SCameraOverlay {
 					image="MyMODS/sVisual/GUI/textures/overlays/generic_scratches_pristine.edds";
-					alpha=0.01;
+					alpha=0.05;
+					size[] = {1.2, 1.2};
+					rotation[] = {0.0, 0.0, 180.0};
 				};
 
 				class overlay_1 : SCameraOverlay {
 					image="MyMODS/sVisual/GUI/textures/overlays/generic_scratches_worn.edds";
 					alpha=0.05;
+					size[] = {1.2, 1.2};
+					rotation[] = {0.0, 0.0, 180.0};
 				};
 
 				class overlay_2 : SCameraOverlay {
 					image="MyMODS/sVisual/GUI/textures/overlays/generic_scratches_damaged.edds";
 					alpha=0.05;
+					size[] = {1.2, 1.2};
+					rotation[] = {0.0, 0.0, 180.0};
 				};
 				
 				class overlay_3 : SCameraOverlay {
 					image="MyMODS/sVisual/GUI/textures/overlays/generic_scratches_badlydamaged.edds";
 					alpha=0.05;
+					size[] = {1.2, 1.2};
+					rotation[] = {0.0, 0.0, 180.0};
 				};
 			};
 		};
@@ -104,10 +112,11 @@ class CfgVehicles{
 
 	class SportGlasses_ColorBase {
 		class sUDE {
+
 			class CameraOverlays{
 				class overlay_0 : SCameraOverlay {
 					image="MyMODS/sVisual/GUI/textures/overlays/generic_scratches_pristine.edds";
-					alpha=0.01;
+					alpha=0.05;
 				};
 
 				class overlay_1 : SCameraOverlay {

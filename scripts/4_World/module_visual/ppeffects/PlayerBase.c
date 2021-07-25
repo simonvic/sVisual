@@ -17,13 +17,6 @@ modded class PlayerBase{
 	override void OnInventoryMenuClose(){
 		super.OnInventoryMenuClose();
 		//PPEManager.deactivate(ppeDebug);
-		array<string> temp = {
-			"set:sUDE_clothing_overlays image:pristine",
-			"set:sUDE_clothing_overlays image:worn",
-			"set:sUDE_clothing_overlays image:damaged",
-			"set:sUDE_clothing_overlays image:badly_damaged"
-		};
-		//SClothingOverlaysManager.getInstance().removeAll();
 	}
 	
 	override void EEItemAttached(EntityAI item, string slot_name){
@@ -34,8 +27,9 @@ modded class PlayerBase{
 			PPEManager.activate(ppeEye);
 		}
 
-		if(Clothing.Cast(item)){
-			SCameraOverlaysManager.getInstance().add(Clothing.Cast(item).getCurrentHealthOverlay());
+		Clothing clothing = Clothing.Cast(item);
+		if(clothing && clothing.hasOverlays()){
+			SCameraOverlaysManager.getInstance().add(clothing.getCurrentHealthOverlay());
 		}
 		
 		
@@ -49,8 +43,9 @@ modded class PlayerBase{
 			PPEManager.deactivate(ppeEye);
 		}
 		
-		if(Clothing.Cast(item)){
-			SCameraOverlaysManager.getInstance().remove(Clothing.Cast(item).getCurrentHealthOverlay());
+		Clothing clothing = Clothing.Cast(item);
+		if(clothing && clothing.hasOverlays()){
+			SCameraOverlaysManager.getInstance().remove(clothing.getOverlaysList());
 		}
 	}
 		

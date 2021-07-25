@@ -1,3 +1,9 @@
+enum eSCameraOverlayState {
+	REQUESTED,
+	ACTIVE,
+	PENDING_DELETION
+}
+
 class SCameraOverlaysManager {
 	
 	private static ref SCameraOverlaysManager INSTANCE = new SCameraOverlaysManager();
@@ -7,9 +13,7 @@ class SCameraOverlaysManager {
 	}
 	
 	protected bool m_overlaysHaveChanged;
-	protected ref TSCameraOverlaySet m_requested = new TSCameraOverlaySet();
-	protected ref TSCameraOverlaySet m_pendingDeletion = new TSCameraOverlaySet();
-	protected ref TSCameraOverlaySet m_active = new TSCameraOverlaySet();
+	protected ref map<ref SCameraOverlay, eSCameraOverlayState> m_overlays = new map<ref SCameraOverlay, eSCameraOverlayState>();
 	
 	
 	/**
@@ -28,16 +32,25 @@ class SCameraOverlaysManager {
 	*/
 	void add(SCameraOverlay overlay){
 		if(!overlay) return;
-		m_requested.Insert(overlay);
-		m_pendingDeletion.Remove(m_pendingDeletion.Find(overlay));
+		m_overlays.Set(overlay, eSCameraOverlayState.REQUESTED);
 		m_overlaysHaveChanged = true;
 	}
 	
 	/**
 	*	@brief Remove multiple overlays, decrease counter if they have been requested multiple time
-	*	 @param overlay \p SCameraOverlay - overlay to remove
+	*	 @param overlays \p TSCameraOverlaySet - overlays to remove
 	*/
 	void remove(TSCameraOverlaySet overlays){
+		foreach(SCameraOverlay overlay : overlays){
+			remove(overlay);
+		}
+	}
+	
+	/**
+	*	@brief Remove multiple overlays, decrease counter if they have been requested multiple time
+	*	 @param overlays \p TSCameraOverlaysList - overlays to remove
+	*/
+	void remove(TSCameraOverlaysList overlays){
 		foreach(SCameraOverlay overlay : overlays){
 			remove(overlay);
 		}
@@ -49,8 +62,7 @@ class SCameraOverlaysManager {
 	*/
 	void remove(SCameraOverlay overlay){
 		if(!overlay) return;
-		m_pendingDeletion.Insert(overlay);
-		m_requested.Remove(m_requested.Find(overlay));
+		m_overlays.Set(overlay, eSCameraOverlayState.PENDING_DELETION);
 		m_overlaysHaveChanged = true;
 	}
 	
@@ -58,10 +70,9 @@ class SCameraOverlaysManager {
 	*	@brief Remove all overlays
 	*/	
 	void removeAll(){
-		foreach(SCameraOverlay overlay : m_requested){
-			m_pendingDeletion.Insert(overlay);
+		foreach(auto overlay, auto state : m_overlays){
+			m_overlays.Set(overlay, eSCameraOverlayState.PENDING_DELETION);
 		}
-		m_requested.Clear();
 		m_overlaysHaveChanged = true;
 	}
 	
@@ -69,14 +80,21 @@ class SCameraOverlaysManager {
 	*	@brief Update requested overlays
 	*	 @param root \p Widget - root widget of overlays
 	*/
-	void updateOn(Widget root){
-		foreach(SCameraOverlay requested : m_requested){
-			performAdd(requested, root);
+	void onUpdate(float deltaTime, Widget root){
+		if(!m_overlaysHaveChanged) return;
+		
+		foreach(auto overlay, auto state: m_overlays){
+			if(!overlay) SLog.d("found null overlay","OverlayManager");
+			switch(m_overlays.Get(overlay)){
+				case eSCameraOverlayState.REQUESTED:
+					performAdd(overlay, root);
+					break;
+				case eSCameraOverlayState.PENDING_DELETION:
+					performRemove(overlay, root);
+					break;
+			}
 		}
 		
-		foreach(SCameraOverlay pendingDel : m_pendingDeletion){			
-			performRemove(pendingDel, root);
-		}
 		m_overlaysHaveChanged = false;
 	}
 	
@@ -86,10 +104,10 @@ class SCameraOverlaysManager {
 	*	 @param root \p Widget - parent of widget to remove
 	*/
 	protected void performRemove(SCameraOverlay overlay, Widget parent){ //@todo unnecesary to pass parent
-		parent.RemoveChild(overlay.getWidget());
-		m_active.Remove(m_active.Find(overlay));
-		m_requested.Remove(m_requested.Find(overlay));
-		m_pendingDeletion.Remove(m_pendingDeletion.Find(overlay));
+		if(overlay.getWidget()){
+			parent.RemoveChild(overlay.getWidget());
+		}
+		m_overlays.Remove(overlay);
 	}
 	
 	/**
@@ -99,7 +117,7 @@ class SCameraOverlaysManager {
 	*/
 	protected void performAdd(SCameraOverlay overlay, Widget parent){
 		overlay.buildWidget(parent);
-		m_active.Insert(overlay);
+		m_overlays.Set(overlay, eSCameraOverlayState.ACTIVE);
 	}
 	
 	bool overlaysHaveChanged(){
@@ -107,15 +125,53 @@ class SCameraOverlaysManager {
 	}
 		
 	TSCameraOverlaySet getActive(){
-		return m_active;
+		TSCameraOverlaySet overlays = new TSCameraOverlaySet();
+		foreach(auto overlay, auto state: m_overlays){
+			if(state == eSCameraOverlayState.ACTIVE){
+				overlays.Insert(overlay);
+			}
+		}
+		return overlays;
 	}
 	
 	TSCameraOverlaySet getRequested(){
-		return m_requested;
+		TSCameraOverlaySet overlays = new TSCameraOverlaySet();
+		foreach(auto overlay, auto state: m_overlays){
+			if(state == eSCameraOverlayState.REQUESTED){
+				overlays.Insert(overlay);
+			}
+		}
+		return overlays;
 	}
 	
 	TSCameraOverlaySet getPendingDeletion(){
-		return m_pendingDeletion;
+		TSCameraOverlaySet overlays = new TSCameraOverlaySet();
+		foreach(auto overlay, auto state: m_overlays){
+			if(state == eSCameraOverlayState.PENDING_DELETION){
+				overlays.Insert(overlay);
+			}
+		}
+		return overlays;
+	}
+	
+	void debugPrint(){
+		TSCameraOverlaySet requested = SCameraOverlaysManager.getInstance().getActive();
+		SLog.d(requested,"requested");
+		foreach(SCameraOverlay r : requested){
+			SLog.d(r,"",1);
+		}
+				
+		TSCameraOverlaySet active = SCameraOverlaysManager.getInstance().getActive();
+		SLog.d(active,"active");
+		foreach(SCameraOverlay a : active){
+			SLog.d(a,"",1);
+		}
+		
+		TSCameraOverlaySet pending = SCameraOverlaysManager.getInstance().getPendingDeletion();
+		SLog.d(pending,"pending deletion");
+		foreach(SCameraOverlay p : pending){
+			SLog.d(p,"",1);
+		}
 	}
 	
 
