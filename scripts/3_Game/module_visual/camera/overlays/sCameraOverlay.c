@@ -35,7 +35,10 @@ class SCameraOverlay : Managed {
 		m_position = position;
 		m_size = size;
 		m_rotation = rotation;
+		onInit();
 	}
+	
+	void onInit(){}
 	
 	string getImageName(){
 		return m_image;
@@ -157,6 +160,14 @@ class SCameraOverlay : Managed {
 			getPosition(),
 			getSize(),
 			getRotation());
+	}
+	
+	/**
+	*	@brief Part of "pseudo-interface" SAnimable
+	*	 @return bool - if "implements" SAnimable interface
+	*/
+	bool isAnimable(){
+		return false;
 	}
 	
 	void debugPrint(int depth = 0){

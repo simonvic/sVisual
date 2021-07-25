@@ -84,7 +84,7 @@ class SCameraOverlaysManager {
 		if(!m_overlaysHaveChanged) return;
 		
 		foreach(auto overlay, auto state: m_overlays){
-			if(!overlay) SLog.d("found null overlay","OverlayManager");
+			if(!overlay) SLog.w("Found null overlay!","SCameraOverlaysManager");
 			switch(m_overlays.Get(overlay)){
 				case eSCameraOverlayState.REQUESTED:
 					performAdd(overlay, root);
