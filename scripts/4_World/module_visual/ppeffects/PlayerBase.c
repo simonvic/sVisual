@@ -47,7 +47,7 @@ modded class PlayerBase{
 		
 		Clothing clothing = Clothing.Cast(item);
 		if(clothing && clothing.hasOverlays()){
-			SCameraOverlaysManager.getInstance().deactivate(clothing.getOverlaysList());
+			SCameraOverlaysManager.getInstance().deactivate(clothing.getOverlayByCurrentHealth());
 		}
 	}
 		
@@ -102,7 +102,7 @@ modded class PlayerBase{
 		if(IsBleeding()){
 			updateBleedingEffect();
 			PPEManager.activate(ppeBleeding);
-			SCameraOverlaysManager.getInstance().activateAnimation(m_coBleeding);
+			SCameraOverlaysManager.getInstance().activate(m_coBleeding);
 		}
 	}
 	
@@ -136,7 +136,7 @@ modded class PlayerBase{
 		super.OnBleedingBegin();
 		if( GetInstanceType() == DayZPlayerInstanceType.INSTANCETYPE_CLIENT ){
 			PPEManager.activate(ppeBleeding);
-			SCameraOverlaysManager.getInstance().activateAnimation(m_coBleeding);
+			SCameraOverlaysManager.getInstance().activate(m_coBleeding);
 		}
 	}
 	
@@ -144,7 +144,7 @@ modded class PlayerBase{
 		super.OnBleedingEnd();
 		if( GetInstanceType() == DayZPlayerInstanceType.INSTANCETYPE_CLIENT ){
 			PPEManager.deactivate(ppeBleeding);
-			SCameraOverlaysManager.getInstance().deactivateAnimation(m_coBleeding);
+			SCameraOverlaysManager.getInstance().deactivate(m_coBleeding);
 		}
 	}
 	

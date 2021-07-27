@@ -18,7 +18,7 @@ class SCameraOverlay : Managed {
 	
 	//maybe use a builder? lol
 	void SCameraOverlay(
-		string image,
+		string image = "",
 		float alpha = 1.0,
 		string mask = "",
 		float maskProgress = 1.0,
@@ -38,7 +38,7 @@ class SCameraOverlay : Managed {
 		onInit();
 	}
 	
-	void onInit(){}
+	void onInit();
 	
 	string getImageName(){
 		return m_image;
