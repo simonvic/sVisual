@@ -12,6 +12,7 @@ class SCameraOverlaysManager {
 		return INSTANCE;
 	}
 	
+	protected Widget m_root;
 	protected bool m_overlaysHaveChanged;
 	protected ref map<ref SCameraOverlay, eSCameraOverlayState> m_overlays = new map<ref SCameraOverlay, eSCameraOverlayState>();
 
@@ -56,6 +57,29 @@ class SCameraOverlaysManager {
 		m_overlaysHaveChanged = true;
 	}
 	
+	/**
+	*	@brief Make all overlays visible
+	*/
+	void showAll(){
+		if(m_root) m_root.Show(true);
+		/*
+		foreach(SCameraOverlay overlay : m_overlays){
+			overlay.getWidget().Show(true);
+		}
+		*/
+	}
+	
+	/**
+	*	@brief Hide all overlays
+	*/
+	void hideAll(){
+		if(m_root) m_root.Show(false);
+		/*
+		foreach(SCameraOverlay overlay : m_overlays){
+			overlay.getWidget().Show(false);
+		}
+		*/
+	}
 	
 	
 	/**
@@ -63,7 +87,7 @@ class SCameraOverlaysManager {
 	*	 @param root \p Widget - root widget of overlays
 	*/
 	void onUpdate(float deltaTime, Widget root){
-		
+		m_root = root;
 		animateOverlays(deltaTime, root);
 
 		if(!m_overlaysHaveChanged) return;

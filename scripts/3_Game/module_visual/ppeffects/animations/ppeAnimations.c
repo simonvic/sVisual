@@ -108,19 +108,10 @@ class PPEUnconsciousAnimation : PPELoopedParams {
 class PPEBleedingAnimation : PPELoopedParams {
 	private int bleedingBits = 0;
 	
-	override void onInit(){
-		setVignetteColor(PPEManager.getPPEColor(0.01, -0.1, -0.1, 0));
-	}
-	
-	override void onDeactivate(){
-		super.onDeactivate();
-	}
-	
 	override void onAnimate(float deltaTime){
 		float temp = Math.AbsFloat(Math.Sin(getTime() * bleedingBits));
 		float chrom = temp * bleedingBits / 100;
 		setChromAber(chrom * 0.25, chrom * 0.25);
-		setVignetteIntensity(temp * 0.4);
 	}
 		
 	void setBleedingBits(int cuts){

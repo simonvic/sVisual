@@ -88,9 +88,11 @@ modded class PlayerBase{
 			PPEManager.deactivateAll();
 			PPEManager.applyDefault();
 			
-			playSpawnPPE();		
+			SCameraOverlaysManager.getInstance().deactivateAll();
+			
+			playSpawnPPE();
 			checkForGlassesPPE();
-			checkForBleedingPPE();		
+			checkForBleedingPPE();
 		}
 	}
 	
@@ -120,6 +122,7 @@ modded class PlayerBase{
 		super.OnUnconsciousStart();
 		if( GetInstanceType() == DayZPlayerInstanceType.INSTANCETYPE_CLIENT ){
 			PPEManager.activate(m_ppeUnconscious);
+			SCameraOverlaysManager.getInstance().hideAll();
 		}
 	}
 	
@@ -127,6 +130,7 @@ modded class PlayerBase{
 		super.OnUnconsciousStop(pCurrentCommandID);
 		if( GetInstanceType() == DayZPlayerInstanceType.INSTANCETYPE_CLIENT ){
 			PPEManager.deactivate(m_ppeUnconscious);
+			SCameraOverlaysManager.getInstance().showAll();
 		}
 	}
 	

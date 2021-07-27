@@ -12,6 +12,7 @@ modded class MissionGameplay{
 	}
 	
 	void ~MissionGameplay(){
+		SCameraOverlaysManager.getInstance().deactivateAll();
 		PPEManager.deactivateAll();
 		PPEManager.applyDefault();
 	}
