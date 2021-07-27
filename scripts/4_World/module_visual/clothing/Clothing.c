@@ -38,8 +38,13 @@ modded class Clothing{
 	
 	override void EEHealthLevelChanged(int oldLevel, int newLevel, string zone){
 		super.EEHealthLevelChanged(oldLevel, newLevel, zone);
-		SCameraOverlaysManager.getInstance().remove(getOverlayByHealth(oldLevel));
-		SCameraOverlaysManager.getInstance().add(getOverlayByHealth(newLevel));
+		if( GetGame().IsClient() ){
+			SCameraOverlay old = getOverlayByHealth(oldLevel);
+			if(SCameraOverlaysManager.getInstance().isActive(old)){
+				SCameraOverlaysManager.getInstance().deactivate(old);
+				SCameraOverlaysManager.getInstance().activate(getOverlayByHealth(newLevel));
+			}
+		}
 		
 	}
 	

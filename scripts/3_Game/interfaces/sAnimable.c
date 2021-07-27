@@ -1,5 +1,4 @@
 //if we had interfaces... right? :(
-// I like to call this the "pseudo-interface pattern" :)
 
 enum eSAnimableState {
 	PLAYING = 0,
@@ -7,10 +6,40 @@ enum eSAnimableState {
 	STOPPED	
 }
 
-class SAnimable {
-
+/**
+*	@brief A pseudo-interface, where the generic type is the super type of
+*	 the class that may want to implement it
+*	 @code
+*		class Driveable<Class V> {
+*			T m_super;
+*			void drive();
+*		}
+*		class Car : Driveable<Vehicle> { //Car extends Vehicles implements Driveable
+*			void drive(){Print("brum brum");}
+*		}
+*/
+class SAnimable<Class T> {
+	protected ref T m_super;
+	T getSuper(){
+		return m_super;
+	}
+	void setSuper(T zuper){
+		m_super = zuper;
+	}
+	
 	protected eSAnimableState m_animationState = eSAnimableState.STOPPED;
 	protected float m_time;
+	
+	void SAnimable(){
+		onInit();
+	}
+	
+	void onInit();
+	void onStart();
+	void onAnimate(float deltaTime);
+	void onStop();
+	void onPause();
+	void onResume();
 	
 	void animate(float deltaTime){
 		if(!isPlaying()) return;
@@ -18,12 +47,6 @@ class SAnimable {
 		m_time += deltaTime;
 		onAnimate(deltaTime);
 	}
-	
-	void onStart();
-	void onAnimate(float deltaTime);
-	void onStop();
-	void onPause();
-	void onResume();
 		
 	/**
 	* @brief Set the animation state to PLAYING and reset the time
@@ -87,7 +110,8 @@ class SAnimable {
 	}
 }
 
-class SAnimableTimed : SAnimable {
+/*
+class SAnimableTimed<Class T> : SAnimable<Class> {
 	
 	protected float m_duration;
 	
@@ -110,7 +134,7 @@ class SAnimableTimed : SAnimable {
 	/**
 	* @brief Set the duration of the animation
 	* 	@param duration \p float - animation duration (seconds)
-	*/
+	*
 	void setDuration(float duration){
 		m_duration = duration;
 	}
@@ -118,7 +142,7 @@ class SAnimableTimed : SAnimable {
 	/**
 	* @brief Get the animation duration
 	* 	@return \p float - animation duration (seconds)
-	*/
+	*
 	float getDuration() {
 		return m_duration;
 	}
@@ -126,7 +150,7 @@ class SAnimableTimed : SAnimable {
 	/**
 	* @brief Get the time remaining to the completition
 	* 	@return \p float - time remaining (seconds)
-	*/
+	*
 	float getRemaining() {
 		return m_duration - m_time;
 	}

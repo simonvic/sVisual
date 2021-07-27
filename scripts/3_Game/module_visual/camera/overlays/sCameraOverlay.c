@@ -132,8 +132,12 @@ class SCameraOverlay : Managed {
 		return m_widget;
 	}
 	
-	ImageWidget buildWidget(Widget parent = null){
-		m_widget = ImageWidget.Cast(GetGame().GetWorkspace().CreateWidgets(getLayout(), parent));
+	ImageWidget buildWidget(Widget parent){
+		if(!m_widget){
+			m_widget = ImageWidget.Cast(GetGame().GetWorkspace().CreateWidgets(getLayout(), parent));
+		}else{
+			parent.AddChild(m_widget);
+		}
 		m_widget.LoadImageFile(0, getImageName());
 		m_widget.SetAlpha(getAlpha());
 		m_widget.LoadMaskTexture(getMask());

@@ -6,6 +6,8 @@ modded class PlayerBase{
 	protected ref PPEBleedingAnimation ppeBleeding = new PPEBleedingAnimation();               //Used when bleeding
 	protected ref PPEUnconsciousAnimation m_ppeUnconscious = new PPEUnconsciousAnimation();    //Used when going uncoscious
 	
+	protected ref SCOBleedingAnimation m_coBleeding = new SCOBleedingAnimation();    //Used when bleeding
+	
 	//Debug
 	protected ref PPEAnimatedParams ppeDebug = new PPEDebugAnimation();
 	
@@ -29,7 +31,7 @@ modded class PlayerBase{
 
 		Clothing clothing = Clothing.Cast(item);
 		if(clothing && clothing.hasOverlays()){
-			SCameraOverlaysManager.getInstance().add(clothing.getOverlayByCurrentHealth());
+			SCameraOverlaysManager.getInstance().activate(clothing.getOverlayByCurrentHealth());
 		}
 		
 		
@@ -45,31 +47,20 @@ modded class PlayerBase{
 		
 		Clothing clothing = Clothing.Cast(item);
 		if(clothing && clothing.hasOverlays()){
-			SCameraOverlaysManager.getInstance().remove(clothing.getOverlaysList());
+			SCameraOverlaysManager.getInstance().deactivate(clothing.getOverlaysList());
 		}
 	}
 		
 	override void OnJumpStart(){		
 		super.OnJumpStart();
-		//SCameraOverlaysManager.getInstance().add(SGameConfig.visual().getCameraOverlays(SportGlasses_ColorBase));
-		//SCameraOverlaysManager.getInstance().removeAll();
 		/*
-		GetGame().CreateObject("AviatorGlasses",GetPosition()).SetHealth("","",100);
-		GetGame().CreateObject("AviatorGlasses",GetPosition()).SetHealth("","",30);
-		GetGame().CreateObject("AviatorGlasses",GetPosition()).SetHealth("","",25);
-		GetGame().CreateObject("AviatorGlasses",GetPosition()).SetHealth("","",10);
+		if(GetGame().IsServer()){
+			GetGame().CreateObject("AviatorGlasses",GetPosition()).SetHealth("","",100);
+			GetGame().CreateObject("AviatorGlasses",GetPosition()).SetHealth("","",30);
+			GetGame().CreateObject("AviatorGlasses",GetPosition()).SetHealth("","",25);
+			GetGame().CreateObject("AviatorGlasses",GetPosition()).SetHealth("","",10);
 		*/
 	}
-	
-	/*@todo ipdate overlays when clothing is damaged
-	override void OnSyncJuncture(int pJunctureID, ParamsReadContext pCtx){
-		super.OnSyncJuncture(pJunctureID, pCtx);
-		switch (pJunctureID){
-			case DayZPlayerSyncJunctures.SJ_DAMAGE_HIT:
-				break;
-		}
-	}
-	*/
 	
 	override void SpawnDamageDealtEffect(){
 		if( GetInstanceType() == DayZPlayerInstanceType.INSTANCETYPE_CLIENT ){
@@ -111,6 +102,7 @@ modded class PlayerBase{
 		if(IsBleeding()){
 			updateBleedingEffect();
 			PPEManager.activate(ppeBleeding);
+			SCameraOverlaysManager.getInstance().activateAnimation(m_coBleeding);
 		}
 	}
 	
@@ -144,6 +136,7 @@ modded class PlayerBase{
 		super.OnBleedingBegin();
 		if( GetInstanceType() == DayZPlayerInstanceType.INSTANCETYPE_CLIENT ){
 			PPEManager.activate(ppeBleeding);
+			SCameraOverlaysManager.getInstance().activateAnimation(m_coBleeding);
 		}
 	}
 	
@@ -151,6 +144,7 @@ modded class PlayerBase{
 		super.OnBleedingEnd();
 		if( GetInstanceType() == DayZPlayerInstanceType.INSTANCETYPE_CLIENT ){
 			PPEManager.deactivate(ppeBleeding);
+			SCameraOverlaysManager.getInstance().deactivateAnimation(m_coBleeding);
 		}
 	}
 	
@@ -168,6 +162,7 @@ modded class PlayerBase{
 	protected void updateBleedingEffect(){
 		if( GetInstanceType() == DayZPlayerInstanceType.INSTANCETYPE_CLIENT ){
 			ppeBleeding.setBleedingBits(GetBleedingSourceCount());
+			m_coBleeding.setBleedingBits(GetBleedingSourceCount());
 		}
 	}
 	
