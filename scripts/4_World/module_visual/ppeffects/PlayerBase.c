@@ -23,9 +23,10 @@ modded class PlayerBase{
 	
 	override void EEItemAttached(EntityAI item, string slot_name){
 		super.EEItemAttached(item, slot_name);
+		if( GetInstanceType() != DayZPlayerInstanceType.INSTANCETYPE_CLIENT ) return;
 		
 		// Apply colored overlay when wearing AviatorGlasses
-		if( GetInstanceType() == DayZPlayerInstanceType.INSTANCETYPE_CLIENT && slot_name == "Eyewear" && AviatorGlasses.Cast(item)){
+		if( slot_name == "Eyewear" && AviatorGlasses.Cast(item)){
 			PPEManager.activate(ppeEye);
 		}
 
@@ -39,9 +40,10 @@ modded class PlayerBase{
 	
 	override void EEItemDetached(EntityAI item, string slot_name){
 		super.EEItemDetached(item, slot_name);
+		if( GetInstanceType() != DayZPlayerInstanceType.INSTANCETYPE_CLIENT ) return;
 		
 		// Remove colored overlay when removing AviatorGlasses
-		if( GetInstanceType() == DayZPlayerInstanceType.INSTANCETYPE_CLIENT && slot_name == "Eyewear" && AviatorGlasses.Cast(item)){		
+		if( slot_name == "Eyewear" && AviatorGlasses.Cast(item) ){
 			PPEManager.deactivate(ppeEye);
 		}
 		
@@ -80,20 +82,21 @@ modded class PlayerBase{
 	
 	override void OnSelectPlayer(){
 		super.OnSelectPlayer();
-				
+		
 		//Proceed only if client
-		if( GetInstanceType() == DayZPlayerInstanceType.INSTANCETYPE_CLIENT ){
+		if( GetInstanceType() != DayZPlayerInstanceType.INSTANCETYPE_CLIENT ) return;
 			
-			//Remove all ppeffects
-			PPEManager.deactivateAll();
-			PPEManager.applyDefault();
+		//Remove all ppeffects
+		PPEManager.deactivateAll();
+		PPEManager.applyDefault();
 			
-			SCameraOverlaysManager.getInstance().deactivateAll();
-			
-			playSpawnPPE();
-			checkForGlassesPPE();
-			checkForBleedingPPE();
-		}
+		playSpawnPPE();
+		checkForBleedingPPE();
+		checkForGlassesPPE();
+		
+		SCameraOverlaysManager.getInstance().deactivateAll();
+		checkForOverlays();
+
 	}
 	
 	protected void playSpawnPPE(){
@@ -113,6 +116,22 @@ modded class PlayerBase{
 			PPEManager.activate(ppeEye);
 		}
 	}	
+	
+	protected void checkForOverlays(){
+		//@todo check why the health level is not correct
+		ref array<EntityAI> items = new array<EntityAI>;
+		GetInventory().EnumerateInventory(InventoryTraversalType.LEVELORDER, items);
+		foreach(EntityAI item : items){
+			if(!item) return;
+			Clothing clothing = Clothing.Cast(item);
+			if(clothing && clothing.hasOverlays()){
+				SLog.d(clothing);
+				SLog.d(clothing.GetHealthLevel(),"",1);
+				SLog.d(clothing.getOverlayByCurrentHealth().getImageName(),"",1);
+				SCameraOverlaysManager.getInstance().activate(clothing.getOverlayByCurrentHealth());
+			}
+		}
+	}
 	
 	
 	

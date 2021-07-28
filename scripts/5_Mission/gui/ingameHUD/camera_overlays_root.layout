@@ -1,4 +1,4 @@
-FrameWidgetClass root_overlay {
+FrameWidgetClass overlays_root {
  visible 1
  position 0 0
  size 1 1

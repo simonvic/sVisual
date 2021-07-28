@@ -24,7 +24,7 @@ class SCameraOverlaysManager {
 	void activate(SCameraOverlay overlay){
 		if(!overlay) return;
 		if(GetGame().IsServer() && GetGame().IsMultiplayer()){
-			SLog.w("ACTIVATING " + overlay + " ON SERVER!","SCameraOverlaysManager::deactivate");
+			SLog.w("ACTIVATING " + overlay + " ON SERVER!","SCameraOverlaysManager::activate");
 			return;
 		}
 		
@@ -204,31 +204,59 @@ class SCameraOverlaysManager {
 	}
 	
 	void debugPrint(){
+		SLog.d("=============== DEBUG PRINT =================");
 		TSCameraOverlaySet requested = SCameraOverlaysManager.getInstance().getRequested();
-		SLog.d(requested,"requested");
+		SLog.d(""+requested.Count(),"requested");
 		foreach(SCameraOverlay r : requested){
 			SLog.d(r,"",1);
 		}
 				
 		TSCameraOverlaySet active = SCameraOverlaysManager.getInstance().getActive();
-		SLog.d(active,"active");
+		SLog.d(""+active.Count(),"active");
 		foreach(SCameraOverlay a : active){
 			SLog.d(a,"",1);
 		}
 		
 		TSCameraOverlaySet pending = SCameraOverlaysManager.getInstance().getPendingDeletion();
-		SLog.d(pending,"pending deletion");
+		SLog.d(""+pending.Count(),"pending deletion");
 		foreach(SCameraOverlay p : pending){
 			SLog.d(p,"",1);
 		}
 		
-		SLog.d(pending,"animating");
 		set<SCameraOverlayAnimated> animating = SCameraOverlaysManager.getInstance().getAnimating();
+		SLog.d(""+animating.Count(),"animating");
 		foreach(SCameraOverlayAnimated ao : animating){
 			SLog.d(ao,"",1);
 			SLog.d(typename.EnumToString(eSAnimableState, ao.getAnimationState()),"",2);
 		}
+		SLog.d("-------------- tree debug -----------");
+		debugPrintOverlayRoot(m_root);
+	}
+	
+	void debugPrintOverlayRoot(Widget root, int depth = 0){
+		if(!root) return;
+		SLog.d(""+root.GetName(),"",depth);
 		
+		if(root.GetChildren()){
+			debugPrintOverlayRoot(root.GetChildren(), depth + 1);
+		}
+		
+		if(root.GetSibling() && depth > 0){
+			debugPrintOverlayRoot(root.GetSibling(), depth);
+		}
+	}
+		
+	static void debugPrintLayout(Widget root, int depth = 0){
+		if(!root) return;
+		SLog.d(""+root.GetName(),"",depth);
+		
+		if(root.GetChildren()){
+			debugPrintLayout(root.GetChildren(), depth + 1);
+		}
+		
+		if(root.GetSibling()){
+			debugPrintLayout(root.GetSibling(), depth);
+		}
 	}
 	
 

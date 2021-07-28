@@ -146,12 +146,13 @@ class SCameraOverlay : Managed {
 		m_widget.SetPos(m_position[0], m_position[1]);
 		m_widget.SetSize(m_size[0], m_size[1]);
 		m_widget.SetRotation(m_rotation[0], m_rotation[1], m_rotation[2]);
+		//m_widget.SetName(getImageName());
 		m_widget.Show(true);
 		return m_widget;
 	}
 	
 	protected string getLayout(){
-		return "MyMODS/sVisual/scripts/5_Mission/gui/ingameHUD/image_overlay.layout";
+		return "MyMODS/sVisual/scripts/5_Mission/gui/ingameHUD/camera_overlay.layout";
 	}
 	
 	string toString(){

@@ -1,4 +1,4 @@
-ImageWidgetClass root_image {
+ImageWidgetClass overlay_image {
  visible 1
  inheritalpha 0
  ignorepointer 1
