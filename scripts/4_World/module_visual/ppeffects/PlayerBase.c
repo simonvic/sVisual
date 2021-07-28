@@ -82,11 +82,19 @@ modded class PlayerBase{
 	
 	override void OnSelectPlayer(){
 		super.OnSelectPlayer();
-		
+	}
+	
+	override void OnPlayerLoaded(){
+		super.OnPlayerLoaded();
+		updateVisuals();
+	}
+	
+	protected void updateVisuals(){
 		//Proceed only if client
 		if( GetInstanceType() != DayZPlayerInstanceType.INSTANCETYPE_CLIENT ) return;
 			
-		//Remove all ppeffects
+		/////////////////////////
+		// PPEffects
 		PPEManager.deactivateAll();
 		PPEManager.applyDefault();
 			
@@ -94,9 +102,10 @@ modded class PlayerBase{
 		checkForBleedingPPE();
 		checkForGlassesPPE();
 		
+		/////////////////////////
+		// Overlays
 		SCameraOverlaysManager.getInstance().deactivateAll();
 		checkForOverlays();
-
 	}
 	
 	protected void playSpawnPPE(){

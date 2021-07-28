@@ -68,6 +68,7 @@ class CfgVehicles{
 		position[] = {0.0, 0.0};
 		size[] = {1.0, 1.0};
 		rotation[] = {0.0, 0.0, 0.0};
+		priority=0;
 	};
 
 	class MotoHelmet_ColorBase {
@@ -112,21 +113,25 @@ class CfgVehicles{
 				class overlay_0 : SCameraOverlay {
 					image="MyMODS/sVisual/GUI/textures/overlays/generic_scratches_pristine.edds";
 					alpha=0.05;
+					priority=1;
 				};
 
 				class overlay_1 : SCameraOverlay {
 					image="MyMODS/sVisual/GUI/textures/overlays/generic_scratches_worn.edds";
 					alpha=0.1;
+					priority=1;
 				};
 
 				class overlay_2 : SCameraOverlay {
 					image="MyMODS/sVisual/GUI/textures/overlays/generic_scratches_damaged.edds";
 					alpha=0.1;
+					priority=1;
 				};
 				
 				class overlay_3 : SCameraOverlay {
 					image="MyMODS/sVisual/GUI/textures/overlays/generic_scratches_badlydamaged.edds";
 					alpha=0.1;
+					priority=1;
 				};
 			};
 		};

@@ -14,6 +14,8 @@ class SCameraOverlay : Managed {
 	protected vector m_size;
 	protected vector m_rotation;
 	
+	protected int m_priority;
+	
 	protected ref ImageWidget m_widget = null;
 	
 	//maybe use a builder? lol
@@ -25,7 +27,8 @@ class SCameraOverlay : Managed {
 		float maskTransitionWidth = 0.1,
 		vector position = "0.0 0.0 0.0",
 		vector size = "1.0 1.0 1.0",
-		vector rotation = "0.0 0.0 0.0"){
+		vector rotation = "0.0 0.0 0.0",
+		int priority = 0){
 		
 		m_image = image;
 		m_alpha = alpha;
@@ -35,6 +38,7 @@ class SCameraOverlay : Managed {
 		m_position = position;
 		m_size = size;
 		m_rotation = rotation;
+		m_priority = priority;
 		onInit();
 	}
 	
@@ -57,6 +61,8 @@ class SCameraOverlay : Managed {
 		m_alpha = alpha;
 		if(m_widget) m_widget.SetAlpha(alpha);
 	}
+	
+	
 	
 	string getMask(){
 		return m_mask;
@@ -128,6 +134,17 @@ class SCameraOverlay : Managed {
 	}
 	
 	
+	
+	int getPriority(){
+		return m_priority;
+	}
+	
+	void setPriority(int priority){
+		m_priority = priority;
+		if(m_widget) m_widget.SetSort(priority);
+	}
+	
+	
 	ImageWidget getWidget(){
 		return m_widget;
 	}
@@ -146,6 +163,7 @@ class SCameraOverlay : Managed {
 		m_widget.SetPos(m_position[0], m_position[1]);
 		m_widget.SetSize(m_size[0], m_size[1]);
 		m_widget.SetRotation(m_rotation[0], m_rotation[1], m_rotation[2]);
+		m_widget.SetSort(getPriority());
 		//m_widget.SetName(getImageName());
 		m_widget.Show(true);
 		return m_widget;
@@ -156,7 +174,8 @@ class SCameraOverlay : Managed {
 	}
 	
 	string toString(){
-		return string.Format("image= %1 \n alpha= %2 \n mask= %3 \n maskProgress= %4 \n maskTransitionWidth= %5",
+		return string.Format(
+			"image= %1 \n alpha= %2 \n mask= %3 \n maskProgress= %4 \n maskTransitionWidth= %5 \n position= %6 \n size= %7 \n rotation= %8 \n priority= %9",
 			getImageName(),
 			getAlpha(),
 			getMask(),
@@ -164,15 +183,8 @@ class SCameraOverlay : Managed {
 			getMaskTransitionWidth(),
 			getPosition(),
 			getSize(),
-			getRotation());
-	}
-	
-	/**
-	*	@brief Part of "pseudo-interface" SAnimable
-	*	 @return bool - if "implements" SAnimable interface
-	*/
-	bool isAnimable(){
-		return false;
+			getRotation(),
+			getPriority());
 	}
 	
 	void debugPrint(int depth = 0){
@@ -186,6 +198,7 @@ class SCameraOverlay : Managed {
 		SLog.d(getPosition(),"position",depth);
 		SLog.d(getSize(),"size",depth);
 		SLog.d(getRotation(),"rotation",depth);
+		SLog.d(getPriority(),"priority",depth);
 	}
 }
 

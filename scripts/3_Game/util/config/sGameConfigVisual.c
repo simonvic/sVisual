@@ -42,7 +42,8 @@ class SGameConfigVisual : SGameConfigBase{
 			SGameConfig.getFloat(path + " maskTransitionWidth"),
 			SGameConfig.getVector(path + " position"),
 			SGameConfig.getVector(path + " size"),
-			SGameConfig.getVector(path + " rotation"));
+			SGameConfig.getVector(path + " rotation"),
+			SGameConfig.getInt(path + " priority"));
 	}
 	
 }
