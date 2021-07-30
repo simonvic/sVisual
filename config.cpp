@@ -60,7 +60,7 @@ class CfgMods {
 
 class CfgVehicles{
 	class SCameraOverlay {
-		image="MyMODS/sVisual/GUI/textures/overlays/generic_scratches_pristine.edds";
+		image="";
 		alpha=1.0;
 		mask="";
 		maskProgress=1.0;
@@ -68,35 +68,44 @@ class CfgVehicles{
 		position[] = {0.0, 0.0};
 		size[] = {1.0, 1.0};
 		rotation[] = {0.0, 0.0, 0.0};
-		priority=0;
+		priority = 0;
 	};
+
+	class SCameraOverlay_Eyewear : SCameraOverlay {
+		priority = 2;
+	};
+
+	class SCameraOverlay_Headgear : SCameraOverlay {
+		priority = 1;
+	};
+
 
 	class MotoHelmet_ColorBase {
 		class sUDE {
 			class CameraOverlays {
 
-				class overlay_0 : SCameraOverlay {
+				class overlay_0 : SCameraOverlay_Headgear {
 					image="MyMODS/sVisual/GUI/textures/overlays/generic_scratches_pristine.edds";
 					alpha=0.05;
 					size[] = {1.2, 1.2};
 					rotation[] = {0.0, 0.0, 180.0};
 				};
 
-				class overlay_1 : SCameraOverlay {
+				class overlay_1 : SCameraOverlay_Headgear {
 					image="MyMODS/sVisual/GUI/textures/overlays/generic_scratches_worn.edds";
 					alpha=0.05;
 					size[] = {1.2, 1.2};
 					rotation[] = {0.0, 0.0, 180.0};
 				};
 
-				class overlay_2 : SCameraOverlay {
+				class overlay_2 : SCameraOverlay_Headgear {
 					image="MyMODS/sVisual/GUI/textures/overlays/generic_scratches_damaged.edds";
 					alpha=0.05;
 					size[] = {1.2, 1.2};
 					rotation[] = {0.0, 0.0, 180.0};
 				};
 				
-				class overlay_3 : SCameraOverlay {
+				class overlay_3 : SCameraOverlay_Headgear {
 					image="MyMODS/sVisual/GUI/textures/overlays/generic_scratches_badlydamaged.edds";
 					alpha=0.05;
 					size[] = {1.2, 1.2};
@@ -108,27 +117,26 @@ class CfgVehicles{
 
 	class SportGlasses_ColorBase {
 		class sUDE {
-
 			class CameraOverlays{
-				class overlay_0 : SCameraOverlay {
+				class overlay_0 : SCameraOverlay_Eyewear {
 					image="MyMODS/sVisual/GUI/textures/overlays/generic_scratches_pristine.edds";
 					alpha=0.05;
 					priority=1;
 				};
 
-				class overlay_1 : SCameraOverlay {
+				class overlay_1 : SCameraOverlay_Eyewear {
 					image="MyMODS/sVisual/GUI/textures/overlays/generic_scratches_worn.edds";
 					alpha=0.1;
 					priority=1;
 				};
 
-				class overlay_2 : SCameraOverlay {
+				class overlay_2 : SCameraOverlay_Eyewear {
 					image="MyMODS/sVisual/GUI/textures/overlays/generic_scratches_damaged.edds";
 					alpha=0.1;
 					priority=1;
 				};
 				
-				class overlay_3 : SCameraOverlay {
+				class overlay_3 : SCameraOverlay_Eyewear {
 					image="MyMODS/sVisual/GUI/textures/overlays/generic_scratches_badlydamaged.edds";
 					alpha=0.1;
 					priority=1;
@@ -140,7 +148,7 @@ class CfgVehicles{
 	class BurlapSackCover {
 		class sUDE {
 			class CameraOverlays {
-				class overlay_0 : SCameraOverlay {
+				class overlay_0 : SCameraOverlay_Headgear {
 					image="MyMODS/sVisual/GUI/textures/overlays/burlap.edds";
 					size[] = {1.1, 1.1};
 				};
@@ -151,7 +159,7 @@ class CfgVehicles{
 	class GasMask {
 		class sUDE {
 			class CameraOverlays {
-				class overlay_0 : SCameraOverlay {
+				class overlay_0 : SCameraOverlay_Eyewear {
 					image="MyMODS/sVisual/GUI/textures/overlays/black_4x4.edds";
 					mask="MyMODS/sVisual/GUI/textures/masks/binoculars_inverted.edds";
 					maskProgress=0.45;
@@ -165,7 +173,7 @@ class CfgVehicles{
 	class GP5GasMask {
 		class sUDE {
 			class CameraOverlays {
-				class overlay_0 : SCameraOverlay {
+				class overlay_0 : SCameraOverlay_Eyewear {
 					image="MyMODS/sVisual/GUI/textures/overlays/black_4x4.edds";
 					mask="MyMODS/sVisual/GUI/textures/masks/binoculars_inverted.edds";
 					maskProgress=0.8;
@@ -179,7 +187,7 @@ class CfgVehicles{
 	class AirborneMask {
 		class sUDE {
 			class CameraOverlays {
-				class overlay_0 : SCameraOverlay {
+				class overlay_0 : SCameraOverlay_Eyewear {
 					image="MyMODS/sVisual/GUI/textures/overlays/black_4x4.edds";
 					mask="MyMODS/sVisual/GUI/textures/masks/binoculars_inverted.edds";
 					maskProgress=0.45;

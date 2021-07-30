@@ -104,8 +104,6 @@ class SCameraOverlaysManager {
 			
 			if(animated.isPlaying()){
 				animated.animate(deltaTime);
-			}else if(animated.hasStopped()){
-				SLog.d("Found stopped animation",""+this);
 			}
 		}
 	}
