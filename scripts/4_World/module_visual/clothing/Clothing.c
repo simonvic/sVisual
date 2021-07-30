@@ -30,10 +30,7 @@ modded class Clothing{
 	}
 	
 	SCameraOverlay getOverlayByHealth(int level){
-		if(m_overlays.Count() - 1 < level){
-			return m_overlays[m_overlays.Count() - 1];
-		}
-		return m_overlays[level];
+		return m_overlays[Math.Clamp(level, 0, m_overlays.Count() - 1)];
 	}
 	
 	override void EEHealthLevelChanged(int oldLevel, int newLevel, string zone){

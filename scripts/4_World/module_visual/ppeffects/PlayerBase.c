@@ -61,6 +61,7 @@ modded class PlayerBase{
 			GetGame().CreateObject("AviatorGlasses",GetPosition()).SetHealth("","",30);
 			GetGame().CreateObject("AviatorGlasses",GetPosition()).SetHealth("","",25);
 			GetGame().CreateObject("AviatorGlasses",GetPosition()).SetHealth("","",10);
+		}
 		*/
 	}
 	
@@ -127,16 +128,9 @@ modded class PlayerBase{
 	}	
 	
 	protected void checkForOverlays(){
-		//@todo check why the health level is not correct
-		ref array<EntityAI> items = new array<EntityAI>;
-		GetInventory().EnumerateInventory(InventoryTraversalType.LEVELORDER, items);
-		foreach(EntityAI item : items){
-			if(!item) return;
-			Clothing clothing = Clothing.Cast(item);
+		for ( int i=0; i<GetInventory().AttachmentCount(); i++ ){
+			Clothing clothing = Clothing.Cast(GetInventory().GetAttachmentFromIndex( i ));
 			if(clothing && clothing.hasOverlays()){
-				SLog.d(clothing);
-				SLog.d(clothing.GetHealthLevel(),"",1);
-				SLog.d(clothing.getOverlayByCurrentHealth().getImageName(),"",1);
 				SCameraOverlaysManager.getInstance().activate(clothing.getOverlayByCurrentHealth());
 			}
 		}
