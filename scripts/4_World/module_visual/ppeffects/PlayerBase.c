@@ -12,18 +12,20 @@ modded class PlayerBase{
 	protected ref PPEDebugAnimation m_ppeDebug = new PPEDebugAnimation();
 	protected ref SCOAnimationDebug m_coDebug = new SCOAnimationDebug();
 	protected ref SCOTimedDebug m_coDebugTimed = new SCOTimedDebug();
+	protected ref SCOAnimationLogo m_coLogo = new SCOAnimationLogo();
 	
 	override void OnInventoryMenuOpen(){
 		super.OnInventoryMenuOpen();
 		//PPEManager.toggle(m_ppeDebug, !m_ppeDebug.isActive());
-		//SCameraOverlaysManager.getInstance().activate(m_coDebug);
+		SCameraOverlaysManager.getInstance().activate(m_coDebug);
 		//SCameraOverlaysManager.getInstance().activate(m_coDebugTimed);
+		SCameraOverlaysManager.getInstance().activate(m_coLogo);
 	}
 	
 	override void OnInventoryMenuClose(){
 		super.OnInventoryMenuClose();
 		//PPEManager.deactivate(m_ppeDebug);
-		//SCameraOverlaysManager.getInstance().deactivate(m_coDebug);
+		SCameraOverlaysManager.getInstance().deactivate(m_coDebug);
 	}
 	
 	override void EEItemAttached(EntityAI item, string slot_name){
