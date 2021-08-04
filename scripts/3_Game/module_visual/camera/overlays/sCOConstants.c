@@ -33,8 +33,8 @@ class SCOMasks {
 
 enum eSCOPriority {
 	DEFAULT = 0,
-	HEADGEAR,
-	EYEGEAR,
-	EYE,
+	HEADGEAR = 1,
+	EYEGEAR = 2,
+	EYE = 3,
 	UI = 200
 }

@@ -4,9 +4,9 @@ class SCOBleedingAnimation : SCameraOverlayAnimated {
 	
 	override void onInit(){
 		setImage("MyMODS/sVisual/GUI/textures/overlays/blood.edds");
-		setMask("MyMODS/sVisual/GUI/textures/masks/blood.edds");
+		setMask(SCOMasks.BLOOD);
 		setMaskTransitionWidth(0.75);
-		setPriority(199);
+		setPriority(eSCOPriority.EYE);
 	}
 	
 	override void onAnimate(float deltaTime){

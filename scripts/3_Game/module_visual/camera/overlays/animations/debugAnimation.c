@@ -40,11 +40,10 @@ class SCOAnimationLogo : SCameraOverlayAnimated {
 		setImage("MyMODS/sVisual/GUI/icons/logo/sVisual.paa");
 		setSize(0.04, 0.06);
 		setPosition(-0.48, -0.45);
-		setPriority(eSCOPriority.UI + 1);
+		setPriority(eSCOPriority.UI);
 	}
 	
 	override void onAnimate(float deltaTime){
-		setPriority(9999);
 		float revolution = Math.AbsFloat(Math.Sin(getTime())) * 360;
 		setRotation(revolution, 0, 0);
 		
