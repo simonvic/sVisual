@@ -3,17 +3,71 @@ typedef set<ref SCameraOverlay> TSCameraOverlaySet;
 
 class SCameraOverlay : Managed {
 	
+	/**
+	*	@brief Path of the image to be loaded. It can be whatever an ImageWidget accepts
+	*	 @code
+	*	 	"set:dayz_crosshairs image:imperfect"                // image sets
+	*	 	"MyMODS/sVisual/GUI/textures/overlays/blood.edds"    // image paths
+	*/
 	protected string m_image;
+	
+	/**
+	*	@brief Alpha of the widget, [0.0 - 1.0]
+	*/
 	protected float m_alpha;
 	
+	/**
+	*	@brief Path of the image to be loaded used as an alpha mask
+	*	        Usually a white and black image, where 
+	*	        WHITE : alpha=1.0
+	*	        GREY  : alpha=0.5
+	*	        BLACK : alpha=0.0
+	*/
 	protected string m_mask;
+	
+	/**
+	*	@brief Progress determines which alpha values are opaque using the mask. For progress x, 
+	*	        pixels with alpha in mask < x will be opaque and alpha in mask > x will be transparent.
+	*	        For smooth transition @see m_maskTransitionWidth.
+	*/
 	protected float m_maskProgress;
+	
+	/**
+	*	@brief Alpha values will be fully opaque at m_maskProgress. Values between m_maskProgress and
+	*	        m_maskProgress + m_maskTransitionWidth will be smooth
+	*/
 	protected float m_maskTransitionWidth;
 	
+	/**
+	*	@brief Position of the widget (ORIGIN) defined in screen space [0.0 - 1.0]
+	*	        Only position[0] and position[1] is used to determine X and Y position where
+	*	        0.0 : top left of the screen
+	*	        0.5 : center of the screen
+	*	        1.0 : bottom right of the screen
+	*	 @note Values lower than 0.0 and higher than 1.0 are accepted
+	*/
 	protected vector m_position;
+	
+	/**
+	*	@brief Size of the widget defined in screen space [0.0 - 1.0]
+	*	        Only size[0] and size[1] is used to determine X and Y size where
+	*	        0.5 : half size
+	*	        1.0 : full screen
+	*	 @note Values lower than 0.0 and higher than 1.0 are accepted
+	*/
 	protected vector m_size;
+	
+	/**
+	*	@brief Rotation of the widget defined with Yaw, Pitch and Roll angles
+	*/
 	protected vector m_rotation;
 	
+	/**
+	*	@brief Priority of the ImageWidget. It determines how close to the camera will be (also known
+	*	        as z-depth).
+	*	        Higher priority will bring the image widget closer to the camera
+	*	        @note Vanilla UI priority is ~200. Setting values higher than this may cover the UI 
+	*/
 	protected int m_priority;
 	
 	protected ref ImageWidget m_widget = null;
@@ -128,6 +182,10 @@ class SCameraOverlay : Managed {
 		return m_rotation;
 	}
 	
+	void setRotation(float yaw, float pitch, float roll){
+		setRotation(Vector(yaw, pitch, roll));
+	}
+	
 	void setRotation(vector rotation){
 		m_rotation = rotation;
 		if(m_widget) m_widget.SetRotation(rotation[0], rotation[1], rotation[2]);
@@ -199,6 +257,38 @@ class SCameraOverlay : Managed {
 		SLog.d(getSize(),"size",depth);
 		SLog.d(getRotation(),"rotation",depth);
 		SLog.d(getPriority(),"priority",depth);
+	}
+	
+	
+	static void debugProjection(SCameraOverlay overlay, float size, vector origin = "69.2194 15.71244 1594.24"){
+		overlay.setImage("MyMODS/sVisual/GUI/textures/masks/misc.edds");
+		overlay.setMask("MyMODS/sVisual/GUI/textures/masks/misc.edds");
+		///setMaskProgress(Math.AbsFloat(Math.Sin(getTime() * 2) * 0.7) + 0.05);
+		
+		vector upRight = origin + vector.Forward * size;
+		vector downRight = upRight - vector.Up * size;
+		vector downLeft = origin - vector.Up * size;
+			
+		vector screen_origin = GetGame().GetScreenPosRelative(origin);
+		vector screen_upRight = GetGame().GetScreenPosRelative(upRight);
+		vector screen_downRight = GetGame().GetScreenPosRelative(downRight);
+		vector screen_downLeft = GetGame().GetScreenPosRelative(downLeft);
+		
+		float c0[2] = {screen_origin[0], screen_origin[1]};
+		float c1[2] = {screen_upRight[0], screen_upRight[1]};
+		float c2[2] = {screen_downRight[0], screen_downRight[1]};
+		float c3[2] = {screen_downLeft[0], screen_downLeft[1]};
+		float uvs[4][2] = {c0,c1,c2,c3};
+		overlay.getWidget().SetUV(uvs);
+		
+		//setPosition(screen_origin);
+		/*
+		SDebug.spawnDebugDot(playerPos);
+		SDebug.spawnDebugDot(origin);
+		SDebug.spawnDebugDot(upRight);
+		SDebug.spawnDebugDot(downRight);
+		SDebug.spawnDebugDot(downLeft);
+		*/
 	}
 }
 
