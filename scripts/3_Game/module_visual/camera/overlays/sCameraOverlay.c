@@ -8,6 +8,7 @@ class SCameraOverlay : Managed {
 	*	 @code
 	*	 	"set:dayz_crosshairs image:imperfect"                // image sets
 	*	 	"MyMODS/sVisual/GUI/textures/overlays/blood.edds"    // image paths
+	*	 	"MyMODS/sVisual/GUI/icons/logo/sVisual.paa"          // image paths
 	*/
 	protected string m_image;
 	
@@ -188,7 +189,7 @@ class SCameraOverlay : Managed {
 	
 	void setRotation(vector rotation){
 		m_rotation = rotation;
-		if(m_widget) m_widget.SetRotation(rotation[0], rotation[1], rotation[2]);
+		if(m_widget) m_widget.SetRotation(rotation[1], rotation[0], rotation[2]);
 	}
 	
 	
