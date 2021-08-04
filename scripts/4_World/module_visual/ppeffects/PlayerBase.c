@@ -1,28 +1,29 @@
 modded class PlayerBase{
 	
-	protected ref PPESpawnEffect ppeSpawn = new PPESpawnEffect(5, true);                       //Used when spawning	
-	protected ref PPEHitReceivedAnimation ppeHitAnim = new PPEHitReceivedAnimation(PPEConstants.HIT_RECEIVED_MIN_DURATION, true); //Used when being hit
-	protected ref PPEEyegearPreset ppeEye = new PPEEyegearPreset();                            //Used when wearing AviatorGlasses
-	protected ref PPEBleedingAnimation ppeBleeding = new PPEBleedingAnimation();               //Used when bleeding
+	protected ref PPESpawnEffect m_ppeSpawn = new PPESpawnEffect(5, true);                       //Used when spawning	
+	protected ref PPEHitReceivedAnimation m_ppeHitAnim = new PPEHitReceivedAnimation(PPEConstants.HIT_RECEIVED_MIN_DURATION, true); //Used when being hit
+	protected ref PPEEyegearPreset m_ppeEye = new PPEEyegearPreset();                            //Used when wearing AviatorGlasses
+	protected ref PPEBleedingAnimation m_ppeBleeding = new PPEBleedingAnimation();               //Used when bleeding
 	protected ref PPEUnconsciousAnimation m_ppeUnconscious = new PPEUnconsciousAnimation();    //Used when going uncoscious
 	
-	protected ref SCOBleedingAnimation m_coBleeding = new SCOBleedingAnimation();    //Used when bleeding
+	protected ref SCOBleedingAnimation m_coBleeding = new SCOBleedingAnimation();
+	protected ref SCOTimedSpawn m_coSpawn = new SCOTimedSpawn();
 	
 	//Debug
-	protected ref PPEDebugAnimation ppeDebug = new PPEDebugAnimation();
-	protected ref SCODebugAnimation m_coDebug = new SCODebugAnimation();
-	protected ref SCODebugTimed m_coDebugTimed = new SCODebugTimed();
+	protected ref PPEDebugAnimation m_ppeDebug = new PPEDebugAnimation();
+	protected ref SCOAnimationDebug m_coDebug = new SCOAnimationDebug();
+	protected ref SCOTimedDebug m_coDebugTimed = new SCOTimedDebug();
 	
 	override void OnInventoryMenuOpen(){
 		super.OnInventoryMenuOpen();
-		//PPEManager.toggle(ppeDebug, !ppeDebug.isActive());
+		//PPEManager.toggle(m_ppeDebug, !m_ppeDebug.isActive());
 		//SCameraOverlaysManager.getInstance().activate(m_coDebug);
 		//SCameraOverlaysManager.getInstance().activate(m_coDebugTimed);
 	}
 	
 	override void OnInventoryMenuClose(){
 		super.OnInventoryMenuClose();
-		//PPEManager.deactivate(ppeDebug);
+		//PPEManager.deactivate(m_ppeDebug);
 		//SCameraOverlaysManager.getInstance().deactivate(m_coDebug);
 	}
 	
@@ -32,7 +33,7 @@ modded class PlayerBase{
 		
 		// Apply colored overlay when wearing AviatorGlasses
 		if( slot_name == "Eyewear" && AviatorGlasses.Cast(item)){
-			PPEManager.activate(ppeEye);
+			PPEManager.activate(m_ppeEye);
 		}
 
 		Clothing clothing = Clothing.Cast(item);
@@ -49,7 +50,7 @@ modded class PlayerBase{
 		
 		// Remove colored overlay when removing AviatorGlasses
 		if( slot_name == "Eyewear" && AviatorGlasses.Cast(item) ){
-			PPEManager.deactivate(ppeEye);
+			PPEManager.deactivate(m_ppeEye);
 		}
 		
 		Clothing clothing = Clothing.Cast(item);
@@ -72,14 +73,14 @@ modded class PlayerBase{
 	
 	override void SpawnDamageDealtEffect(){
 		if( GetInstanceType() == DayZPlayerInstanceType.INSTANCETYPE_CLIENT ){
-			if(ppeHitAnim.isActive()){
-				ppeHitAnim.setDuration(ppeHitAnim.getDuration() * PPEConstants.HIT_RECEIVED_DURATION_MULTIPLIER);
-				ppeHitAnim.setHitStrength(ppeHitAnim.getHitStrength() * PPEConstants.HIT_RECEIVED_STRENGTH_MULTIPLIER);
+			if(m_ppeHitAnim.isActive()){
+				m_ppeHitAnim.setDuration(m_ppeHitAnim.getDuration() * PPEConstants.HIT_RECEIVED_DURATION_MULTIPLIER);
+				m_ppeHitAnim.setHitStrength(m_ppeHitAnim.getHitStrength() * PPEConstants.HIT_RECEIVED_STRENGTH_MULTIPLIER);
 			}else{
-				ppeHitAnim.setDuration(PPEConstants.HIT_RECEIVED_MIN_DURATION);
-				ppeHitAnim.setHitStrength(PPEConstants.HIT_RECEIVED_MIN_STRENGTH);
+				m_ppeHitAnim.setDuration(PPEConstants.HIT_RECEIVED_MIN_DURATION);
+				m_ppeHitAnim.setHitStrength(PPEConstants.HIT_RECEIVED_MIN_STRENGTH);
 				
-				PPEManager.activate(ppeHitAnim);
+				PPEManager.activate(m_ppeHitAnim);
 			}
 		}
 		super.SpawnDamageDealtEffect();
@@ -111,24 +112,25 @@ modded class PlayerBase{
 		/////////////////////////
 		// Overlays
 		SCameraOverlaysManager.getInstance().deactivateAll();
+		//SCameraOverlaysManager.getInstance().activate(m_coSpawn);
 		checkForOverlays();
 	}
 	
 	protected void playSpawnPPE(){
-		PPEManager.activate(ppeSpawn);
+		PPEManager.activate(m_ppeSpawn);
 	}
 	
 	protected void checkForBleedingPPE(){
 		if(IsBleeding()){
 			updateBleedingEffect();
-			PPEManager.activate(ppeBleeding);
+			PPEManager.activate(m_ppeBleeding);
 			SCameraOverlaysManager.getInstance().activate(m_coBleeding);
 		}
 	}
 	
 	protected void checkForGlassesPPE(){
 		if ( AviatorGlasses.Cast( GetInventory().FindAttachment(InventorySlots.EYEWEAR)) ){
-			PPEManager.activate(ppeEye);
+			PPEManager.activate(m_ppeEye);
 		}
 	}	
 	
@@ -166,7 +168,7 @@ modded class PlayerBase{
 	override void OnBleedingBegin(){
 		super.OnBleedingBegin();
 		if( GetInstanceType() == DayZPlayerInstanceType.INSTANCETYPE_CLIENT ){
-			PPEManager.activate(ppeBleeding);
+			PPEManager.activate(m_ppeBleeding);
 			SCameraOverlaysManager.getInstance().activate(m_coBleeding);
 		}
 	}
@@ -174,7 +176,7 @@ modded class PlayerBase{
 	override void OnBleedingEnd(){
 		super.OnBleedingEnd();
 		if( GetInstanceType() == DayZPlayerInstanceType.INSTANCETYPE_CLIENT ){
-			PPEManager.deactivate(ppeBleeding);
+			PPEManager.deactivate(m_ppeBleeding);
 			SCameraOverlaysManager.getInstance().deactivate(m_coBleeding);
 		}
 	}
@@ -192,7 +194,7 @@ modded class PlayerBase{
 	
 	protected void updateBleedingEffect(){
 		if( GetInstanceType() == DayZPlayerInstanceType.INSTANCETYPE_CLIENT ){
-			ppeBleeding.setBleedingBits(GetBleedingSourceCount());
+			m_ppeBleeding.setBleedingBits(GetBleedingSourceCount());
 			m_coBleeding.setBleedingBits(GetBleedingSourceCount());
 		}
 	}
