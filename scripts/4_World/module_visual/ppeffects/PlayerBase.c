@@ -1,6 +1,5 @@
 modded class PlayerBase{
 	
-	protected ref PPESpawnEffect m_ppeSpawn = new PPESpawnEffect(5, true);                       //Used when spawning	
 	protected ref PPEHitReceivedAnimation m_ppeHitAnim = new PPEHitReceivedAnimation(PPEConstants.HIT_RECEIVED_MIN_DURATION, true); //Used when being hit
 	protected ref PPEEyegearPreset m_ppeEye = new PPEEyegearPreset();                            //Used when wearing AviatorGlasses
 	protected ref PPEBleedingAnimation m_ppeBleeding = new PPEBleedingAnimation();               //Used when bleeding
@@ -105,19 +104,18 @@ modded class PlayerBase{
 		PPEManager.deactivateAll();
 		PPEManager.applyDefault();
 			
-		playSpawnPPE();
 		checkForBleedingPPE();
 		checkForGlassesPPE();
 		
 		/////////////////////////
 		// Overlays
 		SCameraOverlaysManager.getInstance().deactivateAll();
-		//SCameraOverlaysManager.getInstance().activate(m_coSpawn);
-		checkForOverlays();
+		checkForClothingOverlays();
+		playSpawnVisuals();
 	}
 	
-	protected void playSpawnPPE(){
-		PPEManager.activate(m_ppeSpawn);
+	protected void playSpawnVisuals(){
+		SCameraOverlaysManager.getInstance().activate(m_coSpawn);
 	}
 	
 	protected void checkForBleedingPPE(){
@@ -134,7 +132,7 @@ modded class PlayerBase{
 		}
 	}	
 	
-	protected void checkForOverlays(){
+	protected void checkForClothingOverlays(){
 		for ( int i=0; i<GetInventory().AttachmentCount(); i++ ){
 			Clothing clothing = Clothing.Cast(GetInventory().GetAttachmentFromIndex( i ));
 			if(clothing && clothing.hasOverlays()){

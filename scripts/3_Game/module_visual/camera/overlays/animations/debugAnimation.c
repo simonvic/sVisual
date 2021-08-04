@@ -1,4 +1,4 @@
-class SCODebugAnimation : SCameraOverlayAnimated {
+class SCOAnimationDebug : SCameraOverlayAnimated {
 	
 	override void onInit(){
 		setImage("MyMODS/sVisual/GUI/textures/masks/misc.edds");
@@ -10,7 +10,7 @@ class SCODebugAnimation : SCameraOverlayAnimated {
 	}
 }
 
-class SCODebugTimed : SCameraOverlayTimed {
+class SCOTimedDebug : SCameraOverlayTimed {
 	
 	override void onInit(){
 		setImage("MyMODS/sVisual/GUI/textures/masks/misc.edds");
