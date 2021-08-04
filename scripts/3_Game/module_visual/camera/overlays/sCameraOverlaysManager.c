@@ -104,6 +104,10 @@ class SCameraOverlaysManager {
 			
 			if(animated.isPlaying()){
 				animated.animate(deltaTime);
+			
+			    //if an active timed overlay has stopped and needs deactivation
+			}else if(animated.hasStopped() && state == eSCameraOverlayState.ACTIVE && animated.IsInherited(SCameraOverlayTimed) && SCameraOverlayTimed.Cast(animated).shouldDeactivateOnStop()){
+				deactivate(animated);
 			}
 		}
 	}

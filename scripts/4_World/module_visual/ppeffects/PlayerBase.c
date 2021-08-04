@@ -9,16 +9,21 @@ modded class PlayerBase{
 	protected ref SCOBleedingAnimation m_coBleeding = new SCOBleedingAnimation();    //Used when bleeding
 	
 	//Debug
-	protected ref PPEAnimatedParams ppeDebug = new PPEDebugAnimation();
+	protected ref PPEDebugAnimation ppeDebug = new PPEDebugAnimation();
+	protected ref SCODebugAnimation m_coDebug = new SCODebugAnimation();
+	protected ref SCODebugTimed m_coDebugTimed = new SCODebugTimed();
 	
 	override void OnInventoryMenuOpen(){
 		super.OnInventoryMenuOpen();
 		//PPEManager.toggle(ppeDebug, !ppeDebug.isActive());
+		//SCameraOverlaysManager.getInstance().activate(m_coDebug);
+		//SCameraOverlaysManager.getInstance().activate(m_coDebugTimed);
 	}
 	
 	override void OnInventoryMenuClose(){
 		super.OnInventoryMenuClose();
 		//PPEManager.deactivate(ppeDebug);
+		//SCameraOverlaysManager.getInstance().deactivate(m_coDebug);
 	}
 	
 	override void EEItemAttached(EntityAI item, string slot_name){
