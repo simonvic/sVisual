@@ -12,6 +12,8 @@ class SCameraOverlaysManager {
 		return INSTANCE;
 	}
 	
+	protected typename m_activeCameraType = DayZPlayerCamera;
+	
 	protected Widget m_root;
 	protected bool m_overlaysHaveChanged;
 	protected ref map<ref SCameraOverlay, eSCameraOverlayState> m_overlays = new map<ref SCameraOverlay, eSCameraOverlayState>();
@@ -57,28 +59,28 @@ class SCameraOverlaysManager {
 		m_overlaysHaveChanged = true;
 	}
 	
+
+
 	/**
-	*	@brief Make all overlays visible
+	*	@brief Make visible an overlay
+	*	 @param overlay \p SCameraOverlay - overlay to make visible
 	*/
-	void showAll(){
-		if(m_root) m_root.Show(true);
-		
-		foreach(SCameraOverlay overlay, eSCameraOverlayState state : m_overlays){
-			overlay.getWidget().Show(true);
+	void show(SCameraOverlay overlay){
+		overlay.setVisible(true);
+		if(overlay.IsInherited(SCameraOverlayAnimated)){
+			SCameraOverlayAnimated.Cast(overlay).resume();
 		}
-		
 	}
 	
 	/**
-	*	@brief Hide all overlays
+	*	@brief Hide an overlay
+	*	 @param overlay \p SCameraOverlay - overlay to make invisible
 	*/
-	void hideAll(){
-		if(m_root) m_root.Show(false);
-		
-		foreach(SCameraOverlay overlay, eSCameraOverlayState state : m_overlays){
-			overlay.getWidget().Show(false);
+	void hide(SCameraOverlay overlay){
+		overlay.setVisible(false);
+		if(overlay.IsInherited(SCameraOverlayAnimated)){
+			SCameraOverlayAnimated.Cast(overlay).pause();
 		}
-		
 	}
 	
 	/**
@@ -88,7 +90,7 @@ class SCameraOverlaysManager {
 	void show(eSCOPriority priority){
 		foreach(SCameraOverlay overlay, eSCameraOverlayState state : m_overlays){
 			if(overlay.getPriority() == priority){
-				overlay.getWidget().Show(true);
+				show(overlay);
 			}
 		}
 	}
@@ -100,7 +102,7 @@ class SCameraOverlaysManager {
 	void hide(eSCOPriority priority){
 		foreach(SCameraOverlay overlay, eSCameraOverlayState state : m_overlays){
 			if(overlay.getPriority() == priority){
-				overlay.getWidget().Show(false);
+				hide(overlay);
 			}
 		}
 	}
@@ -113,7 +115,7 @@ class SCameraOverlaysManager {
 	void show(eSCOPriority min, eSCOPriority max){
 		foreach(SCameraOverlay overlay, eSCameraOverlayState state : m_overlays){
 			if(overlay.getPriority() >= min && overlay.getPriority() <= max){
-				overlay.getWidget().Show(true);
+				show(overlay);
 			}
 		}
 	}
@@ -126,11 +128,71 @@ class SCameraOverlaysManager {
 	void hide(eSCOPriority min, eSCOPriority max){
 		foreach(SCameraOverlay overlay, eSCameraOverlayState state : m_overlays){
 			if(overlay.getPriority() >= min && overlay.getPriority() <= max){
-				overlay.getWidget().Show(false);
+				hide(overlay);
 			}
 		}
 	}
 	
+	/**
+	*	@brief Make all overlays visible
+	*/
+	void showAll(){
+		if(m_root) m_root.Show(true);
+		
+		foreach(SCameraOverlay overlay, eSCameraOverlayState state : m_overlays){
+			show(overlay);
+		}
+		
+	}
+	
+	/**
+	*	@brief Hide all overlays
+	*/
+	void hideAll(){
+		if(m_root) m_root.Show(false);
+		
+		foreach(SCameraOverlay overlay, eSCameraOverlayState state : m_overlays){
+			hide(overlay);
+		}
+		
+	}
+	
+	/**
+	*	@brief Set the currently active camera and update the visibility of overlays
+	*	 @param cameraType \p typename - typename of a camera
+	*/
+	void setActiveCameraType(typename cameraType){
+		if(m_activeCameraType == cameraType) return;
+		m_activeCameraType = cameraType;
+		updateVisibilityAll(m_activeCameraType);
+	}
+	
+	/**
+	*	@brief Change visibility state of overlays based on a camera type
+	*	 @param cameraType \p typename - 
+	*/
+	void updateVisibilityAll(typename cameraType){
+		foreach(SCameraOverlay overlay, eSCameraOverlayState state : m_overlays){
+			updateVisibility(overlay, cameraType);
+		}	
+	}
+	
+	/**
+	*	@brief Change visibility state of an overlay based on a camera type
+	*	 @param overlay \p SCameraOverlay
+	*	 @param cameraType \p typename - 
+	*/
+	void updateVisibility(SCameraOverlay overlay, typename cameraType){
+		TTypenameArray temp = overlay.getTargetCameras();
+		foreach(typename t : temp){	
+			if(cameraType.IsInherited(t)){
+				show(overlay);
+				return;
+			}
+		}
+		
+		hide(overlay);		
+	}
 	
 	/**
 	*	@brief Update requested overlays
@@ -174,6 +236,8 @@ class SCameraOverlaysManager {
 					performDeactivate(overlay, root);
 					break;
 			}
+			
+			updateVisibility(overlay, m_activeCameraType);
 		}
 	}
 

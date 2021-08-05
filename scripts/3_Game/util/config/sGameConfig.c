@@ -108,7 +108,7 @@ class SGameConfig {
 	/**
 	*	@brief Read array of string from config.cpp and convert them to types
 	*	 @param path \p string - Path to read
-	*	 @return array<typename> - empty if path doesn't exists
+	*	 @return array<typename> - empty if path doesn't exists; wrong typenames get discarded
 	*/
 	static TTypenameArray getTypenameArray(string path){
 		TStringArray tempString = getStringArray(path);

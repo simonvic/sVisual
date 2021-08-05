@@ -26,6 +26,8 @@ modded class DayZPlayerCameraBase{
 			PPEManager.disableDDOF();
 			PPEManager.resetDDOF(true);
 		}
+		
+		SCameraOverlaysManager.getInstance().setActiveCameraType(this.Type());
 	}
 	
 	void ~DayZPlayerCameraBase(){

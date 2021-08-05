@@ -77,6 +77,8 @@ class SCameraOverlay : Managed {
 	*/
 	protected ref array<typename> m_targetCameras = {DayZPlayerCamera};
 	
+	protected bool m_isVisible;
+	
 	protected ref ImageWidget m_widget = null;
 	
 	//maybe use a builder? lol
@@ -220,6 +222,15 @@ class SCameraOverlay : Managed {
 	}
 	
 	
+	bool isVisible(){
+		return m_isVisible;
+	}
+	
+	void setVisible(bool visible){
+		m_isVisible = visible;
+		if(m_widget) m_widget.Show(visible);
+	}
+	
 	ImageWidget getWidget(){
 		return m_widget;
 	}
@@ -240,7 +251,7 @@ class SCameraOverlay : Managed {
 		m_widget.SetRotation(m_rotation[0], m_rotation[1], m_rotation[2]);
 		m_widget.SetSort(getPriority());
 		//m_widget.SetName(getImageName());
-		m_widget.Show(true);
+		setVisible(true);
 		return m_widget;
 	}
 	

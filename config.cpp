@@ -154,6 +154,7 @@ class CfgVehicles{
 				class overlay_0 : SCameraOverlay_Headgear {
 					image="MyMODS/sVisual/GUI/textures/overlays/burlap.edds";
 					size[] = {1.1, 1.1};
+					targetCameras[] = {"DayZPlayerCamera"};
 				};
 			};
 		};
