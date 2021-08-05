@@ -1,4 +1,4 @@
-class SCOBleedingAnimation : SCameraOverlayAnimated {
+class SCOAnimationBleeding : SCameraOverlayAnimated {
 	
 	protected int bleedingBits;
 	
@@ -10,7 +10,7 @@ class SCOBleedingAnimation : SCameraOverlayAnimated {
 	}
 	
 	override void onAnimate(float deltaTime){
-		setMaskProgress(Math.AbsFloat(Math.Sin(getTime() * bleedingBits * 0.75) * 0.4));
+		setMaskProgress(Math.AbsFloat(Math.Sin(getTime() * bleedingBits * 0.75) * (0.45 + bleedingBits * 0.025)));
 	}
 	
 	void setBleedingBits(int bits){

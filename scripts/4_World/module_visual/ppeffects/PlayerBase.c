@@ -5,7 +5,7 @@ modded class PlayerBase{
 	protected ref PPEBleedingAnimation m_ppeBleeding = new PPEBleedingAnimation();               //Used when bleeding
 	protected ref PPEUnconsciousAnimation m_ppeUnconscious = new PPEUnconsciousAnimation();    //Used when going uncoscious
 	
-	protected ref SCOBleedingAnimation m_coBleeding = new SCOBleedingAnimation();
+	protected ref SCOAnimationBleeding m_coBleeding = new SCOAnimationBleeding();
 	protected ref SCOTimedSpawn m_coSpawn = new SCOTimedSpawn();
 	
 	//Debug
