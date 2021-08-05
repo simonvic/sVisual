@@ -62,11 +62,11 @@ class SCameraOverlaysManager {
 	*/
 	void showAll(){
 		if(m_root) m_root.Show(true);
-		/*
-		foreach(SCameraOverlay overlay : m_overlays){
+		
+		foreach(SCameraOverlay overlay, eSCameraOverlayState state : m_overlays){
 			overlay.getWidget().Show(true);
 		}
-		*/
+		
 	}
 	
 	/**
@@ -74,11 +74,61 @@ class SCameraOverlaysManager {
 	*/
 	void hideAll(){
 		if(m_root) m_root.Show(false);
-		/*
-		foreach(SCameraOverlay overlay : m_overlays){
+		
+		foreach(SCameraOverlay overlay, eSCameraOverlayState state : m_overlays){
 			overlay.getWidget().Show(false);
 		}
-		*/
+		
+	}
+	
+	/**
+	*	@brief Make visible all overlays with the specified priority
+	*	 @param priority \p eSCOPriority - 
+	*/
+	void show(eSCOPriority priority){
+		foreach(SCameraOverlay overlay, eSCameraOverlayState state : m_overlays){
+			if(overlay.getPriority() == priority){
+				overlay.getWidget().Show(true);
+			}
+		}
+	}
+	
+	/**
+	*	@brief Hide all overlays with the specified priority
+	*	 @param priority \p eSCOPriority - 
+	*/
+	void hide(eSCOPriority priority){
+		foreach(SCameraOverlay overlay, eSCameraOverlayState state : m_overlays){
+			if(overlay.getPriority() == priority){
+				overlay.getWidget().Show(false);
+			}
+		}
+	}
+	
+	/**
+	*	@brief Make visible all overlays with priority between the range (inclusive)
+	*	 @param min \p eSCOPriority - 
+	*	 @param max \p eSCOPriority - 
+	*/
+	void show(eSCOPriority min, eSCOPriority max){
+		foreach(SCameraOverlay overlay, eSCameraOverlayState state : m_overlays){
+			if(overlay.getPriority() >= min && overlay.getPriority() <= max){
+				overlay.getWidget().Show(true);
+			}
+		}
+	}
+	
+	/**
+	*	@brief Hide all overlays with priority between the range (inclusive)
+	*	 @param min \p eSCOPriority - 
+	*	 @param max \p eSCOPriority - 
+	*/
+	void hide(eSCOPriority min, eSCOPriority max){
+		foreach(SCameraOverlay overlay, eSCameraOverlayState state : m_overlays){
+			if(overlay.getPriority() >= min && overlay.getPriority() <= max){
+				overlay.getWidget().Show(false);
+			}
+		}
 	}
 	
 	
