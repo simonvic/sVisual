@@ -69,14 +69,17 @@ class CfgVehicles{
 		size[] = {1.0, 1.0};
 		rotation[] = {0.0, 0.0, 0.0};
 		priority = 0;
+		targetCameras[] = {"DayZPlayerCamera"};
 	};
 
 	class SCameraOverlay_Eyewear : SCameraOverlay {
 		priority = 2;
+		targetCameras[] = {"DayZPlayerCamera1stPerson", "DayZPlayerCameraIronsights"};
 	};
 
 	class SCameraOverlay_Headgear : SCameraOverlay {
 		priority = 1;
+		targetCameras[] = {"DayZPlayerCamera1stPerson", "DayZPlayerCameraIronsights"};
 	};
 
 

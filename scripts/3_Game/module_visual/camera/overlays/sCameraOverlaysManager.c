@@ -281,7 +281,12 @@ class SCameraOverlaysManager {
 			SLog.d(ao,"",1);
 			SLog.d(typename.EnumToString(eSAnimableState, ao.getAnimationState()),"",2);
 		}
-		SLog.d("-------------- tree debug -----------");
+		
+		SLog.d("-------------- deep debug --------------");
+		foreach(SCameraOverlay co, eSCameraOverlayState state: m_overlays){
+			co.debugPrint(1);
+		}
+		SLog.d("-------------- tree debug --------------");
 		debugPrintOverlayRoot(m_root);
 	}
 	

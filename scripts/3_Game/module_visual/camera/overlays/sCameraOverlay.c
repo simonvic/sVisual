@@ -71,6 +71,12 @@ class SCameraOverlay : Managed {
 	*/
 	protected int m_priority;
 	
+	/**
+	*	@brief List of cameras, on which the overlay must be shown
+	*	        Super types can be used, to define multiple cameras
+	*/
+	protected ref array<typename> m_targetCameras = {DayZPlayerCamera};
+	
 	protected ref ImageWidget m_widget = null;
 	
 	//maybe use a builder? lol
@@ -83,7 +89,8 @@ class SCameraOverlay : Managed {
 		vector position = "0.0 0.0 0.0",
 		vector size = "1.0 1.0 1.0",
 		vector rotation = "0.0 0.0 0.0",
-		int priority = 0){
+		int priority = 0,
+		array<typename> targetCameras = null){
 		
 		m_image = image;
 		m_alpha = alpha;
@@ -94,6 +101,7 @@ class SCameraOverlay : Managed {
 		m_size = size;
 		m_rotation = rotation;
 		m_priority = priority;
+		if(targetCameras) m_targetCameras = targetCameras;
 		onInit();
 	}
 	
@@ -203,6 +211,14 @@ class SCameraOverlay : Managed {
 		if(m_widget) m_widget.SetSort(priority);
 	}
 	
+	array<typename> getTargetCameras(){
+		return m_targetCameras;
+	}
+	
+	void setTargetCameras(array<typename> targetCameras){
+		if(targetCameras) m_targetCameras = targetCameras;
+	}
+	
 	
 	ImageWidget getWidget(){
 		return m_widget;
@@ -243,7 +259,8 @@ class SCameraOverlay : Managed {
 			getPosition(),
 			getSize(),
 			getRotation(),
-			getPriority());
+			getPriority()) + string.Format("targetCameras= %1",
+			getTargetCameras());
 	}
 	
 	void debugPrint(int depth = 0){
@@ -258,6 +275,10 @@ class SCameraOverlay : Managed {
 		SLog.d(getSize(),"size",depth);
 		SLog.d(getRotation(),"rotation",depth);
 		SLog.d(getPriority(),"priority",depth);
+		SLog.d(getTargetCameras(),"targetCameras",depth);
+		foreach(typename cam : m_targetCameras){
+			SLog.d(cam,"",depth+1);
+		}
 	}
 	
 	

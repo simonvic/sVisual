@@ -13,6 +13,7 @@ class SCameraOverlayTimed : SCameraOverlayAnimated {
 		vector size = "1.0 1.0 1.0",
 		vector rotation = "0.0 0.0 0.0",
 		int priority = 0,
+		array<typename> targetCameras = null,
 		float duration = 5,
 		bool deactivateOnStop = true){
 
@@ -31,9 +32,10 @@ class SCameraOverlayTimed : SCameraOverlayAnimated {
 		vector position = "0 0 0",
 		vector size = "1 1 1",
 		vector rotation = "0 0 0",
-		int priority = 0){
+		int priority = 0,
+		array<typename> targetCameras = null){
 		
-		return new SCameraOverlayTimed(image, alpha, mask, maskProgress, maskTransitionWidth, position, size, rotation, priority, duration, deactivateOnStop);
+		return new SCameraOverlayTimed(image, alpha, mask, maskProgress, maskTransitionWidth, position, size, rotation, priority, targetCameras, duration, deactivateOnStop);
 	}
 	
 	override void animate(float deltaTime){

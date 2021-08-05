@@ -62,6 +62,17 @@ class SGameConfig {
 	}
 	
 	/**
+	*	@brief Read string from config.cpp and convert to typename
+	*	 @param path \p string - Path to read
+	*	 @return typename
+	*/
+	static typename getTypename(string path){
+		typename value;
+		get(path, value);
+		return value;
+	}
+	
+	/**
 	*	@brief Read array of integer from config.cpp
 	*	 @param path \p string - Path to read
 	*	 @return array<int> - empty if path doesn't exists
@@ -77,7 +88,7 @@ class SGameConfig {
 	*	 @param path \p string - Path to read
 	*	 @return array<float> - empty if path doesn't exists
 	*/
-	static TFloatArray getfloatArray(string path){
+	static TFloatArray getFloatArray(string path){
 		TFloatArray value = new TFloatArray();
 		get(path, value);
 		return value;
@@ -91,6 +102,20 @@ class SGameConfig {
 	static TStringArray getStringArray(string path){
 		TStringArray value = new TStringArray();
 		get(path, value);
+		return value;
+	}
+	
+	/**
+	*	@brief Read array of string from config.cpp and convert them to types
+	*	 @param path \p string - Path to read
+	*	 @return array<typename> - empty if path doesn't exists
+	*/
+	static TTypenameArray getTypenameArray(string path){
+		TStringArray tempString = getStringArray(path);
+		TTypenameArray value = new TTypenameArray;
+		foreach(string t : tempString){
+			if(t.ToType()) value.Insert(t.ToType());
+		}
 		return value;
 	}	
 	
@@ -114,6 +139,10 @@ class SGameConfig {
 		value = GetGame().ConfigGetVector(path);
 	}
 	
+	static void get(string path, out typename value){
+		value = GetGame().ConfigGetTextOut(path).ToType();	
+	}
+	
 	static void get(string path, inout TIntArray values){
 		GetGame().ConfigGetIntArray(path, values);
 	}
@@ -124,6 +153,10 @@ class SGameConfig {
 	
 	static void get(string path, inout TStringArray values){
 		GetGame().ConfigGetTextArray(path, values);
+	}
+	
+	static void get(string path, inout TTypenameArray values){
+		values = getTypenameArray(path);
 	}
 	
 	

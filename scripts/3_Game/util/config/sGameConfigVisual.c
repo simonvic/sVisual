@@ -12,7 +12,7 @@ class SGameConfigVisual : SGameConfigBase{
 	}
 	
 	TPPEColor getDefaultPPEColor(string ppeName){
-		TFloatArray c = SGameConfig.getfloatArray(getModulePath() + " PPEffects DefaultValues " + ppeName);
+		TFloatArray c = SGameConfig.getFloatArray(getModulePath() + " PPEffects DefaultValues " + ppeName);
 		return PPEManager.getPPEColor(c[0], c[1], c[2], c[3]);
 	}
 	
@@ -43,7 +43,8 @@ class SGameConfigVisual : SGameConfigBase{
 			SGameConfig.getVector(path + " position"),
 			SGameConfig.getVector(path + " size"),
 			SGameConfig.getVector(path + " rotation"),
-			SGameConfig.getInt(path + " priority"));
+			SGameConfig.getInt(path + " priority"),
+			SGameConfig.getTypenameArray(path + " targetCameras"));
 	}
 	
 }
