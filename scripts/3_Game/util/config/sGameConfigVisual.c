@@ -44,7 +44,8 @@ class SGameConfigVisual : SGameConfigBase{
 			SGameConfig.getVector(path + " size"),
 			SGameConfig.getVector(path + " rotation"),
 			SGameConfig.getInt(path + " priority"),
-			SGameConfig.getTypenameArray(path + " targetCameras"));
+			SGameConfig.getTypenameArray(path + " targetCameras"),
+			SGameConfig.getBool(path + "hidesWithIngameHUD"));
 	}
 	
 }

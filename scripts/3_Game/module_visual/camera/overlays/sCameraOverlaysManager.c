@@ -4,6 +4,11 @@ enum eSCameraOverlayState {
 	PENDING_DELETION
 }
 
+
+//@todo Performance: Iterate overlays only once each frame
+//@todo Performance: use ImageWidget pool
+//@todo Performance: pre-cache images on boot
+
 class SCameraOverlaysManager {
 	
 	private static ref SCameraOverlaysManager INSTANCE = new SCameraOverlaysManager();
@@ -16,6 +21,7 @@ class SCameraOverlaysManager {
 	
 	protected Widget m_root;
 	protected bool m_overlaysHaveChanged;
+	protected bool m_ingameHUDIsVisible;
 	protected ref map<ref SCameraOverlay, eSCameraOverlayState> m_overlays = new map<ref SCameraOverlay, eSCameraOverlayState>();
 
 	
@@ -158,40 +164,42 @@ class SCameraOverlaysManager {
 	}
 	
 	/**
+	*	@brief Called when the player hides the ingame HUD
+	*/
+	void setIngameHUDVisibility(bool visible){
+		m_ingameHUDIsVisible = visible;
+		updateVisibilityAll();
+	}
+	
+	/**
 	*	@brief Set the currently active camera and update the visibility of overlays
 	*	 @param cameraType \p typename - typename of a camera
 	*/
 	void setActiveCameraType(typename cameraType){
 		if(m_activeCameraType == cameraType) return;
 		m_activeCameraType = cameraType;
-		updateVisibilityAll(m_activeCameraType);
+		updateVisibilityAll();
 	}
 	
 	/**
-	*	@brief Change visibility state of overlays based on a camera type
-	*	 @param cameraType \p typename - 
+	*	@brief Update visibility state of overlays based	
 	*/
-	void updateVisibilityAll(typename cameraType){
+	void updateVisibilityAll(){
 		foreach(SCameraOverlay overlay, eSCameraOverlayState state : m_overlays){
-			updateVisibility(overlay, cameraType);
+			updateVisibility(overlay);
 		}	
 	}
 	
 	/**
 	*	@brief Change visibility state of an overlay based on a camera type
 	*	 @param overlay \p SCameraOverlay
-	*	 @param cameraType \p typename - 
 	*/
-	void updateVisibility(SCameraOverlay overlay, typename cameraType){
-		TTypenameArray temp = overlay.getTargetCameras();
-		foreach(typename t : temp){	
-			if(cameraType.IsInherited(t)){
-				show(overlay);
-				return;
-			}
+	void updateVisibility(SCameraOverlay overlay){
+		if( (!m_ingameHUDIsVisible && overlay.hidesWithIngameHUD()) || !overlay.canBeShownOn(m_activeCameraType)){
+			hide(overlay);
+			return;
 		}
-		
-		hide(overlay);		
+		show(overlay);		
 	}
 	
 	/**
@@ -237,7 +245,7 @@ class SCameraOverlaysManager {
 					break;
 			}
 			
-			updateVisibility(overlay, m_activeCameraType);
+			updateVisibility(overlay);
 		}
 	}
 

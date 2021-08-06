@@ -60,16 +60,17 @@ class CfgMods {
 
 class CfgVehicles{
 	class SCameraOverlay {
-		image="";
-		alpha=1.0;
-		mask="";
-		maskProgress=1.0;
-		maskTransitionWidth=1.0;
-		position[] = {0.0, 0.0};
-		size[] = {1.0, 1.0};
-		rotation[] = {0.0, 0.0, 0.0};
-		priority = 0;
-		targetCameras[] = {"DayZPlayerCamera"};
+		image="";                                 // Resource image path, can be whatever an ImageWidget accepts texture
+		alpha=1.0;                                // [0.0 - 1.0] Alpha value (transparency)
+		mask="";                                  // Resource image path, can be whatever an ImageWidget accepts as mask
+		maskProgress=1.0;                         // [0.0 - 1.0] Mask progress
+		maskTransitionWidth=1.0;                  // Mask transition width (used as progress + transitionWidth)
+		position[] = {0.0, 0.0};                  // [0.0 - 1.0] X and Y position in screenspace
+		size[] = {1.0, 1.0};                      // [0.0 - 1.0] X and Y size in screenspace
+		rotation[] = {0.0, 0.0, 0.0};             // Yaw, Pitch and Roll defined in degrees
+		priority = 0;                             // Higher priority means closer to the camera (also known as z-depth)
+		targetCameras[] = {"DayZPlayerCamera"};   // Camera typename on which the overlay will be visible
+		hidesWithIngameHUD = 0;                   // [0 = false, 1 = true] Determines if it must hides when the player hides the ingame HUD
 	};
 
 	class SCameraOverlay_Eyewear : SCameraOverlay {

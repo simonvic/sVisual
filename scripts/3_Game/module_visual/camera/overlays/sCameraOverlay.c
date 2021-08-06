@@ -73,12 +73,20 @@ class SCameraOverlay : Managed {
 	
 	/**
 	*	@brief List of cameras, on which the overlay must be shown
-	*	        Super types can be used, to define multiple cameras
+	*	        Super types can be used to define multiple cameras
 	*/
 	protected ref array<typename> m_targetCameras = {DayZPlayerCamera};
 	
+	/**
+	*	@brief Current visibility status of the overlay (and of the widget if already built)
+	*/
 	protected bool m_isVisible;
 	
+	/**
+	*	@brief Determines if the overlay must hide when players hides ingame HUD
+	*/
+	protected bool m_hidesWithIngameHUD;	
+
 	protected ref ImageWidget m_widget = null;
 	
 	//maybe use a builder? lol
@@ -92,7 +100,8 @@ class SCameraOverlay : Managed {
 		vector size = "1.0 1.0 1.0",
 		vector rotation = "0.0 0.0 0.0",
 		int priority = 0,
-		array<typename> targetCameras = null){
+		array<typename> targetCameras = null,
+		bool hidesWithIngameHUD = false){
 		
 		m_image = image;
 		m_alpha = alpha;
@@ -104,6 +113,7 @@ class SCameraOverlay : Managed {
 		m_rotation = rotation;
 		m_priority = priority;
 		if(targetCameras) m_targetCameras = targetCameras;
+		m_hidesWithIngameHUD = hidesWithIngameHUD;
 		onInit();
 	}
 	
@@ -231,6 +241,15 @@ class SCameraOverlay : Managed {
 		if(m_widget) m_widget.Show(visible);
 	}
 	
+	
+	bool hidesWithIngameHUD(){
+		return m_hidesWithIngameHUD;
+	}
+	
+	void setHidesWithIngameHUD(bool hidesWithIngameHUD){
+		m_hidesWithIngameHUD = hidesWithIngameHUD;
+	}
+	
 	ImageWidget getWidget(){
 		return m_widget;
 	}
@@ -255,6 +274,14 @@ class SCameraOverlay : Managed {
 		return m_widget;
 	}
 	
+	
+	bool canBeShownOn(typename cameraType){
+		foreach(typename t : m_targetCameras){	
+			if(cameraType.IsInherited(t)) return true;
+		}
+		return false;
+	}
+	
 	protected string getLayout(){
 		return "MyMODS/sVisual/scripts/5_Mission/gui/ingameHUD/camera_overlay.layout";
 	}
@@ -270,8 +297,10 @@ class SCameraOverlay : Managed {
 			getPosition(),
 			getSize(),
 			getRotation(),
-			getPriority()) + string.Format("targetCameras= %1",
-			getTargetCameras());
+			getPriority()) + string.Format("targetCameras= %1 \n visible= %2 \n hidesWithIngameHUD= %3",
+			getTargetCameras(),
+			isVisible(),
+			hidesWithIngameHUD());
 	}
 	
 	void debugPrint(int depth = 0){
@@ -290,9 +319,11 @@ class SCameraOverlay : Managed {
 		foreach(typename cam : m_targetCameras){
 			SLog.d(cam,"",depth+1);
 		}
+		SLog.d(isVisible(),"isVisible",depth);
+		SLog.d(hidesWithIngameHUD(),"hidesWithIngameHUD",depth);
 	}
-	
-	
+
+			
 	static void debugProjection(SCameraOverlay overlay, float size, vector origin = "69.2194 15.71244 1594.24"){
 		overlay.setImage("MyMODS/sVisual/GUI/textures/masks/misc.edds");
 		overlay.setMask("MyMODS/sVisual/GUI/textures/masks/misc.edds");
