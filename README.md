@@ -10,20 +10,25 @@
 
 # Getting started
 
-sVisual is a mod for DayZ. It aims to improve the PostProcessing effects and make them easier to work with, while allowing for extensibility and easy tweaking. 
-It also adds some new features like:
-- Dynamic Depth of Field
-- Headbob
-- Motion blur
-- Camera improvements
+sVisual is a mod for DayZ. It aims to enhanche the visual experience while improving the feedback to the user, in order to help them with dealing with the many mechanichs DayZ has.
+- It improves the PostProcessing effects and it make them easier to work with, while allowing for extensibility and easy tweaking. 
+- It also adds some new features like:
+  - Dynamic Depth of Field
+  - Headbob
+  - Motion blur
+  - Camera improvements
+- It adds a Camera Overlay system, which allows for easy creation of image camera overlays
+---
+---
 
-The core of this mod is the `PPEManager`, which takes care of all PostProcess Effects, defined using a `PPEParams`
+<br>
+<br>
 
-# The insides
+# PostProcessing effects
 
-
+## The insides of PPEManager
 <h3 align="center">PostProcess Effect Manager</h3>
-This is a small diagram roughly showing how the PPEManager works
+The PPEManager is in charge of managing the PostProcessing effects; this is a small diagram roughly showing how it works
 <img src="https://imgur.com/y7Dw4LL.png">
 
 
@@ -40,7 +45,7 @@ This is a rough (pretty bad) UML diagram of the most important classes, to help 
 ## PPEParams
 `PPEParams` is the "container" of any PostProcess Effect you wish to add to it (e.g. saturation, vignette, motion blur etc.).
 ```csharp
-ref PPEParams myPPE = new PPEParams();
+PPEParams myPPE = new PPEParams();
 ```
 To add a parameter use the provided setters:
 ```csharp
@@ -91,24 +96,105 @@ class MyTimedAnimation : PPETimedParams{
 
 A `PPETimedAnimation` also has a "duration" which can be set with the constructor, or the provided method:
 ```csharp
-ref MyTimedAnimation myTimedAnimation = new MyTimedAnimation(6); // the animation will last 6 seconds
+MyTimedAnimation myTimedAnimation = new MyTimedAnimation(6); // the animation will last 6 seconds
 myTimedAnimation.setDuration(10.0); // the animation will last 10 seconds
 ```
 
 To activate an animation simply hand it over to the `PPEManager`
 ```csharp
-ref MyLoopAnimation myAnimation = new MyLoopAnimation();
-ref MyTimedAnimation myTimedAnimation = new MyTimedAnimation(5.5);
+MyLoopAnimation myAnimation = new MyLoopAnimation();
 PPEManager.activate(myAnimation);
+
+MyTimedAnimation myTimedAnimation = new MyTimedAnimation(5.5);
 PPEManager.activate(myTimedAnimation);
 ```
 If you want to manually manage the animation you can use the provided methods
 ```csharp
-myAnimation.start(); // Set the animation state to "Playing"
-myAnimation.stop(); // Reset all values to default and set the animation state to "Stopped"
-myAnimation.pause(); // Freeze the animation values and set the animation state to "Paused"
+myAnimation.start();  // Set the animation state to "Playing"
+myAnimation.stop();   // Reset all values to default and set the animation state to "Stopped"
+myAnimation.pause();  // Freeze the animation values and set the animation state to "Paused"
 myAnimation.resume(); // Resume the the animation and set the animation state to "Playing"
 ```
+---
+---
+<br>
+<br>
+
+# Camera Overlays
+A camera overlay is nothing else than an image, used like an HUD.
+The fundemental unit of camera overlays is the `SCameraOverlay`, a very simple wrapper for the `ImageWidget` (the DayZ UI component that holds an image).
+
+The logic for creation and utilization of the CameraOverlays are pretty much identical to the one for the PostProcessing effects.
+As well as for the animation; yes! CameraOverlay can also be animated.
+
+Define the overlay, with all the attributes you want:
+```csharp
+class MyAnimatedOverlay : SCameraOverlayAnimated {
+    //onInit() gets called only once
+    override void onInit(){
+        setImage("path/to/texture.edds");
+        //...
+    }
+
+    //onAnimate() gets called every frame!
+    override void onAnimate(float deltaTime){
+        setSize(Math.Sin(getTime()));
+        //setPosition(...)
+        //setRotation(...)
+        //setMask(...)
+        //etc.
+    }
+}
+```
+And activate/deactivate it using the SCameraOverlayManager:
+```csharp
+// NOTE: SCameraOverlaysManager is a singleton
+SCameraOverlaysManager.getInstance().activate(myOverlay);
+```
+
+## Clothing overlays
+sVisual is capable of automatically activating/deactivating overlays when a clothing item is equipped/unequipped; making use of this feature is super easy. You just need to define a list of overlays inside your clothing item in your `config.cpp` as follows:
+```cpp
+class YOUR_CLOTHING_ITEM_CLASSNAME{
+	class sUDE {
+		class CameraOverlays {
+			class overlay_0 : SCameraOverlay {
+				image="path/to/your/image/pristine.edds";
+			};
+			class overlay_1 : SCameraOverlay {
+				image="path/to/your/image/worn.edds";
+			};
+			class overlay_2 : SCameraOverlay {
+				image="path/to/your/image/damaged.edds";
+			};
+			class overlay_3 : SCameraOverlay {
+				image="path/to/your/image/badlydamaged.edds";
+			};
+			/*
+			class overlay_X : SCameraOverlay {
+				image="path/to/your/image/xxx.edds";
+			};
+			*/
+		};
+	};
+};
+```
+A `SCameraOverlay` has many attributes you can play with, which can be set either by scripts or in the config.
+Currently available attributes are:
+```
+image="";                                 // Resource image path, can be whatever an ImageWidget accepts texture
+alpha=1.0;                                // [0.0 - 1.0] Alpha value (transparency)
+mask="";                                  // Resource image path, can be whatever an ImageWidget accepts as mask
+maskProgress=1.0;                         // [0.0 - 1.0] Mask progress
+maskTransitionWidth=1.0;                  // Mask transition width (used as progress + transitionWidth)
+position[] = {0.0, 0.0};                  // [0.0 - 1.0] X and Y position in screenspace
+size[] = {1.0, 1.0};                      // [0.0 - 1.0] X and Y size in screenspace
+rotation[] = {0.0, 0.0, 0.0};             // Yaw, Pitch and Roll defined in degrees
+priority = 0;                             // Higher priority means closer to the camera (also known as z-depth)
+targetCameras[] = {"DayZPlayerCamera"};   // Camera typename on which the overlay will be visible
+hidesWithIngameHUD = 0;                   // [0 = false, 1 = true] Determines if it must hides when the player hides the ingame HUD
+```
+
 
 <br>
 <br>
