@@ -19,6 +19,15 @@ class SCOAnimationDebug : SCameraOverlayAnimated {
 			SMath.mapTo(mouseY, posY, sizeY, 0, 90),
 			0);
 		setMaskProgress(Math.AbsFloat(Math.Sin(getTime())));
+		
+		setMaskProgress(1);
+		setRotation(vector.Zero);
+		setPosition(0,0);
+		setImage("MyMODS/sVisual/GUI/textures/overlays/black_4x4.edds");
+		setMask(SCOMasks.CIRCULAR);
+		setSize(5,1);
+		setMaskProgress(0.85);
+		setMaskTransitionWidth(0.2);
 	}
 }
 
