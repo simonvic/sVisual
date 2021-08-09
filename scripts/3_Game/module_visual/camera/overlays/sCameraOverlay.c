@@ -1,14 +1,15 @@
 typedef array<ref SCameraOverlay> TSCameraOverlaysList;
 typedef set<ref SCameraOverlay> TSCameraOverlaySet;
 
+//@todo add SFlagOperator to interact with widget flags
 class SCameraOverlay : Managed {
 	
 	/**
 	*	@brief Path of the image to be loaded. It can be whatever an ImageWidget accepts
 	*	 @code
 	*	 	"set:dayz_crosshairs image:imperfect"                // image sets
-	*	 	"MyMODS/sVisual/GUI/textures/overlays/blood.edds"    // image paths
-	*	 	"MyMODS/sVisual/GUI/icons/logo/sVisual.paa"          // image paths
+	*	 	"MyMODS/sVisual/GUI/textures/overlays/blood.edds"    // image path
+	*	 	"MyMODS/sVisual/GUI/icons/logo/sVisual.paa"          // image path
 	*/
 	protected string m_image;
 	
@@ -188,6 +189,10 @@ class SCameraOverlay : Managed {
 		return m_size;
 	}
 	
+	void setSize(float size){
+		setSize(Vector(size, size, 0));
+	}
+	
 	void setSize(float x, float y){
 		setSize(Vector(x, y, 0));
 	}
@@ -323,37 +328,6 @@ class SCameraOverlay : Managed {
 		SLog.d(hidesWithIngameHUD(),"hidesWithIngameHUD",depth);
 	}
 
-			
-	static void debugProjection(SCameraOverlay overlay, float size, vector origin = "69.2194 15.71244 1594.24"){
-		overlay.setImage("MyMODS/sVisual/GUI/textures/masks/misc.edds");
-		overlay.setMask("MyMODS/sVisual/GUI/textures/masks/misc.edds");
-		///setMaskProgress(Math.AbsFloat(Math.Sin(getTime() * 2) * 0.7) + 0.05);
-		
-		vector upRight = origin + vector.Forward * size;
-		vector downRight = upRight - vector.Up * size;
-		vector downLeft = origin - vector.Up * size;
-			
-		vector screen_origin = GetGame().GetScreenPosRelative(origin);
-		vector screen_upRight = GetGame().GetScreenPosRelative(upRight);
-		vector screen_downRight = GetGame().GetScreenPosRelative(downRight);
-		vector screen_downLeft = GetGame().GetScreenPosRelative(downLeft);
-		
-		float c0[2] = {screen_origin[0], screen_origin[1]};
-		float c1[2] = {screen_upRight[0], screen_upRight[1]};
-		float c2[2] = {screen_downRight[0], screen_downRight[1]};
-		float c3[2] = {screen_downLeft[0], screen_downLeft[1]};
-		float uvs[4][2] = {c0,c1,c2,c3};
-		overlay.getWidget().SetUV(uvs);
-		
-		//setPosition(screen_origin);
-		/*
-		SDebug.spawnDebugDot(playerPos);
-		SDebug.spawnDebugDot(origin);
-		SDebug.spawnDebugDot(upRight);
-		SDebug.spawnDebugDot(downRight);
-		SDebug.spawnDebugDot(downLeft);
-		*/
-	}
 }
 
 

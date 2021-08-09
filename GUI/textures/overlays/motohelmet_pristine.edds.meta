@@ -1,0 +1,17 @@
+MetaFileClass {
+ Name "{6725A53274F5E85F}MyMODS/sVisual/GUI/textures/overlays/motohelmet_pristine.edds"
+ Author "simonvic-pc"
+ ChangeDate -401904887
+ Configurations {
+  TGAResourceClass PC {
+   SourceFile "motohelmet_pristine.tga"
+   Conversion DXTCompression
+  }
+  TGAResourceClass XBOX_ONE : PC {
+  }
+  TGAResourceClass PS4 : PC {
+  }
+  TGAResourceClass LINUX : PC {
+  }
+ }
+}

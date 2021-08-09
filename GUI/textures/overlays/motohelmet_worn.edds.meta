@@ -1,0 +1,17 @@
+MetaFileClass {
+ Name "{3CCFEEE9815C31B7}MyMODS/sVisual/GUI/textures/overlays/motohelmet_worn.edds"
+ Author "simonvic-pc"
+ ChangeDate -875353335
+ Configurations {
+  TGAResourceClass PC {
+   SourceFile "motohelmet_worn.tga"
+   Conversion DXTCompression
+  }
+  TGAResourceClass XBOX_ONE : PC {
+  }
+  TGAResourceClass PS4 : PC {
+  }
+  TGAResourceClass LINUX : PC {
+  }
+ }
+}

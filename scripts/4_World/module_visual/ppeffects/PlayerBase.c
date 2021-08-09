@@ -17,7 +17,7 @@ modded class PlayerBase{
 	override void OnInventoryMenuOpen(){
 		super.OnInventoryMenuOpen();
 		//PPEManager.toggle(m_ppeDebug, !m_ppeDebug.isActive());
-		SCameraOverlaysManager.getInstance().activate(m_coDebug);
+		//SCameraOverlaysManager.getInstance().activate(m_coDebug);
 		//SCameraOverlaysManager.getInstance().activate(m_coDebugTimed);
 		m_coLogo.onInventoryOpen();
 	}
@@ -25,7 +25,7 @@ modded class PlayerBase{
 	override void OnInventoryMenuClose(){
 		super.OnInventoryMenuClose();
 		//PPEManager.deactivate(m_ppeDebug);
-		SCameraOverlaysManager.getInstance().deactivate(m_coDebug);
+		//SCameraOverlaysManager.getInstance().deactivate(m_coDebug);
 		m_coLogo.onInventoryClose();
 	}
 	

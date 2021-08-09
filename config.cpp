@@ -89,31 +89,19 @@ class CfgVehicles{
 			class CameraOverlays {
 
 				class overlay_0 : SCameraOverlay_Headgear {
-					image="MyMODS/sVisual/GUI/textures/overlays/generic_scratches_pristine.edds";
-					alpha=0.05;
-					size[] = {1.2, 1.2};
-					rotation[] = {0.0, 0.0, 180.0};
+					image="MyMODS/sVisual/GUI/textures/overlays/motohelmet_pristine.edds";
 				};
 
 				class overlay_1 : SCameraOverlay_Headgear {
-					image="MyMODS/sVisual/GUI/textures/overlays/generic_scratches_worn.edds";
-					alpha=0.05;
-					size[] = {1.2, 1.2};
-					rotation[] = {0.0, 0.0, 180.0};
+					image="MyMODS/sVisual/GUI/textures/overlays/motohelmet_worn.edds";
 				};
 
 				class overlay_2 : SCameraOverlay_Headgear {
-					image="MyMODS/sVisual/GUI/textures/overlays/generic_scratches_damaged.edds";
-					alpha=0.05;
-					size[] = {1.2, 1.2};
-					rotation[] = {0.0, 0.0, 180.0};
+					image="MyMODS/sVisual/GUI/textures/overlays/motohelmet_damaged.edds";
 				};
 				
 				class overlay_3 : SCameraOverlay_Headgear {
-					image="MyMODS/sVisual/GUI/textures/overlays/generic_scratches_badlydamaged.edds";
-					alpha=0.05;
-					size[] = {1.2, 1.2};
-					rotation[] = {0.0, 0.0, 180.0};
+					image="MyMODS/sVisual/GUI/textures/overlays/motohelmet_badlydamaged.edds";
 				};
 			};
 		};

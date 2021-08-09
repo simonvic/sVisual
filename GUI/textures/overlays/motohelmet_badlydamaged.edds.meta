@@ -1,0 +1,17 @@
+MetaFileClass {
+ Name "{0D140C6F069CB4C8}MyMODS/sVisual/GUI/textures/overlays/motohelmet_badlydamaged.edds"
+ Author "simonvic-pc"
+ ChangeDate -445961463
+ Configurations {
+  TGAResourceClass PC {
+   SourceFile "motohelmet_badlydamaged.tga"
+   Conversion DXTCompression
+  }
+  TGAResourceClass XBOX_ONE : PC {
+  }
+  TGAResourceClass PS4 : PC {
+  }
+  TGAResourceClass LINUX : PC {
+  }
+ }
+}

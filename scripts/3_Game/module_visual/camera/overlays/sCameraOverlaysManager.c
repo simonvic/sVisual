@@ -59,10 +59,9 @@ class SCameraOverlaysManager {
 	*	@brief Remove all overlays
 	*/	
 	void deactivateAll(){
-		foreach(auto overlay, auto state : m_overlays){
-			m_overlays.Set(overlay, eSCameraOverlayState.PENDING_DELETION);
+		foreach(SCameraOverlay overlay, eSCameraOverlayState state : m_overlays){
+			deactivate(overlay);
 		}
-		m_overlaysHaveChanged = true;
 	}
 	
 
@@ -241,6 +240,7 @@ class SCameraOverlaysManager {
 					performActivate(overlay, root);
 					break;
 				case eSCameraOverlayState.PENDING_DELETION:
+					//@todo decrease alpha until 0 then perform deactivate
 					performDeactivate(overlay, root);
 					break;
 			}
