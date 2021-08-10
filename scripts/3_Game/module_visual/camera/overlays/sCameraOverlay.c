@@ -119,7 +119,12 @@ class SCameraOverlay : Managed {
 	}
 	
 	void onInit();
+	void onPreBuild();
+	void onPostBuild();
 	
+	
+	///////////////////////////
+	// IMAGE
 	string getImageName(){
 		return m_image;
 	}
@@ -129,6 +134,10 @@ class SCameraOverlay : Managed {
 		if(m_widget) m_widget.LoadImageFile(0, image);
 	}
 	
+	
+	
+	///////////////////////////
+	// ALPHA
 	float getAlpha(){
 		return m_alpha;
 	}
@@ -140,6 +149,8 @@ class SCameraOverlay : Managed {
 	
 	
 	
+	///////////////////////////
+	// MASK
 	string getMask(){
 		return m_mask;
 	}
@@ -169,6 +180,8 @@ class SCameraOverlay : Managed {
 	
 	
 	
+	///////////////////////////
+	// POSITION
 	vector getPosition(){
 		return m_position;
 	}
@@ -184,7 +197,8 @@ class SCameraOverlay : Managed {
 	
 	
 	
-	
+	///////////////////////////
+	// SIZE
 	vector getSize(){
 		return m_size;
 	}
@@ -204,6 +218,8 @@ class SCameraOverlay : Managed {
 	
 	
 	
+	///////////////////////////
+	// ROTATION
 	vector getRotation(){
 		return m_rotation;
 	}
@@ -219,6 +235,8 @@ class SCameraOverlay : Managed {
 	
 	
 	
+	///////////////////////////
+	// PRIORITY
 	int getPriority(){
 		return m_priority;
 	}
@@ -228,6 +246,10 @@ class SCameraOverlay : Managed {
 		if(m_widget) m_widget.SetSort(priority);
 	}
 	
+	
+	
+	///////////////////////////
+	// TARGET CAMAERAS
 	array<typename> getTargetCameras(){
 		return m_targetCameras;
 	}
@@ -237,6 +259,9 @@ class SCameraOverlay : Managed {
 	}
 	
 	
+	
+	///////////////////////////
+	// VISIBILITY
 	bool isVisible(){
 		return m_isVisible;
 	}
@@ -255,6 +280,17 @@ class SCameraOverlay : Managed {
 		m_hidesWithIngameHUD = hidesWithIngameHUD;
 	}
 	
+	bool canBeShownOn(typename cameraType){
+		foreach(typename t : m_targetCameras){	
+			if(cameraType.IsInherited(t)) return true;
+		}
+		return false;
+	}
+	
+
+	
+	///////////////////////////
+	// WIDGET
 	ImageWidget getWidget(){
 		return m_widget;
 	}
@@ -265,6 +301,7 @@ class SCameraOverlay : Managed {
 		}else{
 			parent.AddChild(m_widget);
 		}
+		onPreBuild();
 		m_widget.LoadImageFile(0, getImageName());
 		m_widget.SetAlpha(getAlpha());
 		m_widget.LoadMaskTexture(getMask());
@@ -276,15 +313,8 @@ class SCameraOverlay : Managed {
 		m_widget.SetSort(getPriority());
 		//m_widget.SetName(getImageName());
 		setVisible(true);
+		onPostBuild();
 		return m_widget;
-	}
-	
-	
-	bool canBeShownOn(typename cameraType){
-		foreach(typename t : m_targetCameras){	
-			if(cameraType.IsInherited(t)) return true;
-		}
-		return false;
 	}
 	
 	protected string getLayout(){
