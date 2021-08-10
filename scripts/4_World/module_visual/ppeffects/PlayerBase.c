@@ -13,7 +13,6 @@ modded class PlayerBase{
 	//protected ref PPEDebugAnimation m_ppeDebug = new PPEDebugAnimation();
 	//protected ref SCOAnimationDebug m_coDebug = new SCOAnimationDebug();
 	//protected ref SCOTimedDebug m_coDebugTimed = new SCOTimedDebug();
-	//protected ref SCOAnimationLogo m_coLogo = new SCOAnimationLogo();
 	
 	
 	override void OnInventoryMenuOpen(){
@@ -21,14 +20,12 @@ modded class PlayerBase{
 		//PPEManager.toggle(m_ppeDebug, !m_ppeDebug.isActive());
 		//SCameraOverlaysManager.getInstance().activate(m_coDebug);
 		//SCameraOverlaysManager.getInstance().activate(m_coDebugTimed);
-		//m_coLogo.onInventoryOpen();
 	}
 	
 	override void OnInventoryMenuClose(){
 		super.OnInventoryMenuClose();
 		//PPEManager.deactivate(m_ppeDebug);
 		//SCameraOverlaysManager.getInstance().deactivate(m_coDebug);
-		//m_coLogo.onInventoryClose();
 	}
 	
 	override void EEItemAttached(EntityAI item, string slot_name){
@@ -121,7 +118,6 @@ modded class PlayerBase{
 	
 	protected void playSpawnVisuals(){
 		SCameraOverlaysManager.getInstance().activate(m_coSpawn);
-		//SCameraOverlaysManager.getInstance().activate(m_coLogo);
 	}
 	
 	protected void checkForBleedingPPE(){

@@ -1,33 +1,39 @@
 class SCOAnimationDebug : SCameraOverlayAnimated {
 	
+	protected float m_velX[1];
+	protected float m_velY[1];
+	
 	override void onInit(){
-		setImage(SCOMasks.DEBUG);
-		setMask(SCOMasks.DEBUG);
-		setSize(0.2,0.2);
+		//setImage(SCOMasks.DEBUG);
+		//setMask(SCOMasks.DEBUG);
+		setImage("MyMODS/sVisual/GUI/icons/logo/sVisual.paa");
+		setSize(1);
 		setPriority(eSCOPriority.UI);
 	}
 	
-	override void onAnimate(float deltaTime){		
-		int mouseX, mouseY, sizeX, sizeY;
-		float posX, posY;
+	override void onPreBuild(){
+		getWidget().ClearFlags(WidgetFlags.STRETCH);
+	}
+	
+	override void onAnimate(float deltaTime){
+		getWidget().SetFlags(WidgetFlags.STRETCH);
+		getWidget().ClearFlags(WidgetFlags.EXACTPOS);
+		int mouseX, mouseY, screenSizeX, screenSizeY;
+		float wPosX, wPosY;
 		GetMousePos(mouseX,mouseY);
-		GetScreenSize(sizeX, sizeY);
-		getWidget().GetScreenPos(posX, posY);
-		
+		GetScreenSize(screenSizeX, screenSizeY);
+		getWidget().GetScreenPos(wPosX, wPosY);
+
+		float distanceX = mouseX - (wPosX + screenSizeX * 0.5);
+		float distanceY = mouseY - (wPosY + screenSizeY * 0.5);
+		setPosition(
+			Math.SmoothCD(getPosition()[0], SMath.mapTo(mouseX, 0, screenSizeX) - 0.5, m_velX, 0.3, 0.1, deltaTime),
+			Math.SmoothCD(getPosition()[1], SMath.mapTo(mouseY, 0, screenSizeY) - 0.5, m_velY, 0.3, 0.1, deltaTime));
+			
 		setRotation(
-			-SMath.mapTo(mouseX, posX, sizeX, 0, 90),
-			SMath.mapTo(mouseY, posY, sizeY, 0, 90),
+			-SMath.mapTo(distanceX, 0, screenSizeX, 0, 90),
+			SMath.mapTo(distanceY, 0, screenSizeY, 0, 90),
 			0);
-		setMaskProgress(Math.AbsFloat(Math.Sin(getTime())));
-		
-		setMaskProgress(1);
-		setRotation(vector.Zero);
-		setPosition(0,0);
-		setImage("MyMODS/sVisual/GUI/textures/overlays/black_4x4.edds");
-		setMask(SCOMasks.CIRCULAR);
-		setSize(5,1);
-		setMaskProgress(0.85);
-		setMaskTransitionWidth(0.2);
 	}
 }
 
@@ -52,24 +58,19 @@ class SCOTimedDebug : SCameraOverlayTimed {
 
 class SCOAnimationLogo : SCameraOverlayAnimated {
 	
-	protected bool m_inventoryOpen;
-	
 	override void onInit(){
 		setImage("MyMODS/sVisual/GUI/icons/logo/sUDE.paa");
-		setSize(0.035, 0.06);
-		setPosition(-0.48, -0.45);
-		setPriority(eSCOPriority.UI);
-		setHidesWithIngameHUD(true);
+		setSize(0.05, 0.1);
+		setPosition(0.45, -0.45);
+		setPriority(999);
 	}
 	
 	override void onAnimate(float deltaTime){
-		if(m_inventoryOpen){
-			setRotation(followCursor());
-		}else{
-			setRotation(Math.Sin(getTime()) * 360, 0, 0);
-		}
+		setImage("MyMODS/sVisual/GUI/icons/logo/sUDE.paa");
+		setRotation(Math.Sin(getTime()) * 360, 0, 0);
 	}
 	
+	/*
 	protected vector followCursor(){
 		int mouseX, mouseY, sizeX, sizeY;
 		float posX, posY;
@@ -82,13 +83,5 @@ class SCOAnimationLogo : SCameraOverlayAnimated {
 			SMath.mapTo(mouseY, posY, sizeY, 0, 90),
 			0);
 	}
-	
-	void onInventoryOpen(){
-		m_inventoryOpen = true;
-	}
-	
-	void onInventoryClose(){
-		m_inventoryOpen = false;
-		
-	}
+	*/
 }
