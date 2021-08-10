@@ -87,7 +87,6 @@ class CfgVehicles{
 	class MotoHelmet_ColorBase {
 		class sUDE {
 			class CameraOverlays {
-
 				class overlay_0 : SCameraOverlay_Headgear {
 					image="MyMODS/sVisual/GUI/textures/overlays/motohelmet_pristine.edds";
 				};
@@ -102,6 +101,10 @@ class CfgVehicles{
 				
 				class overlay_3 : SCameraOverlay_Headgear {
 					image="MyMODS/sVisual/GUI/textures/overlays/motohelmet_badlydamaged.edds";
+				};
+
+				class overlay_4 : SCameraOverlay_Headgear {
+					image="MyMODS/sVisual/GUI/textures/overlays/motohelmet_ruined.edds";
 				};
 			};
 		};
