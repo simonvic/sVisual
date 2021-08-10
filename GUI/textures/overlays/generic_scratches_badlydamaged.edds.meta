@@ -1,17 +1,17 @@
 MetaFileClass {
- Name "{6725A53174D8E83A}MyMODS/sVisual/GUI/textures/generic_scratches_badlydamaged.edds"
- Author "simonvic"
- ChangeDate 1661217528
+ Name "{ED8FA649B9F31369}MyMODS/sVisual/GUI/textures/overlays/generic_scratches_badlydamaged.edds"
+ Author "simonvic-pc"
+ ChangeDate 1998809866
  Configurations {
-  TGAResourceClass PC {
-   SourceFile "generic_scratches_badlydamaged.tga"
+  PNGResourceClass PC {
+   SourceFile "generic_scratches_badlydamaged.png"
    Conversion DXTCompression
   }
-  TGAResourceClass XBOX_ONE : PC {
+  PNGResourceClass XBOX_ONE : PC {
   }
-  TGAResourceClass PS4 : PC {
+  PNGResourceClass PS4 : PC {
   }
-  TGAResourceClass LINUX : PC {
+  PNGResourceClass LINUX : PC {
   }
  }
 }

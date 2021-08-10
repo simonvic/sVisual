@@ -1,17 +1,17 @@
 MetaFileClass {
- Name "{6769A53174D8E83C}MyMODS/sVisual/GUI/textures/generic_scratches_pristine.edds"
- Author "simonvic"
- ChangeDate -515626248
+ Name "{CD96810D59CBB82B}MyMODS/sVisual/GUI/textures/overlays/generic_scratches_pristine.edds"
+ Author "simonvic-pc"
+ ChangeDate 1487104778
  Configurations {
-  TGAResourceClass PC {
-   SourceFile "generic_scratches_pristine.tga"
+  PNGResourceClass PC {
+   SourceFile "generic_scratches_pristine.png"
    Conversion DXTCompression
   }
-  TGAResourceClass XBOX_ONE : PC {
+  PNGResourceClass XBOX_ONE : PC {
   }
-  TGAResourceClass PS4 : PC {
+  PNGResourceClass PS4 : PC {
   }
-  TGAResourceClass LINUX : PC {
+  PNGResourceClass LINUX : PC {
   }
  }
 }

@@ -112,22 +112,18 @@ class CfgVehicles{
 			class CameraOverlays{
 				class overlay_0 : SCameraOverlay_Eyewear {
 					image="MyMODS/sVisual/GUI/textures/overlays/generic_scratches_pristine.edds";
-					alpha=0.05;
 				};
 
 				class overlay_1 : SCameraOverlay_Eyewear {
 					image="MyMODS/sVisual/GUI/textures/overlays/generic_scratches_worn.edds";
-					alpha=0.1;
 				};
 
 				class overlay_2 : SCameraOverlay_Eyewear {
 					image="MyMODS/sVisual/GUI/textures/overlays/generic_scratches_damaged.edds";
-					alpha=0.1;
 				};
 				
 				class overlay_3 : SCameraOverlay_Eyewear {
 					image="MyMODS/sVisual/GUI/textures/overlays/generic_scratches_badlydamaged.edds";
-					alpha=0.1;
 				};
 			};
 		};

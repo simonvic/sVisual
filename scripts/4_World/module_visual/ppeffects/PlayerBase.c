@@ -9,12 +9,12 @@ modded class PlayerBase{
 	protected ref SCOTimedSpawn m_coSpawn = new SCOTimedSpawn();
 	
 	//Debug
-	/*
-	protected ref PPEDebugAnimation m_ppeDebug = new PPEDebugAnimation();
-	protected ref SCOAnimationDebug m_coDebug = new SCOAnimationDebug();
-	protected ref SCOTimedDebug m_coDebugTimed = new SCOTimedDebug();
-	protected ref SCOAnimationLogo m_coLogo = new SCOAnimationLogo();
-	*/
+	
+	//protected ref PPEDebugAnimation m_ppeDebug = new PPEDebugAnimation();
+	//protected ref SCOAnimationDebug m_coDebug = new SCOAnimationDebug();
+	//protected ref SCOTimedDebug m_coDebugTimed = new SCOTimedDebug();
+	//protected ref SCOAnimationLogo m_coLogo = new SCOAnimationLogo();
+	
 	
 	override void OnInventoryMenuOpen(){
 		super.OnInventoryMenuOpen();
