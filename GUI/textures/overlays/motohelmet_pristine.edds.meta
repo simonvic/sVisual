@@ -1,7 +1,7 @@
 MetaFileClass {
  Name "{9C1FA34B6A3419FB}MyMODS/sVisual/GUI/textures/overlays/motohelmet_pristine.edds"
  Author "simonvic-pc"
- ChangeDate 865872650
+ ChangeDate 787852042
  Configurations {
   PNGResourceClass PC {
    SourceFile "motohelmet_pristine.png"
