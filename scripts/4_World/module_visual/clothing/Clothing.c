@@ -35,6 +35,10 @@ modded class Clothing{
 	
 	override void EEHealthLevelChanged(int oldLevel, int newLevel, string zone){
 		super.EEHealthLevelChanged(oldLevel, newLevel, zone);
+		swapOverlayByHealthLevel(oldLevel, newLevel, zone);
+	}
+	
+	protected void swapOverlayByHealthLevel(int oldLevel, int newLevel, string zone){
 		if( GetGame().IsClient() ){
 			SCameraOverlay old = getOverlayByHealth(oldLevel);
 			if(SCameraOverlaysManager.getInstance().isActive(old)){
@@ -42,7 +46,6 @@ modded class Clothing{
 				SCameraOverlaysManager.getInstance().activate(getOverlayByHealth(newLevel));
 			}
 		}
-		
 	}
 	
 }
