@@ -144,47 +144,6 @@ class CfgVehicles{
 		};
 	};
 
-	class GasMask {
-		class sUDE {
-			class CameraOverlays {
-				class overlay_0 : SCameraOverlay_Eyewear {
-					image="MyMODS/sVisual/GUI/textures/overlays/black_4x4.edds";
-					mask="MyMODS/sVisual/GUI/textures/masks/binoculars_inverted.edds";
-					maskProgress=0.45;
-					maskTransitionWidth=1.0;
-					size[] = {1.1, 1.05};
-				};
-			};
-		};
-	};
-
-	class GP5GasMask {
-		class sUDE {
-			class CameraOverlays {
-				class overlay_0 : SCameraOverlay_Eyewear {
-					image="MyMODS/sVisual/GUI/textures/overlays/black_4x4.edds";
-					mask="MyMODS/sVisual/GUI/textures/masks/binoculars_inverted.edds";
-					maskProgress=0.8;
-					maskTransitionWidth=0.5;
-					size[] = {1.05, 1.1};
-				};
-			};
-		};
-	};
-
-	class AirborneMask {
-		class sUDE {
-			class CameraOverlays {
-				class overlay_0 : SCameraOverlay_Eyewear {
-					image="MyMODS/sVisual/GUI/textures/overlays/black_4x4.edds";
-					mask="MyMODS/sVisual/GUI/textures/masks/binoculars_inverted.edds";
-					maskProgress=0.45;
-					maskTransitionWidth=1.0;
-					size[] = {1.3, 1.3};
-				};
-			};
-		};
-	};
 };
 
 class Cfg_sUDE{
