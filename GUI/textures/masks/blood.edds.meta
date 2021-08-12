@@ -1,17 +1,17 @@
 MetaFileClass {
  Name "{2DDEB1BF2B4E1281}MyMODS/sVisual/GUI/textures/masks/blood.edds"
- Author "simonvic"
- ChangeDate -652514567
+ Author "simonvic-pc"
+ ChangeDate 1166764812
  Configurations {
-  TGAResourceClass PC {
-   SourceFile "blood.tga"
+  PNGResourceClass PC {
+   SourceFile "blood.png"
    Conversion DXTCompression
   }
-  TGAResourceClass XBOX_ONE : PC {
+  PNGResourceClass XBOX_ONE : PC {
   }
-  TGAResourceClass PS4 : PC {
+  PNGResourceClass PS4 : PC {
   }
-  TGAResourceClass LINUX : PC {
+  PNGResourceClass LINUX : PC {
   }
  }
 }

@@ -9,7 +9,7 @@ modded class PlayerBase{
 	protected ref SCOTimedSpawn m_coSpawn = new SCOTimedSpawn();
 	
 	//Debug
-	
+/*	
 	//protected ref PPEDebugAnimation m_ppeDebug = new PPEDebugAnimation();
 	//protected ref SCOAnimationDebug m_coDebug = new SCOAnimationDebug();
 	//protected ref SCOTimedDebug m_coDebugTimed = new SCOTimedDebug();
@@ -27,6 +27,20 @@ modded class PlayerBase{
 		//PPEManager.deactivate(m_ppeDebug);
 		//SCameraOverlaysManager.getInstance().deactivate(m_coDebug);
 	}
+	
+	override void OnJumpStart(){		
+		super.OnJumpStart();
+		
+		if(GetGame().IsServer()){
+			//GetGame().CreateObject("AviatorGlasses",GetPosition()).SetHealth("","",100);
+			//GetGame().CreateObject("AviatorGlasses",GetPosition()).SetHealth("","",30);
+			//GetGame().CreateObject("AviatorGlasses",GetPosition()).SetHealth("","",25);
+			//GetGame().CreateObject("AviatorGlasses",GetPosition()).SetHealth("","",10);
+		}
+		
+	}
+	
+*/
 	
 	override void EEItemAttached(EntityAI item, string slot_name){
 		super.EEItemAttached(item, slot_name);
@@ -60,36 +74,24 @@ modded class PlayerBase{
 		}
 	}
 		
-	override void OnJumpStart(){		
-		super.OnJumpStart();
-		/*
-		if(GetGame().IsServer()){
-			GetGame().CreateObject("AviatorGlasses",GetPosition()).SetHealth("","",100);
-			GetGame().CreateObject("AviatorGlasses",GetPosition()).SetHealth("","",30);
-			GetGame().CreateObject("AviatorGlasses",GetPosition()).SetHealth("","",25);
-			GetGame().CreateObject("AviatorGlasses",GetPosition()).SetHealth("","",10);
-		}
-		*/
+	override void OnPlayerRecievedHit(){
+		super.OnPlayerRecievedHit();	
+		playHitReceivedPPE();
 	}
 	
-	override void SpawnDamageDealtEffect(){
-		if( GetInstanceType() == DayZPlayerInstanceType.INSTANCETYPE_CLIENT ){
-			if(m_ppeHitAnim.isActive()){
-				m_ppeHitAnim.setDuration(m_ppeHitAnim.getDuration() * PPEConstants.HIT_RECEIVED_DURATION_MULTIPLIER);
-				m_ppeHitAnim.setHitStrength(m_ppeHitAnim.getHitStrength() * PPEConstants.HIT_RECEIVED_STRENGTH_MULTIPLIER);
-			}else{
-				m_ppeHitAnim.setDuration(PPEConstants.HIT_RECEIVED_MIN_DURATION);
-				m_ppeHitAnim.setHitStrength(PPEConstants.HIT_RECEIVED_MIN_STRENGTH);
-				
-				PPEManager.activate(m_ppeHitAnim);
-			}
-		}
-		super.SpawnDamageDealtEffect();
+	protected void playHitReceivedPPE(){
+		SLog.d("playHitReceivedPPE");
+		if( GetInstanceType() != DayZPlayerInstanceType.INSTANCETYPE_CLIENT ) return;
 		
-	}
-	
-	override void OnSelectPlayer(){
-		super.OnSelectPlayer();
+		if(m_ppeHitAnim.isActive()){
+			m_ppeHitAnim.setDuration(m_ppeHitAnim.getDuration() * PPEConstants.HIT_RECEIVED_DURATION_MULTIPLIER);
+			m_ppeHitAnim.setHitStrength(m_ppeHitAnim.getHitStrength() * PPEConstants.HIT_RECEIVED_STRENGTH_MULTIPLIER);
+		}else{
+			m_ppeHitAnim.setDuration(PPEConstants.HIT_RECEIVED_MIN_DURATION);
+			m_ppeHitAnim.setHitStrength(PPEConstants.HIT_RECEIVED_MIN_STRENGTH);
+			
+			PPEManager.activate(m_ppeHitAnim);
+		}
 	}
 	
 	override void OnPlayerLoaded(){
