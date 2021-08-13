@@ -80,7 +80,6 @@ modded class PlayerBase{
 	}
 	
 	protected void playHitReceivedPPE(){
-		SLog.d("playHitReceivedPPE");
 		if( GetInstanceType() != DayZPlayerInstanceType.INSTANCETYPE_CLIENT ) return;
 		
 		if(m_ppeHitAnim.isActive()){

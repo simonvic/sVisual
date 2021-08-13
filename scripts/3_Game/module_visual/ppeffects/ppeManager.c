@@ -4,7 +4,6 @@ typedef set<ref PPEAnimatedParams> TPPEAnimatedParamsList;
 class PPEManager {
 	
 	protected static float m_time;
-	static bool m_debugMode = false;
 	
 	//=========== Depth of Field ==============
 	protected static ref DDOFPreset m_DDOF = new DDOFPreset(); //default Dynamic Depth of Field values 
@@ -111,7 +110,6 @@ class PPEManager {
 			SLog.w("ACTIVATING " + params + " on server!","PPEManager::activate");
 			return;
 		}
-		SLog.d("ACTIVATING " + params,"PPEManager::activate", 0, m_debugMode);
 		if(params.IsInherited(PPEAnimatedParams)){
 			PPEAnimatedParams ppeAp = PPEAnimatedParams.Cast(params);
 			m_animatedPPE.Insert(ppeAp); // https://www.youtube.com/watch?v=Ct6BUPvE2sM
@@ -131,7 +129,6 @@ class PPEManager {
 			SLog.w("DEACTIVATING " + params + " on server!","PPEManager::deactivate");
 			return;
 		}
-		SLog.d("DEACTIVATING " + params,"PPEManager::deactivate", 0, m_debugMode);
 		if(params.IsInherited(PPEAnimatedParams)){
 			PPEAnimatedParams ppeAp = PPEAnimatedParams.Cast(params);
 			ppeAp.stop();
@@ -229,7 +226,6 @@ class PPEManager {
 		}
 		
 		foreach(PPEAnimatedParams apToDeactivate : toDeactivate){
-			SLog.d("" + apToDeactivate + " has stopped. Deactivating it...","PPEManager::animateParams",0,m_debugMode);
 			deactivate(apToDeactivate);
 		}
 	}
@@ -269,13 +265,6 @@ class PPEManager {
 	* 	@params params \p PPEParams - Parameters to be applied
 	*/
 	protected static void applyParams(PPEParams params){
-		if(m_debugMode){
-			SLog.d("params have changed, updating...","",0);
-			SLog.d("==========================","",0);
-			SLog.d("staticPPE     has " + m_persistentPPE.Count() + " total active PPEParams","",1);
-			SLog.d("m_animatedPPE has " + m_animatedPPE.Count() + " total active PPEParams","",1);				
-			params.debugPrint();
-		}
 		applyFloatParams(params);
 		applyColorParams(params);
 		params.onApply();
@@ -315,7 +304,6 @@ class PPEManager {
 	* 	@return \p bool - return true if parameter has been applied succesfully, false otherwise
 	*/
 	protected static bool applyPPEParamTo(TPPEParamName paramName, float paramValue, TPPEMaterial mat){
-		SLog.d("Mat: " + mat + "\t\t : " + paramName + " : " + paramValue, "",1, m_debugMode);
 		return GetGame().GetWorld().GetMaterial(mat).SetParam(paramName,paramValue);
 	}
 	
@@ -328,7 +316,6 @@ class PPEManager {
 	* 	@return \p bool - return true if parameter has been applied succesfully, false otherwise
 	*/
 	protected static bool applyPPEParamTo(TPPEParamName paramName, TPPEColor paramValue, TPPEMaterial mat){
-		SLog.d("Mat: " + mat + "\t\t : " + paramName + " : " + paramValue, "",1, m_debugMode);
 		float color[4];
 		color[0] = paramValue[0];
 		color[1] = paramValue[1];
@@ -404,12 +391,6 @@ class PPEManager {
 		result.InsertAt(Math.Lerp(color1[1], color2[1], coeff), 1); //Green
 		result.InsertAt(Math.Lerp(color1[2], color2[2], coeff), 2); //Blue
 		result.InsertAt(Math.Lerp(color1[3], color2[3], coeff), 3); //Alpha
-		if(m_debugMode){
-			SLog.d("","mixColors()",0);
-			SLog.d(string.Format("Color1 : %1 %2 %3 %4", color1[0],color1[1],color1[2],color1[3]) ,"",1);
-			SLog.d(string.Format("Color2 : %1 %2 %3 %4", color2[0],color2[1],color2[2],color2[3]) ,"",1);
-			SLog.d(string.Format("Result : %1 %2 %3 %4", result[0],result[1],result[2],result[3]) ,"",1);
-		}
 		return result;
 	}
 	
@@ -615,7 +596,6 @@ class PPEManager {
 	}
 	
 	protected static void applyDOF(bool enabled, float focusDistance, float focusLength, float focusLengthNear, float blurStrength, float focusDepthOffset){
-		//SLog.d(string.Format("Distance: %1 | Blur : %2",focusDistance,blurStrength),"PPEManager");
 		GetGame().OverrideDOF(enabled, focusDistance, focusLength, focusLengthNear, blurStrength, focusDepthOffset);
 	}
 	
