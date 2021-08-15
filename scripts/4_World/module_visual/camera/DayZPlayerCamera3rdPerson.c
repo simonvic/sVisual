@@ -1,11 +1,5 @@
 modded class DayZPlayerCamera3rdPerson {
 	
-	void DayZPlayerCamera3rdPerson(DayZPlayer pPlayer, HumanInputController pInput){
-	}
-	
-	void ~DayZPlayerCamera3rdPerson(DayZPlayer pPlayer, HumanInputController pInput){
-	}
-	
 	override void OnUpdate(float pDt, out DayZPlayerCameraResult pOutResult){
 		super.OnUpdate(pDt, pOutResult);
 		

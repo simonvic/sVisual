@@ -1,6 +1,6 @@
 class OptionsMenuSVisual extends ScriptedWidgetEventHandler{
 	
-	protected ref SUserConfigVisual m_sUserConfig;
+	protected SUserConfigVisual m_sUserConfig;
 		
 	static const string WN_HEADBOB = "sude_headbob_setting_";
 	static const string WN_HEADBOB_SWITCH_3PP = "sude_headbob_switch_3pp_";

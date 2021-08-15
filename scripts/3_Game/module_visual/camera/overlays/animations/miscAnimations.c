@@ -1,7 +1,7 @@
 class SCOTimedSpawn : SCameraOverlayTimed {
 	
 	override void onInit(){
-		setImage("MyMODS/sVisual/GUI/textures/overlays/black_4x4.edds");
+		setImage("MyMODS/sFramework/GUI/textures/overlays/black_4x4.edds");
 		setMask(SCOMasks.CIRCULAR);
 		setMaskTransitionWidth(1);
 		setDuration(1.3);

@@ -4,7 +4,7 @@ class SCOAnimationBleeding : SCameraOverlayAnimated {
 	
 	override void onInit(){
 		setImage("MyMODS/sVisual/GUI/textures/overlays/blood.edds");
-		setMask(SCOMasks.BLOOD);
+		setMask("MyMODS/sVisual/GUI/textures/masks/blood.edds");
 		setMaskTransitionWidth(0.75);
 		setPriority(eSCOPriority.EYE);
 		setSize(1.3);

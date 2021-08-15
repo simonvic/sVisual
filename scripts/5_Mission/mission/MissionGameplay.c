@@ -1,24 +1,15 @@
 modded class MissionGameplay{
 	
-	void MissionGameplay() {
-		PPEManager.onInit();
-		
+	void MissionGameplay() {	
 		SUserConfigVisual userVisualCfg = SUserConfig.visual();
-		
 		PPEManager.setDDOFBlurStrength(userVisualCfg.getDDOFIntensity());
 		PPEManager.setMotionBlurStrength(userVisualCfg.getMotionBlurIntensity());
 		PPEManager.setBloomStrength(userVisualCfg.getBloomIntensity());
-		
-	}
-	
-	void ~MissionGameplay(){
-		SCameraOverlaysManager.getInstance().deactivateAll();
-		PPEManager.deactivateAll();
-		PPEManager.applyDefault();
 	}
 	
 	override void OnUpdate(float timeslice){
 		super.OnUpdate(timeslice);
 		PPEManager.onUpdate(timeslice);
 	}
+	
 }

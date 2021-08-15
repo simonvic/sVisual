@@ -1,9 +1,7 @@
 modded class DayZPlayerCameraBase{
 	
-	protected DayZPlayerImplement m_iPlayer; //@todo just a quick thing, change this absolutely
-	protected ref CameraManager m_camManager;
-	
-	protected static ref PPENightVision m_nightVisionPPE = new PPENightVision(); // used with night vision optic/goggles
+	protected DayZPlayerImplement m_iPlayer; //@todo just a quick thing, change this absolutely	
+	protected ref PPENightVision m_nightVisionPPE = new PPENightVision(); // used with night vision optic/goggles
 	
 	
 	//=========== Depth of Field ==============
@@ -16,7 +14,6 @@ modded class DayZPlayerCameraBase{
 	void DayZPlayerCameraBase(DayZPlayer pPlayer, HumanInputController pInput){
 		m_iPlayer = DayZPlayerImplement.Cast(pPlayer);
 		m_ddofStartBoneIdx = pPlayer.GetBoneIndexByName("Head");
-		m_camManager = new CameraManager(this, PlayerBase.Cast(m_pPlayer));
 		
 		m_sRaycast = new SRaycast("0 0 0", "0 0 0", 0.05, ObjIntersectView, CollisionFlags.NEARESTCONTACT);
 
@@ -28,16 +25,6 @@ modded class DayZPlayerCameraBase{
 		}
 		
 		SCameraOverlaysManager.getInstance().setActiveCameraType(this.Type());
-	}
-	
-	void ~DayZPlayerCameraBase(){
-		
-	}
-	
-	
-	override void OnUpdate(float pDt, out DayZPlayerCameraResult pOutResult){
-		super.OnUpdate(pDt, pOutResult);
-		m_camManager.onUpdate(pDt, pOutResult);		
 	}
 	
 	protected bool canRequestDDOF(){
@@ -81,11 +68,7 @@ modded class DayZPlayerCameraBase{
 	
 	float getLeanRollAngle(){
 		//@todo report this. m_fLeaning doesn't reset when going prone while peeking (Q/E)
-		return m_iPlayer.m_MovementState.m_fLeaning * m_camManager.getHeadLeanAngle();
-	}
-	
-	CameraManager getCameraManager(){
-		return m_camManager;
+		return m_iPlayer.m_MovementState.m_fLeaning * SCameraManager.getInstance().getHeadLeanAngle();
 	}
 	
 	override void SetNVPostprocess(int NVtype){

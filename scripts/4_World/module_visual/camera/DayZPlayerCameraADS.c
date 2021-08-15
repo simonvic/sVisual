@@ -2,13 +2,7 @@
 // IRONSIGHT
 //////////////////////////////////////////
 modded class DayZPlayerCameraIronsights {
-	
-	void DayZPlayerCameraIronsights(DayZPlayer pPlayer, HumanInputController pInput){
-	}
-	
-	void ~DayZPlayerCameraIronsights(DayZPlayer pPlayer, HumanInputController pInput){
-	}
-	
+
 	override void OnUpdate(float pDt, out DayZPlayerCameraResult pOutResult){
 		if(!useSimonvicCam()){
 			super.OnUpdate(pDt, pOutResult);
