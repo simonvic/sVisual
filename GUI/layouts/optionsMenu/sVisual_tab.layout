@@ -1,4 +1,4 @@
-FrameWidgetClass sude_tab_root {
+FrameWidgetClass sude_svisual_tab_root {
  visible 1
  ignorepointer 1
  position 0 0
