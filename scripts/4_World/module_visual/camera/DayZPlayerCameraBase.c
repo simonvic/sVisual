@@ -1,7 +1,7 @@
 modded class DayZPlayerCameraBase{
 	
 	protected DayZPlayerImplement m_iPlayer; //@todo just a quick thing, change this absolutely	
-	protected ref PPENightVision m_nightVisionPPE = new PPENightVision(); // used with night vision optic/goggles
+	protected static ref PPENightVision m_nightVisionPPE = new PPENightVision(); // used with night vision optic/goggles
 	
 	
 	//=========== Depth of Field ==============
@@ -50,9 +50,6 @@ modded class DayZPlayerCameraBase{
 		//@todo smooth motion blur value here
 	}
 	
-	bool useSimonvicCam(){
-		return false;
-	}
 	
 	bool isHeadbobEnabled(){
 		return false;
