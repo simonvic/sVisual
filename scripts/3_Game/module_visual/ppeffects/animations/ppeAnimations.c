@@ -2,7 +2,7 @@
 // EPINEPHRINE
 class PPEEpinephrineAnimation : PPELoopedParams {
 	override void onInit(){
-		setVignetteColor(PPEManager.getPPEColor(0,0,0,0));
+		setVignetteColor(SPPEManager.getPPEColor(0,0,0,0));
 	}
 	
 	override void onAnimate(float deltaTime){	
@@ -19,7 +19,7 @@ class PPEExhaustedAnimation : PPELoopedParams {
 	protected float stamina = 100;
 	
 	override void onInit(){
-		setVignetteColor(PPEManager.getPPEColor(0,0,0,0));
+		setVignetteColor(SPPEManager.getPPEColor(0,0,0,0));
 	}
 	
 	override void onAnimate(float deltaTime){
@@ -39,7 +39,7 @@ class PPEExhaustedAnimation : PPELoopedParams {
 class PPEOpticZoomChangeAnimation : PPETimedParams {	
 	override void onAnimate(float deltaTime){
 		float color = Math.Lerp(1, -1, Math.Sin(getTime() * 10));
-		setColorization(PPEManager.getPPEColor(color,color,color,0));		
+		setColorization(SPPEManager.getPPEColor(color,color,color,0));		
 	}
 }
 
@@ -47,16 +47,16 @@ class PPEOpticZoomChangeAnimation : PPETimedParams {
 ////////////////////////////////
 // HIT RECEIVED
 class PPEHitReceivedAnimation : PPETimedParams {		
-	protected float hitStrength = PPEConstants.HIT_RECEIVED_MIN_STRENGTH;
+	protected float hitStrength = SPPEConstants.HIT_RECEIVED_MIN_STRENGTH;
 	
 	override void onInit(){
-		setVignetteColor(PPEManager.getPPEColor(0,0,0,0));
+		setVignetteColor(SPPEManager.getPPEColor(0,0,0,0));
 	}
 	
 	override void onAnimate(float deltaTime){
-		float power = Math.AbsFloat(Math.Sin(getTime() * Math.PI)) * hitStrength * Math.AbsFloat(SMath.mapTo(getRemaining(), 0.01, PPEConstants.HIT_RECEIVED_MAX_DURATION));
-		float chromAberPower = Math.Clamp(power * 0.001, 0, PPEConstants.HIT_RECEIVED_MAX_CHROM_ABER);
-		float vignettePower  = Math.Clamp(power * 0.08, 0, PPEConstants.HIT_RECEIVED_MAX_VIGNETTE);
+		float power = Math.AbsFloat(Math.Sin(getTime() * Math.PI)) * hitStrength * Math.AbsFloat(SMath.mapTo(getRemaining(), 0.01, SPPEConstants.HIT_RECEIVED_MAX_DURATION));
+		float chromAberPower = Math.Clamp(power * 0.001, 0, SPPEConstants.HIT_RECEIVED_MAX_CHROM_ABER);
+		float vignettePower  = Math.Clamp(power * 0.08, 0, SPPEConstants.HIT_RECEIVED_MAX_VIGNETTE);
 		
 		setChromAber(chromAberPower, chromAberPower);
 		setVignetteIntensity(vignettePower);
@@ -64,7 +64,7 @@ class PPEHitReceivedAnimation : PPETimedParams {
 	
 	override void setDuration(float duration){
 		m_time = 0;
-		m_duration = Math.Clamp(duration, 0.1, PPEConstants.HIT_RECEIVED_MAX_DURATION);
+		m_duration = Math.Clamp(duration, 0.1, SPPEConstants.HIT_RECEIVED_MAX_DURATION);
 	}
 	
 	float getHitStrength(){
@@ -72,7 +72,7 @@ class PPEHitReceivedAnimation : PPETimedParams {
 	}
 	
 	void setHitStrength(float strength){
-		hitStrength = Math.Clamp(strength, 0, PPEConstants.HIT_RECEIVED_MAX_STRENGTH);
+		hitStrength = Math.Clamp(strength, 0, SPPEConstants.HIT_RECEIVED_MAX_STRENGTH);
 	}
 }
 
@@ -83,7 +83,7 @@ class PPEUnconsciousAnimation : PPELoopedParams {
 	
 	override void onInit(){
 		setRadialBlur(0.5, 0.5);
-		setVignetteColor(PPEManager.getPPEColor(0,0,0,0));
+		setVignetteColor(SPPEManager.getPPEColor(0,0,0,0));
 	}
 	
 	override void onAnimate(float deltaTime){

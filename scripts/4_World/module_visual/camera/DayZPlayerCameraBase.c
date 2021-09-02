@@ -18,10 +18,10 @@ modded class DayZPlayerCameraBase{
 		m_sRaycast = new SRaycast("0 0 0", "0 0 0", 0.05, ObjIntersectView, CollisionFlags.NEARESTCONTACT);
 
 		if(isDDOFEnabled()) {
-			PPEManager.enableDDOF();
+			SPPEManager.enableDDOF();
 		}else{
-			PPEManager.disableDDOF();
-			PPEManager.resetDDOF(true);
+			SPPEManager.disableDDOF();
+			SPPEManager.resetDDOF(true);
 		}
 		
 		SCameraOverlaysManager.getInstance().setActiveCameraType(this.Type());
@@ -32,14 +32,14 @@ modded class DayZPlayerCameraBase{
 	}
 	
 	protected void updateDDOF(float pDt){
-		PPEManager.requestDDOF(getFocusDistance());
+		SPPEManager.requestDDOF(getFocusDistance());
 	}
 	
 	protected float getFocusDistance(){
 		vector from = m_pPlayer.GetBonePositionWS(m_ddofStartBoneIdx);		
 		m_sRaycast.init(
 			from,
-			from + (GetGame().GetCurrentCameraDirection() * PPEManager.getDDOFMaxDistance()));
+			from + (GetGame().GetCurrentCameraDirection() * SPPEManager.getDDOFMaxDistance()));
 		
 		m_sRaycast.ignore(m_pPlayer, m_pPlayer.GetDrivingVehicle());
 		
@@ -74,25 +74,25 @@ modded class DayZPlayerCameraBase{
 			case NVTypes.NONE:
 				PPEffects.SetEVValuePP(0);
 				GetGame().NightVissionLightParams(1.0, 0.0);
-				PPEManager.deactivate(m_nightVisionPPE);
+				SPPEManager.deactivate(m_nightVisionPPE);
 			break;
 			
 			case NVTypes.NV_OPTICS_ON:
 				PPEffects.SetEVValuePP(6);
 				GetGame().NightVissionLightParams(3.0, 2.0);
-				PPEManager.activate(m_nightVisionPPE);
+				SPPEManager.activate(m_nightVisionPPE);
 			break;
 			
 			case NVTypes.NV_OPTICS_OFF:
 				PPEffects.SetEVValuePP(-10);
 				GetGame().NightVissionLightParams(1.0, 0.0);
-				PPEManager.deactivate(m_nightVisionPPE);
+				SPPEManager.deactivate(m_nightVisionPPE);
 			break;
 			
 			case NVTypes.NV_GOGGLES:
 				PPEffects.SetEVValuePP(6);
 				GetGame().NightVissionLightParams(2.0, 1.0);
-				PPEManager.activate(m_nightVisionPPE);
+				SPPEManager.activate(m_nightVisionPPE);
 			break;
 		}
 		

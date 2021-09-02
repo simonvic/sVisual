@@ -9,11 +9,11 @@ modded class StaminaHandler{
 		
 		ppeExhaustAnim.setStamina(getStaminaPercentage());
 		if(ppeShouldActivate()){
-			PPEManager.activate(ppeExhaustAnim);
+			SPPEManager.activate(ppeExhaustAnim);
 		}		
 		
 		if(ppeShouldDeactivate()){
-			PPEManager.deactivate(ppeExhaustAnim);
+			SPPEManager.deactivate(ppeExhaustAnim);
 		}
 	}
 	
@@ -22,7 +22,7 @@ modded class StaminaHandler{
 	}
 	
 	protected bool ppeShouldDeactivate(){
-		return ppeExhaustAnim.isActive() && (getStaminaPercentage() >= PPEConstants.EXHAUSTED_DEACTIVATION_TRESHOLD);
+		return ppeExhaustAnim.isActive() && (getStaminaPercentage() >= SPPEConstants.EXHAUSTED_DEACTIVATION_TRESHOLD);
 	}
 	
 	private float getStaminaPercentage(){

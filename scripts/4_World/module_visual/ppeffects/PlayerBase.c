@@ -1,6 +1,6 @@
 modded class PlayerBase{
 	
-	protected ref PPEHitReceivedAnimation m_ppeHitAnim = new PPEHitReceivedAnimation(PPEConstants.HIT_RECEIVED_MIN_DURATION, true); //Used when being hit
+	protected ref PPEHitReceivedAnimation m_ppeHitAnim = new PPEHitReceivedAnimation(SPPEConstants.HIT_RECEIVED_MIN_DURATION, true); //Used when being hit
 	protected ref PPEEyegearPreset m_ppeEye = new PPEEyegearPreset();                            //Used when wearing AviatorGlasses
 	protected ref PPEBleedingAnimation m_ppeBleeding = new PPEBleedingAnimation();               //Used when bleeding
 	protected ref PPEUnconsciousAnimation m_ppeUnconscious = new PPEUnconsciousAnimation();    //Used when going uncoscious
@@ -17,14 +17,14 @@ modded class PlayerBase{
 	
 	override void OnInventoryMenuOpen(){
 		super.OnInventoryMenuOpen();
-		//PPEManager.toggle(m_ppeDebug, !m_ppeDebug.isActive());
+		//SPPEManager.toggle(m_ppeDebug, !m_ppeDebug.isActive());
 		//SCameraOverlaysManager.getInstance().activate(m_coDebug);
 		//SCameraOverlaysManager.getInstance().activate(m_coDebugTimed);
 	}
 	
 	override void OnInventoryMenuClose(){
 		super.OnInventoryMenuClose();
-		//PPEManager.deactivate(m_ppeDebug);
+		//SPPEManager.deactivate(m_ppeDebug);
 		//SCameraOverlaysManager.getInstance().deactivate(m_coDebug);
 	}
 	
@@ -48,7 +48,7 @@ modded class PlayerBase{
 		
 		// Apply colored overlay when wearing AviatorGlasses
 		if( slot_name == "Eyewear" && AviatorGlasses.Cast(item)){
-			PPEManager.activate(m_ppeEye);
+			SPPEManager.activate(m_ppeEye);
 		}
 
 		Clothing clothing = Clothing.Cast(item);
@@ -65,7 +65,7 @@ modded class PlayerBase{
 		
 		// Remove colored overlay when removing AviatorGlasses
 		if( slot_name == "Eyewear" && AviatorGlasses.Cast(item) ){
-			PPEManager.deactivate(m_ppeEye);
+			SPPEManager.deactivate(m_ppeEye);
 		}
 		
 		Clothing clothing = Clothing.Cast(item);
@@ -83,13 +83,13 @@ modded class PlayerBase{
 		if( GetInstanceType() != DayZPlayerInstanceType.INSTANCETYPE_CLIENT ) return;
 		
 		if(m_ppeHitAnim.isActive()){
-			m_ppeHitAnim.setDuration(m_ppeHitAnim.getDuration() * PPEConstants.HIT_RECEIVED_DURATION_MULTIPLIER);
-			m_ppeHitAnim.setHitStrength(m_ppeHitAnim.getHitStrength() * PPEConstants.HIT_RECEIVED_STRENGTH_MULTIPLIER);
+			m_ppeHitAnim.setDuration(m_ppeHitAnim.getDuration() * SPPEConstants.HIT_RECEIVED_DURATION_MULTIPLIER);
+			m_ppeHitAnim.setHitStrength(m_ppeHitAnim.getHitStrength() * SPPEConstants.HIT_RECEIVED_STRENGTH_MULTIPLIER);
 		}else{
-			m_ppeHitAnim.setDuration(PPEConstants.HIT_RECEIVED_MIN_DURATION);
-			m_ppeHitAnim.setHitStrength(PPEConstants.HIT_RECEIVED_MIN_STRENGTH);
+			m_ppeHitAnim.setDuration(SPPEConstants.HIT_RECEIVED_MIN_DURATION);
+			m_ppeHitAnim.setHitStrength(SPPEConstants.HIT_RECEIVED_MIN_STRENGTH);
 			
-			PPEManager.activate(m_ppeHitAnim);
+			SPPEManager.activate(m_ppeHitAnim);
 		}
 	}
 	
@@ -104,8 +104,8 @@ modded class PlayerBase{
 			
 		/////////////////////////
 		// PPEffects
-		PPEManager.deactivateAll();
-		PPEManager.applyDefault();
+		SPPEManager.deactivateAll();
+		SPPEManager.applyDefault();
 			
 		checkForBleedingPPE();
 		checkForGlassesPPE();
@@ -124,14 +124,14 @@ modded class PlayerBase{
 	protected void checkForBleedingPPE(){
 		if(IsBleeding()){
 			updateBleedingEffect();
-			PPEManager.activate(m_ppeBleeding);
+			SPPEManager.activate(m_ppeBleeding);
 			SCameraOverlaysManager.getInstance().activate(m_coBleeding);
 		}
 	}
 	
 	protected void checkForGlassesPPE(){
 		if ( AviatorGlasses.Cast( GetInventory().FindAttachment(InventorySlots.EYEWEAR)) ){
-			PPEManager.activate(m_ppeEye);
+			SPPEManager.activate(m_ppeEye);
 		}
 	}	
 	
@@ -151,7 +151,7 @@ modded class PlayerBase{
 	override void OnUnconsciousStart(){
 		super.OnUnconsciousStart();
 		if( GetInstanceType() == DayZPlayerInstanceType.INSTANCETYPE_CLIENT ){
-			PPEManager.activate(m_ppeUnconscious);
+			SPPEManager.activate(m_ppeUnconscious);
 			SCameraOverlaysManager.getInstance().hideAll();
 		}
 	}
@@ -159,7 +159,7 @@ modded class PlayerBase{
 	override void OnUnconsciousStop(int pCurrentCommandID){
 		super.OnUnconsciousStop(pCurrentCommandID);
 		if( GetInstanceType() == DayZPlayerInstanceType.INSTANCETYPE_CLIENT ){
-			PPEManager.deactivate(m_ppeUnconscious);
+			SPPEManager.deactivate(m_ppeUnconscious);
 			SCameraOverlaysManager.getInstance().showAll();
 		}
 	}
@@ -169,7 +169,7 @@ modded class PlayerBase{
 	override void OnBleedingBegin(){
 		super.OnBleedingBegin();
 		if( GetInstanceType() == DayZPlayerInstanceType.INSTANCETYPE_CLIENT ){
-			PPEManager.activate(m_ppeBleeding);
+			SPPEManager.activate(m_ppeBleeding);
 			SCameraOverlaysManager.getInstance().activate(m_coBleeding);
 		}
 	}
@@ -177,7 +177,7 @@ modded class PlayerBase{
 	override void OnBleedingEnd(){
 		super.OnBleedingEnd();
 		if( GetInstanceType() == DayZPlayerInstanceType.INSTANCETYPE_CLIENT ){
-			PPEManager.deactivate(m_ppeBleeding);
+			SPPEManager.deactivate(m_ppeBleeding);
 			SCameraOverlaysManager.getInstance().deactivate(m_coBleeding);
 		}
 	}

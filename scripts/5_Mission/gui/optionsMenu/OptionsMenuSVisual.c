@@ -76,33 +76,33 @@ class OptionsMenuSVisual : SOptionsMenuBase{
 	protected void updateDoFOption( float newValue ){
 		m_dofSlider.updateTextValue();
 		m_sUserConfig.setDDOFIntensity(newValue);
-		PPEManager.setDDOFBlurStrength(newValue);
+		SPPEManager.setDDOFBlurStrength(newValue);
 		onConfigChange();
 	}
 	
 	protected void updateDOFSwitch3PP(bool checked){		
 		m_sUserConfig.setDDOFEnabledIn3PP(checked);
-		PPEManager.setDDOFEnabledIn3PP(checked);
+		SPPEManager.setDDOFEnabledIn3PP(checked);
 		onConfigChange();
 	}
 	
 	protected void updateDOFSwitchVehicle(bool checked){		
 		m_sUserConfig.setDDOFEnabledInVehicle(checked);
-		PPEManager.setDDOFEnabledInVehicle(checked);		
+		SPPEManager.setDDOFEnabledInVehicle(checked);		
 		onConfigChange();
 	}
 	
 	protected void updateMotionBlurOption( float newValue ){
 		m_motionBlurSlider.updateTextValue();		
 		m_sUserConfig.setMotionBlurIntensity(newValue);
-		PPEManager.setMotionBlurStrength(newValue);
+		SPPEManager.setMotionBlurStrength(newValue);
 		onConfigChange();
 	}
 	
 	protected void updateBloomOption( float newValue ){
 		m_bloomSlider.updateTextValue();
 		m_sUserConfig.setBloomIntensity(newValue);
-		PPEManager.setBloomStrength(newValue);
+		SPPEManager.setBloomStrength(newValue);
 		onConfigChange();
 	}
 	

@@ -14,7 +14,7 @@ modded class PPEffects{
 	}
 	
 	override static void SetRadialBlur(float powerX, float powerY, float offsetX, float offsetY ){
-		PPEManager.vanillaSetRadialBlur(powerX, powerY, offsetX, offsetY);
+		SPPEManager.vanillaSetRadialBlur(powerX, powerY, offsetX, offsetY);
 		
 	}
 
@@ -33,7 +33,7 @@ modded class PPEffects{
 	*/
 
 	override static void SetBlur(float value) {
-		PPEManager.vanillaSetGausBlur(value);
+		SPPEManager.vanillaSetGausBlur(value);
 	}
 	
 	override static void UpdateBlur() {
@@ -110,7 +110,7 @@ modded class PPEffects{
 
 	override static void SetChromAbb(float value) {
 		// @todo why?! it uses MaxChromAber instead of powerX powerY
-		PPEManager.vanillaSetLensChromAber(value);
+		SPPEManager.vanillaSetLensChromAber(value);
 	}
 	
 	override static void UpdateChromAbb() {
@@ -180,7 +180,7 @@ modded class PPEffects{
 
 		m_ColorValueTotal = color_value_total;
 		m_ColorOverlayTotal = color_overlay;
-		PPEManager.vanillaSetOverlay(color_overlay, PPEManager.getPPEColor(color_value_total[0], color_value_total[1], color_value_total[2], color_value_total[3]));
+		SPPEManager.vanillaSetOverlay(color_overlay, SPPEManager.getPPEColor(color_value_total[0], color_value_total[1], color_value_total[2], color_value_total[3]));
 	}
 
 	override static void SetLensEffect(float lens, float chromAbb, float centerX, float centerY) {
@@ -188,11 +188,11 @@ modded class PPEffects{
 	}
 
 	override static void PerformSetLensEffect(float lens, float chromAbb, float centerX, float centerY) {
-		PPEManager.vanillaSetLens(lens, centerX, centerY, chromAbb);
+		SPPEManager.vanillaSetLens(lens, centerX, centerY, chromAbb);
 	}
 
 	override static void SetVignette(float intensity, float R, float G, float B, float A) {
-		PPEManager.vanillaSetVignette(intensity, PPEManager.getPPEColor(R,G,B,A));
+		SPPEManager.vanillaSetVignette(intensity, SPPEManager.getPPEColor(R,G,B,A));
 	}
 
 	/* VANILLA CODE
@@ -243,19 +243,19 @@ modded class PPEffects{
 	}
 	
 	override static void OverrideDOF(bool enable, float focusDistance, float focusLength, float focusLengthNear, float blur, float focusDepthOffset) {
-		PPEManager.vanillaOverrideDOF(enable, focusDistance, focusLength, focusLengthNear, blur, focusDepthOffset);
+		SPPEManager.vanillaOverrideDOF(enable, focusDistance, focusLength, focusLengthNear, blur, focusDepthOffset);
 	}
 
 	override static void AddPPMask(float ndcX, float ndcY, float ndcRadius, float ndcBlur) {
-		PPEManager.vanillaAddPPMask(ndcX, ndcY, ndcRadius, ndcBlur);
+		SPPEManager.vanillaAddPPMask(ndcX, ndcY, ndcRadius, ndcBlur);
 	}
 
 	override static void ResetPPMask() {
-		if (GetGame()) PPEManager.vanillaResetPPMask();
+		if (GetGame()) SPPEManager.vanillaResetPPMask();
 	}
 
 	override static void ResetDOFOverride() {
-		PPEManager.vanillaResetDOFOverride();
+		SPPEManager.vanillaResetDOFOverride();
 	}
 	
 	override static void ResetLensEffect() {
@@ -268,7 +268,7 @@ modded class PPEffects{
 		float B = 0;
 		float A = Math.Lerp(Math.Clamp(m_ColorValueTotal[0], 0, 1), 1, value);
 		
-		PPEManager.vanillaSetOverlay(0.05, PPEManager.getPPEColor(R,G,B,A));
+		SPPEManager.vanillaSetOverlay(0.05, SPPEManager.getPPEColor(R,G,B,A));
 	}
 
 	override static void SetShockEffectColor(float value) {
@@ -280,7 +280,7 @@ modded class PPEffects{
 	}
 
 	override static void FlashbangEffect(float value) {
-		PPEManager.vanillaSetOverlay(0.75, PPEManager.getPPEColor(1,1,1, Math.Lerp(Math.Clamp(m_ColorValueTotal[0], 0, 1), 1, value)));
+		SPPEManager.vanillaSetOverlay(0.75, SPPEManager.getPPEColor(1,1,1, Math.Lerp(Math.Clamp(m_ColorValueTotal[0], 0, 1), 1, value)));
 	}
 
 	override static void EnableBurlapSackBlindness() {
@@ -306,7 +306,7 @@ modded class PPEffects{
 	}
 
 	override static void UpdateSaturation() {
-		PPEManager.vanillaSetSaturation(m_BloodSaturation);
+		SPPEManager.vanillaSetSaturation(m_BloodSaturation);
 	}
 
 	override static void UpdateVignette() {
@@ -376,7 +376,7 @@ modded class PPEffects{
 		}
 		if (foundActiveEffect) {
 			// active effect found
-			PPEManager.vanillaSetColorization(PPEManager.getPPEColor(chosenArray[0], chosenArray[1], chosenArray[2], chosenArray[3]));
+			SPPEManager.vanillaSetColorization(SPPEManager.getPPEColor(chosenArray[0], chosenArray[1], chosenArray[2], chosenArray[3]));
 		} else {
 			// no active event found, reset colorize effect
 			ResetColorize();
@@ -384,7 +384,7 @@ modded class PPEffects{
 	}
 	
 	override static void ResetColorize() {
-		PPEManager.vanillaSetColorization(PPEManager.getPPEColor(1.0, 1.0, 1.0, 0));
+		SPPEManager.vanillaSetColorization(SPPEManager.getPPEColor(1.0, 1.0, 1.0, 0));
 	}
 
 	/* VANILLA CODE
@@ -402,12 +402,12 @@ modded class PPEffects{
 				noise_intensity = 0.0;
 		#endif*/
 		g_Game.NightVissionLightParams(light_mult, noise_intensity);
-		PPEManager.vanillaSetFilmGrain(sharpness, grain_size);
+		SPPEManager.vanillaSetFilmGrain(sharpness, grain_size);
 	}
 
 	// bloom PP, experimental stuff
 	override static void SetBloom(float thres, float steep, float inten) {
-		PPEManager.vanillaSetBloom(steep, inten, thres);
+		SPPEManager.vanillaSetBloom(steep, inten, thres);
 	}
 
 	override static void ResetAll() {

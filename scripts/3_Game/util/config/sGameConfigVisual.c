@@ -13,7 +13,7 @@ class SGameConfigVisual : SGameConfigBase{
 	
 	TPPEColor getDefaultPPEColor(string ppeName){
 		TFloatArray c = SGameConfig.getFloatArray(getModulePath() + " PPEffects DefaultValues " + ppeName);
-		return PPEManager.getPPEColor(c[0], c[1], c[2], c[3]);
+		return SPPEManager.getPPEColor(c[0], c[1], c[2], c[3]);
 	}
 	
 	TSCameraOverlaysList getCameraOverlays(typename type){

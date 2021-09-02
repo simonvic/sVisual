@@ -26,9 +26,9 @@ sVisual is a mod for DayZ. It aims to enhanche the visual experience while impro
 
 # PostProcessing effects
 
-## The insides of PPEManager
+## The insides of SPPEManager
 <h3 align="center">PostProcess Effect Manager</h3>
-The PPEManager is in charge of managing the PostProcessing effects; this is a small diagram roughly showing how it works
+The SPPEManager is in charge of managing the PostProcessing effects; this is a small diagram roughly showing how it works
 <img src="https://imgur.com/y7Dw4LL.png">
 
 
@@ -55,19 +55,19 @@ myPPE.setChromAber(powerX, powerY);
 //...
 ```
 
-To apply it, "hand it over" to the PPEManager, which will calculate the correct value of all active PPEParam and then apply it
+To apply it, "hand it over" to the SPPEManager, which will calculate the correct value of all active PPEParam and then apply it
 ```csharp
-PPEManager.activate(myPPE);
+SPPEManager.activate(myPPE);
 ```
 and to deactivate it:
 ```csharp
-PPEManager.deactivate(myPPE);
+SPPEManager.deactivate(myPPE);
 ```
 
 <br>
 
 ## PPEAnimatedParams
-A `PPEAnimatedParams` is just like a `PPEParams`, but it has an animation mechanism (entirely managed by the `PPEManager`), which allows you to animate the values of a PostProcess effect.
+A `PPEAnimatedParams` is just like a `PPEParams`, but it has an animation mechanism (entirely managed by the `SPPEManager`), which allows you to animate the values of a PostProcess effect.
 
 A `PPEAnimatedParams` is an *abstract* class. You need to create your own class and override the `onAnimate()` method, which will be called on every frame.
 The currently are two types of Animated Params: 
@@ -100,13 +100,13 @@ MyTimedAnimation myTimedAnimation = new MyTimedAnimation(6); // the animation wi
 myTimedAnimation.setDuration(10.0); // the animation will last 10 seconds
 ```
 
-To activate an animation simply hand it over to the `PPEManager`
+To activate an animation simply hand it over to the `SPPEManager`
 ```csharp
 MyLoopAnimation myAnimation = new MyLoopAnimation();
-PPEManager.activate(myAnimation);
+SPPEManager.activate(myAnimation);
 
 MyTimedAnimation myTimedAnimation = new MyTimedAnimation(5.5);
-PPEManager.activate(myTimedAnimation);
+SPPEManager.activate(myTimedAnimation);
 ```
 If you want to manually manage the animation you can use the provided methods
 ```csharp
