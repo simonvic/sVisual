@@ -2,20 +2,10 @@ modded class DayZPlayerCameraBase{
 	
 	protected DayZPlayerImplement m_iPlayer; //@todo just a quick thing, change this absolutely	
 	protected static ref PPENightVision m_nightVisionPPE = new PPENightVision(); // used with night vision optic/goggles
-	
-	
-	//=========== Depth of Field ==============
-	protected int m_ddofStartBoneIdx = -1;
-	protected ref SRaycast m_sRaycast;
-	
-	
-	//======================================
+	protected static ref SCameraManager m_camManager;
 	
 	void DayZPlayerCameraBase(DayZPlayer pPlayer, HumanInputController pInput){
 		m_iPlayer = DayZPlayerImplement.Cast(pPlayer);
-		m_ddofStartBoneIdx = pPlayer.GetBoneIndexByName("Head");
-		
-		m_sRaycast = new SRaycast("0 0 0", "0 0 0", 0.05, ObjIntersectView, CollisionFlags.NEARESTCONTACT);
 
 		if(isDDOFEnabled()) {
 			SPPEManager.enableDDOF();
@@ -26,30 +16,6 @@ modded class DayZPlayerCameraBase{
 		
 		SCameraOverlaysManager.getInstance().setActiveCameraType(this.Type());
 	}
-	
-	protected bool canRequestDDOF(){
-		return isDDOFEnabled() && !m_iPlayer.IsCameraBlending())
-	}
-	
-	protected void updateDDOF(float pDt){
-		SPPEManager.requestDDOF(getFocusDistance());
-	}
-	
-	protected float getFocusDistance(){
-		vector from = m_pPlayer.GetBonePositionWS(m_ddofStartBoneIdx);		
-		m_sRaycast.init(
-			from,
-			from + (GetGame().GetCurrentCameraDirection() * SPPEManager.getDDOFMaxDistance()));
-		
-		m_sRaycast.ignore(m_pPlayer, m_pPlayer.GetDrivingVehicle());
-		
-		return vector.Distance( from, m_sRaycast.launch().getContactPosition() ); // calculate distance between you and the point
-	}
-	
-	protected void updateMotionBlur(float pDt){
-		//@todo smooth motion blur value here
-	}
-	
 	
 	bool isHeadbobEnabled(){
 		return false;
@@ -63,9 +29,8 @@ modded class DayZPlayerCameraBase{
 		return false;
 	}
 	
-	float getLeanRollAngle(){
-		//@todo report this. m_fLeaning doesn't reset when going prone while peeking (Q/E)
-		return m_iPlayer.m_MovementState.m_fLeaning * SCameraManager.getInstance().getHeadLeanAngle();
+	float getLeanRollAngle(){ //@todo report this. m_fLeaning doesn't reset when going prone while peeking (Q/E)
+		return m_iPlayer.m_MovementState.m_fLeaning * m_camManager.getHeadLeanAngle();
 	}
 	
 	override void SetNVPostprocess(int NVtype){

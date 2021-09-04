@@ -32,16 +32,23 @@ modded class PlayerBase{
 		super.OnJumpStart();
 		
 		if(GetGame().IsServer()){
-			//GetGame().CreateObject("AviatorGlasses",GetPosition()).SetHealth("","",100);
-			//GetGame().CreateObject("AviatorGlasses",GetPosition()).SetHealth("","",30);
-			//GetGame().CreateObject("AviatorGlasses",GetPosition()).SetHealth("","",25);
-			//GetGame().CreateObject("AviatorGlasses",GetPosition()).SetHealth("","",10);
+			
+			GetGame().CreateObject("AviatorGlasses",GetPosition()).SetHealth("","",100);
+			GetGame().CreateObject("AviatorGlasses",GetPosition()).SetHealth("","",30);
+			GetGame().CreateObject("AviatorGlasses",GetPosition()).SetHealth("","",25);
+			GetGame().CreateObject("AviatorGlasses",GetPosition()).SetHealth("","",10);
+			
+			GetGame().CreateObject("MotoHelmet_Red",GetPosition()).SetHealth("","",100);
+			GetGame().CreateObject("MotoHelmet_Red",GetPosition()).SetHealth("","",30);
+			GetGame().CreateObject("MotoHelmet_Red",GetPosition()).SetHealth("","",25);
+			GetGame().CreateObject("MotoHelmet_Red",GetPosition()).SetHealth("","",10);
+			
 		}
 		
 	}
 	
 */
-	
+	//@todo move to clothing
 	override void EEItemAttached(EntityAI item, string slot_name){
 		super.EEItemAttached(item, slot_name);
 		if( GetInstanceType() != DayZPlayerInstanceType.INSTANCETYPE_CLIENT ) return;
@@ -59,6 +66,7 @@ modded class PlayerBase{
 		
 	}
 	
+	//@todo move to clothing
 	override void EEItemDetached(EntityAI item, string slot_name){
 		super.EEItemDetached(item, slot_name);
 		if( GetInstanceType() != DayZPlayerInstanceType.INSTANCETYPE_CLIENT ) return;

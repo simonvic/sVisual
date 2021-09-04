@@ -13,10 +13,6 @@ modded class DayZPlayerCameraIronsights {
 		pOutResult.m_iDirectBoneMode = 3;
 	}
 	
-	override bool isHeadbobEnabled(){
-		return false;
-	}
-	
 	override bool isHeadLeanEnabled(){
 		return true;
 	}

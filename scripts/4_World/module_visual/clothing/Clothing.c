@@ -25,6 +25,26 @@ modded class Clothing{
 		return m_overlays.Count() != 0;
 	}
 	
+	/*
+	override void OnWasAttached( EntityAI parent, int slot_id ){
+		super.OnWasAttached( parent, slot_id );
+		if (!GetGame().IsClient() && GetGame().IsMultiplayer()) return;
+
+		if (parent.IsInherited(PlayerBase) && hasOverlays()){
+			SCameraOverlaysManager.getInstance().activate(getOverlayByCurrentHealth());
+		}
+	}
+	
+	override void OnWasDetached( EntityAI parent, int slot_id ){
+		super.OnWasDetached( parent, slot_id );
+		if (!GetGame().IsClient() && GetGame().IsMultiplayer()) return;
+		
+		if (parent.IsInherited(PlayerBase) && hasOverlays()){
+			SCameraOverlaysManager.getInstance().deactivate(getOverlayByCurrentHealth());
+		}
+	}
+	*/
+	
 	SCameraOverlay getOverlayByCurrentHealth(){
 		return getOverlayByHealth(GetHealthLevel());
 	}

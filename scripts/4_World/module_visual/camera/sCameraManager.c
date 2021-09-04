@@ -2,8 +2,11 @@ modded class SCameraManager {
 		
 	protected SUserConfigVisual m_sUserConfigVisual;
 
-	protected float m_yawVel[1];
-	protected float m_pitchVel[1];
+	protected int m_ddofStartBoneIdx = -1;
+	protected ref SRaycast m_ddofRaycast = new SRaycast("0 0 0", "0 0 0", 0.05, ObjIntersectView, CollisionFlags.NEARESTCONTACT);
+	
+	protected float m_headbobYawVel[1];
+	protected float m_headbobPitchVel[1];
 	
 	override void onInit(){
 		super.onInit();
@@ -12,6 +15,11 @@ modded class SCameraManager {
 	
 	override void onUpdate(float pDt, out DayZPlayerCameraResult pOutResult){
 		super.onUpdate(pDt, pOutResult);
+		
+		if(canRequestDDOF()) {
+			updateDDOF(pDt);
+		}
+		
 		//Convert camera transformation matrix to yaw pitch roll angles
 		vector camAngles = Math3D.MatrixToAngles(pOutResult.m_CameraTM);
 		
@@ -20,6 +28,30 @@ modded class SCameraManager {
 		//Apply the transformation to the camera
 		Math3D.YawPitchRollMatrix(camAngles, pOutResult.m_CameraTM);
 			
+	}
+	
+	protected bool canRequestDDOF(){
+		return m_camera.isDDOFEnabled() && !m_player.IsCameraBlending())
+	}
+	
+	protected void updateDDOF(float pDt){
+		SPPEManager.requestDDOF(getFocusDistance());
+	}
+	
+	protected float getFocusDistance(){
+		if (m_ddofStartBoneIdx == -1) {
+			m_ddofStartBoneIdx = m_player.GetBoneIndexByName("Head");
+			return 0;
+		}
+		
+		vector from = m_player.GetBonePositionWS(m_ddofStartBoneIdx);
+		m_ddofRaycast.init(
+			from,
+			from + (GetGame().GetCurrentCameraDirection() * SPPEManager.getDDOFMaxDistance()));
+		
+		m_ddofRaycast.ignore(m_player, m_player.GetDrivingVehicle());
+		
+		return vector.Distance( from, m_ddofRaycast.launch().getContactPosition() ); // calculate distance between you and the point
 	}
 	
 	protected void updateCamAngles(float pDt, out vector camAngles){
@@ -48,15 +80,15 @@ modded class SCameraManager {
 		
 		//@todo smooth the transition using movSpeed
 		
-		angles[0] = Math.SmoothCD(angles[0], angles[0] + yawStrenght * Math.Sin(m_time * yawFrequency), m_yawVel, 0.2, 1000, pDt);
-		angles[1] = Math.SmoothCD(angles[1], angles[1] + pitchStrenght * Math.Sin(m_time * pitchFrequency), m_pitchVel, 0.2, 1000, pDt); 
+		angles[0] = Math.SmoothCD(angles[0], angles[0] + yawStrenght * Math.Sin(m_time * yawFrequency), m_headbobYawVel, 0.2, 1000, pDt);
+		angles[1] = Math.SmoothCD(angles[1], angles[1] + pitchStrenght * Math.Sin(m_time * pitchFrequency), m_headbobPitchVel, 0.2, 1000, pDt); 
 	}
 	
 	protected void applyHeadLean(float pDt, out vector angles){
 		angles[2] = angles[2] + m_camera.getLeanRollAngle();
 	}
 	
-	override float getHeadLeanAngle(){
+	float getHeadLeanAngle(){//@todo move this to global sUDE settings?
 		return m_sUserConfigVisual.getHeadLeanAngle();
 	}
 	
@@ -68,7 +100,7 @@ modded class SCameraManager {
 		return m_sUserConfigVisual.isHeadbobEnabledIn3pp();
 	}
 	
-	bool isDDOFEnabledIn3pp(){
+	bool isDDOFEnabledIn3PP(){
 		return m_sUserConfigVisual.isDDOFEnabledIn3PP();
 	}
 	

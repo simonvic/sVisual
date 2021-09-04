@@ -5,11 +5,6 @@ modded class DayZPlayerCamera3rdPerson {
 		
 		//need to also update here because vanilla doesn't call super
 		m_camManager.onUpdate(pDt, pOutResult);
-		
-		if(canRequestDDOF()) {
-			updateDDOF(pDt);
-		}
-		
 	}
 	
 	override bool isHeadbobEnabled(){
@@ -21,7 +16,7 @@ modded class DayZPlayerCamera3rdPerson {
 	}
 	
 	override bool isDDOFEnabled(){
-		return m_camManager.isDDOFEnabledIn3pp();
+		return m_camManager.isDDOFEnabledIn3PP();
 	}
 	
 }
