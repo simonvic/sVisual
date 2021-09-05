@@ -1,8 +1,8 @@
 class PPEEyegearPreset : PPEMaterialPresetBase{
 	override void onInit(){
 		setBloomSteepness(0);
-		//setOverlay(0.6, SPPEManager.getPPEColor(0.01, 0.01, 0.015, 0));
-		//setGodrays(...)
+		setOverlay(0.5, SPPEManager.getPPEColor(0.01, 0.01, 0.015, 0));
+		setGodraysIntensity(0.0);
 	}
 }
 
@@ -15,6 +15,6 @@ class PPESpawnEffect : PPETimedParams{
 class PPENightVision : PPEMaterialPresetBase{
 	override void onInit(){
 		setFilmGrain(5.0, 1.5);
-		setColorization(SPPEManager.getPPEColor( -0.5, 0.5, -0.5, 0.0));		
+		setColorization(SPPEManager.getPPEColor( -0.5, 0.5, -0.5, 1.0));		
 	}
 }
