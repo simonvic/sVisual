@@ -79,15 +79,9 @@ class PPEHitReceivedAnimation : PPETimedParams {
 
 ////////////////////////////////
 // UNCONSCIOUS
-class PPEUnconsciousAnimation : PPELoopedParams {
-	
+class PPEUnconscious : PPEParams {
 	override void onInit(){
 		setRadialBlur(0.5, 0.5);
-		setVignetteColor(SPPEManager.getPPEColor(0,0,0,0));
-	}
-	
-	override void onAnimate(float deltaTime){
-		setVignetteIntensity(Math.Sin(Math.Pow(getTime(), 1.2) * 0.1 + 5) + 2.5);
 	}
 }
 

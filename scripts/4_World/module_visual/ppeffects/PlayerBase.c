@@ -3,51 +3,12 @@ modded class PlayerBase{
 	protected ref PPEHitReceivedAnimation m_ppeHitAnim = new PPEHitReceivedAnimation(SPPEConstants.HIT_RECEIVED_MIN_DURATION, true); //Used when being hit
 	protected ref PPEEyegearPreset m_ppeEye = new PPEEyegearPreset();                            //Used when wearing AviatorGlasses
 	protected ref PPEBleedingAnimation m_ppeBleeding = new PPEBleedingAnimation();               //Used when bleeding
-	protected ref PPEUnconsciousAnimation m_ppeUnconscious = new PPEUnconsciousAnimation();    //Used when going uncoscious
+	protected ref PPEUnconscious m_ppeUnconscious = new PPEUnconscious();    //Used when going uncoscious
 	
 	protected ref SCOAnimationBleeding m_coBleeding = new SCOAnimationBleeding();
 	protected ref SCOTimedSpawn m_coSpawn = new SCOTimedSpawn();
+	protected ref SCOUnconscious m_coUnconscious = new SCOUnconscious();
 	
-	//Debug
-/*	
-	//protected ref PPEDebugAnimation m_ppeDebug = new PPEDebugAnimation();
-	//protected ref SCOAnimationDebug m_coDebug = new SCOAnimationDebug();
-	//protected ref SCOTimedDebug m_coDebugTimed = new SCOTimedDebug();
-	
-	
-	override void OnInventoryMenuOpen(){
-		super.OnInventoryMenuOpen();
-		//SPPEManager.toggle(m_ppeDebug, !m_ppeDebug.isActive());
-		//SCameraOverlaysManager.getInstance().activate(m_coDebug);
-		//SCameraOverlaysManager.getInstance().activate(m_coDebugTimed);
-	}
-	
-	override void OnInventoryMenuClose(){
-		super.OnInventoryMenuClose();
-		//SPPEManager.deactivate(m_ppeDebug);
-		//SCameraOverlaysManager.getInstance().deactivate(m_coDebug);
-	}
-	
-	override void OnJumpStart(){		
-		super.OnJumpStart();
-		
-		if(GetGame().IsServer()){
-			
-			GetGame().CreateObject("AviatorGlasses",GetPosition()).SetHealth("","",100);
-			GetGame().CreateObject("AviatorGlasses",GetPosition()).SetHealth("","",30);
-			GetGame().CreateObject("AviatorGlasses",GetPosition()).SetHealth("","",25);
-			GetGame().CreateObject("AviatorGlasses",GetPosition()).SetHealth("","",10);
-			
-			GetGame().CreateObject("MotoHelmet_Red",GetPosition()).SetHealth("","",100);
-			GetGame().CreateObject("MotoHelmet_Red",GetPosition()).SetHealth("","",30);
-			GetGame().CreateObject("MotoHelmet_Red",GetPosition()).SetHealth("","",25);
-			GetGame().CreateObject("MotoHelmet_Red",GetPosition()).SetHealth("","",10);
-			
-		}
-		
-	}
-	
-*/
 	//@todo move to clothing
 	override void EEItemAttached(EntityAI item, string slot_name){
 		super.EEItemAttached(item, slot_name);
@@ -160,7 +121,7 @@ modded class PlayerBase{
 		super.OnUnconsciousStart();
 		if( GetInstanceType() == DayZPlayerInstanceType.INSTANCETYPE_CLIENT ){
 			SPPEManager.activate(m_ppeUnconscious);
-			SCameraOverlaysManager.getInstance().hideAll();
+			SCameraOverlaysManager.getInstance().activate(m_coUnconscious);
 		}
 	}
 	
@@ -168,7 +129,7 @@ modded class PlayerBase{
 		super.OnUnconsciousStop(pCurrentCommandID);
 		if( GetInstanceType() == DayZPlayerInstanceType.INSTANCETYPE_CLIENT ){
 			SPPEManager.deactivate(m_ppeUnconscious);
-			SCameraOverlaysManager.getInstance().showAll();
+			SCameraOverlaysManager.getInstance().deactivate(m_coUnconscious);
 		}
 	}
 	
@@ -208,4 +169,49 @@ modded class PlayerBase{
 		}
 	}
 	
+	
+	
+/*
+	//////////////////////////////////////////////////////////////////// DEBUGGING ////////////////////////////////////////////////////////////////////
+	protected ref PPEDebugAnimation m_ppeDebugAnimation = new PPEDebugAnimation();	
+	protected ref PPEParams m_ppeDebug = new PPEParams();	
+	
+	override void OnInventoryMenuOpen(){
+		super.OnInventoryMenuOpen();
+		//SPPEManager.toggle(m_ppeBleeding, !m_ppeBleeding.isActive());
+		//SPPEManager.toggle(m_ppeDebug, !m_ppeDebug.isActive());
+		//SCameraOverlaysManager.getInstance().activate(m_coDebug);
+		//SCameraOverlaysManager.getInstance().activate(m_coDebugTimed);
+	}
+	
+	override void OnInventoryMenuClose(){
+		super.OnInventoryMenuClose();
+		//SPPEManager.toggle(m_ppeDebugAnimation, !m_ppeDebugAnimation.isActive());
+		//m_ppeDebug.setVignetteIntensity(1);
+		//SPPEManager.toggle(m_ppeDebug, !m_ppeDebug.isActive());
+		
+		
+		//SCameraOverlaysManager.getInstance().deactivate(m_coDebug);
+	}
+	
+	override void OnJumpStart(){		
+		super.OnJumpStart();
+		
+		if(false && GetGame().IsServer()){
+			
+			GetGame().CreateObject("AviatorGlasses",GetPosition()).SetHealth("","",100);
+			GetGame().CreateObject("AviatorGlasses",GetPosition()).SetHealth("","",30);
+			GetGame().CreateObject("AviatorGlasses",GetPosition()).SetHealth("","",25);
+			GetGame().CreateObject("AviatorGlasses",GetPosition()).SetHealth("","",10);
+			
+			GetGame().CreateObject("MotoHelmet_Red",GetPosition()).SetHealth("","",100);
+			GetGame().CreateObject("MotoHelmet_Red",GetPosition()).SetHealth("","",30);
+			GetGame().CreateObject("MotoHelmet_Red",GetPosition()).SetHealth("","",25);
+			GetGame().CreateObject("MotoHelmet_Red",GetPosition()).SetHealth("","",10);
+			
+		}
+		
+	}
+	//////////////////////////////////////////////////////////////////// END OF DEBUGGING ////////////////////////////////////////////////////////////////////
+*/
 }
