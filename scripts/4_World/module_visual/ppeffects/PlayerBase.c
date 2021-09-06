@@ -1,7 +1,6 @@
 modded class PlayerBase{
 	
 	protected ref PPEHitReceivedAnimation m_ppeHitAnim = new PPEHitReceivedAnimation(SPPEConstants.HIT_RECEIVED_MIN_DURATION, true); //Used when being hit
-	protected ref PPEEyegearPreset m_ppeEye = new PPEEyegearPreset();                            //Used when wearing AviatorGlasses
 	protected ref PPEBleedingAnimation m_ppeBleeding = new PPEBleedingAnimation();               //Used when bleeding
 	protected ref PPEUnconscious m_ppeUnconscious = new PPEUnconscious();    //Used when going uncoscious
 	
@@ -14,10 +13,6 @@ modded class PlayerBase{
 		super.EEItemAttached(item, slot_name);
 		if( GetInstanceType() != DayZPlayerInstanceType.INSTANCETYPE_CLIENT ) return;
 		
-		// Apply colored overlay when wearing AviatorGlasses
-		if( slot_name == "Eyewear" && AviatorGlasses.Cast(item)){
-			SPPEManager.activate(m_ppeEye);
-		}
 
 		Clothing clothing = Clothing.Cast(item);
 		if(clothing && clothing.hasOverlays()){
@@ -31,11 +26,6 @@ modded class PlayerBase{
 	override void EEItemDetached(EntityAI item, string slot_name){
 		super.EEItemDetached(item, slot_name);
 		if( GetInstanceType() != DayZPlayerInstanceType.INSTANCETYPE_CLIENT ) return;
-		
-		// Remove colored overlay when removing AviatorGlasses
-		if( slot_name == "Eyewear" && AviatorGlasses.Cast(item) ){
-			SPPEManager.deactivate(m_ppeEye);
-		}
 		
 		Clothing clothing = Clothing.Cast(item);
 		if(clothing && clothing.hasOverlays()){
@@ -77,7 +67,6 @@ modded class PlayerBase{
 		SPPEManager.applyDefault();
 			
 		checkForBleedingPPE();
-		checkForGlassesPPE();
 		
 		/////////////////////////
 		// Overlays
@@ -98,12 +87,7 @@ modded class PlayerBase{
 		}
 	}
 	
-	protected void checkForGlassesPPE(){
-		if ( AviatorGlasses.Cast( GetInventory().FindAttachment(InventorySlots.EYEWEAR)) ){
-			SPPEManager.activate(m_ppeEye);
-		}
-	}	
-	
+
 	protected void checkForClothingOverlays(){
 		for ( int i=0; i<GetInventory().AttachmentCount(); i++ ){
 			Clothing clothing = Clothing.Cast(GetInventory().GetAttachmentFromIndex( i ));

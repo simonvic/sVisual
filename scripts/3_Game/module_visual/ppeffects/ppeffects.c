@@ -18,7 +18,6 @@ class PPEUnconscious : SPPEffect {
 class PPEEyegearPreset : SPPEffect{
 	override void onInit(){
 		setBloomSteepness(0);
-		setOverlay(0.5, SPPEManager.getPPEColor(0.01, 0.01, 0.015, 0));
 		setGodraysIntensity(0.0);
 	}
 }
@@ -92,16 +91,16 @@ class PPEHitReceivedAnimation : SPPEffectTimed {
 	protected float hitStrength = SPPEConstants.HIT_RECEIVED_MIN_STRENGTH;
 	
 	override void onInit(){
-		setVignetteColor(SPPEManager.getPPEColor(0,0,0,0));
+		setOverlayColor(SPPEManager.getPPEColor(0.1, 0.0, 0.0, 0.0));
 	}
 	
 	override void onAnimate(float deltaTime){
-		float power = Math.AbsFloat(Math.Sin(getTime() * Math.PI)) * hitStrength * Math.AbsFloat(SMath.mapTo(getRemaining(), 0.01, SPPEConstants.HIT_RECEIVED_MAX_DURATION));
-		float chromAberPower = Math.Clamp(power * 0.001, 0, SPPEConstants.HIT_RECEIVED_MAX_CHROM_ABER);
-		float vignettePower  = Math.Clamp(power * 0.08, 0, SPPEConstants.HIT_RECEIVED_MAX_VIGNETTE);
+		setChromAber(Math.Clamp(
+			0.0005 * (Math.AbsFloat(Math.Sin(getTime() * Math.PI)) * hitStrength * Math.AbsFloat(SMath.mapTo(getRemaining(), 0.01, SPPEConstants.HIT_RECEIVED_MAX_DURATION))),
+			0,
+			SPPEConstants.HIT_RECEIVED_MAX_CHROM_ABER));
 		
-		setChromAber(chromAberPower, chromAberPower);
-		setVignetteIntensity(vignettePower);
+		setOverlayFactor(Math.Max(1 - getTime() * SPPEConstants.HIT_RECEIVED_RED_SPEED, 0));
 	}
 	
 	override void setDuration(float duration){
