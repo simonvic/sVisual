@@ -112,7 +112,22 @@ modded class PPERequester_TunnelVisionEffects {
 	override void OnStart(Param par = null){
 		super.OnStart(par);
 		getSPPE().setVignetteIntensity(m_Intensity);
-		getSPPE().setRadialBlurPower(m_Intensity * 0.1);
+		getSPPE().setRadialBlurPower(m_Intensity * 0.05);
+	}
+}
+
+modded class PPERequester_DeathDarkening {
+
+	override void OnStart(Param par = null){
+		super.OnStart(par);
+		getSPPE().setRadialBlurPower(-m_Value * 0.1);
+		getSPPE().setChromAber(-m_Value * 0.075);
+		GetDayZGame().SetEVValue(m_Value);
+	}
+	
+	override void OnStop(Param par = null){
+		super.OnStart(par);
+		GetDayZGame().SetEVValue(m_Value);
 	}
 }
 
