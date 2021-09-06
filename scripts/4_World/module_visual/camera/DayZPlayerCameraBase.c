@@ -34,37 +34,48 @@ modded class DayZPlayerCameraBase{
 	}
 	
 	override void SetNVPostprocess(int NVtype){
-		//can't call super
+		super.SetNVPostprocess(NVtype);
 		switch (NVtype){
-			case NVTypes.NONE:
-				PPEffects.SetEVValuePP(0);
-				GetGame().NightVissionLightParams(1.0, 0.0);
-				SPPEManager.deactivate(m_nightVisionPPE);
+		case NVTypes.NONE:
+			GetDayZGame().SetEVValue(0);
+			GetDayZGame().NightVissionLightParams(1.0, 0.0);
+			SPPEManager.deactivate(m_nightVisionPPE);
 			break;
-			
-			case NVTypes.NV_OPTICS_ON:
-				PPEffects.SetEVValuePP(6);
-				GetGame().NightVissionLightParams(3.0, 2.0);
-				SPPEManager.activate(m_nightVisionPPE);
+		
+		case NVTypes.NV_OPTICS_ON:
+			GetDayZGame().SetEVValue(6);
+			GetDayZGame().NightVissionLightParams(3.0, 2.0);
+			m_nightVisionPPE.setFilmGrain(5.0, 1.5);
+			m_nightVisionPPE.setColorization(SPPEManager.getPPEColor( -0.5, 0.5, -0.5, 1.0));
+			SPPEManager.activate(m_nightVisionPPE);
 			break;
-			
-			case NVTypes.NV_OPTICS_OFF:
-				PPEffects.SetEVValuePP(-10);
-				GetGame().NightVissionLightParams(1.0, 0.0);
-				SPPEManager.deactivate(m_nightVisionPPE);
+		
+		case NVTypes.NV_OPTICS_OFF:
+			GetDayZGame().SetEVValue(-10);
+			GetDayZGame().NightVissionLightParams(1.0, 0.0);
+			SPPEManager.deactivate(m_nightVisionPPE);
 			break;
-			
-			case NVTypes.NV_GOGGLES:
-				PPEffects.SetEVValuePP(6);
-				GetGame().NightVissionLightParams(2.0, 1.0);
-				SPPEManager.activate(m_nightVisionPPE);
+		
+		case NVTypes.NV_GOGGLES:
+			GetDayZGame().SetEVValue(6);
+			GetDayZGame().NightVissionLightParams(2.0, 1.0);
+			m_nightVisionPPE.setFilmGrain(5.0, 1.5);
+			m_nightVisionPPE.setColorization(SPPEManager.getPPEColor( -0.5, 0.5, -0.5, 1.0));
+			SPPEManager.activate(m_nightVisionPPE);
 			break;
+
+//dummy ifdef so workbench won't complain
+#ifdef S_FRAMEWORK
+		case NVTypes.NV_PUMPKIN:
+			GetDayZGame().SetEVValue(5);
+			GetDayZGame().NightVissionLightParams(1.0, 0.5);
+			m_nightVisionPPE.setFilmGrain(1, 10);
+			m_nightVisionPPE.setColorization(SColor.rgb(RGBColors.ORANGE_RED));
+			SPPEManager.activate(m_nightVisionPPE);
+			break;
+#endif
 		}
 		
-		if (PlayerBaseClient.Cast(m_pPlayer)){
-			PlayerBaseClient.Cast(m_pPlayer).SwitchPersonalLight(NVtype < 1); 
-		}
-
 	}
 	
 }
