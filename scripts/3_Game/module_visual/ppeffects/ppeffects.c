@@ -4,7 +4,7 @@
 /**
 *	@brief Played when player goes unconscious. Obstruct the vision
 */
-class PPEUnconscious : PPEParams {
+class PPEUnconscious : SPPEffect {
 	override void onInit(){
 		setRadialBlur(0.5, 0.5);
 	}
@@ -15,7 +15,7 @@ class PPEUnconscious : PPEParams {
 *	@brief Used to emulate sun glasses.
 *	       Lower bloom and godrays intensity
 */
-class PPEEyegearPreset : PPEParams{
+class PPEEyegearPreset : SPPEffect{
 	override void onInit(){
 		setBloomSteepness(0);
 		setOverlay(0.5, SPPEManager.getPPEColor(0.01, 0.01, 0.015, 0));
@@ -27,7 +27,7 @@ class PPEEyegearPreset : PPEParams{
 /**
 *	@brief Night vision base effect
 */
-class PPENightVision : PPEParams{
+class PPENightVision : SPPEffect{
 	override void onInit(){
 		setFilmGrain(5.0, 1.5);
 		setColorization(SPPEManager.getPPEColor( -0.5, 0.5, -0.5, 1.0));		
@@ -45,7 +45,7 @@ class PPENightVision : PPEParams{
 *	@brief Effect to emulate adrenaline increase
 *	       (unused)
 */
-class PPEEpinephrineAnimation : PPELoopedParams {
+class PPEEpinephrineAnimation : SPPEffectAnimated {
 	override void onInit(){
 		setVignetteColor(SPPEManager.getPPEColor(0,0,0,0));
 	}
@@ -63,7 +63,7 @@ class PPEEpinephrineAnimation : PPELoopedParams {
 *	       exhaustion state (when stamina bar becomes gray), 
 *	       hence he has to wait for the stamina to refill
 */
-class PPEExhaustedAnimation : PPELoopedParams {	
+class PPEExhaustedAnimation : SPPEffectAnimated {	
 	protected float stamina = 100;
 	
 	override void onInit(){
@@ -88,7 +88,7 @@ class PPEExhaustedAnimation : PPELoopedParams {
 *	       Being hit multiple time consecutively in a short amount of time
 *	       will increase the cooldown timer, making the effect last longer
 */
-class PPEHitReceivedAnimation : PPETimedParams {		
+class PPEHitReceivedAnimation : SPPEffectTimed {		
 	protected float hitStrength = SPPEConstants.HIT_RECEIVED_MIN_STRENGTH;
 	
 	override void onInit(){
@@ -125,7 +125,7 @@ class PPEHitReceivedAnimation : PPETimedParams {
 *	       
 *	       NOTE: can be disabled by setting `PostProcessing Effect` quality to `Low`
 */
-class PPEBleedingAnimation : PPELoopedParams {
+class PPEBleedingAnimation : SPPEffectAnimated {
 	private int bleedingBits = 0;
 	
 	override void onAnimate(float deltaTime){

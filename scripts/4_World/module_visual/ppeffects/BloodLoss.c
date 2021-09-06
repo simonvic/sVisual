@@ -1,4 +1,4 @@
-class PPEBloodLoss : PPEParams{}
+class PPEBloodLoss : SPPEffect{}
 
 modded class BloodLoss{
 	

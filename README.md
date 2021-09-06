@@ -36,16 +36,16 @@ The SPPEManager is in charge of managing the PostProcessing effects; this is a s
 <br>
 
 <h3 align="center">PostProcess Effect Params</h3>
-This is a rough (pretty bad) UML diagram of the most important classes, to help you understand how animations and PPEParams are structured.
+This is a rough (pretty bad) UML diagram of the most important classes, to help you understand how animations and SPPEffect are structured.
 <img src="https://imgur.com/zamIqli.png">
 
 ---
 <br>
 
-## PPEParams
-`PPEParams` is the "container" of any PostProcess Effect you wish to add to it (e.g. saturation, vignette, motion blur etc.).
+## SPPEffect
+`SPPEffect` is the "container" of any PostProcess Effect you wish to add to it (e.g. saturation, vignette, motion blur etc.).
 ```csharp
-PPEParams myPPE = new PPEParams();
+SPPEffect myPPE = new SPPEffect();
 ```
 To add a parameter use the provided setters:
 ```csharp
@@ -66,15 +66,15 @@ SPPEManager.deactivate(myPPE);
 
 <br>
 
-## PPEAnimatedParams
-A `PPEAnimatedParams` is just like a `PPEParams`, but it has an animation mechanism (entirely managed by the `SPPEManager`), which allows you to animate the values of a PostProcess effect.
+## SPPEffectAnimated
+A `SPPEffectAnimated` is just like a `SPPEffect`, but it has an animation mechanism (entirely managed by the `SPPEManager`), which allows you to animate the values of a PostProcess effect.
 
-A `PPEAnimatedParams` is an *abstract* class. You need to create your own class and override the `onAnimate()` method, which will be called on every frame.
+A `SPPEffectAnimated` is an *abstract* class. You need to create your own class and override the `onAnimate()` method, which will be called on every frame.
 The currently are two types of Animated Params: 
 - `PPELoopedParams` It will play until stopped or deactivated
-- `PPETimedParams` It has timing mechanism that will stop/deactivate it when it ends
+- `SPPEffectTimed` It has timing mechanism that will stop/deactivate it when it ends
 
-To create your animation, simply extend either `PPELoopedParams` or `PPETimedParams`
+To create your animation, simply extend either `PPELoopedParams` or `SPPEffectTimed`
 ```csharp
 class MyLoopAnimation : PPELoopedParams{
 	override void onAnimate(float deltaTime){
@@ -87,14 +87,14 @@ class MyLoopAnimation : PPELoopedParams{
 	}
 }
 
-class MyTimedAnimation : PPETimedParams{
+class MyTimedAnimation : SPPEffectTimed{
 	override void onAnimate(float deltaTime){
 		setVignetteIntensity( Math.Cos(getTime()) );
 	}
 }
 ```
 
-A `PPETimedAnimation` also has a "duration" which can be set with the constructor, or the provided method:
+A `SPPEffectTimed` also has a "duration" which can be set with the constructor, or the provided method:
 ```csharp
 MyTimedAnimation myTimedAnimation = new MyTimedAnimation(6); // the animation will last 6 seconds
 myTimedAnimation.setDuration(10.0); // the animation will last 10 seconds

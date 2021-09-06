@@ -174,7 +174,7 @@ modded class PlayerBase{
 /*
 	//////////////////////////////////////////////////////////////////// DEBUGGING ////////////////////////////////////////////////////////////////////
 	protected ref PPEDebugAnimation m_ppeDebugAnimation = new PPEDebugAnimation();	
-	protected ref PPEParams m_ppeDebug = new PPEParams();	
+	protected ref SPPEffect m_ppeDebug = new SPPEffect();	
 	
 	override void OnInventoryMenuOpen(){
 		super.OnInventoryMenuOpen();
