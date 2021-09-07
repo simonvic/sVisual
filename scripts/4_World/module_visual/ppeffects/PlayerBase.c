@@ -158,7 +158,11 @@ modded class PlayerBase{
 /*
 	//////////////////////////////////////////////////////////////////// DEBUGGING ////////////////////////////////////////////////////////////////////
 	protected ref PPEDebugAnimation m_ppeDebugAnimation = new PPEDebugAnimation();	
-	protected ref SPPEffect m_ppeDebug = new SPPEffect();	
+	protected ref SPPEffect m_ppeDebug = new SPPEffect();
+	
+	protected ref SCOAnimationDebug	m_coDebugAnim = new SCOAnimationDebug();
+	protected ref SCOTimedDebug	m_coDebugTimed = new SCOTimedDebug();
+	protected ref SCOAnimationLogo	m_coLogo = new SCOAnimationLogo();
 	
 	override void OnInventoryMenuOpen(){
 		super.OnInventoryMenuOpen();
@@ -181,7 +185,7 @@ modded class PlayerBase{
 	override void OnJumpStart(){		
 		super.OnJumpStart();
 		
-		if(false && GetGame().IsServer()){
+		if(true && GetGame().IsServer()){
 			
 			GetGame().CreateObject("AviatorGlasses",GetPosition()).SetHealth("","",100);
 			GetGame().CreateObject("AviatorGlasses",GetPosition()).SetHealth("","",30);
@@ -189,7 +193,7 @@ modded class PlayerBase{
 			GetGame().CreateObject("AviatorGlasses",GetPosition()).SetHealth("","",10);
 			
 			GetGame().CreateObject("MotoHelmet_Red",GetPosition()).SetHealth("","",100);
-			GetGame().CreateObject("MotoHelmet_Red",GetPosition()).SetHealth("","",30);
+			GetGame().CreateObject("MotoHelmet_Red",GetPosition()).SetHealth("","",40);
 			GetGame().CreateObject("MotoHelmet_Red",GetPosition()).SetHealth("","",25);
 			GetGame().CreateObject("MotoHelmet_Red",GetPosition()).SetHealth("","",10);
 			

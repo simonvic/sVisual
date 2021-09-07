@@ -1,1 +1,0 @@
-# UI/UX & Visual module

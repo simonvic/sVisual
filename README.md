@@ -11,189 +11,54 @@
 # Getting started
 
 sVisual is a mod for DayZ. It aims to enhanche the visual experience while improving the feedback to the user, in order to help them with dealing with the many mechanichs DayZ has.
-- It improves the PostProcessing effects and it make them easier to work with, while allowing for extensibility and easy tweaking. 
+- It ships various [PPEffects](#PPEffects) and [Camera Overlays](#Camera-Overlays)
 - It also adds some new features like:
-  - Dynamic Depth of Field
-  - Headbob
+  - [Dynamic Depth of Field](#Dynamic-Depth-of-Field)
+  - [Head bob](#Head-bob)
   - Motion blur
-  - Camera improvements
-- It adds a Camera Overlay system, which allows for easy creation of image camera overlays
+  - General camera improvements
 ---
 ---
 
 <br>
 <br>
 
-# PostProcessing effects
 
-## The insides of SPPEManager
-<h3 align="center">PostProcess Effect Manager</h3>
-The SPPEManager is in charge of managing the PostProcessing effects; this is a small diagram roughly showing how it works
-<img src="https://imgur.com/y7Dw4LL.png">
+# PPEffects
 
+Some effects are meant to have a gameplay purpose, like alerting the player is sick, bleeding, close to pass out and more
 
----
-<br>
+<img src="https://imgur.com/DyERRP4.gif" width="75%">
 
-<h3 align="center">PostProcess Effect Params</h3>
-This is a rough (pretty bad) UML diagram of the most important classes, to help you understand how animations and SPPEffect are structured.
-<img src="https://imgur.com/zamIqli.png">
+Sometimes they aim to increase the immersion while also helping the player in minor things, like sunglasses, which will block godrays and lower the bloom
 
----
-<br>
+<img src="https://imgur.com/xoeBWDX.gif" width="75%">
 
-## SPPEffect
-`SPPEffect` is the "container" of any PostProcess Effect you wish to add to it (e.g. saturation, vignette, motion blur etc.).
-```csharp
-SPPEffect myPPE = new SPPEffect();
-```
-To add a parameter use the provided setters:
-```csharp
-myPPE.setVignette(intensity, color);
-myPPE.setRadialBlur(powerX, powerY, offsetX, offsetY);
-myPPE.setChromAber(powerX, powerY);
-//...
-```
+> NOTE: You may find some effects annoying (e.g. Chromatic aberration or radial blur); you can disable them by setting `PostProcessing quality` to `Low` in video settings.
 
-To apply it, "hand it over" to the SPPEManager, which will calculate the correct value of all active PPEParam and then apply it
-```csharp
-SPPEManager.activate(myPPE);
-```
-and to deactivate it:
-```csharp
-SPPEManager.deactivate(myPPE);
-```
-
-<br>
-
-## SPPEffectAnimated
-A `SPPEffectAnimated` is just like a `SPPEffect`, but it has an animation mechanism (entirely managed by the `SPPEManager`), which allows you to animate the values of a PostProcess effect.
-
-A `SPPEffectAnimated` is an *abstract* class. You need to create your own class and override the `onAnimate()` method, which will be called on every frame.
-The currently are two types of Animated Params: 
-- `PPELoopedParams` It will play until stopped or deactivated
-- `SPPEffectTimed` It has timing mechanism that will stop/deactivate it when it ends
-
-To create your animation, simply extend either `PPELoopedParams` or `SPPEffectTimed`
-```csharp
-class MyLoopAnimation : PPELoopedParams{
-	override void onAnimate(float deltaTime){
-		/* change PPE values here
-		setOverlay(...);
-		setChromAber(...);
-		setCameraEffects(...);
-		*/
-		setVignetteIntensity( Math.Sin(getTime()) );
-	}
-}
-
-class MyTimedAnimation : SPPEffectTimed{
-	override void onAnimate(float deltaTime){
-		setVignetteIntensity( Math.Cos(getTime()) );
-	}
-}
-```
-
-A `SPPEffectTimed` also has a "duration" which can be set with the constructor, or the provided method:
-```csharp
-MyTimedAnimation myTimedAnimation = new MyTimedAnimation(6); // the animation will last 6 seconds
-myTimedAnimation.setDuration(10.0); // the animation will last 10 seconds
-```
-
-To activate an animation simply hand it over to the `SPPEManager`
-```csharp
-MyLoopAnimation myAnimation = new MyLoopAnimation();
-SPPEManager.activate(myAnimation);
-
-MyTimedAnimation myTimedAnimation = new MyTimedAnimation(5.5);
-SPPEManager.activate(myTimedAnimation);
-```
-If you want to manually manage the animation you can use the provided methods
-```csharp
-myAnimation.start();  // Set the animation state to "Playing"
-myAnimation.stop();   // Reset all values to default and set the animation state to "Stopped"
-myAnimation.pause();  // Freeze the animation values and set the animation state to "Paused"
-myAnimation.resume(); // Resume the the animation and set the animation state to "Playing"
-```
----
----
 <br>
 <br>
 
 # Camera Overlays
-A camera overlay is nothing else than an image, used like an HUD.
-The fundemental unit of camera overlays is the `SCameraOverlay`, a very simple wrapper for the `ImageWidget` (the DayZ UI component that holds an image).
 
-The logic for creation and utilization of the CameraOverlays are pretty much identical to the one for the PostProcessing effects.
-As well as for the animation; yes! CameraOverlay can also be animated.
+A Moto helmet, showcased in Pristine, Worn, Damaged, Badly damaged, Ruined conditions.
 
-Define the overlay, with all the attributes you want:
-```csharp
-class MyAnimatedOverlay : SCameraOverlayAnimated {
-    //onInit() gets called only once
-    override void onInit(){
-        setImage("path/to/texture.edds");
-        //...
-    }
+<img src="https://imgur.com/u4Sng17.gif" width="75%" >
 
-    //onAnimate() gets called every frame!
-    override void onAnimate(float deltaTime){
-        setSize(Math.Sin(getTime()));
-        //setPosition(...)
-        //setRotation(...)
-        //setMask(...)
-        //etc.
-    }
-}
-```
-And activate/deactivate it using the SCameraOverlayManager:
-```csharp
-// NOTE: SCameraOverlaysManager is a singleton
-SCameraOverlaysManager.getInstance().activate(myOverlay);
-```
 
-## Clothing overlays
-sVisual is capable of automatically activating/deactivating overlays when a clothing item is equipped/unequipped; making use of this feature is super easy. You just need to define a list of overlays inside your clothing item in your `config.cpp` as follows:
-```cpp
-class YOUR_CLOTHING_ITEM_CLASSNAME{
-	class sUDE {
-		class CameraOverlays {
-			class overlay_0 : SCameraOverlay {
-				image="path/to/your/image/pristine.edds";
-			};
-			class overlay_1 : SCameraOverlay {
-				image="path/to/your/image/worn.edds";
-			};
-			class overlay_2 : SCameraOverlay {
-				image="path/to/your/image/damaged.edds";
-			};
-			class overlay_3 : SCameraOverlay {
-				image="path/to/your/image/badlydamaged.edds";
-			};
-			/*
-			class overlay_X : SCameraOverlay {
-				image="path/to/your/image/xxx.edds";
-			};
-			*/
-		};
-	};
-};
-```
-A `SCameraOverlay` has many attributes you can play with, which can be set either by scripts or in the config.
-Currently available attributes are:
-```
-image="";                                 // Resource image path, can be whatever an ImageWidget accepts texture
-alpha=1.0;                                // [0.0 - 1.0] Alpha value (transparency)
-mask="";                                  // Resource image path, can be whatever an ImageWidget accepts as mask
-maskProgress=1.0;                         // [0.0 - 1.0] Mask progress
-maskTransitionWidth=1.0;                  // Mask transition width (used as progress + transitionWidth)
-position[] = {0.0, 0.0};                  // [0.0 - 1.0] X and Y position in screenspace
-size[] = {1.0, 1.0};                      // [0.0 - 1.0] X and Y size in screenspace
-rotation[] = {0.0, 0.0, 0.0};             // Yaw, Pitch and Roll defined in degrees
-priority = 0;                             // Higher priority means closer to the camera (also known as z-depth)
-targetCameras[] = {"DayZPlayerCamera"};   // Camera typename on which the overlay will be visible
-hidesWithIngameHUD = 0;                   // [0 = false, 1 = true] Determines if it must hides when the player hides the ingame HUD
-```
+<br>
+<br>
+
+### Dynamic Depth of Field
+
+Here is the Dynamic Depth of Field, not very suitable for gameplay, but a very nice cinematic look
+
+<img src="https://imgur.com/jwKK7IF.gif" width="75%">
+
+
+### Head bob
+
+<img src="https://imgur.com/xpBYiC9.gif" width="75%">
 
 
 <br>

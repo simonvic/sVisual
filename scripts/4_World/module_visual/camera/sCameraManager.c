@@ -108,51 +108,32 @@ modded class SCameraManager {
 		return m_sUserConfigVisual.isDDOFEnabledInVehicle();
 	}
 	
-	/**
-	* @brief GOD PLEASE FORGIVE ME!!!
-	*/
 	TFloatArray getHeadbobParameters(){
-		TFloatArray headbobParams = new TFloatArray;
 		
 		switch(m_player.m_MovementState.m_iMovement){ 
-			case 0:	//idle
-			headbobParams.Init(HeadBobConstants.IDLE);
-			break;
+			
+			case 0: // idling
+			return HeadBobConstants.IDLE;
 
-			case 1:	//walking
-			if(m_player.IsPlayerInStance(DayZPlayerConstants.STANCEMASK_ERECT)) {
-				headbobParams.Init(HeadBobConstants.ERECT_WALKING);
-			}else if(m_player.IsPlayerInStance(DayZPlayerConstants.STANCEMASK_RAISEDERECT)){
-				headbobParams.Init(HeadBobConstants.ERECT_RAISED_WALKING);
-			}else if(m_player.IsPlayerInStance(DayZPlayerConstants.STANCEMASK_CROUCH)){
-				headbobParams.Init(HeadBobConstants.CROUCH_WALKING);
-			}else if(m_player.IsPlayerInStance(DayZPlayerConstants.STANCEMASK_RAISEDCROUCH)){
-				headbobParams.Init(HeadBobConstants.CROUCH_RAISED_WALKING);
-			} else if(m_player.IsPlayerInStance(DayZPlayerConstants.STANCEMASK_PRONE)){
-				headbobParams.Init(HeadBobConstants.PRONE_WALKING);
-			}
-			break;
-
-			case 2:	//jogging
-			if(m_player.IsPlayerInStance(DayZPlayerConstants.STANCEMASK_ERECT)){
-				headbobParams.Init(HeadBobConstants.ERECT_JOGGING);
-			}else if(m_player.IsPlayerInStance(DayZPlayerConstants.STANCEMASK_RAISEDERECT)){
-				headbobParams.Init(HeadBobConstants.ERECT_RAISED_JOGGING);
-			}
-			break;
-
-			case 3: //running
-			if(m_player.IsPlayerInStance(DayZPlayerConstants.STANCEMASK_ERECT)){
-				headbobParams.Init(HeadBobConstants.ERECT_RUNNING);
-			}else if(m_player.IsPlayerInStance(DayZPlayerConstants.STANCEMASK_CROUCH)){
-				headbobParams.Init(HeadBobConstants.CROUCH_RUNNING);
-			}
+			case 1: // walking
+			if (m_player.IsPlayerInStance(DayZPlayerConstants.STANCEMASK_ERECT))       return HeadBobConstants.ERECT_WALKING;
+			if (m_player.IsPlayerInStance(DayZPlayerConstants.STANCEMASK_RAISEDERECT)) return HeadBobConstants.ERECT_RAISED_WALKING;
+			if (m_player.IsPlayerInStance(DayZPlayerConstants.STANCEMASK_CROUCH))      return HeadBobConstants.CROUCH_WALKING;
+			if (m_player.IsPlayerInStance(DayZPlayerConstants.STANCEMASK_PRONE))       return HeadBobConstants.PRONE_WALKING;
 			break;
 			
-			default: //flying? lol
-			headbobParams.Init(HeadBobConstants.IDLE);
+			case 2: // jogging
+			if (m_player.IsPlayerInStance(DayZPlayerConstants.STANCEMASK_ERECT))       return HeadBobConstants.ERECT_JOGGING;
+			if (m_player.IsPlayerInStance(DayZPlayerConstants.STANCEMASK_RAISEDERECT)) return HeadBobConstants.ERECT_RAISED_JOGGING;
+			break;
+
+			case 3: // running
+			if (m_player.IsPlayerInStance(DayZPlayerConstants.STANCEMASK_ERECT))       return HeadBobConstants.ERECT_RUNNING;
+			if (m_player.IsPlayerInStance(DayZPlayerConstants.STANCEMASK_CROUCH))      return HeadBobConstants.CROUCH_RUNNING;
+			break;
+			
 		}
-		return headbobParams;
+		return HeadBobConstants.IDLE;
 	}
 	
 }
