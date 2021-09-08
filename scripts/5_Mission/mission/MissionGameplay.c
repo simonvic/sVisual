@@ -9,7 +9,7 @@ modded class MissionGameplay{
 	
 	override void OnUpdate(float timeslice){
 		super.OnUpdate(timeslice);
-		SPPEManager.onUpdate(timeslice);
+		SPPEManager.onUpdate(timeslice); //Move this to UpdateQueue
 	}
 	
 }
