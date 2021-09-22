@@ -126,7 +126,7 @@ modded class PPERequester_DeathDarkening {
 	}
 	
 	override void OnStop(Param par = null){
-		super.OnStart(par);
+		super.OnStop(par);
 		GetDayZGame().SetEVValue(m_Value);
 	}
 }
