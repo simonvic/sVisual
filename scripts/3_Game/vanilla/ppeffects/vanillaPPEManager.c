@@ -1,6 +1,3 @@
-
-//temp ifdef so the workbench won't complain
-#ifdef S_FRAMEWORK
 modded class PPEManager{
 		
 	override void Init(){
@@ -9,4 +6,3 @@ modded class PPEManager{
 	}
 	
 }
-#endif

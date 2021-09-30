@@ -64,8 +64,6 @@ modded class DayZPlayerCameraBase{
 			SPPEManager.activate(m_nightVisionPPE);
 			break;
 
-//dummy ifdef so workbench won't complain
-#ifdef S_FRAMEWORK
 		case NVTypes.NV_PUMPKIN:
 			GetDayZGame().SetEVValue(5);
 			GetDayZGame().NightVissionLightParams(1.0, 0.5);
@@ -73,7 +71,6 @@ modded class DayZPlayerCameraBase{
 			m_nightVisionPPE.setColorization(SColor.rgb(RGBColors.ORANGE_RED));
 			SPPEManager.activate(m_nightVisionPPE);
 			break;
-#endif
 		}
 		
 	}

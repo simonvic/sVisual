@@ -1,6 +1,3 @@
-//temp ifdef so the workbench won't complain
-#ifdef S_FRAMEWORK
-
 modded class PPERequesterBase{
 	protected ref SPPEffect m_sPPE;
 	
@@ -138,7 +135,3 @@ modded class PPERequester_InventoryBlur {
 	}
 }
 */
-
-
-
-#endif
