@@ -10,18 +10,20 @@ class SUserConfigVisual : SUserConfigBase{
 	
 	override void deserialize(string data, out string error){
 		SUserConfigVisual cfg = this;
-		m_serializer.ReadFromString(cfg, data, error);
+		getSerializer().ReadFromString(cfg, data, error);
 	}
 	
-	override string serialize(bool serializeDefault = false){
+	override string serialize(){
 		string result;
-		SUserConfigVisual cfg;
-		if(serializeDefault) {
-			cfg = new SUserConfigVisual();
-		}else{
-			cfg = this;
-		}
-		m_serializer.WriteToString(cfg, true, result);
+		SUserConfigVisual cfg = this;
+		getSerializer().WriteToString(cfg, true, result);
+		return result;
+	}
+	
+	override string serializeDefault(){
+		string result;
+		SUserConfigVisual cfg = new SUserConfigVisual();
+		getSerializer().WriteToString(cfg, true, result);
 		return result;
 	}
 		
