@@ -155,7 +155,7 @@ modded class PlayerBase{
 	
 	
 	
-/*
+
 	//////////////////////////////////////////////////////////////////// DEBUGGING ////////////////////////////////////////////////////////////////////
 	protected ref PPEDebugAnimation m_ppeDebugAnimation = new PPEDebugAnimation();	
 	protected ref SPPEffect m_ppeDebug = new SPPEffect();
@@ -185,21 +185,32 @@ modded class PlayerBase{
 	override void OnJumpStart(){		
 		super.OnJumpStart();
 		
-		if(true && GetGame().IsServer()){
+		if (GetGame().IsServer()) {
+			SLog.d("onJumpStart()");
+			SUserConfigConstraints_Visual constraints = ;
+		
+			ScriptRPC rpc = new ScriptRPC();
+			rpc.Write(SUserConfigConstraints.visual(true));
+			rpc.Send( null, sVisual_RPC.SYNC_USER_CONFIG_CONSTRAINTS_VISUAL, true, this.GetIdentity() );
 			
-			GetGame().CreateObject("AviatorGlasses",GetPosition()).SetHealth("","",100);
-			GetGame().CreateObject("AviatorGlasses",GetPosition()).SetHealth("","",30);
-			GetGame().CreateObject("AviatorGlasses",GetPosition()).SetHealth("","",25);
-			GetGame().CreateObject("AviatorGlasses",GetPosition()).SetHealth("","",10);
-			
-			GetGame().CreateObject("MotoHelmet_Red",GetPosition()).SetHealth("","",100);
-			GetGame().CreateObject("MotoHelmet_Red",GetPosition()).SetHealth("","",40);
-			GetGame().CreateObject("MotoHelmet_Red",GetPosition()).SetHealth("","",25);
-			GetGame().CreateObject("MotoHelmet_Red",GetPosition()).SetHealth("","",10);
-			
+			if (false){
+				GetGame().CreateObject("AviatorGlasses",GetPosition()).SetHealth("","",100);
+				GetGame().CreateObject("AviatorGlasses",GetPosition()).SetHealth("","",30);
+				GetGame().CreateObject("AviatorGlasses",GetPosition()).SetHealth("","",25);
+				GetGame().CreateObject("AviatorGlasses",GetPosition()).SetHealth("","",10);
+				
+				GetGame().CreateObject("MotoHelmet_Red",GetPosition()).SetHealth("","",100);
+				GetGame().CreateObject("MotoHelmet_Red",GetPosition()).SetHealth("","",40);
+				GetGame().CreateObject("MotoHelmet_Red",GetPosition()).SetHealth("","",25);
+				GetGame().CreateObject("MotoHelmet_Red",GetPosition()).SetHealth("","",10);
+				
+			}
 		}
 		
 	}
 	//////////////////////////////////////////////////////////////////// END OF DEBUGGING ////////////////////////////////////////////////////////////////////
-*/
+
+	
+	
+
 }

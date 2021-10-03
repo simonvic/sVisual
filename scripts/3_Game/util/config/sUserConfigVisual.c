@@ -8,21 +8,48 @@ class SUserConfigVisual : SUserConfigBase{
 		return "$profile:\\sUDE\\config\\sVisual_default.json";
 	}
 	
+	protected static ref SUserConfigConstraints_Visual m_constraints;
+	SUserConfigConstraints_Visual getConstraints() {
+		return m_constraints;
+	}
+	
+	override void onRPC(PlayerIdentity sender, Object target, int rpc_type, ParamsReadContext ctx) {
+		super.onRPC(sender, target, rpc_type, ctx);
+		switch (rpc_type) {	
+			
+			case sVisual_RPC.SYNC_USER_CONFIG_CONSTRAINTS_VISUAL:
+			
+			SLog.d("sVisual_RPC.SYNC_S_USER_CONFIG_VISUAL",""+this);
+			int index;
+			if (ctx.Read(m_constraints)) {
+				SLog.d("ACK: " + index,"",1);
+			} else {
+				SLog.d("failed","",1);
+			}
+			
+			break;
+		}
+	}
+	
+	override string getNonSerializedFields() {
+		return super.getNonSerializedFields()+";m_constraints";
+	}
+	
 	override void deserialize(string data, out string error){
-		SUserConfigVisual cfg = this;
+		auto cfg = this;
 		getSerializer().ReadFromString(cfg, data, error);
 	}
 	
 	override string serialize(){
 		string result;
-		SUserConfigVisual cfg = this;
+		auto cfg = this;
 		getSerializer().WriteToString(cfg, true, result);
 		return result;
 	}
 	
 	override string serializeDefault(){
 		string result;
-		SUserConfigVisual cfg = new SUserConfigVisual();
+		auto cfg = new SUserConfigGunplay();
 		getSerializer().WriteToString(cfg, true, result);
 		return result;
 	}
@@ -44,7 +71,7 @@ class SUserConfigVisual : SUserConfigBase{
 	}
 	
 	void setDDOFIntensity(float intensity){
-		ddofIntensity = intensity;
+		ddofIntensity = getConstraints().getDDOFIntensity().constrain(intensity);
 	}
 	
 	bool isDDOFEnabledIn3PP(){
@@ -52,7 +79,7 @@ class SUserConfigVisual : SUserConfigBase{
 	}
 	
 	void setDDOFEnabledIn3PP(bool enabled){
-		ddofEnabledIn3PP = enabled;
+		ddofEnabledIn3PP = getConstraints().getDDOFEnabledIn3PP().constrain(enabled);
 	}
 	
 	bool isDDOFEnabledInVehicle(){
@@ -60,7 +87,7 @@ class SUserConfigVisual : SUserConfigBase{
 	}
 	
 	void setDDOFEnabledInVehicle(bool enabled){
-		ddofEnabledInVehicle = enabled;
+		ddofEnabledInVehicle = getConstraints().getDDOFEnabledInVehicle().constrain(enabled);
 	}
 	
 	float getHeadbobIntensity(){
@@ -68,7 +95,7 @@ class SUserConfigVisual : SUserConfigBase{
 	}
 	
 	void setHeadbobIntensity(float intensity){
-		headbobIntensity = intensity;
+		headbobIntensity = getConstraints().getHeadbobIntensity().constrain(intensity);
 	}
 	
 	bool isHeadbobEnabledIn3pp(){
@@ -76,7 +103,7 @@ class SUserConfigVisual : SUserConfigBase{
 	}
 	
 	void setHeadbobEnabledIn3pp(bool enabled){
-		headbobEnabledIn3PP = enabled;
+		headbobEnabledIn3PP = getConstraints().getHeadbobEnabledIn3PP().constrain(enabled);
 	}
 	
 	float getMotionBlurIntensity(){
@@ -84,7 +111,7 @@ class SUserConfigVisual : SUserConfigBase{
 	}
 	
 	void setMotionBlurIntensity(float intensity){
-		motionBlurIntensity = intensity;
+		motionBlurIntensity = getConstraints().getMotionBlurIntensity().constrain(intensity);
 	}
 	
 	float getBloomIntensity(){
@@ -92,7 +119,7 @@ class SUserConfigVisual : SUserConfigBase{
 	}
 	
 	void setBloomIntensity(float intensity){
-		bloomIntensity = intensity;
+		bloomIntensity = getConstraints().getBloomIntensity().constrain(intensity);
 	}
 	
 	float getHeadLeanAngle(){
@@ -100,7 +127,7 @@ class SUserConfigVisual : SUserConfigBase{
 	}
 	
 	void setHeadLeanAngle(float angle){
-		headLeanAngle = angle;
+		headLeanAngle = getConstraints().getHeadLeanAngle().constrain(angle);
 	}
 	
 	
