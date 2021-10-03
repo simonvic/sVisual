@@ -111,14 +111,12 @@ class OptionsMenuSVisual : SOptionsMenuBase{
 		newValue = m_sUserConfig.getConstraints().getHeadbobIntensity().constrain(newValue);
 		m_headBobSlider.setValue(newValue);
 		m_sUserConfig.setHeadbobIntensity(newValue);
-		onConfigChange();
 	}
 	
 	protected void updateHeadbobSwitch3PP(bool checked){
 		checked = m_sUserConfig.getConstraints().getHeadbobEnabledIn3PP().constrain(checked);
 		m_headbobSwitch3pp.SetChecked(checked);
 		m_sUserConfig.setHeadbobEnabledIn3pp(checked);
-		onConfigChange();
 	}	
 	
 	protected void updateDoFOption( float newValue ){
@@ -126,7 +124,6 @@ class OptionsMenuSVisual : SOptionsMenuBase{
 		m_dofSlider.setValue(newValue);
 		m_sUserConfig.setDDOFIntensity(newValue);
 		SPPEManager.setDDOFBlurStrength(newValue);
-		onConfigChange();
 	}
 	
 	protected void updateDOFSwitch3PP(bool checked){		
@@ -134,7 +131,6 @@ class OptionsMenuSVisual : SOptionsMenuBase{
 		m_dofSwitch3PP.SetChecked(checked);
 		m_sUserConfig.setDDOFEnabledIn3PP(checked);
 		SPPEManager.setDDOFEnabledIn3PP(checked);
-		onConfigChange();
 	}
 	
 	protected void updateDOFSwitchVehicle(bool checked){		
@@ -142,7 +138,6 @@ class OptionsMenuSVisual : SOptionsMenuBase{
 		m_dofSwitchVehicle.SetChecked(checked);
 		m_sUserConfig.setDDOFEnabledInVehicle(checked);
 		SPPEManager.setDDOFEnabledInVehicle(checked);		
-		onConfigChange();
 	}
 	
 	protected void updateMotionBlurOption( float newValue ){
@@ -150,7 +145,6 @@ class OptionsMenuSVisual : SOptionsMenuBase{
 		m_motionBlurSlider.setValue(newValue);
 		m_sUserConfig.setMotionBlurIntensity(newValue);
 		SPPEManager.setMotionBlurStrength(newValue);
-		onConfigChange();
 	}
 	
 	protected void updateBloomOption( float newValue ){
@@ -158,14 +152,19 @@ class OptionsMenuSVisual : SOptionsMenuBase{
 		m_bloomSlider.setValue(newValue);
 		m_sUserConfig.setBloomIntensity(newValue);
 		SPPEManager.setBloomStrength(newValue);
-		onConfigChange();
 	}
 	
 	protected void updateHeadLeanOption( float newValue){
 		newValue = m_sUserConfig.getConstraints().getHeadLeanAngle().constrain(newValue);
 		m_headLeanSlider.setValue(newValue);
 		m_sUserConfig.setHeadLeanAngle(newValue);
-		onConfigChange();
+	}
+	
+	override bool OnMouseButtonUp(Widget w, int x, int y, int button) {
+		if ( button == MouseState.LEFT ) {
+			onConfigChange();
+		}
+		return true;
 	}
 	
 	protected void onConfigChange(){ //@todo lol change this shit
