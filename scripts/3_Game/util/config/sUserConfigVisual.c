@@ -8,29 +8,6 @@ class SUserConfigVisual : SUserConfigBase{
 		return "$profile:\\sUDE\\config\\sVisual_default.json";
 	}
 	
-	protected static ref SUserConfigConstraints_Visual m_constraints;
-	SUserConfigConstraints_Visual getConstraints() {
-		return m_constraints;
-	}
-	
-	override void onRPC(PlayerIdentity sender, Object target, int rpc_type, ParamsReadContext ctx) {
-		super.onRPC(sender, target, rpc_type, ctx);
-		switch (rpc_type) {	
-			
-			case sVisual_RPC.SYNC_USER_CONFIG_CONSTRAINTS_VISUAL:
-			
-			SLog.d("sVisual_RPC.SYNC_S_USER_CONFIG_VISUAL",""+this);
-			int index;
-			if (ctx.Read(m_constraints)) {
-				SLog.d("ACK: " + index,"",1);
-			} else {
-				SLog.d("failed","",1);
-			}
-			
-			break;
-		}
-	}
-	
 	override string getNonSerializedFields() {
 		return super.getNonSerializedFields()+";m_constraints";
 	}
@@ -65,7 +42,41 @@ class SUserConfigVisual : SUserConfigBase{
 	protected float bloomIntensity = 0.0;
 	protected float headLeanAngle = 0.0;
 	///////////////////////////////////////
-
+	
+	#ifndef DEVELOPER
+	[NonSerialized()]
+	#endif
+	protected ref SUserConfigConstraints_Visual m_constraints;
+	
+	SUserConfigConstraints_Visual getConstraints() {
+		return m_constraints;
+	}
+	
+	override void onRPC(PlayerIdentity sender, Object target, int rpc_type, ParamsReadContext ctx) {
+		super.onRPC(sender, target, rpc_type, ctx);
+		switch (rpc_type) {
+			case sVisual_RPC.SYNC_USER_CONFIG_CONSTRAINTS_VISUAL: 
+			if (ctx.Read(m_constraints) && m_constraints) {
+				updateConstraints();
+			}
+			break;
+		}
+	}
+	
+	override void applyConstraints(SUserConfigConstraintsBase constraints) {
+		super.applyConstraints(constraints);
+		SUserConfigConstraints_Visual c = SUserConfigConstraints_Visual.Cast(constraints);
+		if (!c) return;
+		ddofIntensity = c.getDDOFIntensity().constrain(ddofIntensity);
+		ddofEnabledIn3PP = c.getDDOFEnabledIn3PP().constrain(ddofEnabledIn3PP);
+		ddofEnabledInVehicle = c.getDDOFEnabledInVehicle().constrain(ddofEnabledInVehicle);
+		headbobIntensity = c.getHeadbobIntensity().constrain(headbobIntensity);
+		headbobEnabledIn3PP = c.getHeadbobEnabledIn3PP().constrain(headbobEnabledIn3PP);
+		motionBlurIntensity = c.getMotionBlurIntensity().constrain(motionBlurIntensity);
+		bloomIntensity = c.getBloomIntensity().constrain(bloomIntensity);
+		headLeanAngle = c.getHeadLeanAngle().constrain(headLeanAngle);
+	}
+	
 	float getDDOFIntensity(){
 		return ddofIntensity;
 	}

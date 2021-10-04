@@ -31,56 +31,46 @@ class OptionsMenuSVisual : SOptionsMenuBase{
 	override void onBuild(){
 		super.onBuild();
 		
-		initOption(m_headBobSlider,    "sude_headbob_setting_",          m_sUserConfig.getHeadbobIntensity());
-		initOption(m_headbobSwitch3pp, "sude_headbob_switch_3pp_option", m_sUserConfig.isHeadbobEnabledIn3pp());
-		initOption(m_dofSlider,        "sude_dof_setting_",              m_sUserConfig.getDDOFIntensity());
-		initOption(m_dofSwitch3PP,     "sude_dof_switch_3pp_option",     m_sUserConfig.isDDOFEnabledIn3PP());
-		initOption(m_dofSwitchVehicle, "sude_dof_switch_vehicle_option", m_sUserConfig.isDDOFEnabledInVehicle());		
-		initOption(m_motionBlurSlider, "sude_motionblur_setting_",       m_sUserConfig.getMotionBlurIntensity());
-		initOption(m_bloomSlider,      "sude_bloom_setting_",            m_sUserConfig.getBloomIntensity());
-		initOption(m_headLeanSlider,   "sude_roll_setting_",             m_sUserConfig.getHeadLeanAngle());
-		
-		initOptionInfo(m_headBobSlider.getSliderWidget(), new SUserConfigInfo(
-			"#STR_SUDE_LAYOUT_OPTIONS_CAMERA_HEADBOB",
-			"#STR_SUDE_LAYOUT_OPTIONS_CAMERA_HEADBOB_DESCRIPTION",
-			m_sUserConfig.getConstraints().getHeadbobIntensity()));
-		
-		initOptionInfo(m_headbobSwitch3pp, new SUserConfigInfo(
+		initOption(m_headBobSlider, "sude_headbob_setting_", m_sUserConfig.getHeadbobIntensity(), new SUserConfigInfo(
 			"#STR_SUDE_LAYOUT_OPTIONS_CAMERA_HEADBOB_SWITCH_3PP",
 			"#STR_SUDE_LAYOUT_OPTIONS_CAMERA_HEADBOB_DESCRIPTION",
 			m_sUserConfig.getConstraints().getHeadbobEnabledIn3PP()));
 		
-		initOptionInfo(m_dofSlider.getSliderWidget(), new SUserConfigInfo(
+		initOption(m_headbobSwitch3pp, "sude_headbob_switch_3pp_option", m_sUserConfig.isHeadbobEnabledIn3pp(), new SUserConfigInfo(
+			"#STR_SUDE_LAYOUT_OPTIONS_CAMERA_HEADBOB_SWITCH_3PP",
+			"#STR_SUDE_LAYOUT_OPTIONS_CAMERA_HEADBOB_DESCRIPTION",
+			m_sUserConfig.getConstraints().getHeadbobEnabledIn3PP()));
+		
+		initOption(m_dofSlider, "sude_dof_setting_", m_sUserConfig.getDDOFIntensity(), new SUserConfigInfo(
 			"#STR_SUDE_LAYOUT_OPTIONS_CAMERA_DOF",
 			"#STR_SUDE_LAYOUT_OPTIONS_CAMERA_DOF_DESCRIPTION",
 			m_sUserConfig.getConstraints().getDDOFIntensity()));
 		
-		initOptionInfo(m_dofSwitch3PP, new SUserConfigInfo(
+		initOption(m_dofSwitch3PP, "sude_dof_switch_3pp_option", m_sUserConfig.isDDOFEnabledIn3PP(), new SUserConfigInfo(
 			"#STR_SUDE_LAYOUT_OPTIONS_CAMERA_DOF_SWITCH_3PP",
 			"#STR_SUDE_LAYOUT_OPTIONS_CAMERA_DOF_DESCRIPTION",
 			m_sUserConfig.getConstraints().getDDOFEnabledIn3PP()));
 		
-		initOptionInfo(m_dofSwitchVehicle, new SUserConfigInfo(
+		initOption(m_dofSwitchVehicle, "sude_dof_switch_vehicle_option", m_sUserConfig.isDDOFEnabledInVehicle(), new SUserConfigInfo(
 			"#STR_SUDE_LAYOUT_OPTIONS_CAMERA_DOF_SWITCH_VEHICLE",
 			"#STR_SUDE_LAYOUT_OPTIONS_CAMERA_DOF_DESCRIPTION",
 			m_sUserConfig.getConstraints().getDDOFEnabledInVehicle()));
 		
-		initOptionInfo(m_motionBlurSlider.getSliderWidget(), new SUserConfigInfo(
+		initOption(m_motionBlurSlider, "sude_motionblur_setting_", m_sUserConfig.getMotionBlurIntensity(), new SUserConfigInfo(
 			"#STR_SUDE_LAYOUT_OPTIONS_CAMERA_MOTIONBLUR",
 			"#STR_SUDE_LAYOUT_OPTIONS_CAMERA_MOTIONBLUR_DESCRIPTION",
 			m_sUserConfig.getConstraints().getMotionBlurIntensity()));
 		
-		initOptionInfo(m_bloomSlider.getSliderWidget(), new SUserConfigInfo(
+		initOption(m_bloomSlider, "sude_bloom_setting_", m_sUserConfig.getBloomIntensity(), new SUserConfigInfo(
 			"#STR_SUDE_LAYOUT_OPTIONS_CAMERA_BLOOM",
 			"#STR_SUDE_LAYOUT_OPTIONS_CAMERA_BLOOM_DESCRIPTION",
 			m_sUserConfig.getConstraints().getBloomIntensity()));
 		
-		initOptionInfo(m_headLeanSlider.getSliderWidget(), new SUserConfigInfo(
+		initOption(m_headLeanSlider, "sude_roll_setting_", m_sUserConfig.getHeadLeanAngle(), new SUserConfigInfo(
 			"#STR_SUDE_LAYOUT_OPTIONS_CAMERA_ROLL",
 			"#STR_SUDE_LAYOUT_OPTIONS_CAMERA_ROLL_DESCRIPTION",
 			m_sUserConfig.getConstraints().getHeadLeanAngle()));
-		
-		
+	
 	}
 	
 	override bool onChange(SliderWidget w){
