@@ -31,10 +31,12 @@ class OptionsMenuSVisual : SOptionsMenuBase{
 	override void onBuild(){
 		super.onBuild();
 		
+		m_sUserConfig.updateConstraints();
+		
 		initOption(m_headBobSlider, "sude_headbob_setting_", m_sUserConfig.getHeadbobIntensity(), new SUserConfigInfo(
-			"#STR_SUDE_LAYOUT_OPTIONS_CAMERA_HEADBOB_SWITCH_3PP",
+			"#STR_SUDE_LAYOUT_OPTIONS_CAMERA_HEADBOB",
 			"#STR_SUDE_LAYOUT_OPTIONS_CAMERA_HEADBOB_DESCRIPTION",
-			m_sUserConfig.getConstraints().getHeadbobEnabledIn3PP()));
+			m_sUserConfig.getConstraints().getHeadbobIntensity()));
 		
 		initOption(m_headbobSwitch3pp, "sude_headbob_switch_3pp_option", m_sUserConfig.isHeadbobEnabledIn3pp(), new SUserConfigInfo(
 			"#STR_SUDE_LAYOUT_OPTIONS_CAMERA_HEADBOB_SWITCH_3PP",
