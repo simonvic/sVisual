@@ -42,14 +42,14 @@ class SUserConfigVisual : SUserConfigBase{
 	
 	override void registerOptions() {
 		super.registerOptions();
-		registerOption("ddofIntensity",        new SUserConfigOption<float>(ddofIntensity,        null, new SUserConfigOptionInfo("#STR_SUDE_LAYOUT_OPTIONS_CAMERA_DOF", "#STR_SUDE_LAYOUT_OPTIONS_CAMERA_DOF_DESCRIPTION")));
-		registerOption("ddofEnabledIn3PP",     new SUserConfigOption<bool>(ddofEnabledIn3PP,      null, new SUserConfigOptionInfo("#STR_SUDE_LAYOUT_OPTIONS_CAMERA_DOF_SWITCH_3PP", "#STR_SUDE_LAYOUT_OPTIONS_CAMERA_DOF_DESCRIPTION")));
-		registerOption("ddofEnabledInVehicle", new SUserConfigOption<bool>(ddofEnabledInVehicle,  null, new SUserConfigOptionInfo("#STR_SUDE_LAYOUT_OPTIONS_CAMERA_DOF_SWITCH_VEHICLE", "#STR_SUDE_LAYOUT_OPTIONS_CAMERA_DOF_DESCRIPTION")));
-		registerOption("headbobIntensity",     new SUserConfigOption<float>(headbobIntensity,     null, new SUserConfigOptionInfo("#STR_SUDE_LAYOUT_OPTIONS_CAMERA_HEADBOB", "#STR_SUDE_LAYOUT_OPTIONS_CAMERA_HEADBOB_DESCRIPTION")));
-		registerOption("headbobEnabledIn3PP",  new SUserConfigOption<bool>(headbobEnabledIn3PP,   null, new SUserConfigOptionInfo("#STR_SUDE_LAYOUT_OPTIONS_CAMERA_HEADBOB_SWITCH_3PP", "#STR_SUDE_LAYOUT_OPTIONS_CAMERA_HEADBOB_DESCRIPTION")));
-		registerOption("motionBlurIntensity",  new SUserConfigOption<float>(motionBlurIntensity,  null, new SUserConfigOptionInfo("#STR_SUDE_LAYOUT_OPTIONS_CAMERA_MOTIONBLUR", "#STR_SUDE_LAYOUT_OPTIONS_CAMERA_MOTIONBLUR_DESCRIPTION")));
-		registerOption("bloomIntensity",       new SUserConfigOption<float>(bloomIntensity,       null, new SUserConfigOptionInfo("#STR_SUDE_LAYOUT_OPTIONS_CAMERA_BLOOM", "#STR_SUDE_LAYOUT_OPTIONS_CAMERA_BLOOM_DESCRIPTION")));
-		registerOption("headLeanAngle",        new SUserConfigOption<float>(headLeanAngle,        null, new SUserConfigOptionInfo("#STR_SUDE_LAYOUT_OPTIONS_CAMERA_ROLL", "#STR_SUDE_LAYOUT_OPTIONS_CAMERA_ROLL_DESCRIPTION")));
+		registerOption("ddofIntensity",        new SUCOption_DDOFIntensity(ddofIntensity));
+		registerOption("ddofEnabledIn3PP",     new SUCOption_DDOFSwitch3PP(ddofEnabledIn3PP));
+		registerOption("ddofEnabledInVehicle", new SUCOption_DDOFSwitchVehicle(ddofEnabledInVehicle));
+		registerOption("headbobIntensity",     new SUCOption_HeadbobIntensity(headbobIntensity));
+		registerOption("headbobEnabledIn3PP",  new SUCOption_HeadbobSwitch3PP(headbobEnabledIn3PP));
+		registerOption("motionBlurIntensity",  new SUCOption_MotionBlurIntensity(motionBlurIntensity));
+		registerOption("bloomIntensity",       new SUCOption_BloomIntensity(bloomIntensity));
+		registerOption("headLeanAngle",        new SUCOption_HeadleanAngle(headLeanAngle));
 	}
 	
 	override void onRPC(PlayerIdentity sender, Object target, int rpc_type, ParamsReadContext ctx) {
