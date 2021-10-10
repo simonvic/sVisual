@@ -22,10 +22,10 @@ modded class MissionServer {
 			return;
 		}
 
-		
 		ScriptRPC rpc = new ScriptRPC();
 		rpc.Write(SUserConfigConstraints.visual());
 		rpc.Send( null, sVisual_RPC.SYNC_USER_CONFIG_CONSTRAINTS_VISUAL, true, player.GetIdentity() );
+		SLog.d("Sent constraints to " + player.GetIdentity().GetFullName() + " ( " + player.GetIdentity().GetName() + " ) ");
 		//GetGame().RPCSingleParam(null, sVisual_RPC.SYNC_USER_CONFIG_CONSTRAINTS_VISUAL, new Param1<SUserConfigConstraints_Visual>(constraints), true, player.GetIdentity());
 	}
 }

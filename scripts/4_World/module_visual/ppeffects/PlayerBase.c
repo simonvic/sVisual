@@ -191,7 +191,7 @@ modded class PlayerBase{
 		
 			ScriptRPC rpc = new ScriptRPC();
 			rpc.Write(SUserConfigConstraints.visual(true));
-			rpc.Send( null, sVisual_RPC.SYNC_USER_CONFIG_CONSTRAINTS_VISUAL, true, this.GetIdentity() );
+			rpc.Send( null, sVisual_RPC.SYNC_USER_CONFIG_CONSTRAINTS_VISUAL, true, null );
 			
 			if (false){
 				GetGame().CreateObject("AviatorGlasses",GetPosition()).SetHealth("","",100);

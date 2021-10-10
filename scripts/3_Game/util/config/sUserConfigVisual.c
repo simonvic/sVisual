@@ -8,10 +8,6 @@ class SUserConfigVisual : SUserConfigBase{
 		return "$profile:\\sUDE\\config\\sVisual_default.json";
 	}
 	
-	override string getNonSerializedFields() {
-		return super.getNonSerializedFields()+";m_constraints";
-	}
-	
 	override void deserialize(string data, out string error){
 		auto cfg = this;
 		getSerializer().ReadFromString(cfg, data, error);
@@ -43,46 +39,50 @@ class SUserConfigVisual : SUserConfigBase{
 	protected float headLeanAngle = 0.0;
 	///////////////////////////////////////
 	
-	#ifndef DEVELOPER
-	[NonSerialized()]
-	#endif
-	protected ref SUserConfigConstraints_Visual m_constraints;
 	
-	SUserConfigConstraints_Visual getConstraints() {
-		return m_constraints;
+	override void registerOptions() {
+		super.registerOptions();
+		registerOption("ddofIntensity",        new SUserConfigOption<float>(ddofIntensity,        null, new SUserConfigOptionInfo("#STR_SUDE_LAYOUT_OPTIONS_CAMERA_DOF", "#STR_SUDE_LAYOUT_OPTIONS_CAMERA_DOF_DESCRIPTION")));
+		registerOption("ddofEnabledIn3PP",     new SUserConfigOption<bool>(ddofEnabledIn3PP,      null, new SUserConfigOptionInfo("#STR_SUDE_LAYOUT_OPTIONS_CAMERA_DOF_SWITCH_3PP", "#STR_SUDE_LAYOUT_OPTIONS_CAMERA_DOF_DESCRIPTION")));
+		registerOption("ddofEnabledInVehicle", new SUserConfigOption<bool>(ddofEnabledInVehicle,  null, new SUserConfigOptionInfo("#STR_SUDE_LAYOUT_OPTIONS_CAMERA_DOF_SWITCH_VEHICLE", "#STR_SUDE_LAYOUT_OPTIONS_CAMERA_DOF_DESCRIPTION")));
+		registerOption("headbobIntensity",     new SUserConfigOption<float>(headbobIntensity,     null, new SUserConfigOptionInfo("#STR_SUDE_LAYOUT_OPTIONS_CAMERA_HEADBOB", "#STR_SUDE_LAYOUT_OPTIONS_CAMERA_HEADBOB_DESCRIPTION")));
+		registerOption("headbobEnabledIn3PP",  new SUserConfigOption<bool>(headbobEnabledIn3PP,   null, new SUserConfigOptionInfo("#STR_SUDE_LAYOUT_OPTIONS_CAMERA_HEADBOB_SWITCH_3PP", "#STR_SUDE_LAYOUT_OPTIONS_CAMERA_HEADBOB_DESCRIPTION")));
+		registerOption("motionBlurIntensity",  new SUserConfigOption<float>(motionBlurIntensity,  null, new SUserConfigOptionInfo("#STR_SUDE_LAYOUT_OPTIONS_CAMERA_MOTIONBLUR", "#STR_SUDE_LAYOUT_OPTIONS_CAMERA_MOTIONBLUR_DESCRIPTION")));
+		registerOption("bloomIntensity",       new SUserConfigOption<float>(bloomIntensity,       null, new SUserConfigOptionInfo("#STR_SUDE_LAYOUT_OPTIONS_CAMERA_BLOOM", "#STR_SUDE_LAYOUT_OPTIONS_CAMERA_BLOOM_DESCRIPTION")));
+		registerOption("headLeanAngle",        new SUserConfigOption<float>(headLeanAngle,        null, new SUserConfigOptionInfo("#STR_SUDE_LAYOUT_OPTIONS_CAMERA_ROLL", "#STR_SUDE_LAYOUT_OPTIONS_CAMERA_ROLL_DESCRIPTION")));
 	}
 	
 	override void onRPC(PlayerIdentity sender, Object target, int rpc_type, ParamsReadContext ctx) {
 		super.onRPC(sender, target, rpc_type, ctx);
-		switch (rpc_type) {
-			case sVisual_RPC.SYNC_USER_CONFIG_CONSTRAINTS_VISUAL: 
-			if (ctx.Read(m_constraints) && m_constraints) {
-				updateConstraints();
+		
+		if (rpc_type == sVisual_RPC.SYNC_USER_CONFIG_CONSTRAINTS_VISUAL) {
+			SUserConfigConstraints_Visual constraints;
+			if (ctx.Read(constraints)) {
+				applyConstraints(constraints);
 			}
-			break;
 		}
 	}
 	
 	override void applyConstraints(SUserConfigConstraintsBase constraints) {
-		super.applyConstraints(constraints);
 		SUserConfigConstraints_Visual c = SUserConfigConstraints_Visual.Cast(constraints);
 		if (!c) return;
-		ddofIntensity = c.getDDOFIntensity().constrain(ddofIntensity);
-		ddofEnabledIn3PP = c.getDDOFEnabledIn3PP().constrain(ddofEnabledIn3PP);
-		ddofEnabledInVehicle = c.getDDOFEnabledInVehicle().constrain(ddofEnabledInVehicle);
-		headbobIntensity = c.getHeadbobIntensity().constrain(headbobIntensity);
-		headbobEnabledIn3PP = c.getHeadbobEnabledIn3PP().constrain(headbobEnabledIn3PP);
-		motionBlurIntensity = c.getMotionBlurIntensity().constrain(motionBlurIntensity);
-		bloomIntensity = c.getBloomIntensity().constrain(bloomIntensity);
-		headLeanAngle = c.getHeadLeanAngle().constrain(headLeanAngle);
+		
+		getOption("ddofIntensity").setConstraint(c.getDDOFIntensity());
+		getOption("ddofEnabledIn3PP").setConstraint(c.getDDOFEnabledIn3PP());
+		getOption("ddofEnabledInVehicle").setConstraint(c.getDDOFEnabledInVehicle());
+		getOption("headbobIntensity").setConstraint(c.getHeadbobIntensity());
+		getOption("headbobEnabledIn3PP").setConstraint(c.getHeadbobEnabledIn3PP());
+		getOption("motionBlurIntensity").setConstraint(c.getMotionBlurIntensity());
+		getOption("bloomIntensity").setConstraint(c.getBloomIntensity());
+		getOption("headLeanAngle").setConstraint(c.getHeadLeanAngle());
 	}
 	
 	float getDDOFIntensity(){
 		return ddofIntensity;
 	}
 	
-	void setDDOFIntensity(float intensity){
-		ddofIntensity = getConstraints().getDDOFIntensity().constrain(intensity);
+	void setDDOFIntensity(float intensity) {
+		ddofIntensity = updateOptionValue("ddofIntensity", intensity);
 	}
 	
 	bool isDDOFEnabledIn3PP(){
@@ -90,7 +90,7 @@ class SUserConfigVisual : SUserConfigBase{
 	}
 	
 	void setDDOFEnabledIn3PP(bool enabled){
-		ddofEnabledIn3PP = getConstraints().getDDOFEnabledIn3PP().constrain(enabled);
+		ddofEnabledIn3PP = updateOptionValue("ddofEnabledIn3PP", enabled);
 	}
 	
 	bool isDDOFEnabledInVehicle(){
@@ -98,7 +98,7 @@ class SUserConfigVisual : SUserConfigBase{
 	}
 	
 	void setDDOFEnabledInVehicle(bool enabled){
-		ddofEnabledInVehicle = getConstraints().getDDOFEnabledInVehicle().constrain(enabled);
+		ddofEnabledInVehicle = updateOptionValue("ddofEnabledInVehicle", enabled);
 	}
 	
 	float getHeadbobIntensity(){
@@ -106,7 +106,7 @@ class SUserConfigVisual : SUserConfigBase{
 	}
 	
 	void setHeadbobIntensity(float intensity){
-		headbobIntensity = getConstraints().getHeadbobIntensity().constrain(intensity);
+		headbobIntensity = updateOptionValue("headbobIntensity", intensity);
 	}
 	
 	bool isHeadbobEnabledIn3pp(){
@@ -114,7 +114,7 @@ class SUserConfigVisual : SUserConfigBase{
 	}
 	
 	void setHeadbobEnabledIn3pp(bool enabled){
-		headbobEnabledIn3PP = getConstraints().getHeadbobEnabledIn3PP().constrain(enabled);
+		headbobEnabledIn3PP = updateOptionValue("headbobEnabledIn3PP", enabled);
 	}
 	
 	float getMotionBlurIntensity(){
@@ -122,7 +122,7 @@ class SUserConfigVisual : SUserConfigBase{
 	}
 	
 	void setMotionBlurIntensity(float intensity){
-		motionBlurIntensity = getConstraints().getMotionBlurIntensity().constrain(intensity);
+		motionBlurIntensity = updateOptionValue("motionBlurIntensity", intensity);
 	}
 	
 	float getBloomIntensity(){
@@ -130,7 +130,7 @@ class SUserConfigVisual : SUserConfigBase{
 	}
 	
 	void setBloomIntensity(float intensity){
-		bloomIntensity = getConstraints().getBloomIntensity().constrain(intensity);
+		bloomIntensity = updateOptionValue("bloomIntensity", intensity);
 	}
 	
 	float getHeadLeanAngle(){
@@ -138,7 +138,7 @@ class SUserConfigVisual : SUserConfigBase{
 	}
 	
 	void setHeadLeanAngle(float angle){
-		headLeanAngle = getConstraints().getHeadLeanAngle().constrain(angle);
+		headLeanAngle = updateOptionValue("headLeanAngle", angle);
 	}
 	
 	

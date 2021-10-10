@@ -19,17 +19,17 @@ class SUserConfigConstraints_Visual : SUserConfigConstraintsBase {
 	
 	///////////////////////////////////////
 	// these go in json
-	protected ref SConstraintRange  ddofIntensity        = new SConstraintRange(0, 30, 0.5);
-	protected ref SConstraintSwitch ddofEnabledIn3PP     = new SConstraintSwitch(false);
-	protected ref SConstraintSwitch ddofEnabledInVehicle = new SConstraintSwitch(true);
-	protected ref SConstraintRange  headbobIntensity     = new SConstraintRange(0, 5, 0.05);
-	protected ref SConstraintSwitch headbobEnabledIn3PP  = new SConstraintSwitch(true);
-	protected ref SConstraintRange  motionBlurIntensity  = new SConstraintRange(0, 0.2, 0.005);
-	protected ref SConstraintRange  bloomIntensity       = new SConstraintRange(0, 5, 0.1);
-	protected ref SConstraintRange  headLeanAngle        = new SConstraintRange(0, 45, 1);
+	protected ref SConstraintMinMaxNumeric  ddofIntensity        = new SConstraintMinMaxNumeric(0, 30);
+	protected ref SConstraintSwitch         ddofEnabledIn3PP     = new SConstraintSwitch(false);
+	protected ref SConstraintSwitch         ddofEnabledInVehicle = new SConstraintSwitch(true);
+	protected ref SConstraintMinMaxNumeric  headbobIntensity     = new SConstraintMinMaxNumeric(0, 5);
+	protected ref SConstraintSwitch         headbobEnabledIn3PP  = new SConstraintSwitch(true);
+	protected ref SConstraintMinMaxNumeric  motionBlurIntensity  = new SConstraintMinMaxNumeric(0, 0.2);
+	protected ref SConstraintMinMaxNumeric  bloomIntensity       = new SConstraintMinMaxNumeric(0, 5);
+	protected ref SConstraintMinMaxNumeric  headLeanAngle        = new SConstraintMinMaxNumeric(0, 45);
 	///////////////////////////////////////
 	
-	SConstraintRange getDDOFIntensity() {
+	SConstraintMinMaxNumeric getDDOFIntensity() {
 		return ddofIntensity;
 	}
 	
@@ -41,7 +41,7 @@ class SUserConfigConstraints_Visual : SUserConfigConstraintsBase {
 		return ddofEnabledInVehicle;
 	}
 	
-	SConstraintRange getHeadbobIntensity() {
+	SConstraintMinMaxNumeric getHeadbobIntensity() {
 		return headbobIntensity;
 	}
 	
@@ -49,15 +49,15 @@ class SUserConfigConstraints_Visual : SUserConfigConstraintsBase {
 		return headbobEnabledIn3PP;
 	}
 		
-	SConstraintRange getMotionBlurIntensity() {
+	SConstraintMinMaxNumeric getMotionBlurIntensity() {
 		return motionBlurIntensity;
 	}	
 	
-	SConstraintRange getBloomIntensity() {
+	SConstraintMinMaxNumeric getBloomIntensity() {
 		return bloomIntensity;
 	}
 	
-	SConstraintRange getHeadLeanAngle() {
+	SConstraintMinMaxNumeric getHeadLeanAngle() {
 		return headLeanAngle;
 	}
 		
