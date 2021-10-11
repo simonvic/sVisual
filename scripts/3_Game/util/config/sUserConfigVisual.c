@@ -77,68 +77,68 @@ class SUserConfigVisual : SUserConfigBase{
 		getOption("headLeanAngle").setConstraint(c.getHeadLeanAngle());
 	}
 	
-	float getDDOFIntensity(){
+	float getDDOFIntensity() {
 		return ddofIntensity;
 	}
 	
 	void setDDOFIntensity(float intensity) {
-		ddofIntensity = updateOptionValue("ddofIntensity", intensity);
+		ddofIntensity = intensity;
 	}
 	
-	bool isDDOFEnabledIn3PP(){
+	bool isDDOFEnabledIn3PP() {
 		return ddofEnabledIn3PP;
 	}
 	
-	void setDDOFEnabledIn3PP(bool enabled){
-		ddofEnabledIn3PP = updateOptionValue("ddofEnabledIn3PP", enabled);
+	void setDDOFEnabledIn3PP(bool enabled) {
+		ddofEnabledIn3PP = enabled;
 	}
 	
-	bool isDDOFEnabledInVehicle(){
+	bool isDDOFEnabledInVehicle() {
 		return ddofEnabledInVehicle;
 	}
 	
-	void setDDOFEnabledInVehicle(bool enabled){
-		ddofEnabledInVehicle = updateOptionValue("ddofEnabledInVehicle", enabled);
+	void setDDOFEnabledInVehicle(bool enabled) {
+		ddofEnabledInVehicle = enabled;
 	}
 	
-	float getHeadbobIntensity(){
+	float getHeadbobIntensity() {
 		return headbobIntensity;
 	}
 	
-	void setHeadbobIntensity(float intensity){
-		headbobIntensity = updateOptionValue("headbobIntensity", intensity);
+	void setHeadbobIntensity(float intensity) {
+		headbobIntensity = intensity;
 	}
 	
-	bool isHeadbobEnabledIn3pp(){
+	bool isHeadbobEnabledIn3pp() {
 		return headbobEnabledIn3PP;
 	}
 	
-	void setHeadbobEnabledIn3pp(bool enabled){
-		headbobEnabledIn3PP = updateOptionValue("headbobEnabledIn3PP", enabled);
+	void setHeadbobEnabledIn3pp(bool enabled) {
+		headbobEnabledIn3PP = enabled;
 	}
 	
-	float getMotionBlurIntensity(){
+	float getMotionBlurIntensity() {
 		return motionBlurIntensity;
 	}
 	
-	void setMotionBlurIntensity(float intensity){
-		motionBlurIntensity = updateOptionValue("motionBlurIntensity", intensity);
+	void setMotionBlurIntensity(float intensity) {
+		motionBlurIntensity = intensity;
 	}
 	
-	float getBloomIntensity(){
+	float getBloomIntensity() {
 		return bloomIntensity;
 	}
 	
-	void setBloomIntensity(float intensity){
-		bloomIntensity = updateOptionValue("bloomIntensity", intensity);
+	void setBloomIntensity(float intensity) {
+		bloomIntensity = intensity;
 	}
 	
-	float getHeadLeanAngle(){
+	float getHeadLeanAngle() {
 		return headLeanAngle;
 	}
 	
-	void setHeadLeanAngle(float angle){
-		headLeanAngle = updateOptionValue("headLeanAngle", angle);
+	void setHeadLeanAngle(float angle) {
+		headLeanAngle = angle;
 	}
 	
 	

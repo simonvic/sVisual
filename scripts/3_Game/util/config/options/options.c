@@ -10,6 +10,7 @@ class SUCOption_DDOFIntensity : SUserConfigOption<float> {
 	}
 	
 	override void onValueChange(float previousValue, float newValue) {
+		SUserConfig.visual().setDDOFIntensity(newValue);
 		SPPEManager.setDDOFBlurStrength(newValue);
 	}
 }
@@ -28,6 +29,7 @@ class SUCOption_DDOFSwitch3PP : SUserConfigOption<bool> {
 	}
 	
 	override void onValueChange(bool previousValue, bool newValue) {
+		SUserConfig.visual().setDDOFEnabledIn3PP(newValue);
 		SPPEManager.setDDOFEnabledIn3PP(newValue);
 	}
 }
@@ -46,6 +48,7 @@ class SUCOption_DDOFSwitchVehicle : SUserConfigOption<bool> {
 	}
 	
 	override void onValueChange(bool previousValue, bool newValue) {
+		SUserConfig.visual().setDDOFEnabledInVehicle(newValue);
 		SPPEManager.setDDOFEnabledInVehicle(newValue);
 	}
 }
@@ -61,6 +64,10 @@ class SUCOption_HeadbobIntensity : SUserConfigOption<float> {
 			m_info = new SUserConfigOptionInfo("#STR_SUDE_LAYOUT_OPTIONS_CAMERA_HEADBOB", "#STR_SUDE_LAYOUT_OPTIONS_CAMERA_HEADBOB_DESCRIPTION")
 		}
 	}
+	
+	override void onValueChange(float previousValue, float newValue) {
+		SUserConfig.visual().setHeadbobIntensity(newValue);
+	}
 }
 
 
@@ -73,6 +80,10 @@ class SUCOption_HeadbobSwitch3PP : SUserConfigOption<bool> {
 		if (!info) {
 			m_info = new SUserConfigOptionInfo("#STR_SUDE_LAYOUT_OPTIONS_CAMERA_HEADBOB_SWITCH_3PP", "#STR_SUDE_LAYOUT_OPTIONS_CAMERA_HEADBOB_DESCRIPTION")
 		}
+	}
+	
+	override void onValueChange(bool previousValue, bool newValue) {
+		SUserConfig.visual().setHeadbobEnabledIn3pp(newValue);
 	}
 }
 
@@ -90,6 +101,7 @@ class SUCOption_MotionBlurIntensity : SUserConfigOption<float> {
 	}
 	
 	override void onValueChange(float previousValue, float newValue) {
+		SUserConfig.visual().setMotionBlurIntensity(newValue);
 		SPPEManager.setMotionBlurStrength(newValue);
 	}
 	
@@ -109,6 +121,7 @@ class SUCOption_BloomIntensity : SUserConfigOption<float> {
 	}
 	
 	override void onValueChange(float previousValue, float newValue) {
+		SUserConfig.visual().setBloomIntensity(newValue);
 		SPPEManager.setBloomStrength(newValue);
 	}
 	
@@ -120,9 +133,14 @@ class SUCOption_BloomIntensity : SUserConfigOption<float> {
 *	@brief Head lean angle option
 */
 class SUCOption_HeadleanAngle : SUserConfigOption<float> {
+	
 	void SUCOption_HeadleanAngle(float value, SConstraintBase constraint = null, SUserConfigOptionInfo info = null) {
 		if (!info) {
 			m_info = new SUserConfigOptionInfo("#STR_SUDE_LAYOUT_OPTIONS_CAMERA_ROLL", "#STR_SUDE_LAYOUT_OPTIONS_CAMERA_ROLL_DESCRIPTION")
 		}
+	}
+	
+	override void onValueChange(float previousValue, float newValue) {
+		SUserConfig.visual().setHeadLeanAngle(newValue);
 	}
 }
