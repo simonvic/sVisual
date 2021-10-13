@@ -187,11 +187,17 @@ modded class PlayerBase{
 		
 		if (GetGame().IsServer()) {
 			SLog.d("onJumpStart()");
-			SUserConfigConstraints_Visual constraints = ;
-		
+					
 			ScriptRPC rpc = new ScriptRPC();
-			rpc.Write(SUserConfigConstraints.visual(true));
-			rpc.Send( null, sVisual_RPC.SYNC_USER_CONFIG_CONSTRAINTS_VISUAL, true, null );
+			
+			rpc.Write(SUserConfigConstraints.visual());
+			rpc.Write(SUserConfigConstraints.gunplay());
+			
+			
+			rpc.Send(null, SRPCIDs.SYNC_USER_CONFIG_CONSTRAINTS, true, this.GetIdentity());
+			
+			
+			//GetGame().RPC(null, sUDE_RPC.SYNC_USER_CONFIG_CONSTRAINTS, toSync, true, null);
 			
 			if (false){
 				GetGame().CreateObject("AviatorGlasses",GetPosition()).SetHealth("","",100);

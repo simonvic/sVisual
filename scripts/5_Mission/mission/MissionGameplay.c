@@ -1,5 +1,6 @@
 modded class MissionGameplay{
 	
+	//@todo remove this, not needed anymore
 	void MissionGameplay() {	
 		SUserConfigVisual userVisualCfg = SUserConfig.visual();
 		SPPEManager.setDDOFBlurStrength(userVisualCfg.getDDOFIntensity());

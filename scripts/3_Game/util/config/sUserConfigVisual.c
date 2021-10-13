@@ -52,15 +52,18 @@ class SUserConfigVisual : SUserConfigBase{
 		registerOption("headLeanAngle",        new SUCOption_HeadleanAngle(headLeanAngle));
 	}
 	
-	override void onRPC(PlayerIdentity sender, Object target, int rpc_type, ParamsReadContext ctx) {
-		super.onRPC(sender, target, rpc_type, ctx);
-		
-		if (rpc_type == sVisual_RPC.SYNC_USER_CONFIG_CONSTRAINTS_VISUAL) {
-			SUserConfigConstraints_Visual constraints;
-			if (ctx.Read(constraints)) {
-				applyConstraints(constraints);
-			}
+	override void onConstraintsReceive(ParamsReadContext ctx) {
+		super.onConstraintsReceive(ctx);
+				
+		SUserConfigConstraints_Visual constraints;
+		if (!ctx.Read(constraints)) {
+			SLog.c("Can't read constraints, ignoring...",""+this);
+			return;
 		}
+		
+		SLog.i("Got constraints from server!",""+this);
+		SLog.d("\n" + constraints.serialize(),""+constraints);
+		applyConstraints(constraints);
 	}
 	
 	override void applyConstraints(SUserConfigConstraintsBase constraints) {
