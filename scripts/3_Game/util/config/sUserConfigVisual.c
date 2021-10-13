@@ -22,7 +22,7 @@ class SUserConfigVisual : SUserConfigBase{
 	
 	override string serializeDefault(){
 		string result;
-		auto cfg = new SUserConfigGunplay();
+		auto cfg = new SUserConfigVisual();
 		getSerializer().WriteToString(cfg, true, result);
 		return result;
 	}
