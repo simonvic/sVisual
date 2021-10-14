@@ -192,13 +192,7 @@ modded class PlayerBase{
 		if (GetGame().IsServer()) {
 			SLog.d("onJumpStart()");
 					
-			ScriptRPC rpc = new ScriptRPC();
-			
-			rpc.Write(SUserConfigConstraints.visual());
-			rpc.Write(SUserConfigConstraints.gunplay());
-			
-			
-			rpc.Send(null, SRPCIDs.SYNC_USER_CONFIG_CONSTRAINTS, true, this.GetIdentity());
+			SUserConfigConstraints.getInstance().syncWithEverybody();
 			
 			
 			//GetGame().RPC(null, sUDE_RPC.SYNC_USER_CONFIG_CONSTRAINTS, toSync, true, null);

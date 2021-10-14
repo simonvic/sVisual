@@ -1,8 +1,10 @@
+class VanillaWrappedSPPE : SPPEffect {}
+
 modded class PPERequesterBase{
-	protected ref SPPEffect m_sPPE;
+	protected ref VanillaWrappedSPPE m_sPPE;
 	
 	void PPERequesterBase(int requester_IDX){
-		m_sPPE = new SPPEffect();
+		m_sPPE = new VanillaWrappedSPPE();
 		initSPPE();
 	}
 	
@@ -18,7 +20,7 @@ modded class PPERequesterBase{
 		SPPEManager.deactivate(m_sPPE);
 	}
 	
-	SPPEffect getSPPE(){
+	VanillaWrappedSPPE getSPPE(){
 		return m_sPPE;
 	}
 	
@@ -109,7 +111,7 @@ modded class PPERequester_TunnelVisionEffects {
 	override void OnStart(Param par = null){
 		super.OnStart(par);
 		getSPPE().setVignetteIntensity(m_Intensity);
-		getSPPE().setRadialBlurPower(m_Intensity * 0.05);
+		getSPPE().setRadialBlurPower(Math.Clamp(m_Intensity * 0.05, 0, 1));
 	}
 }
 
@@ -117,8 +119,8 @@ modded class PPERequester_DeathDarkening {
 
 	override void OnStart(Param par = null){
 		super.OnStart(par);
-		getSPPE().setRadialBlurPower(-m_Value * 0.1);
-		getSPPE().setChromAber(-m_Value * 0.075);
+		getSPPE().setRadialBlurPower(Math.Clamp(-m_Value * 0.1, 0, 1));
+		getSPPE().setChromAber(Math.Clamp(-m_Value * 0.075, 0, 1));
 		GetDayZGame().SetEVValue(m_Value);
 	}
 	
