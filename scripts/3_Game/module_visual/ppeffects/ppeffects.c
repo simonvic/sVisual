@@ -183,10 +183,13 @@ modded class PPEDefaultPreset {
 		setGodraysOverburn(cfg.getDefaultPPEFloat("godrays_sun_overburn_intensity"));
 		setGodraysOverburnStart(cfg.getDefaultPPEFloat("godrays_sun_overburn_start"));
 		setGodraysOverburnEnd(cfg.getDefaultPPEFloat("godrays_sun_overburn_end"));
+		
+		/* Updating this causes the flickering of the sun
 		setGodraysMask(cfg.getDefaultPPEFloat("godrays_sun_mask"));
 		setGodraysSize(cfg.getDefaultPPEFloat("godrays_sun_size"));
 		setGodraysVerticalIntensity(cfg.getDefaultPPEFloat("godrays_sun_v_intensity"));
 		setGodraysDiagonalIntensity(cfg.getDefaultPPEFloat("godrays_sun_d_intensity"));
+		*/
 		
 		//////////////////////////////////////////
 		// Color params
