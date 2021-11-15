@@ -102,9 +102,7 @@ modded class PlayerBase{
 	
 	///////////////// UNCONSCIOUSNESS ///////////////////////////////
 	override void OnUnconsciousStart(){
-		SLog.d("OnUnconsciousStart");
 		super.OnUnconsciousStart();
-		SLog.d("OnUnconsciousStart","after super");
 		if( GetInstanceType() == DayZPlayerInstanceType.INSTANCETYPE_CLIENT ){
 			SPPEManager.activate(m_ppeUnconscious);
 			SCameraOverlaysManager.getInstance().activate(m_coUnconscious);
@@ -112,9 +110,7 @@ modded class PlayerBase{
 	}
 	
 	override void OnUnconsciousStop(int pCurrentCommandID){
-		SLog.d("OnUnconsciousStop");
 		super.OnUnconsciousStop(pCurrentCommandID);
-		SLog.d("OnUnconsciousStop","after super");
 		if( GetInstanceType() == DayZPlayerInstanceType.INSTANCETYPE_CLIENT ){
 			SPPEManager.deactivate(m_ppeUnconscious);
 			SCameraOverlaysManager.getInstance().deactivate(m_coUnconscious);
