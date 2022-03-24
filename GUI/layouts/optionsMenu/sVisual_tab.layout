@@ -186,6 +186,7 @@ FrameWidgetClass sude_svisual_tab_root {
                  maximum 30
                  step 0.5
                  current 20
+                 "fill in" 1
                  {
                   TextWidgetClass sude_dof_setting_option_value {
                    ignorepointer 1
@@ -332,6 +333,7 @@ FrameWidgetClass sude_svisual_tab_root {
                  maximum 5
                  step 0.05
                  current 1
+                 "fill in" 1
                  {
                   TextWidgetClass sude_headbob_setting_option_value {
                    ignorepointer 1
@@ -464,6 +466,7 @@ FrameWidgetClass sude_svisual_tab_root {
                  current 0.005
                  vertical 0
                  flipped 0
+                 "fill in" 1
                  {
                   TextWidgetClass sude_motionblur_setting_option_value {
                    ignorepointer 1
@@ -552,6 +555,7 @@ FrameWidgetClass sude_svisual_tab_root {
                {
                 SliderWidgetClass sude_bloom_setting_option {
                  ignorepointer 0
+                 position 0 0
                  size 1 0.8
                  valign center_ref
                  hexactpos 0
@@ -563,6 +567,7 @@ FrameWidgetClass sude_svisual_tab_root {
                  current 0
                  vertical 0
                  flipped 0
+                 "fill in" 1
                  {
                   TextWidgetClass sude_bloom_setting_option_value {
                    ignorepointer 1
@@ -663,6 +668,7 @@ FrameWidgetClass sude_svisual_tab_root {
                  current 15
                  vertical 0
                  flipped 0
+                 "fill in" 1
                  {
                   TextWidgetClass sude_roll_setting_option_value {
                    ignorepointer 1
