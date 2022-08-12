@@ -1,6 +1,3 @@
-//////////////////////////////////////////
-// IRONSIGHT
-//////////////////////////////////////////
 modded class DayZPlayerCameraIronsights {
 
 	override void OnUpdate(float pDt, out DayZPlayerCameraResult pOutResult){
@@ -19,18 +16,6 @@ modded class DayZPlayerCameraIronsights {
 	
 	override bool isHeadLeanEnabled(){
 		return true;
-	}
-	
-}
-
-//////////////////////////////////////////
-// OPTICS
-//////////////////////////////////////////
-modded class DayZPlayerCameraOptics { //extends Ironsight
-	
-	override void AdjustCameraParameters(float pDt, inout DayZPlayerCameraResult pOutResult){
-		super.AdjustCameraParameters(pDt, pOutResult);
-		pOutResult.m_iDirectBoneMode = 3;
 	}
 	
 }
