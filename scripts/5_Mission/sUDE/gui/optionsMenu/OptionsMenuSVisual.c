@@ -30,14 +30,14 @@ class OptionsMenuSVisual : SOptionsMenuBase{
 	override void onBuild(){
 		super.onBuild();
 
-		initOptionWidget(m_dofSlider,        "sude_dof_setting_option",        getUserConfig().getOptionFloat("ddofIntensity"));
-		initOptionWidget(m_dofSwitch3PP,     "sude_dof_switch_3pp_option",     getUserConfig().getOptionBool("ddofEnabledIn3PP"));
-		initOptionWidget(m_dofSwitchVehicle, "sude_dof_switch_vehicle_option", getUserConfig().getOptionBool("ddofEnabledInVehicle"));
-		initOptionWidget(m_headBobSlider,    "sude_headbob_setting_option",    getUserConfig().getOptionFloat("headbobIntensity"));
-		initOptionWidget(m_headbobSwitch3pp, "sude_headbob_switch_3pp_option", getUserConfig().getOptionBool("headbobEnabledIn3PP"));
-		initOptionWidget(m_motionBlurSlider, "sude_motionblur_setting_option", getUserConfig().getOptionFloat("motionBlurIntensity"));
-		initOptionWidget(m_bloomSlider,      "sude_bloom_setting_option",      getUserConfig().getOptionFloat("bloomIntensity"));
-		initOptionWidget(m_headLeanSlider,   "sude_roll_setting_option",       getUserConfig().getOptionFloat("headLeanAngle"));
+		initOptionWidget(m_dofSlider,        "ddof",        getUserConfig().getOptionFloat("ddofIntensity"));
+		initOptionWidget(m_dofSwitch3PP,     "ddof3pp",     getUserConfig().getOptionBool("ddofEnabledIn3PP"));
+		initOptionWidget(m_dofSwitchVehicle, "ddofVehicle", getUserConfig().getOptionBool("ddofEnabledInVehicle"));
+		initOptionWidget(m_headBobSlider,    "headbob",     getUserConfig().getOptionFloat("headbobIntensity"));
+		initOptionWidget(m_headbobSwitch3pp, "headbob3pp",  getUserConfig().getOptionBool("headbobEnabledIn3PP"));
+		initOptionWidget(m_motionBlurSlider, "motionblur",  getUserConfig().getOptionFloat("motionBlurIntensity"));
+		initOptionWidget(m_bloomSlider,      "bloom",       getUserConfig().getOptionFloat("bloomIntensity"));
+		initOptionWidget(m_headLeanSlider,   "headLean",    getUserConfig().getOptionFloat("headLeanAngle"));
 	}
 
 }
