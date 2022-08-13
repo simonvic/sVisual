@@ -1,16 +1,7 @@
 modded class DayZPlayerCamera3rdPerson {
 	
-	override void OnUpdate(float pDt, out DayZPlayerCameraResult pOutResult){
-		super.OnUpdate(pDt, pOutResult);
-		
-		//need to also update here because vanilla doesn't call super
-		if (m_camManager.canUpdateFrom(this)) {
-			m_camManager.onUpdate(pDt, pOutResult);
-		}
-	}
-	
 	override bool isHeadbobEnabled(){
-		return m_camManager.isHeadbobEnabledIn3pp();
+		return isHeadbobEnabledIn3pp();
 	}
 	
 	override bool isHeadLeanEnabled(){
@@ -18,7 +9,21 @@ modded class DayZPlayerCamera3rdPerson {
 	}
 	
 	override bool isDDOFEnabled(){
-		return m_camManager.isDDOFEnabledIn3PP();
+		return isDDOFEnabledIn3PP();
 	}
 	
+	override void OnUpdate(float pDt, out DayZPlayerCameraResult pOutResult) {
+		super.OnUpdate(pDt, pOutResult);
+		updateDDOF(pDt, pOutResult);
+		updateCamAngles(pDt, pOutResult);
+	}
+	
+}
+
+modded class DayZPlayerCamera3rdPersonProneBase {
+	override void OnUpdate(float pDt, out DayZPlayerCameraResult pOutResult) {
+		super.OnUpdate(pDt, pOutResult);
+		updateDDOF(pDt, pOutResult);
+		updateCamAngles(pDt, pOutResult);
+	}
 }
