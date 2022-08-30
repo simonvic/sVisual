@@ -15,9 +15,9 @@ modded class DayZPlayerCameraBase {
 		userCfgVisual = SUserConfig.visual();
 		m_iPlayer = DayZPlayerImplement.Cast(pPlayer);
 
-		if (isDDOFEnabled()) {
+		if (isDDOFEnabled() && userCfgVisual.getDDOFIntensity() != 0) {
 			SPPEManager.enableDDOF();
-		}else{
+		} else {
 			SPPEManager.disableDDOF();
 			SPPEManager.resetDDOF(true);
 		}
