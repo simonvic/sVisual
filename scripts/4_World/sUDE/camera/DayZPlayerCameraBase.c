@@ -46,11 +46,11 @@ modded class DayZPlayerCameraBase {
 		Math3D.YawPitchRollMatrix(camAngles, pOutResult.m_CameraTM);
 	}
 	
-	protected bool canApplyHeadLean(){
+	protected bool canApplyHeadLean() {
 		return isHeadLeanEnabled() && !m_pPlayer.IsPlayerInStance(DayZPlayerConstants.STANCEMASK_RAISEDPRONE | DayZPlayerConstants.STANCEMASK_PRONE);
 	}
 	
-	protected void applyHeadBob(float pDt, out vector angles){
+	protected void applyHeadBob(float pDt, out vector angles) {
 		TFloatArray headbobParams = getHeadbobParameters(); //@todo use player speed modifier		
 		float yawStrenght = headbobParams[0];
 		float yawFrequency = headbobParams[1];
@@ -66,7 +66,7 @@ modded class DayZPlayerCameraBase {
 		
 	}
 	
-	protected void applyHeadLean(float pDt, out vector angles){
+	protected void applyHeadLean(float pDt, out vector angles) {
 		angles[2] = angles[2] + getLeanRollAngle();
 	}
 	
@@ -142,7 +142,7 @@ modded class DayZPlayerCameraBase {
 		return m_iPlayer.m_MovementState.m_fLeaning * getHeadLeanAngle();
 	}
 	
-	protected static float getHeadbobIntensity(){
+	protected static float getHeadbobIntensity() {
 		return userCfgVisual.getHeadbobIntensity();
 	}
 	

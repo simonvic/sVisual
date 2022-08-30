@@ -1,14 +1,14 @@
 modded class DayZPlayerCamera3rdPerson {
 	
-	override bool isHeadbobEnabled(){
+	override bool isHeadbobEnabled() {
 		return isHeadbobEnabledIn3pp();
 	}
 	
-	override bool isHeadLeanEnabled(){
+	override bool isHeadLeanEnabled() {
 		return false;
 	}
 	
-	override bool isDDOFEnabled(){
+	override bool isDDOFEnabled() {
 		return isDDOFEnabledIn3PP();
 	}
 	

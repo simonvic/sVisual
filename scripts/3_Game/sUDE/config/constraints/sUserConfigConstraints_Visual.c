@@ -4,12 +4,12 @@ class SUserConfigConstraints_Visual : SUserConfigConstraintsBase {
 		return "$profile:\\sUDE\\config\\sVisual_constraints.json";
 	}
 	
-	override void deserialize(string data, out string error){
+	override void deserialize(string data, out string error) {
 		auto constraints = this;
 		getSerializer().ReadFromString(constraints, data, error);
 	}
 	
-	override string serialize(){
+	override string serialize() {
 		string result;
 		auto constraints = this;
 		getSerializer().WriteToString(constraints, true, result);

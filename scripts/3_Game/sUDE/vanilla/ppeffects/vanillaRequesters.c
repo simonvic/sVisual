@@ -3,24 +3,24 @@ class VanillaWrappedSPPE : SPPEffect {}
 modded class PPERequesterBase{
 	protected ref VanillaWrappedSPPE m_sPPE;
 	
-	void PPERequesterBase(int requester_IDX){
+	void PPERequesterBase(int requester_IDX) {
 		m_sPPE = new VanillaWrappedSPPE();
 		initSPPE();
 	}
 	
 	protected void initSPPE();
 	
-	override void OnStart(Param par = null){
+	override void OnStart(Param par = null) {
 		super.OnStart(par);
 		SPPEManager.activate(m_sPPE);
 	}
 	
-	override void OnStop(Param par = null){
+	override void OnStop(Param par = null) {
 		super.OnStop(par);
 		SPPEManager.deactivate(m_sPPE);
 	}
 	
-	VanillaWrappedSPPE getSPPE(){
+	VanillaWrappedSPPE getSPPE() {
 		return m_sPPE;
 	}
 	
@@ -36,21 +36,21 @@ modded class PPERequesterBase{
 // GLASSES
 
 modded class PPERequester_GenericBlackGlassesBase {
-	override void initSPPE(){
+	override void initSPPE() {
 		getSPPE().init(new PPEEyegearPreset());
 		getSPPE().setColorization(SColor.rgba(0xBABABAff));
 	}
 }
 
 modded class PPERequester_GlassesSportBlue {
-	override void initSPPE(){
+	override void initSPPE() {
 		getSPPE().init(new PPEEyegearPreset());
 		getSPPE().setColorization(SColor.rgba(0xBBBBEEff));
 	}
 }
 
 modded class PPERequester_GlassesSportGreen {
-	override void initSPPE(){
+	override void initSPPE() {
 		getSPPE().init(new PPEEyegearPreset());
 		getSPPE().setColorization(SColor.rgba(0xBBEEBDff));
 	}
@@ -58,7 +58,7 @@ modded class PPERequester_GlassesSportGreen {
 
 
 modded class PPERequester_GlassesSportOrange {
-	override void initSPPE(){
+	override void initSPPE() {
 		getSPPE().init(new PPEEyegearPreset());
 		getSPPE().setColorization(SColor.rgba(0xF2DAA9ff));
 	}
@@ -66,7 +66,7 @@ modded class PPERequester_GlassesSportOrange {
 
 
 modded class PPERequester_GlassesAviator {
-	override void initSPPE(){
+	override void initSPPE() {
 		getSPPE().init(new PPEEyegearPreset());
 		getSPPE().setColorization(SColor.rgba(0xCDBFEEff));
 	}
@@ -74,14 +74,14 @@ modded class PPERequester_GlassesAviator {
 
 
 modded class PPERequester_TacticalGoggles {
-	override void initSPPE(){
+	override void initSPPE() {
 		getSPPE().init(new PPEEyegearPreset());
 	}
 }
 
 
 modded class PPERequester_WeldingMask {
-	override void initSPPE(){
+	override void initSPPE() {
 		getSPPE().init(new PPEEyegearPreset());
 		getSPPE().setColorization(SColor.rgba(0x505050ff));
 	}
@@ -94,7 +94,7 @@ modded class PPERequester_WeldingMask {
 // MISC
 
 modded class PPERequester_FlashbangEffects {
-	override void initSPPE(){
+	override void initSPPE() {
 		getSPPE().setGausBlur(2.0);
 		getSPPE().setOverlayFactor(1.5);
 		getSPPE().setOverlayColor(SColor.rgba(0xFFFFFF00));
@@ -103,12 +103,12 @@ modded class PPERequester_FlashbangEffects {
 
 
 modded class PPERequester_TunnelVisionEffects {
-	override void initSPPE(){
+	override void initSPPE() {
 		getSPPE().setVignetteColor(SPPEManager.getPPEColor(0, 0, 0, 0));
 		getSPPE().setRadialBlurOffset(0.25);
 	}
 	
-	override void OnStart(Param par = null){
+	override void OnStart(Param par = null) {
 		super.OnStart(par);
 		getSPPE().setVignetteIntensity(m_Intensity);
 		getSPPE().setRadialBlurPower(Math.Clamp(m_Intensity * 0.05, 0, 1));
@@ -117,14 +117,14 @@ modded class PPERequester_TunnelVisionEffects {
 
 modded class PPERequester_DeathDarkening {
 
-	override void OnStart(Param par = null){
+	override void OnStart(Param par = null) {
 		super.OnStart(par);
 		getSPPE().setRadialBlurPower(Math.Clamp(-m_Value * 0.1, 0, 1));
 		getSPPE().setChromAber(Math.Clamp(-m_Value * 0.075, 0, 1));
 		GetDayZGame().SetEVValue(m_Value);
 	}
 	
-	override void OnStop(Param par = null){
+	override void OnStop(Param par = null) {
 		super.OnStop(par);
 		GetDayZGame().SetEVValue(m_Value);
 	}
@@ -132,7 +132,7 @@ modded class PPERequester_DeathDarkening {
 
 /*
 modded class PPERequester_InventoryBlur {
-	override void initSPPE(){
+	override void initSPPE() {
 		getSPPE().setGausBlur(0.7);
 	}
 }
@@ -142,11 +142,11 @@ modded class PPERequester_CameraNV {
 	
 	protected int m_lastMode = -1;
 		
-	override void OnStart(Param par = null){
+	override void OnStart(Param par = null) {
 		super.OnStart(par);
 	}
 	
-	override void OnStop(Param par = null){
+	override void OnStop(Param par = null) {
 		super.OnStop(par);
 		GetDayZGame().SetEVValue(0);
 		GetDayZGame().NightVissionLightParams(1.0, 0.0);

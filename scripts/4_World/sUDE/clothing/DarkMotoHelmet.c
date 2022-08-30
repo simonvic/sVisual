@@ -1,6 +1,6 @@
 modded class DarkMotoHelmet_ColorBase {	
 	
-	override array<int> GetEffectWidgetTypes(){
+	override array<int> GetEffectWidgetTypes() {
 		return null;
 	}
 	

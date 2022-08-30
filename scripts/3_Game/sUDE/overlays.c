@@ -4,7 +4,7 @@
 */
 class SCOTimedSpawn : SCameraOverlayTimed {
 	
-	override void onInit(){
+	override void onInit() {
 		setImage("MyMODS/sFramework/GUI/textures/overlays/black_4x4.edds");
 		setMask(SCOMasks.CIRCULAR);
 		setMaskTransitionWidth(1);
@@ -13,7 +13,7 @@ class SCOTimedSpawn : SCameraOverlayTimed {
 		setPriority(eSCOPriority.EYE);
 	}
 	
-	override void onAnimate(float deltaTime){
+	override void onAnimate(float deltaTime) {
 		setMaskProgress(Math.Sin(getTime() + Math.PI_HALF));
 	}
 	
@@ -30,7 +30,7 @@ class SCOUnconscious : SCameraOverlayAnimated {
 	protected static const float MIN_APERTURE = 0.8;
 	protected static const float SPEED = 0.5;
 	
-	override void onInit(){
+	override void onInit() {
 		setImage("MyMODS/sFramework/GUI/textures/overlays/black_4x4.edds");
 		setMask(SCOMasks.CIRCULAR);
 		setMaskTransitionWidth(1);
@@ -38,7 +38,7 @@ class SCOUnconscious : SCameraOverlayAnimated {
 		setPriority(eSCOPriority.EYE + 1);
 	}
 	
-	override void onAnimate(float deltaTime){
+	override void onAnimate(float deltaTime) {
 		setMaskProgress(Math.AbsFloat(1 + Math.Sin(getTime() * SPEED) + MIN_APERTURE));		
 	}
 }
@@ -52,7 +52,7 @@ class SCOAnimationBleeding : SCameraOverlayAnimated {
 	
 	protected int bleedingBits;
 	
-	override void onInit(){
+	override void onInit() {
 		setImage("MyMODS/sVisual/GUI/textures/overlays/blood.edds");
 		setMask("MyMODS/sVisual/GUI/textures/masks/blood.edds");
 		setMaskTransitionWidth(0.75);
@@ -60,11 +60,11 @@ class SCOAnimationBleeding : SCameraOverlayAnimated {
 		setSize(1.3);
 	}
 	
-	override void onAnimate(float deltaTime){
+	override void onAnimate(float deltaTime) {
 		setMaskProgress( 0.2 * (Math.AbsFloat(Math.Sin(getTime() * bleedingBits * 0.5)) + bleedingBits * 0.1));
 	}
 	
-	void setBleedingBits(int bits){
+	void setBleedingBits(int bits) {
 		bleedingBits = bits;
 	}
 }

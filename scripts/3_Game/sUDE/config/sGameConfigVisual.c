@@ -3,37 +3,37 @@
 /////////////////////////////////////////////
 class SGameConfigVisual : SGameConfigBase{
 	
-	override string getModuleName(){
+	override string getModuleName() {
 		return "Visual";
 	}
 	
-	float getDefaultPPEFloat(string ppeName){
+	float getDefaultPPEFloat(string ppeName) {
 		return SGameConfig.getFloat(getModulePath() + " PPEffects DefaultValues " + ppeName);
 	}
 	
-	TPPEColor getDefaultPPEColor(string ppeName){
+	TPPEColor getDefaultPPEColor(string ppeName) {
 		TFloatArray c = SGameConfig.getFloatArray(getModulePath() + " PPEffects DefaultValues " + ppeName);
 		return SPPEManager.getPPEColor(c[0], c[1], c[2], c[3]);
 	}
 	
-	TSCameraOverlaysList getCameraOverlays(typename type){
+	TSCameraOverlaysList getCameraOverlays(typename type) {
 		TSCameraOverlaysList overlays = new TSCameraOverlaysList();
 		string path = "cfgVehicles " + type + " sUDE CameraOverlays";
 		int lastOverlay = -1;
-		for(int i=0; i<GetGame().ConfigGetChildrenCount(path); i++){
+		for (int i=0; i<GetGame().ConfigGetChildrenCount(path); i++) {
 			string className;
 			GetGame().ConfigGetChildName(path, i, className);
 			lastOverlay++;
-			if(className == "overlay_"+lastOverlay){
+			if (className == "overlay_"+lastOverlay) {
 				overlays.Insert(getCameraOverlay(path + " overlay_"+lastOverlay));
-			}else{
+			} else {
 				lastOverlay--;
 			}
 		}
 		return overlays;
 	}
 	
-	SCameraOverlay getCameraOverlay(string path){
+	SCameraOverlay getCameraOverlay(string path) {
 		return new SCameraOverlay(
 			SGameConfig.getString(path + " image"),
 			SGameConfig.getFloat(path + " alpha"),

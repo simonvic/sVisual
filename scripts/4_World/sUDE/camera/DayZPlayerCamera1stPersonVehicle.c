@@ -1,5 +1,5 @@
 modded class DayZPlayerCamera1stPersonVehicle{
-	override bool isDDOFEnabled(){
+	override bool isDDOFEnabled() {
 		return isDDOFEnabledInVehicle();
 	}
 }

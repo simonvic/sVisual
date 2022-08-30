@@ -1,10 +1,10 @@
 class OptionsMenuSVisual : SOptionsMenuBase{
 	
-	override string getName(){
+	override string getName() {
 		return "sVisual";
 	}
 	
-	override string getLayout(){
+	override string getLayout() {
 		return "MyMODS/sVisual/GUI/layouts/optionsMenu/sVisual_tab.layout";	
 	}
 	
@@ -22,12 +22,12 @@ class OptionsMenuSVisual : SOptionsMenuBase{
 	protected ref SliderWidget    m_bloomSlider;
 	protected ref SliderWidget    m_headLeanSlider;
 	
-	override void onInit(){
+	override void onInit() {
 		super.onInit();
 		setUserConfig(SUserConfig.visual());
 	}
 	
-	override void onBuild(){
+	override void onBuild() {
 		super.onBuild();
 
 		initOptionWidget(m_dofSlider,        "ddof",        getUserConfig().getOptionFloat("ddofIntensity"));

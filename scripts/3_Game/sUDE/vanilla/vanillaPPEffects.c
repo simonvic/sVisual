@@ -9,11 +9,11 @@ modded class PPEffects{
 		}
 	}
 	
-	override static void ResetRadialBlur(){	
+	override static void ResetRadialBlur() {	
 		SetRadialBlur(0,0,0,0);
 	}
 	
-	override static void SetRadialBlur(float powerX, float powerY, float offsetX, float offsetY ){
+	override static void SetRadialBlur(float powerX, float powerY, float offsetX, float offsetY) {
 		SPPEManager.vanillaSetRadialBlur(powerX, powerY, offsetX, offsetY);
 		
 	}

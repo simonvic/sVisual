@@ -9,13 +9,13 @@ modded class PlayerBase{
 	protected ref SCOUnconscious m_coUnconscious = new SCOUnconscious();
 	
 	//@todo move to clothing
-	override void EEItemAttached(EntityAI item, string slot_name){
+	override void EEItemAttached(EntityAI item, string slot_name) {
 		super.EEItemAttached(item, slot_name);
 		if( GetInstanceType() != DayZPlayerInstanceType.INSTANCETYPE_CLIENT ) return;
 		
 
 		Clothing clothing = Clothing.Cast(item);
-		if(clothing && clothing.hasOverlays()){
+		if (clothing && clothing.hasOverlays()) {
 			SCameraOverlaysManager.getInstance().activate(clothing.getOverlayByCurrentHealth());
 		}
 		
@@ -23,28 +23,28 @@ modded class PlayerBase{
 	}
 	
 	//@todo move to clothing
-	override void EEItemDetached(EntityAI item, string slot_name){
+	override void EEItemDetached(EntityAI item, string slot_name) {
 		super.EEItemDetached(item, slot_name);
 		if( GetInstanceType() != DayZPlayerInstanceType.INSTANCETYPE_CLIENT ) return;
 		
 		Clothing clothing = Clothing.Cast(item);
-		if(clothing && clothing.hasOverlays()){
+		if (clothing && clothing.hasOverlays()) {
 			SCameraOverlaysManager.getInstance().deactivate(clothing.getOverlayByCurrentHealth());
 		}
 	}
 		
-	override void OnPlayerRecievedHit(){
+	override void OnPlayerRecievedHit() {
 		super.OnPlayerRecievedHit();	
 		playHitReceivedPPE();
 	}
 	
-	protected void playHitReceivedPPE(){
+	protected void playHitReceivedPPE() {
 		if( GetInstanceType() != DayZPlayerInstanceType.INSTANCETYPE_CLIENT ) return;
 		
-		if(m_ppeHitAnim.isActive()){
+		if (m_ppeHitAnim.isActive()) {
 			m_ppeHitAnim.setDuration(m_ppeHitAnim.getDuration() * SPPEConstants.HIT_RECEIVED_DURATION_MULTIPLIER);
 			m_ppeHitAnim.setHitStrength(m_ppeHitAnim.getHitStrength() * SPPEConstants.HIT_RECEIVED_STRENGTH_MULTIPLIER);
-		}else{
+		} else {
 			m_ppeHitAnim.setDuration(SPPEConstants.HIT_RECEIVED_MIN_DURATION);
 			m_ppeHitAnim.setHitStrength(SPPEConstants.HIT_RECEIVED_MIN_STRENGTH);
 			
@@ -52,12 +52,12 @@ modded class PlayerBase{
 		}
 	}
 	
-	override void OnPlayerLoaded(){
+	override void OnPlayerLoaded() {
 		super.OnPlayerLoaded();
 		updateVisuals();
 	}
 	
-	protected void updateVisuals(){
+	protected void updateVisuals() {
 		//Proceed only if client
 		if( GetInstanceType() != DayZPlayerInstanceType.INSTANCETYPE_CLIENT ) return;
 			
@@ -75,12 +75,12 @@ modded class PlayerBase{
 		playSpawnVisuals();
 	}
 	
-	protected void playSpawnVisuals(){
+	protected void playSpawnVisuals() {
 		SCameraOverlaysManager.getInstance().activate(m_coSpawn);
 	}
 	
-	protected void checkForBleedingPPE(){
-		if(IsBleeding()){
+	protected void checkForBleedingPPE() {
+		if (IsBleeding()) {
 			updateBleedingEffect();
 			SPPEManager.activate(m_ppeBleeding);
 			SCameraOverlaysManager.getInstance().activate(m_coBleeding);
@@ -88,10 +88,10 @@ modded class PlayerBase{
 	}
 	
 
-	protected void checkForClothingOverlays(){
-		for ( int i=0; i<GetInventory().AttachmentCount(); i++ ){
+	protected void checkForClothingOverlays() {
+		for (int i=0; i<GetInventory().AttachmentCount(); i++ ) {
 			Clothing clothing = Clothing.Cast(GetInventory().GetAttachmentFromIndex( i ));
-			if(clothing && clothing.hasOverlays()){
+			if (clothing && clothing.hasOverlays()) {
 				SCameraOverlaysManager.getInstance().activate(clothing.getOverlayByCurrentHealth());
 			}
 		}
@@ -101,17 +101,17 @@ modded class PlayerBase{
 	
 	
 	///////////////// UNCONSCIOUSNESS ///////////////////////////////
-	override void OnUnconsciousStart(){
+	override void OnUnconsciousStart() {
 		super.OnUnconsciousStart();
-		if( GetInstanceType() == DayZPlayerInstanceType.INSTANCETYPE_CLIENT ){
+		if (GetInstanceType() == DayZPlayerInstanceType.INSTANCETYPE_CLIENT) {
 			SPPEManager.activate(m_ppeUnconscious);
 			SCameraOverlaysManager.getInstance().activate(m_coUnconscious);
 		}
 	}
 	
-	override void OnUnconsciousStop(int pCurrentCommandID){
+	override void OnUnconsciousStop(int pCurrentCommandID) {
 		super.OnUnconsciousStop(pCurrentCommandID);
-		if( GetInstanceType() == DayZPlayerInstanceType.INSTANCETYPE_CLIENT ){
+		if (GetInstanceType() == DayZPlayerInstanceType.INSTANCETYPE_CLIENT) {
 			SPPEManager.deactivate(m_ppeUnconscious);
 			SCameraOverlaysManager.getInstance().deactivate(m_coUnconscious);
 		}
@@ -119,35 +119,35 @@ modded class PlayerBase{
 	
 	
 	///////////////// BLEEDING ///////////////////////////////
-	override void OnBleedingBegin(){
+	override void OnBleedingBegin() {
 		super.OnBleedingBegin();
-		if( GetInstanceType() == DayZPlayerInstanceType.INSTANCETYPE_CLIENT ){
+		if (GetInstanceType() == DayZPlayerInstanceType.INSTANCETYPE_CLIENT) {
 			SPPEManager.activate(m_ppeBleeding);
 			SCameraOverlaysManager.getInstance().activate(m_coBleeding);
 		}
 	}
 	
-	override void OnBleedingEnd(){
+	override void OnBleedingEnd() {
 		super.OnBleedingEnd();
-		if( GetInstanceType() == DayZPlayerInstanceType.INSTANCETYPE_CLIENT ){
+		if (GetInstanceType() == DayZPlayerInstanceType.INSTANCETYPE_CLIENT) {
 			SPPEManager.deactivate(m_ppeBleeding);
 			SCameraOverlaysManager.getInstance().deactivate(m_coBleeding);
 		}
 	}
 	
-	override void OnBleedingSourceAdded(){
+	override void OnBleedingSourceAdded() {
 		super.OnBleedingSourceAdded();
 		updateBleedingEffect();
 		
 	}
 	
-	override void OnBleedingSourceRemoved(){
+	override void OnBleedingSourceRemoved() {
 		super.OnBleedingSourceRemoved();
 		updateBleedingEffect();
 	}
 	
-	protected void updateBleedingEffect(){
-		if( GetInstanceType() == DayZPlayerInstanceType.INSTANCETYPE_CLIENT ){
+	protected void updateBleedingEffect() {
+		if (GetInstanceType() == DayZPlayerInstanceType.INSTANCETYPE_CLIENT) {
 			m_ppeBleeding.setBleedingBits(GetBleedingSourceCount());
 			m_coBleeding.setBleedingBits(GetBleedingSourceCount());
 		}
@@ -165,7 +165,7 @@ modded class PlayerBase{
 	protected ref SCOTimedDebug	m_coDebugTimed = new SCOTimedDebug();
 	protected ref SCOAnimationLogo	m_coLogo = new SCOAnimationLogo();
 	
-	override void OnInventoryMenuOpen(){
+	override void OnInventoryMenuOpen() {
 		super.OnInventoryMenuOpen();
 		//SPPEManager.toggle(m_ppeBleeding, !m_ppeBleeding.isActive());
 		//SPPEManager.toggle(m_ppeDebug, !m_ppeDebug.isActive());
@@ -173,7 +173,7 @@ modded class PlayerBase{
 		//SCameraOverlaysManager.getInstance().activate(m_coDebugTimed);
 	}
 	
-	override void OnInventoryMenuClose(){
+	override void OnInventoryMenuClose() {
 		super.OnInventoryMenuClose();
 		//SPPEManager.toggle(m_ppeDebugAnimation, !m_ppeDebugAnimation.isActive());
 		//m_ppeDebug.setVignetteIntensity(1);
@@ -183,7 +183,7 @@ modded class PlayerBase{
 		//SCameraOverlaysManager.getInstance().deactivate(m_coDebug);
 	}
 	
-	override void OnJumpStart(){		
+	override void OnJumpStart() {		
 		super.OnJumpStart();
 		
 		if (GetGame().IsServer()) {
@@ -194,7 +194,7 @@ modded class PlayerBase{
 			
 			//GetGame().RPC(null, sUDE_RPC.SYNC_USER_CONFIG_CONSTRAINTS, toSync, true, null);
 			
-			if (false){
+			if (false) {
 				GetGame().CreateObject("AviatorGlasses",GetPosition()).SetHealth("","",100);
 				GetGame().CreateObject("AviatorGlasses",GetPosition()).SetHealth("","",30);
 				GetGame().CreateObject("AviatorGlasses",GetPosition()).SetHealth("","",25);

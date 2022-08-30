@@ -1,26 +1,26 @@
 class SUserConfigVisual : SUserConfigBase{
 		
-	override string getPath(){
+	override string getPath() {
 		return "$saves:\\sUDE\\config\\sVisual.json";
 	}
 	
-	override string getDefaultPath(){
+	override string getDefaultPath() {
 		return "$profile:\\sUDE\\config\\sVisual_default.json";
 	}
 	
-	override void deserialize(string data, out string error){
+	override void deserialize(string data, out string error) {
 		auto cfg = this;
 		getSerializer().ReadFromString(cfg, data, error);
 	}
 	
-	override string serialize(){
+	override string serialize() {
 		string result;
 		auto cfg = this;
 		getSerializer().WriteToString(cfg, true, result);
 		return result;
 	}
 	
-	override string serializeDefault(){
+	override string serializeDefault() {
 		string result;
 		auto cfg = new SUserConfigVisual();
 		getSerializer().WriteToString(cfg, true, result);

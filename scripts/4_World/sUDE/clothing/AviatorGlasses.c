@@ -1,5 +1,5 @@
 modded class AviatorGlasses{
-	override TSCameraOverlaysList loadCameraOverlaysList(){
+	override TSCameraOverlaysList loadCameraOverlaysList() {
 		return SGameConfig.visual().getCameraOverlays(SportGlasses_ColorBase);
 	}
 }
