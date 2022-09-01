@@ -30,7 +30,6 @@ class SUCOption_DDOFSwitch3PP : SUserConfigOption<bool> {
 	
 	override void onValueChange(bool previousValue, bool newValue) {
 		SUserConfig.visual().setDDOFEnabledIn3PP(newValue);
-		SPPEManager.setDDOFEnabledIn3PP(newValue);
 	}
 }
 
@@ -49,7 +48,6 @@ class SUCOption_DDOFSwitchVehicle : SUserConfigOption<bool> {
 	
 	override void onValueChange(bool previousValue, bool newValue) {
 		SUserConfig.visual().setDDOFEnabledInVehicle(newValue);
-		SPPEManager.setDDOFEnabledInVehicle(newValue);
 	}
 }
 
