@@ -1,0 +1,17 @@
+MetaFileClass {
+ Name "{DAEB60112904C0EC}MyMODS/sVisual/GUI/icons/logo/sVisual.edds"
+ Author "simonvic-pc"
+ ChangeDate -2130940632
+ Configurations {
+  PNGResourceClass PC {
+   SourceFile "sVisual.png"
+   Conversion ColorHQCompression
+  }
+  PNGResourceClass XBOX_ONE : PC {
+  }
+  PNGResourceClass PS4 : PC {
+  }
+  PNGResourceClass LINUX : PC {
+  }
+ }
+}

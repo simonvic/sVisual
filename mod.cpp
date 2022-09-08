@@ -1,0 +1,10 @@
+name = "sVisual";
+picture = "MyMODS/sVisual/GUI/icons/logo/sVisual.edds";
+logoSmall = "MyMODS/sVisual/GUI/icons/logo/sVisual.edds";
+logo = "MyMODS/sVisual/GUI/icons/logo/sVisual.edds";
+logoOver = "MyMODS/sVisual/GUI/icons/logo/sVisual.edds";
+tooltip = "$STR_SUDE_MOD_INFO_TOOLTIP_SVISUAL";
+overview = "$STR_SUDE_MOD_INFO_OVERVIEW";
+action = "https://github.com/simonvic/sVisual";
+author = "simonvic";
+version = "1.7.0";
