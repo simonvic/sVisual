@@ -2,7 +2,7 @@ modded class StaminaHandler{
 	
 	protected ref PPEExhaustedAnimation ppeExhaustAnim = new PPEExhaustedAnimation();
 	
-	override protected void CheckStaminaState() {
+	override void CheckStaminaState() {
 		super.CheckStaminaState();
 		
 		if (GetGame().IsServer() && GetGame().IsMultiplayer()) return;
