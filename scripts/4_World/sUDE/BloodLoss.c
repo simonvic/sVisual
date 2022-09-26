@@ -1,8 +1,15 @@
 class PPEBloodLoss : SPPEffect{}
 
-modded class BloodLoss{
+modded class BloodLoss {
 	
-	protected ref PPEBloodLoss ppeBloodLoss = new PPEBloodLoss();
+	protected ref PPEBloodLoss ppeBloodLoss;
+	
+	void BloodLoss() {
+		if (GetGame().IsClient()) {
+			ppeBloodLoss = new PPEBloodLoss();
+		}
+	}
+	
 	
 	override void OnUpdateClient(PlayerBase player, float deltatime) {
 			

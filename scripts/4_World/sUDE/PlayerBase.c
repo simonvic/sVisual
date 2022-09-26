@@ -1,17 +1,26 @@
-modded class PlayerBase{
+modded class PlayerBase {
 	
-	protected ref PPEHitReceivedAnimation m_ppeHitAnim = new PPEHitReceivedAnimation(SPPEConstants.HIT_RECEIVED_MIN_DURATION, true); //Used when being hit
-	protected ref PPEBleedingAnimation m_ppeBleeding = new PPEBleedingAnimation();               //Used when bleeding
-	protected ref PPEUnconscious m_ppeUnconscious = new PPEUnconscious();    //Used when going uncoscious
+	protected ref PPEHitReceivedAnimation m_ppeHitAnim; //Used when being hit
+	protected ref PPEBleedingAnimation m_ppeBleeding; //Used when bleeding
+	protected ref PPEUnconscious m_ppeUnconscious;//Used when going uncoscious
+	protected ref SCOAnimationBleeding m_coBleeding;
+	protected ref SCOTimedSpawn m_coSpawn;
+	protected ref SCOUnconscious m_coUnconscious;
 	
-	protected ref SCOAnimationBleeding m_coBleeding = new SCOAnimationBleeding();
-	protected ref SCOTimedSpawn m_coSpawn = new SCOTimedSpawn();
-	protected ref SCOUnconscious m_coUnconscious = new SCOUnconscious();
+	void PlayerBase() {
+		if (!GetGame().IsClient()) return;
+		m_ppeHitAnim = new PPEHitReceivedAnimation(SPPEConstants.HIT_RECEIVED_MIN_DURATION, true);
+		m_ppeBleeding = new PPEBleedingAnimation();
+		m_ppeUnconscious = new PPEUnconscious();
+		m_coBleeding = new SCOAnimationBleeding();
+		m_coSpawn = new SCOTimedSpawn();
+		m_coUnconscious = new SCOUnconscious();
+	}
 	
 	//@todo move to clothing
 	override void EEItemAttached(EntityAI item, string slot_name) {
 		super.EEItemAttached(item, slot_name);
-		if( GetInstanceType() != DayZPlayerInstanceType.INSTANCETYPE_CLIENT ) return;
+		if (GetInstanceType() != DayZPlayerInstanceType.INSTANCETYPE_CLIENT) return;
 		
 
 		Clothing clothing = Clothing.Cast(item);
@@ -25,7 +34,7 @@ modded class PlayerBase{
 	//@todo move to clothing
 	override void EEItemDetached(EntityAI item, string slot_name) {
 		super.EEItemDetached(item, slot_name);
-		if( GetInstanceType() != DayZPlayerInstanceType.INSTANCETYPE_CLIENT ) return;
+		if (GetInstanceType() != DayZPlayerInstanceType.INSTANCETYPE_CLIENT) return;
 		
 		Clothing clothing = Clothing.Cast(item);
 		if (clothing && clothing.hasOverlays()) {
@@ -39,7 +48,7 @@ modded class PlayerBase{
 	}
 	
 	protected void playHitReceivedPPE() {
-		if( GetInstanceType() != DayZPlayerInstanceType.INSTANCETYPE_CLIENT ) return;
+		if (GetInstanceType() != DayZPlayerInstanceType.INSTANCETYPE_CLIENT) return;
 		
 		if (m_ppeHitAnim.isActive()) {
 			m_ppeHitAnim.setDuration(m_ppeHitAnim.getDuration() * SPPEConstants.HIT_RECEIVED_DURATION_MULTIPLIER);
@@ -58,8 +67,7 @@ modded class PlayerBase{
 	}
 	
 	protected void updateVisuals() {
-		//Proceed only if client
-		if( GetInstanceType() != DayZPlayerInstanceType.INSTANCETYPE_CLIENT ) return;
+		if (GetInstanceType() != DayZPlayerInstanceType.INSTANCETYPE_CLIENT) return;
 			
 		/////////////////////////
 		// PPEffects

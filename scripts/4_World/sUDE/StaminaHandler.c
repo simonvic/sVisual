@@ -1,6 +1,12 @@
-modded class StaminaHandler{
+modded class StaminaHandler {
 	
-	protected ref PPEExhaustedAnimation ppeExhaustAnim = new PPEExhaustedAnimation();
+	protected ref PPEExhaustedAnimation ppeExhaustAnim;
+	
+	void StaminaHandler(PlayerBase player) {
+		if (GetGame().IsClient()) {
+			ppeExhaustAnim = new PPEExhaustedAnimation();
+		}
+	}
 	
 	override void CheckStaminaState() {
 		super.CheckStaminaState();
