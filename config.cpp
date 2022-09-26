@@ -6,7 +6,9 @@ class CfgPatches {
 		weapons[] = {};
 		requiredVersion = 0.1;
 		requiredAddons[] = {
-			"sFramework"
+			"sFramework",
+			"DZ_Characters_Headgear",
+			"DZ_Characters_Glasses"
 		};
 	};
 };
@@ -59,10 +61,11 @@ class CfgMods {
 
 class CfgVehicles{
 
+	class Clothing;
 	class SCameraOverlay_Headgear;
 	class SCameraOverlay_Eyewear;
 
-	class MotoHelmet_ColorBase {
+	class MotoHelmet_ColorBase : Clothing {
 		class sUDE {
 			class CameraOverlays {
 				class overlay_0 : SCameraOverlay_Headgear {
@@ -88,7 +91,7 @@ class CfgVehicles{
 		};
 	};
 
-	class DarkMotoHelmet_ColorBase {
+	class DarkMotoHelmet_ColorBase : Clothing {
 		class sUDE {
 			class CameraOverlays {
 				class overlay_0 : SCameraOverlay_Headgear {
@@ -114,7 +117,7 @@ class CfgVehicles{
 		};
 	};
 
-	class SportGlasses_ColorBase {
+	class SportGlasses_ColorBase : Clothing {
 		class sUDE {
 			class CameraOverlays{
 				class overlay_0 : SCameraOverlay_Eyewear {
@@ -140,7 +143,7 @@ class CfgVehicles{
 		};
 	};
 
-	class BurlapSackCover {
+	class BurlapSackCover : Clothing {
 		class sUDE {
 			class CameraOverlays {
 				class overlay_0 : SCameraOverlay_Headgear {
