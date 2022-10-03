@@ -6,17 +6,24 @@ modded class PPERequesterBase{
 	void PPERequesterBase(int requester_IDX) {
 		m_sPPE = new VanillaWrappedSPPE();
 		initSPPE();
+		SLog.d(m_sPPE, ""+this);
+	}
+	
+	void ~PPERequesterBase() {
+		SLog.d(m_sPPE, ""+this);
 	}
 	
 	protected void initSPPE();
 	
 	override void OnStart(Param par = null) {
 		super.OnStart(par);
+		SLog.d(m_sPPE, ""+this+"::OnStart");
 		SPPEManager.activate(m_sPPE);
 	}
 	
 	override void OnStop(Param par = null) {
 		super.OnStop(par);
+		//SLog.d(m_sPPE, ""+this+"::OnStop");
 		SPPEManager.deactivate(m_sPPE);
 	}
 	
@@ -126,7 +133,8 @@ modded class PPERequester_DeathDarkening {
 	
 	override void OnStop(Param par = null) {
 		super.OnStop(par);
-		GetDayZGame().SetEVValue(m_Value);
+		// 0 is default registered value. I can't get the actual registered value, hopefully no one change it :sweat:
+		GetDayZGame().SetEVValue(0);
 	}
 }
 
