@@ -158,11 +158,14 @@ class CfgVehicles{
 };
 
 class Cfg_sUDE{
-	class Visual{
+	class Visual {
 		enabled = 1;
-		class Camera{
+		class NVG {
+			undergroundEfficiency = 0.01;
+		};
+		class Camera {
 			peakMitigationEnabled = 1;
-			class HeadBob{
+			class HeadBob {
 				//                       yawStrenght, yawFrequency, pitchStrenght, pitchFrequency
 				idle[] =                    { 0.0,        0.0,         1.1,            0.5 };
 				erect_walking[] =           { 0.5,        5.75,        0.5,            11.5 };
@@ -176,8 +179,8 @@ class Cfg_sUDE{
 				prone_walking[] =           { 0.5,        5.75,        0.5,            11.5 };
 			};
 		};
-		class PPEffects{
-			class DefaultValues{
+		class PPEffects {
+			class DefaultValues {
 				saturation = 1.0;
 				vignette_strength = 0.0;
 				overlay_factor = 0.0;

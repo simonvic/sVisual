@@ -6,18 +6,13 @@ modded class PPERequesterBase{
 	void PPERequesterBase(int requester_IDX) {
 		m_sPPE = new VanillaWrappedSPPE();
 		initSPPE();
-		SLog.d(m_sPPE, ""+this);
 	}
 	
-	void ~PPERequesterBase() {
-		SLog.d(m_sPPE, ""+this);
-	}
 	
 	protected void initSPPE();
 	
 	override void OnStart(Param par = null) {
 		super.OnStart(par);
-		SLog.d(m_sPPE, ""+this+"::OnStart");
 		SPPEManager.activate(m_sPPE);
 	}
 	
@@ -146,9 +141,24 @@ modded class PPERequester_InventoryBlur {
 }
 */
 
+#ifdef DAYZ_1_19
+modded class PPERUndergroundAcco {
+	override void SetEyeAccommodation(float value) {
+		super.SetEyeAccommodation(value);
+		GetGame().GetWorld().SetEyeAccom(value);
+		
+	}
+
+	override void OnStop(Param par = null) {
+		super.OnStop(par);
+		GetGame().GetWorld().SetEyeAccom(1.0);
+	}
+}
+#endif
+
 modded class PPERequester_CameraNV {
 	
-	protected int m_lastMode = -1;
+	protected float m_ugAccomCoeff = 1;
 		
 	override void OnStart(Param par = null) {
 		super.OnStart(par);
@@ -158,18 +168,20 @@ modded class PPERequester_CameraNV {
 		super.OnStop(par);
 		GetDayZGame().SetEVValue(0);
 		GetDayZGame().NightVissionLightParams(1.0, 0.0);
-		m_lastMode = -1;
+	}
+	
+	void setUndergroundAccomCoeff(float coeff) {
+		m_ugAccomCoeff = coeff;
 	}
 	
 	override void SetNVMode(int mode) {
 		super.SetNVMode(mode);
-		if ( mode == m_lastMode) return;
 		
-		m_lastMode = mode;
+		GetGame().GetWorld().SetEyeAccom(m_ugAccomCoeff);
+		
 		getSPPE().clear();
 		
 		switch (mode) {
-			
 			case NV_NO_BATTERY: //battery off
 			getSPPE().setColorization(SPPEManager.getPPEColor(0.0, 0.0, 0.0, 1.0));
 			GetDayZGame().SetEVValue(-10);
@@ -177,10 +189,10 @@ modded class PPERequester_CameraNV {
 			break;
 						
 			case NV_DEFAULT_OPTICS: //optic on
-			GetDayZGame().SetEVValue(6);
+			GetDayZGame().SetEVValue(7);
 			GetDayZGame().NightVissionLightParams(3.0, 2.0);
 			getSPPE().setFilmGrainSharpness(5.0);
-			getSPPE().setFilmGrainSize(1.5);
+			getSPPE().setFilmGrainSize(2.5);
 			getSPPE().setColorization(SPPEManager.getPPEColor( -0.5, 0.5, -0.5, 1.0));
 			break;
 			
@@ -188,15 +200,15 @@ modded class PPERequester_CameraNV {
 			GetDayZGame().SetEVValue(2);
 			GetDayZGame().NightVissionLightParams(3.0, 1.0);
 			getSPPE().setFilmGrainSharpness(5.0);
-			getSPPE().setFilmGrainSize(1.5);
+			getSPPE().setFilmGrainSize(2.5);
 			getSPPE().setColorization(SPPEManager.getPPEColor( -0.5, 0.5, -0.5, 1.0));
 			break;
 			
 			case NV_DEFAULT_GLASSES: //goggles on
-			GetDayZGame().SetEVValue(6);
+			GetDayZGame().SetEVValue(7);
 			GetDayZGame().NightVissionLightParams(2.0, 1.0);
 			getSPPE().setFilmGrainSharpness(5.0);
-			getSPPE().setFilmGrainSize(1.5);
+			getSPPE().setFilmGrainSize(2.5);
 			getSPPE().setColorization(SPPEManager.getPPEColor( -0.5, 0.5, -0.5, 1.0));
 			break;
 			
@@ -204,14 +216,13 @@ modded class PPERequester_CameraNV {
 			GetDayZGame().SetEVValue(5);
 			GetDayZGame().NightVissionLightParams(1.0, 0.5);
 			getSPPE().setFilmGrainSharpness(1.0);
-			getSPPE().setFilmGrainSize(10);
+			getSPPE().setFilmGrainSize(6.9);
 			getSPPE().setColorization(SColor.rgb(RGBColors.ORANGE_RED));
 			break;
 			
 			case NV_TRANSITIVE: //camera transition
 			GetDayZGame().SetEVValue(0);
 			break;
-			
 		}
 	}
 }
