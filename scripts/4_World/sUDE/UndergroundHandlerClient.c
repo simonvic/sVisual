@@ -1,5 +1,3 @@
-#ifdef DAYZ_1_19
-
 modded class UndergroundHandlerClient {
 	
 	protected static float UNDERGROUND_NVG_EFFICIENCY;
@@ -13,5 +11,3 @@ modded class UndergroundHandlerClient {
 		m_NVRequester.setUndergroundAccomCoeff(Math.Max(m_EyeAcco, UNDERGROUND_NVG_EFFICIENCY));
 	}
 }
-
-#endif

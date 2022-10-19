@@ -141,7 +141,6 @@ modded class PPERequester_InventoryBlur {
 }
 */
 
-#ifdef DAYZ_1_19
 modded class PPERUndergroundAcco {
 	override void SetEyeAccommodation(float value) {
 		super.SetEyeAccommodation(value);
@@ -154,7 +153,6 @@ modded class PPERUndergroundAcco {
 		GetGame().GetWorld().SetEyeAccom(1.0);
 	}
 }
-#endif
 
 modded class PPERequester_CameraNV {
 	
