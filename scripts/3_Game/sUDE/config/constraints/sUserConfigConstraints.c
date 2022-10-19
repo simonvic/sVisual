@@ -4,6 +4,11 @@ modded class SUserConfigConstraints{
 		getInstance().load(SUserConfigConstraints_Visual, reload);
 		return SUserConfigConstraints_Visual.Cast(getInstance().getLoadedModules().Get(SUserConfigConstraints_Visual));
 	}
+
+	override void onPreload() {
+		super.onPreload();
+		SUserConfigConstraints.visual();
+	}
 	
 }
 
