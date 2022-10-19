@@ -10,8 +10,7 @@ modded class StaminaHandler {
 	
 	override void CheckStaminaState() {
 		super.CheckStaminaState();
-		
-		if (GetGame().IsServer() && GetGame().IsMultiplayer()) return;
+		if (m_Player.GetInstanceType() != DayZPlayerInstanceType.INSTANCETYPE_CLIENT) return;
 		
 		ppeExhaustAnim.setStamina(getStaminaPercentage());
 		if (ppeShouldActivate()) {
