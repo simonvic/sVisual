@@ -6,7 +6,7 @@ modded class DayZPlayerCameraBase {
 	protected static int m_ddofStartBoneIdx = -1;
 	protected static ref SRaycast m_ddofRaycast = new SRaycast("0 0 0", "0 0 0", 0.05, ObjIntersectView, CollisionFlags.NEARESTCONTACT);
 	
-	protected float m_time;
+	protected float m_timeHeadbob;
 	protected float m_headbobYawVel[1];
 	protected float m_headbobPitchVel[1];
 	
@@ -32,7 +32,6 @@ modded class DayZPlayerCameraBase {
 	}
 	
 	protected void updateCamAngles(float pDt, DayZPlayerCameraResult pOutResult) {
-		m_time += pDt;
 		vector camAngles = Math3D.MatrixToAngles(pOutResult.m_CameraTM);
 		
 		if (isHeadbobEnabled()) {
@@ -51,19 +50,56 @@ modded class DayZPlayerCameraBase {
 	}
 	
 	protected void applyHeadBob(float pDt, out vector angles) {
-		TFloatArray headbobParams = getHeadbobParameters(); //@todo use player speed modifier		
+		HumanCommandMove hcm = m_iPlayer.GetCommand_Move();
+		if (!hcm) return;
+		float movSpeed = hcm.GetCurrentMovementSpeed();
+		
+		array<float> headbobParams = getHeadbobParameters();
 		float yawStrenght = headbobParams[0];
 		float yawFrequency = headbobParams[1];
 		float pitchStrenght = headbobParams[2];
 		float pitchFrequency = headbobParams[3];
 		
-		yawStrenght *= getHeadbobIntensity();
-		pitchStrenght *= getHeadbobIntensity();
+		float intensity = getHeadbobIntensity();
+		yawStrenght *= intensity;
+		pitchStrenght *= intensity;
 		
-		//@todo smooth the transition using movSpeed
-		angles[0] = Math.SmoothCD(angles[0], angles[0] + yawStrenght * Math.Sin(m_time * yawFrequency), m_headbobYawVel, 0.2, 1000, pDt);
-		angles[1] = Math.SmoothCD(angles[1], angles[1] + pitchStrenght * Math.Sin(m_time * pitchFrequency), m_headbobPitchVel, 0.2, 1000, pDt); 
+		if (movSpeed == 0) {
+			m_timeHeadbob = 0;
+		} else {
+			m_timeHeadbob += pDt * movSpeed;
+		}
+
+		angles[0] = Math.SmoothCD(angles[0], angles[0] + yawStrenght * Math.Sin(m_timeHeadbob * yawFrequency), m_headbobYawVel, 0.2, 1000, pDt);
+		angles[1] = Math.SmoothCD(angles[1], angles[1] + pitchStrenght * Math.Cos(m_timeHeadbob * pitchFrequency), m_headbobPitchVel, 0.2, 1000, pDt); 	
+	}
+	
+	protected array<float> getHeadbobParameters() {
+		switch (m_iPlayer.m_MovementState.m_iMovement) { 			
+			
+			case 0: //idling
+			return HeadBobConstants.IDLE;			
+			
+			case 1: // walking
+			if (m_iPlayer.IsPlayerInStance(DayZPlayerConstants.STANCEMASK_ERECT))       return HeadBobConstants.WALKING_ERECT;
+			if (m_iPlayer.IsPlayerInStance(DayZPlayerConstants.STANCEMASK_RAISEDERECT)) return HeadBobConstants.WALKING_ERECT_RAISED;
+			if (m_iPlayer.IsPlayerInStance(DayZPlayerConstants.STANCEMASK_CROUCH))      return HeadBobConstants.WALKING_CROUCH;
+			if (m_iPlayer.IsPlayerInStance(DayZPlayerConstants.STANCEMASK_PRONE))       return HeadBobConstants.WALKING_PRONE;
+			break;
+			
+			case 2: // jogging
+			if (m_iPlayer.IsPlayerInStance(DayZPlayerConstants.STANCEMASK_ERECT))       return HeadBobConstants.JOGGING_ERECT;
+			if (m_iPlayer.IsPlayerInStance(DayZPlayerConstants.STANCEMASK_RAISEDERECT)) return HeadBobConstants.JOGGING_ERECT_RAISED;
+			if (m_iPlayer.IsPlayerInStance(DayZPlayerConstants.STANCEMASK_CROUCH))      return HeadBobConstants.JOGGING_CROUCH;
+			break;
+
+			case 3: // running
+			if (m_iPlayer.IsPlayerInStance(DayZPlayerConstants.STANCEMASK_ERECT))       return HeadBobConstants.RUNNING_ERECT;
+			if (m_iPlayer.IsPlayerInStance(DayZPlayerConstants.STANCEMASK_CROUCH))      return HeadBobConstants.RUNNING_CROUCH;
+			break;
+		}
 		
+		return HeadBobConstants.IDLE;
 	}
 	
 	protected void applyHeadLean(float pDt, out vector angles) {
@@ -96,34 +132,6 @@ modded class DayZPlayerCameraBase {
 		m_ddofRaycast.ignore(m_pPlayer, m_pPlayer.GetDrivingVehicle());
 		
 		return vector.Distance(from, m_ddofRaycast.launch().getContactPosition());
-	}
-	
-	
-	protected TFloatArray getHeadbobParameters() {
-		switch (m_iPlayer.m_MovementState.m_iMovement) { 
-			
-			case 0: // idling
-			return HeadBobConstants.IDLE;
-
-			case 1: // walking
-			if (m_iPlayer.IsPlayerInStance(DayZPlayerConstants.STANCEMASK_ERECT))       return HeadBobConstants.ERECT_WALKING;
-			if (m_iPlayer.IsPlayerInStance(DayZPlayerConstants.STANCEMASK_RAISEDERECT)) return HeadBobConstants.ERECT_RAISED_WALKING;
-			if (m_iPlayer.IsPlayerInStance(DayZPlayerConstants.STANCEMASK_CROUCH))      return HeadBobConstants.CROUCH_WALKING;
-			if (m_iPlayer.IsPlayerInStance(DayZPlayerConstants.STANCEMASK_PRONE))       return HeadBobConstants.PRONE_WALKING;
-			break;
-			
-			case 2: // jogging
-			if (m_iPlayer.IsPlayerInStance(DayZPlayerConstants.STANCEMASK_ERECT))       return HeadBobConstants.ERECT_JOGGING;
-			if (m_iPlayer.IsPlayerInStance(DayZPlayerConstants.STANCEMASK_RAISEDERECT)) return HeadBobConstants.ERECT_RAISED_JOGGING;
-			break;
-
-			case 3: // running
-			if (m_iPlayer.IsPlayerInStance(DayZPlayerConstants.STANCEMASK_ERECT))       return HeadBobConstants.ERECT_RUNNING;
-			if (m_iPlayer.IsPlayerInStance(DayZPlayerConstants.STANCEMASK_CROUCH))      return HeadBobConstants.CROUCH_RUNNING;
-			break;
-			
-		}
-		return HeadBobConstants.IDLE;
 	}
 	
 	protected bool isHeadbobEnabled() {
