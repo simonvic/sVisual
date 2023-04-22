@@ -1,5 +1,3 @@
-#define S_VISUAL
-
 class CfgPatches {
 	class sVisual {
 		units[] = {};
@@ -27,6 +25,11 @@ class CfgMods {
 		version = "0.1";
 		extra = 0;
 		type = "mod";
+
+		defines[] = {
+			"S_VISUAL"
+		};
+
 		dependencies[] = {
 			"Game",
 			"World",
@@ -36,14 +39,12 @@ class CfgMods {
 			class gameScriptModule {
 				value = "";
 				files[] = {
-					"MyMODS/sVisual/scripts/defines",
 					"MyMODS/sVisual/scripts/3_Game"
 				};
 			};
 			class worldScriptModule {
 				value = "";
 				files[] = {
-					"MyMODS/sVisual/scripts/defines",
 					"MyMODS/sVisual/scripts/4_World"
 				};
 			};
@@ -51,7 +52,6 @@ class CfgMods {
 			class missionScriptModule {
 				value = "";
 				files[] = {
-					"MyMODS/sVisual/scripts/defines",
 					"MyMODS/sVisual/scripts/5_Mission"
 				};
 			};
