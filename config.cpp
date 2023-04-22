@@ -59,13 +59,14 @@ class CfgMods {
 	};
 };
 
-class CfgVehicles{
+class CfgVehicles {
 
-	class Clothing;
+	class HeadGear_Base;
+	class Glasses_Base;
 	class SCameraOverlay_Headgear;
 	class SCameraOverlay_Eyewear;
 
-	class MotoHelmet_ColorBase : Clothing {
+	class MotoHelmet_ColorBase : HeadGear_Base {
 		class sUDE {
 			class CameraOverlays {
 				class overlay_0 : SCameraOverlay_Headgear {
@@ -91,7 +92,7 @@ class CfgVehicles{
 		};
 	};
 
-	class DarkMotoHelmet_ColorBase : Clothing {
+	class DarkMotoHelmet_ColorBase : HeadGear_Base {
 		class sUDE {
 			class CameraOverlays {
 				class overlay_0 : SCameraOverlay_Headgear {
@@ -117,7 +118,7 @@ class CfgVehicles{
 		};
 	};
 
-	class SportGlasses_ColorBase : Clothing {
+	class SportGlasses_ColorBase : Glasses_Base {
 		class sUDE {
 			class CameraOverlays{
 				class overlay_0 : SCameraOverlay_Eyewear {
@@ -143,7 +144,7 @@ class CfgVehicles{
 		};
 	};
 
-	class BurlapSackCover : Clothing {
+	class BurlapSackCover : HeadGear_Base {
 		class sUDE {
 			class CameraOverlays {
 				class overlay_0 : SCameraOverlay_Headgear {
