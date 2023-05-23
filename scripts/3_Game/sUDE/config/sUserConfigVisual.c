@@ -29,6 +29,7 @@ class SUserConfigVisual : SUserConfigBase{
 		
 	///////////////////////////////////////
 	// these go in json
+	protected float effectsIntensity = 1.0;
 	protected float ddofIntensity = 0.0;
 	protected bool ddofEnabledIn3PP = false;
 	protected bool ddofEnabledInVehicle = true;
@@ -42,6 +43,7 @@ class SUserConfigVisual : SUserConfigBase{
 	
 	override void registerOptions() {
 		super.registerOptions();
+		registerOption("effectsIntensity",     new SUCOption_EffectsIntensity(effectsIntensity));
 		registerOption("ddofIntensity",        new SUCOption_DDOFIntensity(ddofIntensity));
 		registerOption("ddofEnabledIn3PP",     new SUCOption_DDOFSwitch3PP(ddofEnabledIn3PP));
 		registerOption("ddofEnabledInVehicle", new SUCOption_DDOFSwitchVehicle(ddofEnabledInVehicle));
@@ -69,6 +71,7 @@ class SUserConfigVisual : SUserConfigBase{
 		SUserConfigConstraints_Visual c = SUserConfigConstraints_Visual.Cast(constraints);
 		if (!c) return;
 		
+		getOption("effectsIntensity").setConstraint(c.getEffectsIntensity());
 		getOption("ddofIntensity").setConstraint(c.getDDOFIntensity());
 		getOption("ddofEnabledIn3PP").setConstraint(c.getDDOFEnabledIn3PP());
 		getOption("ddofEnabledInVehicle").setConstraint(c.getDDOFEnabledInVehicle());
@@ -77,6 +80,14 @@ class SUserConfigVisual : SUserConfigBase{
 		getOption("motionBlurIntensity").setConstraint(c.getMotionBlurIntensity());
 		getOption("bloomIntensity").setConstraint(c.getBloomIntensity());
 		getOption("headLeanAngle").setConstraint(c.getHeadLeanAngle());
+	}
+	
+	float getEffectsIntensity() {
+		return effectsIntensity;
+	}
+	
+	void setEffectsIntensity(float intensity) {
+		effectsIntensity = intensity;
 	}
 	
 	float getDDOFIntensity() {

@@ -1,4 +1,20 @@
 /**
+*	@brief Overall intensity of the effects
+*/
+class SUCOption_EffectsIntensity : SUserConfigOption<float> {
+		
+	void SUCOption_EffectsIntensity(float value, SConstraintBase constraint = null, SUserConfigOptionInfo info = null) {
+		if (!info) {
+			m_info = new SUserConfigOptionInfo("#STR_SUDE_LAYOUT_OPTIONS_EFFECTS_INTENSITY", "#STR_SUDE_LAYOUT_OPTIONS_EFFECTS_INTENSITY_DESCRIPTION")
+		}
+	}
+	
+	override void onValueChange(float previousValue, float newValue) {
+		SUserConfig.visual().setEffectsIntensity(newValue);
+	}
+}
+
+/**
 *	@brief Dynamic Depth of Field option
 */
 class SUCOption_DDOFIntensity : SUserConfigOption<float> {

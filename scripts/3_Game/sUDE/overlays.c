@@ -1,3 +1,9 @@
+modded class SCameraOverlay {
+	float getEffectsIntensity() {
+		return SUserConfig.visual().getEffectsIntensity();
+	}
+}
+
 /**
 *	@brief A black vignette played when the player spawn to emulate 
 *	       an eye-opening effect

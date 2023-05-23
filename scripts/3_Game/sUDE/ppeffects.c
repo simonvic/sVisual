@@ -1,5 +1,8 @@
-////////////////////////////////////////////////////////////////////////
-// NON-ANIMATED
+modded class SPPEffect {
+	float getEffectsIntensity() {
+		return SUserConfig.visual().getEffectsIntensity();
+	}
+}
 
 /**
 *	@brief Played when player goes unconscious. Obstruct the vision
