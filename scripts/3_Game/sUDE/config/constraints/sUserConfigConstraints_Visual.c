@@ -20,12 +20,13 @@ class SUserConfigConstraints_Visual : SUserConfigConstraintsBase {
 	///////////////////////////////////////
 	// these go in json
 	protected ref SConstraintPrimitiveMinMaxNumeric  effectsIntensity     = new SConstraintPrimitiveMinMaxNumeric(0, 2);
+	protected ref SConstraintPrimitiveMinMaxNumeric  ddofIntensity        = new SConstraintPrimitiveMinMaxNumeric(0, 1);
 	protected ref SConstraintSwitch                  ddofEnabledIn3PP     = new SConstraintSwitch(false);
 	protected ref SConstraintSwitch                  ddofEnabledInVehicle = new SConstraintSwitch(true);
-	protected ref SConstraintPrimitiveMinMaxNumeric  headbobIntensity     = new SConstraintPrimitiveMinMaxNumeric(0, 5);
+	protected ref SConstraintPrimitiveMinMaxNumeric  headbobIntensity     = new SConstraintPrimitiveMinMaxNumeric(0, 1);
 	protected ref SConstraintSwitch                  headbobEnabledIn3PP  = new SConstraintSwitch(true);
-	protected ref SConstraintPrimitiveMinMaxNumeric  motionBlurIntensity  = new SConstraintPrimitiveMinMaxNumeric(0, 0.2);
-	protected ref SConstraintPrimitiveMinMaxNumeric  bloomIntensity       = new SConstraintPrimitiveMinMaxNumeric(0, 5);
+	protected ref SConstraintPrimitiveMinMaxNumeric  motionBlurIntensity  = new SConstraintPrimitiveMinMaxNumeric(0, 1);
+	protected ref SConstraintPrimitiveMinMaxNumeric  bloomIntensity       = new SConstraintPrimitiveMinMaxNumeric(0, 1);
 	protected ref SConstraintPrimitiveMinMaxNumeric  headLeanAngle        = new SConstraintPrimitiveMinMaxNumeric(0, 45);
 	///////////////////////////////////////
 	

@@ -403,9 +403,9 @@ FrameWidgetClass sude_svisual_tab_root {
            hexactsize 0
            vexactsize 1
            style Default
-           maximum 30
-           step 0.5
-           current 6.9
+           maximum 1
+           step 0.01
+           current 0.69
            "fill in" 1
            "draw marker" 0
            "listen to input" 1
@@ -419,7 +419,7 @@ FrameWidgetClass sude_svisual_tab_root {
              vexactpos 0
              hexactsize 0
              vexactsize 0
-             text "6.9"
+             text "0.69"
              "size to text h" 0
              "size to text v" 0
              "text halign" center
@@ -537,9 +537,9 @@ FrameWidgetClass sude_svisual_tab_root {
            hexactsize 0
            vexactsize 1
            style Default
-           maximum 0.2
-           step 0.005
-           current 0.069
+           maximum 1
+           step 0.01
+           current 0.69
            "fill in" 1
            "draw marker" 0
            "listen to input" 1
@@ -553,7 +553,7 @@ FrameWidgetClass sude_svisual_tab_root {
              vexactpos 0
              hexactsize 0
              vexactsize 0
-             text "6.9"
+             text "0.69"
              "size to text h" 0
              "size to text v" 0
              "text halign" center
@@ -597,9 +597,9 @@ FrameWidgetClass sude_svisual_tab_root {
            hexactsize 0
            vexactsize 1
            style Default
-           maximum 5
-           step 0.1
-           current 0.069
+           maximum 1
+           step 0.01
+           current 0.69
            "fill in" 1
            "draw marker" 0
            "listen to input" 1
@@ -613,7 +613,7 @@ FrameWidgetClass sude_svisual_tab_root {
              vexactpos 0
              hexactsize 0
              vexactsize 0
-             text "6.9"
+             text "0.69"
              "size to text h" 0
              "size to text v" 0
              "text halign" center
