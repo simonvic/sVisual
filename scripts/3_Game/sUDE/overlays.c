@@ -41,7 +41,7 @@ class SCOUnconscious : SCameraOverlayAnimated {
 		setMask(SCOMasks.CIRCULAR);
 		setMaskTransitionWidth(1);
 		setSize(1.5, 1);
-		setPriority(eSCOPriority.EYE + 1);
+		setPriority(eSCOPriority.EYE + 9);
 	}
 	
 	override void onAnimate(float deltaTime) {
