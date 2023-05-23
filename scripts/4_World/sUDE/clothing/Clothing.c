@@ -1,16 +1,16 @@
 modded class Clothing {
 	
-	protected ref TSCameraOverlaysList m_overlays;
+	protected ref array<ref SCameraOverlay> m_overlays;
 	
 	protected void initOverlays() {
 		m_overlays = loadCameraOverlaysList();
 	}
 	
-	protected TSCameraOverlaysList loadCameraOverlaysList() {
+	protected array<ref SCameraOverlay> loadCameraOverlaysList() {
 		return SGameConfig.visual().getCameraOverlays(Type());
 	}
 	
-	TSCameraOverlaysList getOverlaysList() {
+	array<ref SCameraOverlay> getOverlaysList() {
 		if (!m_overlays) initOverlays();
 		return m_overlays;
 	}
@@ -25,7 +25,7 @@ modded class Clothing {
 	}
 	
 	SCameraOverlay getOverlayByHealth(int level) {
-		TSCameraOverlaysList overlays = getOverlaysList();
+		array<ref SCameraOverlay> overlays = getOverlaysList();
 		if (!overlays || overlays.Count() == 0) return null;
 		return overlays[Math.Clamp(level, 0, m_overlays.Count() - 1)];
 	}
@@ -38,9 +38,12 @@ modded class Clothing {
 	protected void swapOverlayByHealthLevel(int oldLevel, int newLevel, string zone) {
 		if (!GetGame().IsClient()) return;
 		SCameraOverlay old = getOverlayByHealth(oldLevel);
-		if (SCameraOverlaysManager.getInstance().isActive(old)) {
-			SCameraOverlaysManager.getInstance().deactivate(old);
-			SCameraOverlaysManager.getInstance().activate(getOverlayByHealth(newLevel));
+		if (old && old.isActive()) {
+			old.deactivate();
+			SCameraOverlay newOverlay = getOverlayByHealth(newLevel);
+			if (newOverlay) {
+				newOverlay.activate();
+			}
 		}
 	}
 	

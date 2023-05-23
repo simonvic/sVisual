@@ -4,17 +4,8 @@ class SGameConfigVisual : SGameConfigBase{
 		return "Visual";
 	}
 	
-	float getDefaultPPEFloat(string ppeName) {
-		return SGameConfig.getFloat(getModulePath() + " PPEffects DefaultValues " + ppeName);
-	}
-	
-	TPPEColor getDefaultPPEColor(string ppeName) {
-		TFloatArray c = SGameConfig.getFloatArray(getModulePath() + " PPEffects DefaultValues " + ppeName);
-		return SPPEManager.getPPEColor(c[0], c[1], c[2], c[3]);
-	}
-	
-	TSCameraOverlaysList getCameraOverlays(typename type) {
-		TSCameraOverlaysList overlays = new TSCameraOverlaysList();
+	array<ref SCameraOverlay> getCameraOverlays(typename type) {
+		array<ref SCameraOverlay> overlays = new array<ref SCameraOverlay>();
 		string path = "cfgVehicles " + type + " sUDE CameraOverlays";
 		int lastOverlay = -1;
 		for (int i=0; i<GetGame().ConfigGetChildrenCount(path); i++) {
@@ -31,18 +22,19 @@ class SGameConfigVisual : SGameConfigBase{
 	}
 	
 	SCameraOverlay getCameraOverlay(string path) {
-		return new SCameraOverlay(
-			SGameConfig.getString(path + " image"),
-			SGameConfig.getFloat(path + " alpha"),
-			SGameConfig.getString(path + " mask"),
-			SGameConfig.getFloat(path + " maskProgress"),
-			SGameConfig.getFloat(path + " maskTransitionWidth"),
-			SGameConfig.getVector(path + " position"),
-			SGameConfig.getVector(path + " size"),
-			SGameConfig.getVector(path + " rotation"),
-			SGameConfig.getInt(path + " priority"),
-			SGameConfig.getTypenameArray(path + " targetCameras"),
-			SGameConfig.getBool(path + "hidesWithIngameHUD"));
+		SCameraOverlay o = new SCameraOverlay();
+		o.setImage(SGameConfig.getString(path + " image"));
+		o.setAlpha(SGameConfig.getFloat(path + " alpha"));
+		o.setMask(SGameConfig.getString(path + " mask"));
+		o.setMaskProgress(SGameConfig.getFloat(path + " maskProgress"));
+		o.setMaskTransitionWidth(SGameConfig.getFloat(path + " maskTransitionWidth"));
+		o.setPosition(SGameConfig.getVector(path + " position"));
+		o.setSize(SGameConfig.getVector(path + " size"));
+		o.setRotation(SGameConfig.getVector(path + " rotation"));
+		o.setPriority(SGameConfig.getInt(path + " priority"));
+		o.setTargetCameras(SGameConfig.getTypenameArray(path + " targetCameras"));
+		o.setHidesWithIngameHUD(SGameConfig.getBool(path + "hidesWithIngameHUD"));
+		return o;
 	}
 	
 }

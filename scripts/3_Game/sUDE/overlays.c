@@ -54,23 +54,25 @@ class SCOUnconscious : SCameraOverlayAnimated {
 *	@brief A blood splatter, applied when the player is bleeding.
 *	       The overlay will pulse faster as the bleeding cuts count increase
 */
-class SCOAnimationBleeding : SCameraOverlayAnimated {
+class SCOBleeding : SCameraOverlayAnimated {
 	
-	protected int bleedingBits;
+	protected int sourcesCount;
 	
 	override void onInit() {
 		setImage("MyMODS/sVisual/GUI/textures/overlays/blood.edds");
-		setMask("MyMODS/sVisual/GUI/textures/masks/blood.edds");
-		setMaskTransitionWidth(0.75);
+		setMask(SCOMasks.CIRCULAR);
+		setMaskTransitionWidth(0.69);
+		setMaskProgress(0.6);
 		setPriority(eSCOPriority.EYE);
 		setSize(1.3);
+		setRotation(0, 0, 180);
 	}
 	
 	override void onAnimate(float deltaTime) {
-		setMaskProgress( 0.2 * (Math.AbsFloat(Math.Sin(getTime() * bleedingBits * 0.5)) + bleedingBits * 0.1));
+		setSize(1.75 - getEffectsIntensity() * 0.25 * Math.AbsFloat(Math.Sin(getTime() * Math.Min(sourcesCount, 5) * 2)));
 	}
 	
-	void setBleedingBits(int bits) {
-		bleedingBits = bits;
+	void setSourcesCount(int count) {
+		sourcesCount = count;
 	}
 }

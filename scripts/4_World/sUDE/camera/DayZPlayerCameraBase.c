@@ -3,6 +3,7 @@ modded class DayZPlayerCameraBase {
 	protected DayZPlayerImplement m_iPlayer;
 	protected static SUserConfigVisual userCfgVisual;
 	
+	protected SPPERequester_DDOF m_requesterDDOF;
 	protected static int m_ddofStartBoneIdx = -1;
 	protected static ref SRaycast m_ddofRaycast = new SRaycast("0 0 0", "0 0 0", 0.05, ObjIntersectView, CollisionFlags.NEARESTCONTACT);
 	
@@ -14,12 +15,12 @@ modded class DayZPlayerCameraBase {
 	void DayZPlayerCameraBase(DayZPlayer pPlayer, HumanInputController pInput) {
 		userCfgVisual = SUserConfig.visual();
 		m_iPlayer = DayZPlayerImplement.Cast(pPlayer);
-
+		Class.CastTo(m_requesterDDOF, PPERequesterBank.GetRequester(SPPERequester_DDOF));
+		
 		if (isDDOFEnabled() && userCfgVisual.getDDOFIntensity() != 0) {
-			SPPEManager.enableDDOF();
+			m_requesterDDOF.activate();
 		} else {
-			SPPEManager.disableDDOF();
-			SPPEManager.resetDDOF(true);
+			m_requesterDDOF.deactivate();
 		}
 		
 		SCameraOverlaysManager.getInstance().setActiveCameraType(this.Type());
@@ -113,7 +114,7 @@ modded class DayZPlayerCameraBase {
 	
 	protected void updateDDOF(float pDt, DayZPlayerCameraResult pOutResult) {
 		if (canRequestDDOF()) {
-			SPPEManager.requestDDOF(getFocusDistance());
+			m_requesterDDOF.focusAt(getFocusDistance());
 		}
 	}
 	
@@ -123,15 +124,12 @@ modded class DayZPlayerCameraBase {
 			return 0;
 		}
 		
-		vector from = m_pPlayer.GetBonePositionWS(m_ddofStartBoneIdx);
-		
-		m_ddofRaycast.init(
-			from,
-			from + (GetGame().GetCurrentCameraDirection() * SPPEManager.getDDOFMaxDistance()));
-		
+		vector head = m_pPlayer.GetBonePositionWS(m_ddofStartBoneIdx);
+		m_ddofRaycast.from(head);
+		m_ddofRaycast.to(head + GetGame().GetCurrentCameraDirection() * 150);
 		m_ddofRaycast.ignore(m_pPlayer, m_pPlayer.GetDrivingVehicle());
-		
-		return vector.Distance(from, m_ddofRaycast.launch().getContactPosition());
+
+		return vector.Distance(head, m_ddofRaycast.launch().getContactPosition());
 	}
 	
 	protected bool isHeadbobEnabled() {

@@ -1,11 +1,12 @@
 MetaFileClass {
- Name "{DBF86351C288C2D8}MyMODS/sVisual/GUI/textures/overlays/motohelmet_ruined.edds"
+ Name "{491956E71B5166AD}MyMODS/sVisual/GUI/textures/masks/yellowking_helmet.edds"
  Author "simonvic-pc"
- ChangeDate 854960906
+ ChangeDate 707112603
  Configurations {
   PNGResourceClass PC {
-   SourceFile "motohelmet_ruined.png"
+   SourceFile "yellowking_helmet.png"
    Conversion DXTCompression
+   GenerateMips 0
   }
   PNGResourceClass XBOX_ONE : PC {
   }

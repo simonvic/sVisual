@@ -27,7 +27,13 @@ class SUCOption_DDOFIntensity : SUserConfigOption<float> {
 	
 	override void onValueChange(float previousValue, float newValue) {
 		SUserConfig.visual().setDDOFIntensity(newValue);
-		SPPEManager.setDDOFBlurStrength(newValue);
+		SPPERequester_DDOF ppe = SPPERequester_DDOF.Cast(PPERequesterBank.GetRequester(SPPERequester_DDOF));
+		ppe.setIntensity(newValue);
+		if (newValue == 0) {
+			ppe.deactivate();
+		} else if (!ppe.isActive()) {
+			ppe.activate();
+		}
 	}
 }
 
@@ -116,7 +122,13 @@ class SUCOption_MotionBlurIntensity : SUserConfigOption<float> {
 	
 	override void onValueChange(float previousValue, float newValue) {
 		SUserConfig.visual().setMotionBlurIntensity(newValue);
-		SPPEManager.setMotionBlurStrength(newValue);
+		SPPERequester_MotionBlur ppe = SPPERequester_MotionBlur.Cast(PPERequesterBank.GetRequester(SPPERequester_MotionBlur));
+		ppe.setIntensity(newValue);
+		if (newValue == 0) {
+			ppe.deactivate();
+		} else if (!ppe.isActive()) {
+			ppe.activate();
+		}
 	}
 	
 }
@@ -136,7 +148,13 @@ class SUCOption_BloomIntensity : SUserConfigOption<float> {
 	
 	override void onValueChange(float previousValue, float newValue) {
 		SUserConfig.visual().setBloomIntensity(newValue);
-		SPPEManager.setBloomStrength(newValue);
+		SPPERequester_Bloom ppe = SPPERequester_Bloom.Cast(PPERequesterBank.GetRequester(SPPERequester_Bloom));
+		ppe.setIntensity(newValue);
+		if (newValue == 0) {
+			ppe.deactivate();
+		} else if (!ppe.isActive()) {
+			ppe.activate();
+		}
 	}
 	
 }

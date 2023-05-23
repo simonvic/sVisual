@@ -1,33 +1,23 @@
 modded class StaminaHandler {
 	
-	protected ref PPEExhaustedAnimation ppeExhaustAnim;
+	protected SPPERequester_ExhaustedAnimation m_ppeExhaustAnim;
 	
 	void StaminaHandler(PlayerBase player) {
-		if (GetGame().IsClient()) {
-			ppeExhaustAnim = new PPEExhaustedAnimation();
-		}
+		Class.CastTo(m_ppeExhaustAnim, PPERequesterBank.GetRequester(SPPERequester_ExhaustedAnimation));
 	}
 	
 	override void CheckStaminaState() {
 		super.CheckStaminaState();
 		if (m_Player.GetInstanceType() != DayZPlayerInstanceType.INSTANCETYPE_CLIENT) return;
 		
-		ppeExhaustAnim.setStamina(getStaminaPercentage());
+		m_ppeExhaustAnim.setStamina(getStaminaPercentage());
 		if (ppeShouldActivate()) {
-			SPPEManager.activate(ppeExhaustAnim);
-		}		
-		
-		if (ppeShouldDeactivate()) {
-			SPPEManager.deactivate(ppeExhaustAnim);
+			m_ppeExhaustAnim.activate();
 		}
 	}
 	
 	protected bool ppeShouldActivate() {
-		return !ppeExhaustAnim.isActive() && m_StaminaDepleted;
-	}
-	
-	protected bool ppeShouldDeactivate() {
-		return ppeExhaustAnim.isActive() && (getStaminaPercentage() >= SPPEConstants.EXHAUSTED_DEACTIVATION_TRESHOLD);
+		return !m_ppeExhaustAnim.isActive() && m_StaminaDepleted;
 	}
 	
 	private float getStaminaPercentage() {

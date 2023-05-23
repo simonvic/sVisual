@@ -1,11 +1,11 @@
 MetaFileClass {
- Name "{68B93B725BC0C387}MyMODS/sVisual/GUI/textures/overlays/burlap.edds"
+ Name "{233D00EC07D7A44F}MyMODS/sVisual/GUI/textures/overlays/glasses/pristine.edds"
  Author "simonvic-pc"
- ChangeDate 850931355
+ ChangeDate -1682674020
  Configurations {
   PNGResourceClass PC {
-   SourceFile "burlap.png"
-   Conversion ColorHQCompression
+   SourceFile "pristine.png"
+   Conversion DXTCompression
    GenerateMips 0
   }
   PNGResourceClass XBOX_ONE : PC {

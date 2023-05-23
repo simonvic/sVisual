@@ -1,11 +1,12 @@
 MetaFileClass {
- Name "{7C444B3F57723D79}MyMODS/sVisual/GUI/textures/overlays/motohelmet_worn.edds"
+ Name "{7507300856614CB7}MyMODS/sVisual/GUI/textures/overlays/gasmask/badlydamaged.edds"
  Author "simonvic-pc"
- ChangeDate 922069770
+ ChangeDate 398241436
  Configurations {
   PNGResourceClass PC {
-   SourceFile "motohelmet_worn.png"
+   SourceFile "badlydamaged.png"
    Conversion DXTCompression
+   GenerateMips 0
   }
   PNGResourceClass XBOX_ONE : PC {
   }
