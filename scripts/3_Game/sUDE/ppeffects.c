@@ -164,7 +164,7 @@ class SPPERequester_ExhaustedAnimation : SPPEffectTimed {
 	
 	static const float DEACTIVATION_TRESHOLD = 25; //[0% - 100%] treshold for Exhausted PPEffect. Percentage of stamina available [0 - m_StaminaCap]
 	
-	protected float stamina = 100;
+	protected float m_stamina = 100;
 	
 	override void onInit() {
 		priority(eSPPEPriority.STAMINA);
@@ -181,7 +181,7 @@ class SPPERequester_ExhaustedAnimation : SPPEffectTimed {
 	}
 	
 	void setStamina(float stamina) {
-		this.stamina = stamina;
+		m_stamina = stamina;
 	}
 }
 
