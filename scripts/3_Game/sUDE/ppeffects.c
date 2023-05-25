@@ -9,70 +9,12 @@ modded class SPPEffect {
 */
 modded class PPERequesterRegistrations {
 	void PPERequesterRegistrations() {
-		PPERequesterBank.RegisterRequester(SPPERequester_Static);
-		PPERequesterBank.RegisterRequester(SPPERequester_Animated);
-		PPERequesterBank.RegisterRequester(SPPERequester_Timed);
 		PPERequesterBank.RegisterRequester(SPPERequester_MotionBlur);
 		PPERequesterBank.RegisterRequester(SPPERequester_Bloom);
 		PPERequesterBank.RegisterRequester(SPPERequester_DDOF);
 		PPERequesterBank.RegisterRequester(SPPERequester_ExhaustedAnimation);
 		PPERequesterBank.RegisterRequester(SPPERequester_HitReceivedAnimation);
 		PPERequesterBank.RegisterRequester(SPPERequester_BloodLoss);
-	}
-}
-
-class SPPERequester_Static : SPPEffect {
-	
-	override void onInit() {
-		priority(999);
-	}
-	
-	override void onActivate() {
-		op(PPOperators.SUBSTRACT_RELATIVE);
-		normalized(true);
-		setBloomSteepness(0.95);
-	}
-	
-}
-
-class SPPERequester_Animated : SPPEffectAnimated {
-	
-	override void onInit() {
-		priority(999);
-	}
-	
-	override void onActivate() {
-		//setVignetteColor(SColor.rgb(0xFF0000));
-	}
-	
-	override void onAnimate(float deltaTime) {
-		float x = Math.Sin(getTime());
-		float xabs = Math.AbsFloat(x);
-		op(PPOperators.OVERRIDE);
-		normalized(true);
-		setBloomTreshold(0.1);
-		setBloomIntensity(4);
-		setBloomSteepness(10);
-		resetAllToDefault();
-	}
-}
-
-class SPPERequester_Timed : SPPEffectTimed {
-	
-	override void onInit() {
-		priority(999);
-		setDuration(1.5);
-		//setVignetteColor(SColor.rgb(0x00ff00));
-	}
-	
-	override void onActivate() {
-	}
-	
-	override void onAnimate(float deltaTime) {
-		setVignetteIntensity(getRemaining());
-		//setVignetteIntensity(Math.AbsFloat(Math.Sin(getTime())));
-		//setVignetteColor(SColor.rgb(0x00FF00));
-		
 	}
 }
 
