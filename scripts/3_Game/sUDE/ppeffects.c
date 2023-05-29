@@ -41,16 +41,13 @@ class SPPERequester_MotionBlur : SPPEffect {
 
 class SPPERequester_Bloom : SPPEffect {
 	
-	override void onInit() {
+	override void onActivate() {
 		normalized(true);
 		op(PPOperators.SUBSTRACT);
 		setBloomTreshold(0.9);
 		
 		op(PPOperators.ADD);
 		setBloomIntensity(1);
-	}
-	
-	override void onActivate() {
 		setIntensity(SUserConfig.visual().getBloomIntensity());
 	}
 	
