@@ -132,28 +132,30 @@ class SPPERequester_ExhaustedAnimation : SPPEffectTimed {
 *	       will increase the cooldown timer, making the effect last longer
 */
 class SPPERequester_HitReceivedAnimation : SPPEffectTimed {	
-	static const float MIN_DURATION = 4.5;        //How long (seconds) the animation will last at least
-	static const float MAX_DURATION = 15.0;       //Maximum duration (seconds) of the animation
-	static const float DURATION_MULTIPLIER = 2;   //How much the duration will increment when being hit multiple time
-	static const float INTENSITY_MULTIPLIER = 1.5; //How much the effect strength will increment when being hit multiple time
-	static const float RED_SPEED = 5.0;           //How fast the red overlay will dissipate
-	static const float MIN_INTENSITY = 1;          //Minimum strength of the effects
-	static const float MAX_INTENSITY = 5.0;      //Maximum value of hit strength
+	static const float MIN_DURATION = Math.PI;        // How long (seconds) the animation will last at least
+	static const float MAX_DURATION = Math.PI * 4;    // Maximum duration (seconds) of the animation
+	static const float DURATION_MULTIPLIER = 2;       // How much the duration will increment when being hit multiple time
+	static const float INTENSITY_MULTIPLIER = 1.5;    // How much the effect strength will increment when being hit multiple time
+	static const float RED_SPEED = 1.0;               // How fast the red overlay will dissipate
+	static const float MIN_INTENSITY = 1;             // Minimum strength of the effects
+	static const float MAX_INTENSITY = 5.0;           // Maximum value of hit strength
 	
 	protected float hitIntensity = MIN_INTENSITY;
 	
 	override void onInit() {
+		hitIntensity = MIN_INTENSITY;
 		priority(eSPPEPriority.PAIN);
 		setDuration(MIN_DURATION);
-		setOverlayColor(SColor.rgb(0x250000));
+		op(PPOperators.LOWEST);
+		setOverlayColor(SColor.rgb(0x220000));
 	}
 	
 	override void onAnimate(float deltaTime) {
 		op(PPOperators.ADD);
 		setChromAber(getEffectsIntensity() * 0.00314 * (Math.AbsFloat(Math.Sin(getTime() * Math.PI)) * hitIntensity * Math.AbsFloat(SMath.mapTo(getRemaining(), 0.01, MAX_DURATION))));
 		
-		op(PPOperators.SET);		
-		setOverlayFactor(Math.Max(1 - getTime() * RED_SPEED, 0));
+		op(PPOperators.ADD_RELATIVE);
+		setOverlayFactor(0.5 * getEffectsIntensity() * Math.Max(1 - getTime() * RED_SPEED, 0));
 	}
 	
 	void onHit() {
