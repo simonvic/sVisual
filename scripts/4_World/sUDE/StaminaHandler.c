@@ -1,9 +1,9 @@
 modded class StaminaHandler {
 	
-	protected SPPERequester_ExhaustedAnimation m_ppeExhaustAnim;
+	protected SPPERequester_Exhausted m_ppeExhaustAnim;
 	
 	void StaminaHandler(PlayerBase player) {
-		Class.CastTo(m_ppeExhaustAnim, PPERequesterBank.GetRequester(SPPERequester_ExhaustedAnimation));
+		Class.CastTo(m_ppeExhaustAnim, PPERequesterBank.GetRequester(SPPERequester_Exhausted));
 	}
 	
 	override void CheckStaminaState() {

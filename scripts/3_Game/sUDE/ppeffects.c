@@ -12,8 +12,8 @@ modded class PPERequesterRegistrations {
 		PPERequesterBank.RegisterRequester(SPPERequester_MotionBlur);
 		PPERequesterBank.RegisterRequester(SPPERequester_Bloom);
 		PPERequesterBank.RegisterRequester(SPPERequester_DDOF);
-		PPERequesterBank.RegisterRequester(SPPERequester_ExhaustedAnimation);
-		PPERequesterBank.RegisterRequester(SPPERequester_HitReceivedAnimation);
+		PPERequesterBank.RegisterRequester(SPPERequester_Exhausted);
+		PPERequesterBank.RegisterRequester(SPPERequester_HitReceived);
 		PPERequesterBank.RegisterRequester(SPPERequester_BloodLoss);
 	}
 }
@@ -99,7 +99,7 @@ class SPPERequester_DDOF : SPPEffectAnimated {
 *	       exhaustion state (when stamina bar becomes gray), 
 *	       hence he has to wait for the stamina to refill
 */
-class SPPERequester_ExhaustedAnimation : SPPEffectTimed {	
+class SPPERequester_Exhausted : SPPEffectTimed {	
 	
 	static const float DEACTIVATION_TRESHOLD = 25; //[0% - 100%] treshold for Exhausted PPEffect. Percentage of stamina available [0 - m_StaminaCap]
 	
@@ -131,7 +131,7 @@ class SPPERequester_ExhaustedAnimation : SPPEffectTimed {
 *	       Being hit multiple time consecutively in a short amount of time
 *	       will increase the cooldown timer, making the effect last longer
 */
-class SPPERequester_HitReceivedAnimation : SPPEffectTimed {	
+class SPPERequester_HitReceived : SPPEffectTimed {	
 	static const float MIN_DURATION = Math.PI;        // How long (seconds) the animation will last at least
 	static const float MAX_DURATION = Math.PI * 4;    // Maximum duration (seconds) of the animation
 	static const float DURATION_MULTIPLIER = 2;       // How much the duration will increment when being hit multiple time

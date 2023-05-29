@@ -1,12 +1,12 @@
 modded class PlayerBase {
 	
-	protected SPPERequester_HitReceivedAnimation m_ppeHitAnim;
+	protected SPPERequester_HitReceived m_ppeHitAnim;
 	protected ref SCOTimedSpawn m_coSpawn;
 	protected ref SCOUnconscious m_coUnconscious;
 	
 	void PlayerBase() {
 		if (!GetGame().IsClient()) return;
-		Class.CastTo(m_ppeHitAnim, PPERequesterBank.GetRequester(SPPERequester_HitReceivedAnimation));
+		Class.CastTo(m_ppeHitAnim, PPERequesterBank.GetRequester(SPPERequester_HitReceived));
 		m_coSpawn = new SCOTimedSpawn();
 		m_coUnconscious = new SCOUnconscious();
 	}
