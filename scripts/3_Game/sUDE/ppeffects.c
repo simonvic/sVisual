@@ -70,8 +70,8 @@ class SPPERequester_DDOF : SPPEffectAnimated {
 		op(PPOperators.SET);
 		setIntensity(SUserConfig.visual().getDDOFIntensity());
 		setParam(PPEExceptions.DOF, PPEDOF.PARAM_ENABLE, true);
-		setParam(PPEExceptions.DOF, PPEDOF.PARAM_FOCUS_LEN, 150.0);
-		setParam(PPEExceptions.DOF, PPEDOF.PARAM_FOCUS_LEN_NEAR, 10.0);
+		setParam(PPEExceptions.DOF, PPEDOF.PARAM_FOCUS_LEN, 100.0);
+		setParam(PPEExceptions.DOF, PPEDOF.PARAM_FOCUS_LEN_NEAR, 100.0);
 		setParam(PPEExceptions.DOF, PPEDOF.PARAM_FOCUS_DEPTH_OFFSET, 10.0);
 	}
 	
