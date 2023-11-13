@@ -158,52 +158,8 @@ class CfgVehicles{
 		};
 	};
 
-	/*
+	/* TODO: https://feedback.bistudio.com/T177099
 	class GasMask : Clothing {
-		class sUDE {
-			class CameraOverlays {
-				class overlay_0 : SCameraOverlay_Eyewear {
-					image="MyMODS/sVisual/GUI/textures/overlays/gasmask/pristine.edds";
-				};
-				class overlay_1 : SCameraOverlay_Eyewear {
-					image="MyMODS/sVisual/GUI/textures/overlays/gasmask/worn.edds";
-				};
-				class overlay_2 : SCameraOverlay_Eyewear {
-					image="MyMODS/sVisual/GUI/textures/overlays/gasmask/damaged.edds";
-				};
-				class overlay_3 : SCameraOverlay_Eyewear {
-					image="MyMODS/sVisual/GUI/textures/overlays/gasmask/badlydamaged.edds";
-				};
-				class overlay_4 : SCameraOverlay_Eyewear {
-					image="MyMODS/sVisual/GUI/textures/overlays/gasmask/ruined.edds";
-				};
-			};
-		};
-	};
-
-	class GP5GasMask : Clothing {
-		class sUDE {
-			class CameraOverlays {
-				class overlay_0 : SCameraOverlay_Eyewear {
-					image="MyMODS/sVisual/GUI/textures/overlays/gasmask/pristine.edds";
-				};
-				class overlay_1 : SCameraOverlay_Eyewear {
-					image="MyMODS/sVisual/GUI/textures/overlays/gasmask/worn.edds";
-				};
-				class overlay_2 : SCameraOverlay_Eyewear {
-					image="MyMODS/sVisual/GUI/textures/overlays/gasmask/damaged.edds";
-				};
-				class overlay_3 : SCameraOverlay_Eyewear {
-					image="MyMODS/sVisual/GUI/textures/overlays/gasmask/badlydamaged.edds";
-				};
-				class overlay_4 : SCameraOverlay_Eyewear {
-					image="MyMODS/sVisual/GUI/textures/overlays/gasmask/ruined.edds";
-				};
-			};
-		};
-	};
-
-	class AirborneMask : Clothing {
 		class sUDE {
 			class CameraOverlays {
 				class overlay_0 : SCameraOverlay_Eyewear {
@@ -226,20 +182,70 @@ class CfgVehicles{
 	};
 	*/
 
+	class GP5GasMask : Clothing {
+		class sUDE {
+			class CameraOverlays {
+				class overlay_0 : SCameraOverlay_Eyewear {
+					image="MyMODS/sVisual/GUI/textures/overlays/gasmask/pristine.edds";
+					alpha = 0.5;
+				};
+				class overlay_1 : SCameraOverlay_Eyewear {
+					image="MyMODS/sVisual/GUI/textures/overlays/gasmask/worn.edds";
+					alpha = 0.5;
+				};
+				class overlay_2 : SCameraOverlay_Eyewear {
+					image="MyMODS/sVisual/GUI/textures/overlays/gasmask/damaged.edds";
+					alpha = 0.75;
+				};
+				class overlay_3 : SCameraOverlay_Eyewear {
+					image="MyMODS/sVisual/GUI/textures/overlays/gasmask/badlydamaged.edds";
+				};
+				class overlay_4 : SCameraOverlay_Eyewear {
+					image="MyMODS/sVisual/GUI/textures/overlays/gasmask/ruined.edds";
+				};
+			};
+		};
+	};
+
+	class AirborneMask : Clothing {
+		class sUDE {
+			class CameraOverlays {
+				class overlay_0 : SCameraOverlay_Eyewear {
+					image="MyMODS/sVisual/GUI/textures/overlays/gasmask/pristine.edds";
+					alpha = 0.5;
+				};
+				class overlay_1 : SCameraOverlay_Eyewear {
+					image="MyMODS/sVisual/GUI/textures/overlays/gasmask/worn.edds";
+					alpha = 0.5;
+				};
+				class overlay_2 : SCameraOverlay_Eyewear {
+					image="MyMODS/sVisual/GUI/textures/overlays/gasmask/damaged.edds";
+					alpha = 0.75;
+				};
+				class overlay_3 : SCameraOverlay_Eyewear {
+					image="MyMODS/sVisual/GUI/textures/overlays/gasmask/badlydamaged.edds";
+				};
+				class overlay_4 : SCameraOverlay_Eyewear {
+					image="MyMODS/sVisual/GUI/textures/overlays/gasmask/ruined.edds";
+				};
+			};
+		};
+	};
+
 	class SportGlasses_ColorBase : Clothing {
 		class sUDE {
 			class CameraOverlays {
 				class overlay_0 : SCameraOverlay_Eyewear {
 					image="MyMODS/sVisual/GUI/textures/overlays/glasses/pristine.edds";
-					opacity = 0.5;
+					alpha = 0.5;
 				};
 				class overlay_1 : SCameraOverlay_Eyewear {
 					image="MyMODS/sVisual/GUI/textures/overlays/glasses/worn.edds";
-					opacity = 0.5;
+					alpha = 0.5;
 				};
 				class overlay_2 : SCameraOverlay_Eyewear {
 					image="MyMODS/sVisual/GUI/textures/overlays/glasses/damaged.edds";
-					opacity = 0.75;
+					alpha = 0.75;
 				};
 				class overlay_3 : SCameraOverlay_Eyewear {
 					image="MyMODS/sVisual/GUI/textures/overlays/glasses/badlydamaged.edds";
@@ -256,15 +262,15 @@ class CfgVehicles{
 			class CameraOverlays {
 				class overlay_0 : SCameraOverlay_Eyewear {
 					image="MyMODS/sVisual/GUI/textures/overlays/glasses/pristine.edds";
-					opacity = 0.5;
+					alpha = 0.5;
 				};
 				class overlay_1 : SCameraOverlay_Eyewear {
 					image="MyMODS/sVisual/GUI/textures/overlays/glasses/worn.edds";
-					opacity = 0.5;
+					alpha = 0.5;
 				};
 				class overlay_2 : SCameraOverlay_Eyewear {
 					image="MyMODS/sVisual/GUI/textures/overlays/glasses/damaged.edds";
-					opacity = 0.75;
+					alpha = 0.75;
 				};
 				class overlay_3 : SCameraOverlay_Eyewear {
 					image="MyMODS/sVisual/GUI/textures/overlays/glasses/badlydamaged.edds";
@@ -281,15 +287,15 @@ class CfgVehicles{
 			class CameraOverlays {
 				class overlay_0 : SCameraOverlay_Eyewear {
 					image="MyMODS/sVisual/GUI/textures/overlays/glasses/pristine.edds";
-					opacity = 0.5;
+					alpha = 0.5;
 				};
 				class overlay_1 : SCameraOverlay_Eyewear {
 					image="MyMODS/sVisual/GUI/textures/overlays/glasses/worn.edds";
-					opacity = 0.5;
+					alpha = 0.5;
 				};
 				class overlay_2 : SCameraOverlay_Eyewear {
 					image="MyMODS/sVisual/GUI/textures/overlays/glasses/damaged.edds";
-					opacity = 0.75;
+					alpha = 0.75;
 				};
 				class overlay_3 : SCameraOverlay_Eyewear {
 					image="MyMODS/sVisual/GUI/textures/overlays/glasses/badlydamaged.edds";
@@ -306,15 +312,15 @@ class CfgVehicles{
 			class CameraOverlays {
 				class overlay_0 : SCameraOverlay_Eyewear {
 					image="MyMODS/sVisual/GUI/textures/overlays/glasses/pristine.edds";
-					opacity = 0.5;
+					alpha = 0.5;
 				};
 				class overlay_1 : SCameraOverlay_Eyewear {
 					image="MyMODS/sVisual/GUI/textures/overlays/glasses/worn.edds";
-					opacity = 0.5;
+					alpha = 0.5;
 				};
 				class overlay_2 : SCameraOverlay_Eyewear {
 					image="MyMODS/sVisual/GUI/textures/overlays/glasses/damaged.edds";
-					opacity = 0.75;
+					alpha = 0.75;
 				};
 				class overlay_3 : SCameraOverlay_Eyewear {
 					image="MyMODS/sVisual/GUI/textures/overlays/glasses/badlydamaged.edds";
@@ -331,15 +337,15 @@ class CfgVehicles{
 			class CameraOverlays {
 				class overlay_0 : SCameraOverlay_Eyewear {
 					image="MyMODS/sVisual/GUI/textures/overlays/glasses/pristine.edds";
-					opacity = 0.5;
+					alpha = 0.5;
 				};
 				class overlay_1 : SCameraOverlay_Eyewear {
 					image="MyMODS/sVisual/GUI/textures/overlays/glasses/worn.edds";
-					opacity = 0.5;
+					alpha = 0.5;
 				};
 				class overlay_2 : SCameraOverlay_Eyewear {
 					image="MyMODS/sVisual/GUI/textures/overlays/glasses/damaged.edds";
-					opacity = 0.75;
+					alpha = 0.75;
 				};
 				class overlay_3 : SCameraOverlay_Eyewear {
 					image="MyMODS/sVisual/GUI/textures/overlays/glasses/badlydamaged.edds";
@@ -356,28 +362,28 @@ class CfgVehicles{
 			class CameraOverlays {
 				class overlay_0 : SCameraOverlay_Eyewear {
 					image="MyMODS/sVisual/GUI/textures/overlays/glasses/pristine.edds";
-					opacity = 0.5;
+					alpha = 0.5;
 					rotation[] = {180.0, 0.0, 0.0};
 				};
 				class overlay_1 : SCameraOverlay_Eyewear {
 					image="MyMODS/sVisual/GUI/textures/overlays/glasses/worn.edds";
-					opacity = 0.5;
+					alpha = 0.5;
 					rotation[] = {180.0, 0.0, 0.0};
 				};
 				class overlay_2 : SCameraOverlay_Eyewear {
 					image="MyMODS/sVisual/GUI/textures/overlays/glasses/damaged.edds";
-					opacity = 0.75;
+					alpha = 0.75;
 					rotation[] = {180.0, 0.0, 0.0};
 				};
 				class overlay_3 : SCameraOverlay_Eyewear {
 					image="MyMODS/sVisual/GUI/textures/overlays/glasses/badlydamaged.edds";
 					rotation[] = {180.0, 0.0, 0.0};
-					opacity = 0.75;
+					alpha = 0.75;
 				};
 				class overlay_4 : SCameraOverlay_Eyewear {
 					image="MyMODS/sVisual/GUI/textures/overlays/glasses/ruined.edds";
 					rotation[] = {180.0, 0.0, 0.0};
-					opacity = 0.75;
+					alpha = 0.75;
 				};
 			};
 		};
