@@ -159,7 +159,7 @@ class CfgVehicles{
 	};
 
 	/*
-	class GasMask : Mask_Base {
+	class GasMask : Clothing {
 		class sUDE {
 			class CameraOverlays {
 				class overlay_0 : SCameraOverlay_Eyewear {
@@ -181,7 +181,7 @@ class CfgVehicles{
 		};
 	};
 
-	class GP5GasMask : Mask_Base {
+	class GP5GasMask : Clothing {
 		class sUDE {
 			class CameraOverlays {
 				class overlay_0 : SCameraOverlay_Eyewear {
@@ -203,7 +203,7 @@ class CfgVehicles{
 		};
 	};
 
-	class AirborneMask : Mask_Base {
+	class AirborneMask : Clothing {
 		class sUDE {
 			class CameraOverlays {
 				class overlay_0 : SCameraOverlay_Eyewear {
@@ -346,6 +346,38 @@ class CfgVehicles{
 				};
 				class overlay_4 : SCameraOverlay_Eyewear {
 					image="MyMODS/sVisual/GUI/textures/overlays/glasses/ruined.edds";
+				};
+			};
+		};
+	};
+	
+	class TacticalGoggles : Clothing {
+		class sUDE {
+			class CameraOverlays {
+				class overlay_0 : SCameraOverlay_Eyewear {
+					image="MyMODS/sVisual/GUI/textures/overlays/glasses/pristine.edds";
+					opacity = 0.5;
+					rotation[] = {180.0, 0.0, 0.0};
+				};
+				class overlay_1 : SCameraOverlay_Eyewear {
+					image="MyMODS/sVisual/GUI/textures/overlays/glasses/worn.edds";
+					opacity = 0.5;
+					rotation[] = {180.0, 0.0, 0.0};
+				};
+				class overlay_2 : SCameraOverlay_Eyewear {
+					image="MyMODS/sVisual/GUI/textures/overlays/glasses/damaged.edds";
+					opacity = 0.75;
+					rotation[] = {180.0, 0.0, 0.0};
+				};
+				class overlay_3 : SCameraOverlay_Eyewear {
+					image="MyMODS/sVisual/GUI/textures/overlays/glasses/badlydamaged.edds";
+					rotation[] = {180.0, 0.0, 0.0};
+					opacity = 0.75;
+				};
+				class overlay_4 : SCameraOverlay_Eyewear {
+					image="MyMODS/sVisual/GUI/textures/overlays/glasses/ruined.edds";
+					rotation[] = {180.0, 0.0, 0.0};
+					opacity = 0.75;
 				};
 			};
 		};
