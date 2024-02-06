@@ -59,7 +59,7 @@ class CfgMods {
 	};
 };
 
-class CfgVehicles{
+class CfgVehicles {
 
 	class Clothing;
 	class SCameraOverlay_Headgear;
@@ -69,7 +69,7 @@ class CfgVehicles{
 		class sUDE {
 			class CameraOverlays {
 				class overlay_0 : SCameraOverlay_Headgear {
-					image="MyMODS/sVisual/GUI/textures/overlays/burlap.edds";
+					image = "MyMODS/sVisual/GUI/textures/overlays/burlap.edds";
 					size[] = {1.1, 1.1};
 					targetCameras[] = {"DayZPlayerCamera"};
 				};
@@ -81,19 +81,19 @@ class CfgVehicles{
 		class sUDE {
 			class CameraOverlays {
 				class overlay_0 : SCameraOverlay_Headgear {
-					image="MyMODS/sVisual/GUI/textures/overlays/motohelmet/pristine.edds";
+					image = "MyMODS/sVisual/GUI/textures/overlays/motohelmet/pristine.edds";
 				};
 				class overlay_1 : SCameraOverlay_Headgear {
-					image="MyMODS/sVisual/GUI/textures/overlays/motohelmet/worn.edds";
+					image = "MyMODS/sVisual/GUI/textures/overlays/motohelmet/worn.edds";
 				};
 				class overlay_2 : SCameraOverlay_Headgear {
-					image="MyMODS/sVisual/GUI/textures/overlays/motohelmet/damaged.edds";
+					image = "MyMODS/sVisual/GUI/textures/overlays/motohelmet/damaged.edds";
 				};
 				class overlay_3 : SCameraOverlay_Headgear {
-					image="MyMODS/sVisual/GUI/textures/overlays/motohelmet/badlydamaged.edds";
+					image = "MyMODS/sVisual/GUI/textures/overlays/motohelmet/badlydamaged.edds";
 				};
 				class overlay_4 : SCameraOverlay_Headgear {
-					image="MyMODS/sVisual/GUI/textures/overlays/motohelmet/ruined.edds";
+					image = "MyMODS/sVisual/GUI/textures/overlays/motohelmet/ruined.edds";
 				};
 			};
 		};
@@ -103,19 +103,19 @@ class CfgVehicles{
 		class sUDE {
 			class CameraOverlays {
 				class overlay_0 : SCameraOverlay_Headgear {
-					image="MyMODS/sVisual/GUI/textures/overlays/motohelmet/pristine.edds";
+					image = "MyMODS/sVisual/GUI/textures/overlays/motohelmet/pristine.edds";
 				};
 				class overlay_1 : SCameraOverlay_Headgear {
-					image="MyMODS/sVisual/GUI/textures/overlays/motohelmet/worn.edds";
+					image = "MyMODS/sVisual/GUI/textures/overlays/motohelmet/worn.edds";
 				};
 				class overlay_2 : SCameraOverlay_Headgear {
-					image="MyMODS/sVisual/GUI/textures/overlays/motohelmet/damaged.edds";
+					image = "MyMODS/sVisual/GUI/textures/overlays/motohelmet/damaged.edds";
 				};
 				class overlay_3 : SCameraOverlay_Headgear {
-					image="MyMODS/sVisual/GUI/textures/overlays/motohelmet/badlydamaged.edds";
+					image = "MyMODS/sVisual/GUI/textures/overlays/motohelmet/badlydamaged.edds";
 				};
 				class overlay_4 : SCameraOverlay_Headgear {
-					image="MyMODS/sVisual/GUI/textures/overlays/motohelmet/ruined.edds";
+					image = "MyMODS/sVisual/GUI/textures/overlays/motohelmet/ruined.edds";
 				};
 			};
 		};
@@ -125,34 +125,34 @@ class CfgVehicles{
 		class sUDE {
 			class CameraOverlays {
 				class overlay_0 : SCameraOverlay_Headgear {
-					image="MyMODS/sVisual/GUI/textures/overlays/motohelmet/pristine.edds";
-					mask="MyMODS/sVisual/GUI/textures/masks/yellowking_helmet.edds";
-					maskTransitionWidth=0.3;
-					maskProgress=0.4;
+					image = "MyMODS/sVisual/GUI/textures/overlays/motohelmet/pristine.edds";
+					mask = "MyMODS/sVisual/GUI/textures/masks/yellowking_helmet.edds";
+					maskTransitionWidth = 0.3;
+					maskProgress = 0.4;
 				};
 				class overlay_1 : SCameraOverlay_Headgear {
-					image="MyMODS/sVisual/GUI/textures/overlays/motohelmet/worn.edds";
-					mask="MyMODS/sVisual/GUI/textures/masks/yellowking_helmet.edds";
-					maskTransitionWidth=0.3;
-					maskProgress=0.4;
+					image = "MyMODS/sVisual/GUI/textures/overlays/motohelmet/worn.edds";
+					mask = "MyMODS/sVisual/GUI/textures/masks/yellowking_helmet.edds";
+					maskTransitionWidth = 0.3;
+					maskProgress = 0.4;
 				};
 				class overlay_2 : SCameraOverlay_Headgear {
-					image="MyMODS/sVisual/GUI/textures/overlays/motohelmet/damaged.edds";
-					mask="MyMODS/sVisual/GUI/textures/masks/yellowking_helmet.edds";
-					maskTransitionWidth=0.3;
-					maskProgress=0.4;
+					image = "MyMODS/sVisual/GUI/textures/overlays/motohelmet/damaged.edds";
+					mask = "MyMODS/sVisual/GUI/textures/masks/yellowking_helmet.edds";
+					maskTransitionWidth = 0.3;
+					maskProgress = 0.4;
 				};
 				class overlay_3 : SCameraOverlay_Headgear {
-					image="MyMODS/sVisual/GUI/textures/overlays/motohelmet/badlydamaged.edds";
-					mask="MyMODS/sVisual/GUI/textures/masks/yellowking_helmet.edds";
-					maskTransitionWidth=0.3;
-					maskProgress=0.4;
+					image = "MyMODS/sVisual/GUI/textures/overlays/motohelmet/badlydamaged.edds";
+					mask = "MyMODS/sVisual/GUI/textures/masks/yellowking_helmet.edds";
+					maskTransitionWidth = 0.3;
+					maskProgress = 0.4;
 				};
 				class overlay_4 : SCameraOverlay_Headgear {
-					image="MyMODS/sVisual/GUI/textures/overlays/motohelmet/ruined.edds";
-					mask="MyMODS/sVisual/GUI/textures/masks/yellowking_helmet.edds";
-					maskTransitionWidth=0.3;
-					maskProgress=0.4;
+					image = "MyMODS/sVisual/GUI/textures/overlays/motohelmet/ruined.edds";
+					mask = "MyMODS/sVisual/GUI/textures/masks/yellowking_helmet.edds";
+					maskTransitionWidth = 0.3;
+					maskProgress = 0.4;
 				};
 			};
 		};
@@ -163,19 +163,19 @@ class CfgVehicles{
 		class sUDE {
 			class CameraOverlays {
 				class overlay_0 : SCameraOverlay_Eyewear {
-					image="MyMODS/sVisual/GUI/textures/overlays/gasmask/pristine.edds";
+					image = "MyMODS/sVisual/GUI/textures/overlays/gasmask/pristine.edds";
 				};
 				class overlay_1 : SCameraOverlay_Eyewear {
-					image="MyMODS/sVisual/GUI/textures/overlays/gasmask/worn.edds";
+					image = "MyMODS/sVisual/GUI/textures/overlays/gasmask/worn.edds";
 				};
 				class overlay_2 : SCameraOverlay_Eyewear {
-					image="MyMODS/sVisual/GUI/textures/overlays/gasmask/damaged.edds";
+					image = "MyMODS/sVisual/GUI/textures/overlays/gasmask/damaged.edds";
 				};
 				class overlay_3 : SCameraOverlay_Eyewear {
-					image="MyMODS/sVisual/GUI/textures/overlays/gasmask/badlydamaged.edds";
+					image = "MyMODS/sVisual/GUI/textures/overlays/gasmask/badlydamaged.edds";
 				};
 				class overlay_4 : SCameraOverlay_Eyewear {
-					image="MyMODS/sVisual/GUI/textures/overlays/gasmask/ruined.edds";
+					image = "MyMODS/sVisual/GUI/textures/overlays/gasmask/ruined.edds";
 				};
 			};
 		};
@@ -186,22 +186,22 @@ class CfgVehicles{
 		class sUDE {
 			class CameraOverlays {
 				class overlay_0 : SCameraOverlay_Eyewear {
-					image="MyMODS/sVisual/GUI/textures/overlays/gasmask/pristine.edds";
+					image = "MyMODS/sVisual/GUI/textures/overlays/gasmask/pristine.edds";
 					alpha = 0.5;
 				};
 				class overlay_1 : SCameraOverlay_Eyewear {
-					image="MyMODS/sVisual/GUI/textures/overlays/gasmask/worn.edds";
+					image = "MyMODS/sVisual/GUI/textures/overlays/gasmask/worn.edds";
 					alpha = 0.5;
 				};
 				class overlay_2 : SCameraOverlay_Eyewear {
-					image="MyMODS/sVisual/GUI/textures/overlays/gasmask/damaged.edds";
+					image = "MyMODS/sVisual/GUI/textures/overlays/gasmask/damaged.edds";
 					alpha = 0.75;
 				};
 				class overlay_3 : SCameraOverlay_Eyewear {
-					image="MyMODS/sVisual/GUI/textures/overlays/gasmask/badlydamaged.edds";
+					image = "MyMODS/sVisual/GUI/textures/overlays/gasmask/badlydamaged.edds";
 				};
 				class overlay_4 : SCameraOverlay_Eyewear {
-					image="MyMODS/sVisual/GUI/textures/overlays/gasmask/ruined.edds";
+					image = "MyMODS/sVisual/GUI/textures/overlays/gasmask/ruined.edds";
 				};
 			};
 		};
@@ -211,22 +211,22 @@ class CfgVehicles{
 		class sUDE {
 			class CameraOverlays {
 				class overlay_0 : SCameraOverlay_Eyewear {
-					image="MyMODS/sVisual/GUI/textures/overlays/gasmask/pristine.edds";
+					image = "MyMODS/sVisual/GUI/textures/overlays/gasmask/pristine.edds";
 					alpha = 0.5;
 				};
 				class overlay_1 : SCameraOverlay_Eyewear {
-					image="MyMODS/sVisual/GUI/textures/overlays/gasmask/worn.edds";
+					image = "MyMODS/sVisual/GUI/textures/overlays/gasmask/worn.edds";
 					alpha = 0.5;
 				};
 				class overlay_2 : SCameraOverlay_Eyewear {
-					image="MyMODS/sVisual/GUI/textures/overlays/gasmask/damaged.edds";
+					image = "MyMODS/sVisual/GUI/textures/overlays/gasmask/damaged.edds";
 					alpha = 0.75;
 				};
 				class overlay_3 : SCameraOverlay_Eyewear {
-					image="MyMODS/sVisual/GUI/textures/overlays/gasmask/badlydamaged.edds";
+					image = "MyMODS/sVisual/GUI/textures/overlays/gasmask/badlydamaged.edds";
 				};
 				class overlay_4 : SCameraOverlay_Eyewear {
-					image="MyMODS/sVisual/GUI/textures/overlays/gasmask/ruined.edds";
+					image = "MyMODS/sVisual/GUI/textures/overlays/gasmask/ruined.edds";
 				};
 			};
 		};
@@ -236,22 +236,22 @@ class CfgVehicles{
 		class sUDE {
 			class CameraOverlays {
 				class overlay_0 : SCameraOverlay_Eyewear {
-					image="MyMODS/sVisual/GUI/textures/overlays/glasses/pristine.edds";
+					image = "MyMODS/sVisual/GUI/textures/overlays/glasses/pristine.edds";
 					alpha = 0.5;
 				};
 				class overlay_1 : SCameraOverlay_Eyewear {
-					image="MyMODS/sVisual/GUI/textures/overlays/glasses/worn.edds";
+					image = "MyMODS/sVisual/GUI/textures/overlays/glasses/worn.edds";
 					alpha = 0.5;
 				};
 				class overlay_2 : SCameraOverlay_Eyewear {
-					image="MyMODS/sVisual/GUI/textures/overlays/glasses/damaged.edds";
+					image = "MyMODS/sVisual/GUI/textures/overlays/glasses/damaged.edds";
 					alpha = 0.75;
 				};
 				class overlay_3 : SCameraOverlay_Eyewear {
-					image="MyMODS/sVisual/GUI/textures/overlays/glasses/badlydamaged.edds";
+					image = "MyMODS/sVisual/GUI/textures/overlays/glasses/badlydamaged.edds";
 				};
 				class overlay_4 : SCameraOverlay_Eyewear {
-					image="MyMODS/sVisual/GUI/textures/overlays/glasses/ruined.edds";
+					image = "MyMODS/sVisual/GUI/textures/overlays/glasses/ruined.edds";
 				};
 			};
 		};
@@ -261,22 +261,22 @@ class CfgVehicles{
 		class sUDE {
 			class CameraOverlays {
 				class overlay_0 : SCameraOverlay_Eyewear {
-					image="MyMODS/sVisual/GUI/textures/overlays/glasses/pristine.edds";
+					image = "MyMODS/sVisual/GUI/textures/overlays/glasses/pristine.edds";
 					alpha = 0.5;
 				};
 				class overlay_1 : SCameraOverlay_Eyewear {
-					image="MyMODS/sVisual/GUI/textures/overlays/glasses/worn.edds";
+					image = "MyMODS/sVisual/GUI/textures/overlays/glasses/worn.edds";
 					alpha = 0.5;
 				};
 				class overlay_2 : SCameraOverlay_Eyewear {
-					image="MyMODS/sVisual/GUI/textures/overlays/glasses/damaged.edds";
+					image = "MyMODS/sVisual/GUI/textures/overlays/glasses/damaged.edds";
 					alpha = 0.75;
 				};
 				class overlay_3 : SCameraOverlay_Eyewear {
-					image="MyMODS/sVisual/GUI/textures/overlays/glasses/badlydamaged.edds";
+					image = "MyMODS/sVisual/GUI/textures/overlays/glasses/badlydamaged.edds";
 				};
 				class overlay_4 : SCameraOverlay_Eyewear {
-					image="MyMODS/sVisual/GUI/textures/overlays/glasses/ruined.edds";
+					image = "MyMODS/sVisual/GUI/textures/overlays/glasses/ruined.edds";
 				};
 			};
 		};
@@ -286,22 +286,22 @@ class CfgVehicles{
 		class sUDE {
 			class CameraOverlays {
 				class overlay_0 : SCameraOverlay_Eyewear {
-					image="MyMODS/sVisual/GUI/textures/overlays/glasses/pristine.edds";
+					image = "MyMODS/sVisual/GUI/textures/overlays/glasses/pristine.edds";
 					alpha = 0.5;
 				};
 				class overlay_1 : SCameraOverlay_Eyewear {
-					image="MyMODS/sVisual/GUI/textures/overlays/glasses/worn.edds";
+					image = "MyMODS/sVisual/GUI/textures/overlays/glasses/worn.edds";
 					alpha = 0.5;
 				};
 				class overlay_2 : SCameraOverlay_Eyewear {
-					image="MyMODS/sVisual/GUI/textures/overlays/glasses/damaged.edds";
+					image = "MyMODS/sVisual/GUI/textures/overlays/glasses/damaged.edds";
 					alpha = 0.75;
 				};
 				class overlay_3 : SCameraOverlay_Eyewear {
-					image="MyMODS/sVisual/GUI/textures/overlays/glasses/badlydamaged.edds";
+					image = "MyMODS/sVisual/GUI/textures/overlays/glasses/badlydamaged.edds";
 				};
 				class overlay_4 : SCameraOverlay_Eyewear {
-					image="MyMODS/sVisual/GUI/textures/overlays/glasses/ruined.edds";
+					image = "MyMODS/sVisual/GUI/textures/overlays/glasses/ruined.edds";
 				};
 			};
 		};
@@ -311,22 +311,22 @@ class CfgVehicles{
 		class sUDE {
 			class CameraOverlays {
 				class overlay_0 : SCameraOverlay_Eyewear {
-					image="MyMODS/sVisual/GUI/textures/overlays/glasses/pristine.edds";
+					image = "MyMODS/sVisual/GUI/textures/overlays/glasses/pristine.edds";
 					alpha = 0.5;
 				};
 				class overlay_1 : SCameraOverlay_Eyewear {
-					image="MyMODS/sVisual/GUI/textures/overlays/glasses/worn.edds";
+					image = "MyMODS/sVisual/GUI/textures/overlays/glasses/worn.edds";
 					alpha = 0.5;
 				};
 				class overlay_2 : SCameraOverlay_Eyewear {
-					image="MyMODS/sVisual/GUI/textures/overlays/glasses/damaged.edds";
+					image = "MyMODS/sVisual/GUI/textures/overlays/glasses/damaged.edds";
 					alpha = 0.75;
 				};
 				class overlay_3 : SCameraOverlay_Eyewear {
-					image="MyMODS/sVisual/GUI/textures/overlays/glasses/badlydamaged.edds";
+					image = "MyMODS/sVisual/GUI/textures/overlays/glasses/badlydamaged.edds";
 				};
 				class overlay_4 : SCameraOverlay_Eyewear {
-					image="MyMODS/sVisual/GUI/textures/overlays/glasses/ruined.edds";
+					image = "MyMODS/sVisual/GUI/textures/overlays/glasses/ruined.edds";
 				};
 			};
 		};
@@ -336,22 +336,22 @@ class CfgVehicles{
 		class sUDE {
 			class CameraOverlays {
 				class overlay_0 : SCameraOverlay_Eyewear {
-					image="MyMODS/sVisual/GUI/textures/overlays/glasses/pristine.edds";
+					image = "MyMODS/sVisual/GUI/textures/overlays/glasses/pristine.edds";
 					alpha = 0.5;
 				};
 				class overlay_1 : SCameraOverlay_Eyewear {
-					image="MyMODS/sVisual/GUI/textures/overlays/glasses/worn.edds";
+					image = "MyMODS/sVisual/GUI/textures/overlays/glasses/worn.edds";
 					alpha = 0.5;
 				};
 				class overlay_2 : SCameraOverlay_Eyewear {
-					image="MyMODS/sVisual/GUI/textures/overlays/glasses/damaged.edds";
+					image = "MyMODS/sVisual/GUI/textures/overlays/glasses/damaged.edds";
 					alpha = 0.75;
 				};
 				class overlay_3 : SCameraOverlay_Eyewear {
-					image="MyMODS/sVisual/GUI/textures/overlays/glasses/badlydamaged.edds";
+					image = "MyMODS/sVisual/GUI/textures/overlays/glasses/badlydamaged.edds";
 				};
 				class overlay_4 : SCameraOverlay_Eyewear {
-					image="MyMODS/sVisual/GUI/textures/overlays/glasses/ruined.edds";
+					image = "MyMODS/sVisual/GUI/textures/overlays/glasses/ruined.edds";
 				};
 			};
 		};
@@ -361,27 +361,27 @@ class CfgVehicles{
 		class sUDE {
 			class CameraOverlays {
 				class overlay_0 : SCameraOverlay_Eyewear {
-					image="MyMODS/sVisual/GUI/textures/overlays/glasses/pristine.edds";
+					image = "MyMODS/sVisual/GUI/textures/overlays/glasses/pristine.edds";
 					alpha = 0.5;
 					rotation[] = {180.0, 0.0, 0.0};
 				};
 				class overlay_1 : SCameraOverlay_Eyewear {
-					image="MyMODS/sVisual/GUI/textures/overlays/glasses/worn.edds";
+					image = "MyMODS/sVisual/GUI/textures/overlays/glasses/worn.edds";
 					alpha = 0.5;
 					rotation[] = {180.0, 0.0, 0.0};
 				};
 				class overlay_2 : SCameraOverlay_Eyewear {
-					image="MyMODS/sVisual/GUI/textures/overlays/glasses/damaged.edds";
+					image = "MyMODS/sVisual/GUI/textures/overlays/glasses/damaged.edds";
 					alpha = 0.75;
 					rotation[] = {180.0, 0.0, 0.0};
 				};
 				class overlay_3 : SCameraOverlay_Eyewear {
-					image="MyMODS/sVisual/GUI/textures/overlays/glasses/badlydamaged.edds";
+					image = "MyMODS/sVisual/GUI/textures/overlays/glasses/badlydamaged.edds";
 					rotation[] = {180.0, 0.0, 0.0};
 					alpha = 0.75;
 				};
 				class overlay_4 : SCameraOverlay_Eyewear {
-					image="MyMODS/sVisual/GUI/textures/overlays/glasses/ruined.edds";
+					image = "MyMODS/sVisual/GUI/textures/overlays/glasses/ruined.edds";
 					rotation[] = {180.0, 0.0, 0.0};
 					alpha = 0.75;
 				};
@@ -391,7 +391,7 @@ class CfgVehicles{
 
 };
 
-class Cfg_sUDE{
+class Cfg_sUDE {
 	class Visual {
 		enabled = 1;
 	};
