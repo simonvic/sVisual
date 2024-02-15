@@ -59,6 +59,6 @@ modded class PPERequester_WeldingMask {
 modded class PPERequester_BurlapSackEffects {
 	override void OnStart(Param par = null)	{
 		super.OnStart(par);
-		ClearRequesterData();
+		SetDefaultValuesAll();
 	}
 }
