@@ -11,7 +11,7 @@ modded class PlayerBase {
 		m_coUnconscious = new SCOUnconscious();
 	}
 	
-	//@todo move to clothing
+	// TODO: move to clothing
 	override void EEItemAttached(EntityAI item, string slot_name) {
 		super.EEItemAttached(item, slot_name);
 		if (GetInstanceType() != DayZPlayerInstanceType.INSTANCETYPE_CLIENT) return;
@@ -25,7 +25,7 @@ modded class PlayerBase {
 		}
 	}
 	
-	//@todo move to clothing
+	// TODO: move to clothing
 	override void EEItemDetached(EntityAI item, string slot_name) {
 		super.EEItemDetached(item, slot_name);
 		if (GetInstanceType() != DayZPlayerInstanceType.INSTANCETYPE_CLIENT) return;

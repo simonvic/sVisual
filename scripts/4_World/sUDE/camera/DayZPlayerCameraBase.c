@@ -76,6 +76,7 @@ modded class DayZPlayerCameraBase {
 	}
 	
 	protected array<float> getHeadbobParameters() {
+		// TODO(1.27): user GetCurrentStance() and GetCurrentMovement()
 		switch (m_iPlayer.m_MovementState.m_iMovement) { 			
 			
 			case 0: //idling
@@ -145,6 +146,7 @@ modded class DayZPlayerCameraBase {
 	}
 	
 	protected float getLeanRollAngle() { //@todo report this. m_fLeaning doesn't reset when going prone while peeking (Q/E)
+		// TODO(1.27): use GetCurrentLeaning()
 		return m_iPlayer.m_MovementState.m_fLeaning * getHeadLeanAngle();
 	}
 	
