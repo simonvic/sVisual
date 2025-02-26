@@ -38,22 +38,20 @@ modded class PlayerBase {
 			}
 		}
 	}
-		
-	override void OnPlayerRecievedHit() {
-		super.OnPlayerRecievedHit();	
-		playHitReceivedPPE();
-	}
-	
-	protected void playHitReceivedPPE() {
+
+	override void OnReceivedHit(ImpactEffectsData hitData) {
+		super.OnReceivedHit(hitData);
 		if (GetInstanceType() != DayZPlayerInstanceType.INSTANCETYPE_CLIENT) return;
-		
+		if (hitData.m_AmmoType == "Dummy_Light") return;
+		if (hitData.m_AmmoType == "Dummy_Heavy") return;
 		if (m_ppeHitAnim.isActive()) {
+			// TODO: change intensity based on inSpeed
 			m_ppeHitAnim.onHit();
 		} else {
 			m_ppeHitAnim.activate();
 		}
 	}
-	
+
 	override void OnSelectPlayer() {
 		super.OnSelectPlayer();
 		if (GetInstanceType() != DayZPlayerInstanceType.INSTANCETYPE_CLIENT) return;
