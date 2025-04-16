@@ -110,7 +110,7 @@ modded class DayZPlayerCameraBase {
 	
 	
 	protected bool canRequestDDOF() {
-		return isDDOFEnabled() && !m_pPlayer.IsCameraBlending());
+		return isDDOFEnabled() && !m_pPlayer.IsCameraBlending();
 	}
 	
 	protected void updateDDOF(float pDt, DayZPlayerCameraResult pOutResult) {
