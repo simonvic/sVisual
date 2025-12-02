@@ -42,9 +42,12 @@ class SUserConfigVisual : SUserConfigBase {
 	}
 	
 	override void applyConstraints(SUserConfigConstraintsBase constraints) {
+		SLOG.d(""+this, "Applying constraints");
 		SUserConfigConstraints_Visual c = SUserConfigConstraints_Visual.Cast(constraints);
-		if (!c) return;
-		
+		if (!c) {
+			SLOG.e(1, "Invalid constraints: " + constraints);
+			return;
+		}
 		getOption("effectsIntensity").setConstraint(c.getEffectsIntensity());
 		getOption("ddofIntensity").setConstraint(c.getDDOFIntensity());
 		getOption("ddofEnabledIn3PP").setConstraint(c.getDDOFEnabledIn3PP());
@@ -54,6 +57,7 @@ class SUserConfigVisual : SUserConfigBase {
 		getOption("motionBlurIntensity").setConstraint(c.getMotionBlurIntensity());
 		getOption("bloomIntensity").setConstraint(c.getBloomIntensity());
 		getOption("headLeanAngle").setConstraint(c.getHeadLeanAngle());
+		SLOG.d(1, "Done");
 	}
 	
 	float getEffectsIntensity() {
