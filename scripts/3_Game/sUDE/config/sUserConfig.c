@@ -1,4 +1,4 @@
-modded class SUserConfig{
+modded class SUserConfig {
 
 	static SUserConfigVisual visual(bool reload = false) {
 		return SUserConfigVisual.Cast(getInstance().load(SUserConfigVisual, reload));

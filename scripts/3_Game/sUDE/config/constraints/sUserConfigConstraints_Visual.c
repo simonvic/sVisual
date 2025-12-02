@@ -13,8 +13,8 @@ class SUserConfigConstraints_Visual : SUserConfigConstraintsBase {
 		auto thiz = this;
 		return getSerializer().WriteToString(thiz, true, result);
 	}
-	
-	
+
+
 	///////////////////////////////////////
 	// these go in json
 	protected ref SConstraintPrimitiveMinMaxNumeric  effectsIntensity     = new SConstraintPrimitiveMinMaxNumeric(0, 2);
