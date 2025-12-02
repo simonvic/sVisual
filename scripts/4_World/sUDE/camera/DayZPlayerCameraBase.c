@@ -145,7 +145,7 @@ modded class DayZPlayerCameraBase {
 		return false;
 	}
 	
-	protected float getLeanRollAngle() { //@todo report this. m_fLeaning doesn't reset when going prone while peeking (Q/E)
+	protected float getLeanRollAngle() { // TODO: report this. m_fLeaning doesn't reset when going prone while peeking (Q/E)
 		// TODO(1.27): use GetCurrentLeaning()
 		return m_iPlayer.m_MovementState.m_fLeaning * getHeadLeanAngle();
 	}
