@@ -3,17 +3,15 @@ class SUserConfigConstraints_Visual : SUserConfigConstraintsBase {
 	override string getPath() {
 		return "$profile:\\sUDE\\config\\sVisual_constraints.json";
 	}
-	
-	override void deserialize(string data, out string error) {
-		auto constraints = this;
-		getSerializer().ReadFromString(constraints, data, error);
+
+	override bool deserialize(string data, out string error) {
+		auto thiz = this;
+		return getSerializer().ReadFromString(thiz, data, error);
 	}
-	
-	override string serialize() {
-		string result;
-		auto constraints = this;
-		getSerializer().WriteToString(constraints, true, result);
-		return result;
+
+	override bool serialize(out string result) {
+		auto thiz = this;
+		return getSerializer().WriteToString(thiz, true, result);
 	}
 	
 	

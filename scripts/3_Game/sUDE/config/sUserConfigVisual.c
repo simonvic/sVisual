@@ -4,27 +4,14 @@ class SUserConfigVisual : SUserConfigBase{
 		return "$saves:\\sUDE\\config\\sVisual.json";
 	}
 	
-	override string getDefaultPath() {
-		return "$profile:\\sUDE\\config\\sVisual_default.json";
+	override bool deserialize(string data, out string error) {
+		auto thiz = this;
+		return getSerializer().ReadFromString(thiz, data, error);
 	}
-	
-	override void deserialize(string data, out string error) {
-		auto cfg = this;
-		getSerializer().ReadFromString(cfg, data, error);
-	}
-	
-	override string serialize() {
-		string result;
-		auto cfg = this;
-		getSerializer().WriteToString(cfg, true, result);
-		return result;
-	}
-	
-	override string serializeDefault() {
-		string result;
-		auto cfg = new SUserConfigVisual();
-		getSerializer().WriteToString(cfg, true, result);
-		return result;
+
+	override bool serialize(out string result) {
+		auto thiz = this;
+		return getSerializer().WriteToString(thiz, true, result);
 	}
 		
 	///////////////////////////////////////
@@ -52,19 +39,6 @@ class SUserConfigVisual : SUserConfigBase{
 		registerOption("motionBlurIntensity",  new SUCOption_MotionBlurIntensity(motionBlurIntensity));
 		registerOption("bloomIntensity",       new SUCOption_BloomIntensity(bloomIntensity));
 		registerOption("headLeanAngle",        new SUCOption_HeadleanAngle(headLeanAngle));
-	}
-	
-	override void onConstraintsReceive(ParamsReadContext ctx) {
-		super.onConstraintsReceive(ctx);
-				
-		SUserConfigConstraints_Visual constraints;
-		if (!ctx.Read(constraints)) {
-			SLog.c("Can't read constraints, ignoring...",""+this);
-			return;
-		}
-		
-		SLog.i("Got constraints from server!",""+this);
-		applyConstraints(constraints);
 	}
 	
 	override void applyConstraints(SUserConfigConstraintsBase constraints) {
