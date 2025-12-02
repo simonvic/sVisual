@@ -1,8 +1,8 @@
 modded class SUserConfig{
 
 	static SUserConfigVisual visual(bool reload = false) {
-		getInstance().load(SUserConfigVisual, reload);
-		return SUserConfigVisual.Cast(getInstance().getLoadedModules().Get(SUserConfigVisual));
+		return SUserConfigVisual.Cast(getInstance().load(SUserConfigVisual, reload));
+	}
 
 	override void onConstraintsReceived(ParamsReadContext ctx) {
 		super.onConstraintsReceived(ctx);

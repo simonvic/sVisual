@@ -1,8 +1,7 @@
 modded class SUserConfigConstraints{
 	
 	static SUserConfigConstraints_Visual visual(bool reload = false) {
-		getInstance().load(SUserConfigConstraints_Visual, reload);
-		return SUserConfigConstraints_Visual.Cast(getInstance().getLoadedModules().Get(SUserConfigConstraints_Visual));
+		return SUserConfigConstraints_Visual.Cast(getInstance().load(SUserConfigConstraints_Visual, reload));
 	}
 
 	override void onPreload() {
