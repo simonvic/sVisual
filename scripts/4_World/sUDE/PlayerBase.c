@@ -1,9 +1,9 @@
 modded class PlayerBase {
-	
+
 	protected SPPERequester_HitReceived m_ppeHitAnim;
 	protected ref SCOTimedSpawn m_coSpawn;
 	protected ref SCOUnconscious m_coUnconscious;
-	
+
 	void PlayerBase() {
 		if (!GetGame().IsClient()) return;
 		Class.CastTo(m_ppeHitAnim, PPERequesterBank.GetRequester(SPPERequester_HitReceived));
@@ -15,13 +15,13 @@ modded class PlayerBase {
 	void ~PlayerBase() {
 		SUserConfig.visual().getOption("showClothingOverlays").getOnValueChange().Remove(this.onClothingOverlayOptionToggle);
 	}
-	
+
 	// TODO: move to clothing
 	override void EEItemAttached(EntityAI item, string slot_name) {
 		super.EEItemAttached(item, slot_name);
 		if (GetInstanceType() != DayZPlayerInstanceType.INSTANCETYPE_CLIENT) return;
 		if (!SUserConfig.visual().isShowClothingOverlaysEnabled()) return;
-		
+
 		Clothing clothing = Clothing.Cast(item);
 		if (clothing && clothing.hasOverlays()) {
 			SCameraOverlay overlay = clothing.getOverlayByCurrentHealth();
@@ -30,7 +30,7 @@ modded class PlayerBase {
 			}
 		}
 	}
-	
+
 	// TODO: move to clothing
 	override void EEItemDetached(EntityAI item, string slot_name) {
 		super.EEItemDetached(item, slot_name);
@@ -65,7 +65,7 @@ modded class PlayerBase {
 		PPERequesterBank.GetRequester(SPPERequester_Bloom).Start();
 		PPERequesterBank.GetRequester(SPPERequester_MotionBlur).Start();
 	}
-	
+
 	override void OnPlayerLoaded() {
 		super.OnPlayerLoaded();
 		if (GetInstanceType() != DayZPlayerInstanceType.INSTANCETYPE_CLIENT) return;
@@ -75,7 +75,7 @@ modded class PlayerBase {
 		}
 		playSpawnVisuals();
 	}
-	
+
 	protected void playSpawnVisuals() {
 		m_coSpawn.activate();
 	}
@@ -99,13 +99,13 @@ modded class PlayerBase {
 			}
 		}
 	}
-	
+
 	override void OnUnconsciousStart() {
 		super.OnUnconsciousStart();
 		if (GetInstanceType() != DayZPlayerInstanceType.INSTANCETYPE_CLIENT) return;
 		m_coUnconscious.activate();
 	}
-	
+
 	override void OnUnconsciousStop(int pCurrentCommandID) {
 		super.OnUnconsciousStop(pCurrentCommandID);
 		if (GetInstanceType() != DayZPlayerInstanceType.INSTANCETYPE_CLIENT) return;

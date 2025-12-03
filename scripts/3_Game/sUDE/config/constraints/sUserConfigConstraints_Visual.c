@@ -28,19 +28,19 @@ class SUserConfigConstraints_Visual : SUserConfigConstraintsBase {
 	protected ref SConstraintPrimitiveMinMaxNumeric  headLeanAngle        = new SConstraintPrimitiveMinMaxNumeric(0, 45);
 	protected ref SConstraintSwitch                  showClothingOverlays = new SConstraintSwitch(true);
 	///////////////////////////////////////
-	
+
 	SConstraintPrimitiveMinMaxNumeric getEffectsIntensity() {
 		return effectsIntensity;
 	}
-	
+
 	SConstraintPrimitiveMinMaxNumeric getDDOFIntensity() {
 		return ddofIntensity;
 	}
-	
+
 	SConstraintSwitch getDDOFEnabledIn3PP() {
 		return ddofEnabledIn3PP;
 	}
-	
+
 	SConstraintSwitch getDDOFEnabledInVehicle() {
 		return ddofEnabledInVehicle;
 	}
@@ -48,25 +48,25 @@ class SUserConfigConstraints_Visual : SUserConfigConstraintsBase {
 	SConstraintPrimitiveMinMaxNumeric getHeadbobIntensity() {
 		return headbobIntensity;
 	}
-	
+
 	SConstraintSwitch getHeadbobEnabledIn3PP() {
 		return headbobEnabledIn3PP;
 	}
-		
+
 	SConstraintPrimitiveMinMaxNumeric getMotionBlurIntensity() {
 		return motionBlurIntensity;
 	}	
-	
+
 	SConstraintPrimitiveMinMaxNumeric getBloomIntensity() {
 		return bloomIntensity;
 	}
-	
+
 	SConstraintPrimitiveMinMaxNumeric getHeadLeanAngle() {
 		return headLeanAngle;
 	}
-		
+
 	SConstraintSwitch getShowClothingOverlays() {
 		return showClothingOverlays;
 	}
-		
+
 }
