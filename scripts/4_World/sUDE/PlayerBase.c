@@ -13,6 +13,7 @@ modded class PlayerBase {
 	}
 
 	void ~PlayerBase() {
+		if (!GetGame().IsClient()) return;
 		SUserConfig.visual().getOption("showClothingOverlays").getOnValueChange().Remove(this.onClothingOverlayOptionToggle);
 	}
 
