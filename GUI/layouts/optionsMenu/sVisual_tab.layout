@@ -104,23 +104,24 @@ FrameWidgetClass sude_svisual_tab_root {
          Margin 0
          "Size To Content V" 1
          content_valign center
-         Columns 2
+         Columns 1
          Rows 1
          {
           TextWidgetClass t_headbob {
            ignorepointer 1
            position 0 0
-           size 1 1
+           size 0 24
            hexactpos 0
            vexactpos 0
-           hexactsize 0
-           vexactsize 0
+           hexactsize 1
+           vexactsize 1
            text "#STR_SUDE_LAYOUT_OPTIONS_CAMERA_HEADBOB"
            "size to text h" 0
            "size to text v" 0
            "text valign" center
           }
           SliderWidgetClass headbob {
+           visible 0
            color 1 1 1 0.2706
            size 1 24
            hexactpos 0
@@ -128,7 +129,7 @@ FrameWidgetClass sude_svisual_tab_root {
            hexactsize 0
            vexactsize 1
            style Default
-           maximum 5
+           maximum 2
            step 0.05
            current 0.69
            "fill in" 1
@@ -136,6 +137,255 @@ FrameWidgetClass sude_svisual_tab_root {
            "listen to input" 1
            {
             TextWidgetClass headbob_value {
+             ignorepointer 1
+             color 0.9412 0.3294 0.298 1
+             position 0 0
+             size 1 1
+             hexactpos 0
+             vexactpos 0
+             hexactsize 0
+             vexactsize 0
+             text "6.9"
+             "size to text h" 0
+             "size to text v" 0
+             "text halign" center
+             "text valign" center
+            }
+           }
+          }
+         }
+        }
+        GridSpacerWidgetClass c_headbobIdle {
+         ignorepointer 1
+         size 1 48
+         hexactpos 0
+         vexactpos 0
+         hexactsize 0
+         vexactsize 1
+         Padding 0
+         Margin 0
+         "Size To Content V" 1
+         content_valign center
+         Columns 2
+         Rows 1
+         {
+          TextWidgetClass t_headbobIdle {
+           ignorepointer 1
+           position 0 0
+           size 1 1
+           hexactpos 0
+           vexactpos 0
+           hexactsize 0
+           vexactsize 0
+           text "#STR_SUDE_LAYOUT_OPTIONS_CAMERA_HEADBOB_IDLE"
+           text_proportion 0.75
+           "size to text h" 0
+           "size to text v" 0
+           "text valign" center
+          }
+          SliderWidgetClass headbobIdle {
+           color 1 1 1 0.2706
+           size 1 24
+           hexactpos 0
+           vexactpos 0
+           hexactsize 0
+           vexactsize 1
+           style Default
+           maximum 2
+           step 0.05
+           current 0.69
+           "fill in" 1
+           "draw marker" 0
+           "listen to input" 1
+           {
+            TextWidgetClass headbobIdle_value {
+             ignorepointer 1
+             color 0.9412 0.3294 0.298 1
+             position 0 0
+             size 1 1
+             hexactpos 0
+             vexactpos 0
+             hexactsize 0
+             vexactsize 0
+             text "6.9"
+             "size to text h" 0
+             "size to text v" 0
+             "text halign" center
+             "text valign" center
+            }
+           }
+          }
+         }
+        }
+        GridSpacerWidgetClass c_headbobWalk {
+         ignorepointer 1
+         size 1 48
+         hexactpos 0
+         vexactpos 0
+         hexactsize 0
+         vexactsize 1
+         Padding 0
+         Margin 0
+         "Size To Content V" 1
+         content_valign center
+         Columns 2
+         Rows 1
+         {
+          TextWidgetClass t_headbobWalk {
+           ignorepointer 1
+           position 0 0
+           size 1 1
+           hexactpos 0
+           vexactpos 0
+           hexactsize 0
+           vexactsize 0
+           text "#STR_SUDE_LAYOUT_OPTIONS_CAMERA_HEADBOB_WALK"
+           text_proportion 0.75
+           "size to text h" 0
+           "size to text v" 0
+           "text valign" center
+          }
+          SliderWidgetClass headbobWalk {
+           color 1 1 1 0.2706
+           size 1 24
+           hexactpos 0
+           vexactpos 0
+           hexactsize 0
+           vexactsize 1
+           style Default
+           maximum 2
+           step 0.05
+           current 0.69
+           "fill in" 1
+           "draw marker" 0
+           "listen to input" 1
+           {
+            TextWidgetClass headbobWalk_value {
+             ignorepointer 1
+             color 0.9412 0.3294 0.298 1
+             position 0 0
+             size 1 1
+             hexactpos 0
+             vexactpos 0
+             hexactsize 0
+             vexactsize 0
+             text "6.9"
+             "size to text h" 0
+             "size to text v" 0
+             "text halign" center
+             "text valign" center
+            }
+           }
+          }
+         }
+        }
+        GridSpacerWidgetClass c_headbobRun {
+         ignorepointer 1
+         size 1 48
+         hexactpos 0
+         vexactpos 0
+         hexactsize 0
+         vexactsize 1
+         Padding 0
+         Margin 0
+         "Size To Content V" 1
+         content_valign center
+         Columns 2
+         Rows 1
+         {
+          TextWidgetClass t_headbobRun {
+           ignorepointer 1
+           position 0 0
+           size 1 1
+           hexactpos 0
+           vexactpos 0
+           hexactsize 0
+           vexactsize 0
+           text "#STR_SUDE_LAYOUT_OPTIONS_CAMERA_HEADBOB_RUN"
+           text_proportion 0.75
+           "size to text h" 0
+           "size to text v" 0
+           "text valign" center
+          }
+          SliderWidgetClass headbobRun {
+           color 1 1 1 0.2706
+           size 1 24
+           hexactpos 0
+           vexactpos 0
+           hexactsize 0
+           vexactsize 1
+           style Default
+           maximum 2
+           step 0.05
+           current 0.69
+           "fill in" 1
+           "draw marker" 0
+           "listen to input" 1
+           {
+            TextWidgetClass headbobRun_value {
+             ignorepointer 1
+             color 0.9412 0.3294 0.298 1
+             position 0 0
+             size 1 1
+             hexactpos 0
+             vexactpos 0
+             hexactsize 0
+             vexactsize 0
+             text "6.9"
+             "size to text h" 0
+             "size to text v" 0
+             "text halign" center
+             "text valign" center
+            }
+           }
+          }
+         }
+        }
+        GridSpacerWidgetClass c_headbobSprint {
+         ignorepointer 1
+         size 1 48
+         hexactpos 0
+         vexactpos 0
+         hexactsize 0
+         vexactsize 1
+         Padding 0
+         Margin 0
+         "Size To Content V" 1
+         content_valign center
+         Columns 2
+         Rows 1
+         {
+          TextWidgetClass t_headbobSprint {
+           visible 1
+           ignorepointer 1
+           position 0 0
+           size 1 1
+           hexactpos 0
+           vexactpos 0
+           hexactsize 0
+           vexactsize 0
+           text "#STR_SUDE_LAYOUT_OPTIONS_CAMERA_HEADBOB_SPRINT"
+           text_proportion 0.75
+           "size to text h" 0
+           "size to text v" 0
+           "text valign" center
+          }
+          SliderWidgetClass headbobSprint {
+           color 1 1 1 0.2706
+           size 1 24
+           hexactpos 0
+           vexactpos 0
+           hexactsize 0
+           vexactsize 1
+           style Default
+           maximum 2
+           step 0.05
+           current 0.69
+           "fill in" 1
+           "draw marker" 0
+           "listen to input" 1
+           {
+            TextWidgetClass headbobSprint_value {
              ignorepointer 1
              color 0.9412 0.3294 0.298 1
              position 0 0

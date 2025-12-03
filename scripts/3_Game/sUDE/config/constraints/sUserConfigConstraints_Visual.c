@@ -21,7 +21,7 @@ class SUserConfigConstraints_Visual : SUserConfigConstraintsBase {
 	protected ref SConstraintPrimitiveMinMaxNumeric  ddofIntensity        = new SConstraintPrimitiveMinMaxNumeric(0, 1);
 	protected ref SConstraintSwitch                  ddofEnabledIn3PP     = new SConstraintSwitch(false);
 	protected ref SConstraintSwitch                  ddofEnabledInVehicle = new SConstraintSwitch(true);
-	protected ref SConstraintPrimitiveMinMaxNumeric  headbobIntensity     = new SConstraintPrimitiveMinMaxNumeric(0, 1);
+	protected ref SConstraintMinMaxArrayNumeric      headbobIntensity     = new SConstraintMinMaxArrayNumeric({0.0, 0.0, 0.0, 0.0}, {2.0, 2.0, 2.0, 2.0});
 	protected ref SConstraintSwitch                  headbobEnabledIn3PP  = new SConstraintSwitch(true);
 	protected ref SConstraintPrimitiveMinMaxNumeric  motionBlurIntensity  = new SConstraintPrimitiveMinMaxNumeric(0, 1);
 	protected ref SConstraintPrimitiveMinMaxNumeric  bloomIntensity       = new SConstraintPrimitiveMinMaxNumeric(0, 1);
@@ -44,8 +44,8 @@ class SUserConfigConstraints_Visual : SUserConfigConstraintsBase {
 	SConstraintSwitch getDDOFEnabledInVehicle() {
 		return ddofEnabledInVehicle;
 	}
-	
-	SConstraintPrimitiveMinMaxNumeric getHeadbobIntensity() {
+
+	SConstraintMinMaxArrayNumeric getHeadbobIntensity() {
 		return headbobIntensity;
 	}
 

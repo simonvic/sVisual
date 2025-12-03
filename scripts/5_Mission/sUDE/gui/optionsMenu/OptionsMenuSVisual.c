@@ -18,6 +18,10 @@ class OptionsMenuSVisual : SOptionsMenuBase{
 	protected ref CheckBoxWidget  m_dofSwitch3PP;
 	protected ref CheckBoxWidget  m_dofSwitchVehicle;
 	protected ref SliderWidget    m_headBobSlider;
+	protected ref SliderWidget    m_headBobIdleSlider;
+	protected ref SliderWidget    m_headBobWalkSlider;
+	protected ref SliderWidget    m_headBobRunSlider;
+	protected ref SliderWidget    m_headBobSprintSlider;
 	protected ref CheckBoxWidget  m_headbobSwitch3pp;	
 	protected ref SliderWidget    m_motionBlurSlider;
 	protected ref SliderWidget    m_bloomSlider;
@@ -29,6 +33,8 @@ class OptionsMenuSVisual : SOptionsMenuBase{
 		setUserConfig(SUserConfig.visual());
 	}
 	
+	protected static const ref array<int> HEADBOB_INDICES = {0, 1, 2, 3};
+
 	override void onBuild() {
 		super.onBuild();
 
@@ -36,7 +42,11 @@ class OptionsMenuSVisual : SOptionsMenuBase{
 		initOptionWidget(m_dofSlider,               "ddof",                 getUserConfig().getOptionFloat("ddofIntensity"));
 		initOptionWidget(m_dofSwitch3PP,            "ddof3pp",              getUserConfig().getOptionBool("ddofEnabledIn3PP"));
 		initOptionWidget(m_dofSwitchVehicle,        "ddofVehicle",          getUserConfig().getOptionBool("ddofEnabledInVehicle"));
-		initOptionWidget(m_headBobSlider,           "headbob",              getUserConfig().getOptionFloat("headbobIntensity"));
+		initOptionWidget(m_headBobSlider,           "headbob",              getUserConfig().getOptionArrayFloat("headbobIntensity"), HEADBOB_INDICES);
+		initOptionWidget(m_headBobIdleSlider,       "headbobIdle",          getUserConfig().getOptionArrayFloat("headbobIntensity"), 0);
+		initOptionWidget(m_headBobWalkSlider,       "headbobWalk",          getUserConfig().getOptionArrayFloat("headbobIntensity"), 1);
+		initOptionWidget(m_headBobRunSlider,        "headbobRun",           getUserConfig().getOptionArrayFloat("headbobIntensity"), 2);
+		initOptionWidget(m_headBobSprintSlider,     "headbobSprint",        getUserConfig().getOptionArrayFloat("headbobIntensity"), 3);
 		initOptionWidget(m_headbobSwitch3pp,        "headbob3pp",           getUserConfig().getOptionBool("headbobEnabledIn3PP"));
 		initOptionWidget(m_motionBlurSlider,        "motionblur",           getUserConfig().getOptionFloat("motionBlurIntensity"));
 		initOptionWidget(m_bloomSlider,             "bloom",                getUserConfig().getOptionFloat("bloomIntensity"));

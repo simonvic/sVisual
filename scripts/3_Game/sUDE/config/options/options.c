@@ -78,14 +78,14 @@ class SUCOption_DDOFSwitchVehicle : SUserConfigOption<bool> {
 /**
 *	@brief Headbob intensity option
 */
-class SUCOption_HeadbobIntensity : SUserConfigOption<float> {
-	void SUCOption_HeadbobIntensity(float value, SConstraintBase constraint = null, SUserConfigOptionInfo info = null) {
+class SUCOption_HeadbobIntensity : SUserConfigOptionArray<float> {
+	void SUCOption_HeadbobIntensity(array<float> value, SConstraintBase constraint = null, SUserConfigOptionInfo info = null) {
 		if (!info) {
 			m_info = new SUserConfigOptionInfo("#STR_SUDE_LAYOUT_OPTIONS_CAMERA_HEADBOB", "#STR_SUDE_LAYOUT_OPTIONS_CAMERA_HEADBOB_DESCRIPTION")
 		}
 	}
-	
-	override void onValueChange(float previousValue, float newValue) {
+
+	override void onValueChange(array<float> previousValue, array<float> newValue) {
 		SUserConfig.visual().setHeadbobIntensity(newValue);
 	}
 }

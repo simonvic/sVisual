@@ -152,8 +152,14 @@ modded class DayZPlayerCameraBase {
 		return m_iPlayer.m_MovementState.m_fLeaning * getHeadLeanAngle();
 	}
 	
-	protected static float getHeadbobIntensity() {
-		return userCfgVisual.getHeadbobIntensity();
+	protected float getHeadbobIntensity() {
+		switch (m_iPlayer.m_MovementState.m_iMovement) { 			
+			case DayZPlayerConstants.MOVEMENTIDX_IDLE:   return userCfgVisual.getHeadbobIntensity()[0];
+			case DayZPlayerConstants.MOVEMENTIDX_WALK:   return userCfgVisual.getHeadbobIntensity()[1];
+			case DayZPlayerConstants.MOVEMENTIDX_RUN:    return userCfgVisual.getHeadbobIntensity()[2];
+			case DayZPlayerConstants.MOVEMENTIDX_SPRINT: return userCfgVisual.getHeadbobIntensity()[3];
+		}
+		return 1.0;
 	}
 	
 	protected static float getHeadLeanAngle() {

@@ -20,7 +20,7 @@ class SUserConfigVisual : SUserConfigBase {
 	protected float ddofIntensity = 0.0;
 	protected bool ddofEnabledIn3PP = false;
 	protected bool ddofEnabledInVehicle = true;
-	protected float headbobIntensity = 0.0;
+	protected ref array<float> headbobIntensity = {1.0, 1.0, 1.0, 1.0};
 	protected bool headbobEnabledIn3PP = false;
 	protected float motionBlurIntensity = 0.0;
 	protected float bloomIntensity = 0.0;
@@ -95,11 +95,11 @@ class SUserConfigVisual : SUserConfigBase {
 		ddofEnabledInVehicle = enabled;
 	}
 	
-	float getHeadbobIntensity() {
+	array<float> getHeadbobIntensity() {
 		return headbobIntensity;
 	}
 	
-	void setHeadbobIntensity(float intensity) {
+	void setHeadbobIntensity(array<float> intensity) {
 		headbobIntensity = intensity;
 	}
 	
