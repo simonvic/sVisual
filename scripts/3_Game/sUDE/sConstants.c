@@ -1,6 +1,6 @@
 class HeadBobConstants{
 	//                                                   yawStrenght, yawFrequency, pitchStrenght, pitchFrequency
-	static const ref array<float> IDLE                   = { 0.00,        0.00,          1.10,         0.50  };
+	static const ref array<float> IDLE                   = { 0.00,        0.00,          1.10,         2.50  };
 
 	static const ref array<float> WALKING_ERECT          = { 1.38,        6.00,          2.00,        12.00  };
 	static const ref array<float> WALKING_ERECT_RAISED   = { 0.75,        4.00,          1.50,         6.50  };
