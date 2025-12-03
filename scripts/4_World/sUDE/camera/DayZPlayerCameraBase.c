@@ -79,23 +79,23 @@ modded class DayZPlayerCameraBase {
 		// TODO(1.27): user GetCurrentStance() and GetCurrentMovement()
 		switch (m_iPlayer.m_MovementState.m_iMovement) { 			
 			
-			case 0: //idling
+			case DayZPlayerConstants.MOVEMENTIDX_IDLE:
 			return HeadBobConstants.IDLE;			
 			
-			case 1: // walking
+			case DayZPlayerConstants.MOVEMENTIDX_WALK:
 			if (m_iPlayer.IsPlayerInStance(DayZPlayerConstants.STANCEMASK_ERECT))       return HeadBobConstants.WALKING_ERECT;
 			if (m_iPlayer.IsPlayerInStance(DayZPlayerConstants.STANCEMASK_RAISEDERECT)) return HeadBobConstants.WALKING_ERECT_RAISED;
 			if (m_iPlayer.IsPlayerInStance(DayZPlayerConstants.STANCEMASK_CROUCH))      return HeadBobConstants.WALKING_CROUCH;
 			if (m_iPlayer.IsPlayerInStance(DayZPlayerConstants.STANCEMASK_PRONE))       return HeadBobConstants.WALKING_PRONE;
 			break;
 			
-			case 2: // jogging
+			case DayZPlayerConstants.MOVEMENTIDX_RUN:
 			if (m_iPlayer.IsPlayerInStance(DayZPlayerConstants.STANCEMASK_ERECT))       return HeadBobConstants.JOGGING_ERECT;
 			if (m_iPlayer.IsPlayerInStance(DayZPlayerConstants.STANCEMASK_RAISEDERECT)) return HeadBobConstants.JOGGING_ERECT_RAISED;
 			if (m_iPlayer.IsPlayerInStance(DayZPlayerConstants.STANCEMASK_CROUCH))      return HeadBobConstants.JOGGING_CROUCH;
 			break;
 
-			case 3: // running
+			case DayZPlayerConstants.MOVEMENTIDX_SPRINT:
 			if (m_iPlayer.IsPlayerInStance(DayZPlayerConstants.STANCEMASK_ERECT))       return HeadBobConstants.RUNNING_ERECT;
 			if (m_iPlayer.IsPlayerInStance(DayZPlayerConstants.STANCEMASK_CROUCH))      return HeadBobConstants.RUNNING_CROUCH;
 			break;
