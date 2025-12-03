@@ -13,8 +13,9 @@ modded class PlayerBase {
 	}
 
 	void ~PlayerBase() {
-		if (!GetGame().IsClient()) return;
-		SUserConfig.visual().getOption("showClothingOverlays").getOnValueChange().Remove(this.onClothingOverlayOptionToggle);
+		if (GetGame() && GetGame().IsClient()) {
+			SUserConfig.visual().getOption("showClothingOverlays").getOnValueChange().Remove(this.onClothingOverlayOptionToggle);
+		}
 	}
 
 	// TODO: move to clothing
