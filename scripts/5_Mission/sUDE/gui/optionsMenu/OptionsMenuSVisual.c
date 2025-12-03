@@ -22,6 +22,7 @@ class OptionsMenuSVisual : SOptionsMenuBase{
 	protected ref SliderWidget    m_motionBlurSlider;
 	protected ref SliderWidget    m_bloomSlider;
 	protected ref SliderWidget    m_headLeanSlider;
+	protected ref CheckBoxWidget  m_showClothingOverlays;
 	
 	override void onInit() {
 		super.onInit();
@@ -31,15 +32,16 @@ class OptionsMenuSVisual : SOptionsMenuBase{
 	override void onBuild() {
 		super.onBuild();
 
-		initOptionWidget(m_effectsIntensitySlider,  "effectsIntensity",  getUserConfig().getOptionFloat("effectsIntensity"));
-		initOptionWidget(m_dofSlider,               "ddof",              getUserConfig().getOptionFloat("ddofIntensity"));
-		initOptionWidget(m_dofSwitch3PP,            "ddof3pp",           getUserConfig().getOptionBool("ddofEnabledIn3PP"));
-		initOptionWidget(m_dofSwitchVehicle,        "ddofVehicle",       getUserConfig().getOptionBool("ddofEnabledInVehicle"));
-		initOptionWidget(m_headBobSlider,           "headbob",           getUserConfig().getOptionFloat("headbobIntensity"));
-		initOptionWidget(m_headbobSwitch3pp,        "headbob3pp",        getUserConfig().getOptionBool("headbobEnabledIn3PP"));
-		initOptionWidget(m_motionBlurSlider,        "motionblur",        getUserConfig().getOptionFloat("motionBlurIntensity"));
-		initOptionWidget(m_bloomSlider,             "bloom",             getUserConfig().getOptionFloat("bloomIntensity"));
-		initOptionWidget(m_headLeanSlider,          "headLean",          getUserConfig().getOptionFloat("headLeanAngle"));
+		initOptionWidget(m_effectsIntensitySlider,  "effectsIntensity",     getUserConfig().getOptionFloat("effectsIntensity"));
+		initOptionWidget(m_dofSlider,               "ddof",                 getUserConfig().getOptionFloat("ddofIntensity"));
+		initOptionWidget(m_dofSwitch3PP,            "ddof3pp",              getUserConfig().getOptionBool("ddofEnabledIn3PP"));
+		initOptionWidget(m_dofSwitchVehicle,        "ddofVehicle",          getUserConfig().getOptionBool("ddofEnabledInVehicle"));
+		initOptionWidget(m_headBobSlider,           "headbob",              getUserConfig().getOptionFloat("headbobIntensity"));
+		initOptionWidget(m_headbobSwitch3pp,        "headbob3pp",           getUserConfig().getOptionBool("headbobEnabledIn3PP"));
+		initOptionWidget(m_motionBlurSlider,        "motionblur",           getUserConfig().getOptionFloat("motionBlurIntensity"));
+		initOptionWidget(m_bloomSlider,             "bloom",                getUserConfig().getOptionFloat("bloomIntensity"));
+		initOptionWidget(m_headLeanSlider,          "headLean",             getUserConfig().getOptionFloat("headLeanAngle"));
+		initOptionWidget(m_showClothingOverlays,    "showClothingOverlays", getUserConfig().getOptionBool("showClothingOverlays"));
 	}
 
 }

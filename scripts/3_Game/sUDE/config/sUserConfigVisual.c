@@ -25,6 +25,7 @@ class SUserConfigVisual : SUserConfigBase {
 	protected float motionBlurIntensity = 0.0;
 	protected float bloomIntensity = 0.0;
 	protected float headLeanAngle = 0.0;
+	protected bool showClothingOverlays = true;
 	///////////////////////////////////////
 	
 	
@@ -39,6 +40,7 @@ class SUserConfigVisual : SUserConfigBase {
 		registerOption("motionBlurIntensity",  new SUCOption_MotionBlurIntensity(motionBlurIntensity));
 		registerOption("bloomIntensity",       new SUCOption_BloomIntensity(bloomIntensity));
 		registerOption("headLeanAngle",        new SUCOption_HeadleanAngle(headLeanAngle));
+		registerOption("showClothingOverlays", new SUCOption_ShowClothingOverlays(showClothingOverlays));
 	}
 	
 	override void applyConstraints(SUserConfigConstraintsBase constraints) {
@@ -57,6 +59,7 @@ class SUserConfigVisual : SUserConfigBase {
 		getOption("motionBlurIntensity").setConstraint(c.getMotionBlurIntensity());
 		getOption("bloomIntensity").setConstraint(c.getBloomIntensity());
 		getOption("headLeanAngle").setConstraint(c.getHeadLeanAngle());
+		getOption("showClothingOverlays").setConstraint(c.getShowClothingOverlays());
 		SLOG.d(1, "Done");
 	}
 	
@@ -130,6 +133,14 @@ class SUserConfigVisual : SUserConfigBase {
 	
 	void setHeadLeanAngle(float angle) {
 		headLeanAngle = angle;
+	}
+
+	bool isShowClothingOverlaysEnabled() {
+		return showClothingOverlays;
+	}
+
+	void setShowClothingOverlays(bool enabled) {
+		showClothingOverlays = enabled;
 	}
 	
 	

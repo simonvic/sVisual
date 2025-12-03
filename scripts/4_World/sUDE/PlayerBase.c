@@ -15,6 +15,7 @@ modded class PlayerBase {
 	override void EEItemAttached(EntityAI item, string slot_name) {
 		super.EEItemAttached(item, slot_name);
 		if (GetInstanceType() != DayZPlayerInstanceType.INSTANCETYPE_CLIENT) return;
+		if (!SUserConfig.visual().isShowClothingOverlaysEnabled()) return;
 		
 		Clothing clothing = Clothing.Cast(item);
 		if (clothing && clothing.hasOverlays()) {
@@ -29,6 +30,7 @@ modded class PlayerBase {
 	override void EEItemDetached(EntityAI item, string slot_name) {
 		super.EEItemDetached(item, slot_name);
 		if (GetInstanceType() != DayZPlayerInstanceType.INSTANCETYPE_CLIENT) return;
+		// if (!SUserConfig.visual().isShowClothingOverlaysEnabled()) return;
 		
 		Clothing clothing = Clothing.Cast(item);
 		if (clothing && clothing.hasOverlays()) {
@@ -63,7 +65,9 @@ modded class PlayerBase {
 		super.OnPlayerLoaded();
 		if (GetInstanceType() != DayZPlayerInstanceType.INSTANCETYPE_CLIENT) return;
 		SCameraOverlaysManager.getInstance().deactivateAll();
-		checkForClothingOverlays();
+		if (SUserConfig.visual().isShowClothingOverlaysEnabled()) {
+			checkForClothingOverlays();
+		}
 		playSpawnVisuals();
 	}
 	

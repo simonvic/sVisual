@@ -176,3 +176,18 @@ class SUCOption_HeadleanAngle : SUserConfigOption<float> {
 		SUserConfig.visual().setHeadLeanAngle(newValue);
 	}
 }
+
+/**
+*	@brief Option to toggle visibility of camera overlays when equipping clothing
+*/
+class SUCOption_ShowClothingOverlays : SUserConfigOption<bool> {
+	void SUCOption_ShowClothingOverlays(bool value, SConstraintBase constraint = null, SUserConfigOptionInfo info = null) {
+		if (!info) {
+			m_info = new SUserConfigOptionInfo("#STR_SUDE_LAYOUT_OPTIONS_SHOW_CLOTHING_OVERLAYS", "#STR_SUDE_LAYOUT_OPTIONS_SHOW_CLOTHING_OVERLAYS_DESCRIPTION")
+		}
+	}
+
+	override void onValueChange(bool previousValue, bool newValue) {
+		SUserConfig.visual().setShowClothingOverlays(newValue);
+	}
+}
