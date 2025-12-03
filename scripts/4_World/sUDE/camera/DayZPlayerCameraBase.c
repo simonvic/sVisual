@@ -66,7 +66,7 @@ modded class DayZPlayerCameraBase {
 		pitchStrenght *= intensity;
 		
 		if (movSpeed == 0) {
-			m_timeHeadbob = 0;
+			m_timeHeadbob += pDt;
 		} else {
 			m_timeHeadbob += pDt * movSpeed;
 		}
