@@ -86,6 +86,7 @@ modded class DayZPlayerCameraBase {
 			if (m_iPlayer.IsPlayerInStance(DayZPlayerConstants.STANCEMASK_ERECT))       return HeadBobConstants.WALKING_ERECT;
 			if (m_iPlayer.IsPlayerInStance(DayZPlayerConstants.STANCEMASK_RAISEDERECT)) return HeadBobConstants.WALKING_ERECT_RAISED;
 			if (m_iPlayer.IsPlayerInStance(DayZPlayerConstants.STANCEMASK_CROUCH))      return HeadBobConstants.WALKING_CROUCH;
+			if (m_iPlayer.IsPlayerInStance(DayZPlayerConstants.STANCEMASK_RAISEDCROUCH)) return HeadBobConstants.WALKING_CROUCH_RAISED;
 			if (m_iPlayer.IsPlayerInStance(DayZPlayerConstants.STANCEMASK_PRONE))       return HeadBobConstants.WALKING_PRONE;
 			break;
 			
@@ -93,6 +94,7 @@ modded class DayZPlayerCameraBase {
 			if (m_iPlayer.IsPlayerInStance(DayZPlayerConstants.STANCEMASK_ERECT))       return HeadBobConstants.JOGGING_ERECT;
 			if (m_iPlayer.IsPlayerInStance(DayZPlayerConstants.STANCEMASK_RAISEDERECT)) return HeadBobConstants.JOGGING_ERECT_RAISED;
 			if (m_iPlayer.IsPlayerInStance(DayZPlayerConstants.STANCEMASK_CROUCH))      return HeadBobConstants.JOGGING_CROUCH;
+			if (m_iPlayer.IsPlayerInStance(DayZPlayerConstants.STANCEMASK_RAISEDCROUCH)) return HeadBobConstants.JOGGING_CROUCH_RAISED;
 			break;
 
 			case DayZPlayerConstants.MOVEMENTIDX_SPRINT:
