@@ -61,16 +61,11 @@ modded class PlayerBase {
 		}
 	}
 
-	override void OnSelectPlayer() {
-		super.OnSelectPlayer();
-		if (GetInstanceType() != DayZPlayerInstanceType.INSTANCETYPE_CLIENT) return;
-		PPERequesterBank.GetRequester(SPPERequester_Bloom).Start();
-		PPERequesterBank.GetRequester(SPPERequester_MotionBlur).Start();
-	}
-
 	override void OnPlayerLoaded() {
 		super.OnPlayerLoaded();
 		if (GetInstanceType() != DayZPlayerInstanceType.INSTANCETYPE_CLIENT) return;
+		PPERequesterBank.GetRequester(SPPERequester_Bloom).Start();
+		PPERequesterBank.GetRequester(SPPERequester_MotionBlur).Start();
 		SCameraOverlaysManager.getInstance().deactivateAll();
 		if (SUserConfig.visual().isShowClothingOverlaysEnabled()) {
 			checkForClothingOverlays();
