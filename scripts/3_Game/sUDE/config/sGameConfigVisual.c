@@ -1,9 +1,9 @@
 class SGameConfigVisual : SGameConfigBase{
-	
+
 	override string getModuleName() {
 		return "Visual";
 	}
-	
+
 	array<ref SCameraOverlay> getCameraOverlays(typename type) {
 		array<ref SCameraOverlay> overlays = new array<ref SCameraOverlay>();
 		string path = "cfgVehicles " + type + " sUDE CameraOverlays";
@@ -20,7 +20,7 @@ class SGameConfigVisual : SGameConfigBase{
 		}
 		return overlays;
 	}
-	
+
 	SCameraOverlay getCameraOverlay(string path) {
 		SCameraOverlay o = new SCameraOverlay();
 		o.setImage(SGameConfig.getString(path + " image"));
@@ -36,5 +36,5 @@ class SGameConfigVisual : SGameConfigBase{
 		o.setHidesWithIngameHUD(SGameConfig.getBool(path + "hidesWithIngameHUD"));
 		return o;
 	}
-	
+
 }

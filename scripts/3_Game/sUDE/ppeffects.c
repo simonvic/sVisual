@@ -19,16 +19,16 @@ modded class PPERequesterRegistrations {
 }
 
 class SPPERequester_MotionBlur : SPPEffect {
-	
+
 	override void onInit() {
 		normalized(true);
 		op(PPOperators.HIGHEST);
 	}
-	
+
 	override void onActivate() {
 		setIntensity(SUserConfig.visual().getMotionBlurIntensity());
 	}
-	
+
 	void setIntensity(float intensity) {
 		setMotionBlurPower(intensity);
 		if (intensity == 0) {
@@ -40,17 +40,17 @@ class SPPERequester_MotionBlur : SPPEffect {
 }
 
 class SPPERequester_Bloom : SPPEffect {
-	
+
 	override void onActivate() {
 		normalized(true);
 		op(PPOperators.SUBSTRACT);
 		setBloomTreshold(0.9);
-		
+
 		op(PPOperators.ADD);
 		setBloomIntensity(1);
 		setIntensity(SUserConfig.visual().getBloomIntensity());
 	}
-	
+
 	void setIntensity(float intensity) {
 		priority(PPEGlow.L_23_GLASSES - 1);
 		op(PPOperators.ADD);
@@ -59,12 +59,12 @@ class SPPERequester_Bloom : SPPEffect {
 }
 
 class SPPERequester_DDOF : SPPEffectAnimated {
-	
+
 	protected float m_distance;
 	protected float m_distanceTarget;
 	protected float m_focusVel[1];
 	protected float m_intensity;
-	
+
 	override void onInit() {
 		priority(PPEDOF.L_0_ADS - 1); // PPERequester_CameraADS DoF takes priority
 		op(PPOperators.SET);
@@ -74,20 +74,20 @@ class SPPERequester_DDOF : SPPEffectAnimated {
 		setParam(PPEExceptions.DOF, PPEDOF.PARAM_FOCUS_LEN_NEAR, 100.0);
 		setParam(PPEExceptions.DOF, PPEDOF.PARAM_FOCUS_DEPTH_OFFSET, 10.0);
 	}
-	
+
 	override void onActivate() {
 	}
-	
+
 	override void onAnimate(float deltaTime) {
 		m_distance = Math.SmoothCD(m_distance, m_distanceTarget, m_focusVel, 0.15, 1000, deltaTime);
 		setParam(PPEExceptions.DOF, PPEDOF.PARAM_FOCUS_DIST, m_distance);
 		setParam(PPEExceptions.DOF, PPEDOF.PARAM_BLUR, m_intensity * 30);
 	}
-	
+
 	void setIntensity(float intensity) {
 		m_intensity = intensity;
 	}
-	
+
 	void focusAt(float distance) {
 		m_distanceTarget = distance;
 	}
@@ -100,25 +100,25 @@ class SPPERequester_DDOF : SPPEffectAnimated {
 *	       hence he has to wait for the stamina to refill
 */
 class SPPERequester_Exhausted : SPPEffectTimed {	
-	
+
 	static const float DEACTIVATION_TRESHOLD = 25; //[0% - 100%] treshold for Exhausted PPEffect. Percentage of stamina available [0 - m_StaminaCap]
-	
+
 	protected float m_stamina = 100;
-	
+
 	override void onInit() {
 		priority(eSPPEPriority.STAMINA);
 		setDuration(Math.PI2);
 		op(PPOperators.LOWEST);
 		setVignetteColor(SColor.rgb(0x000000));
 	}
-	
+
 	override void onAnimate(float deltaTime) {
 		float power = getEffectsIntensity() * SMath.map(getRemaining(), 0, getDuration(), 0, 0.05) * Math.AbsFloat(Math.Sin(getTime() * Math.PI));
 		op(PPOperators.ADD);
 		setRadialBlurPower(power);
 		setVignetteIntensity(power * 10);
 	}
-	
+
 	void setStamina(float stamina) {
 		m_stamina = stamina;
 	}
@@ -139,9 +139,9 @@ class SPPERequester_HitReceived : SPPEffectTimed {
 	static const float RED_SPEED = 1.0;               // How fast the red overlay will dissipate
 	static const float MIN_INTENSITY = 1;             // Minimum strength of the effects
 	static const float MAX_INTENSITY = 5.0;           // Maximum value of hit strength
-	
+
 	protected float hitIntensity = MIN_INTENSITY;
-	
+
 	override void onInit() {
 		hitIntensity = MIN_INTENSITY;
 		priority(eSPPEPriority.PAIN);
@@ -149,15 +149,15 @@ class SPPERequester_HitReceived : SPPEffectTimed {
 		op(PPOperators.LOWEST);
 		setOverlayColor(SColor.rgb(0x220000));
 	}
-	
+
 	override void onAnimate(float deltaTime) {
 		op(PPOperators.ADD);
 		setChromAber(getEffectsIntensity() * 0.00314 * (Math.AbsFloat(Math.Sin(getTime() * Math.PI)) * hitIntensity * Math.AbsFloat(SMath.mapTo(getRemaining(), 0.01, MAX_DURATION))));
-		
+
 		op(PPOperators.ADD_RELATIVE);
 		setOverlayFactor(0.5 * getEffectsIntensity() * Math.Max(1 - getTime() * RED_SPEED, 0));
 	}
-	
+
 	void onHit() {
 		m_time = 0;
 		setDuration(Math.Clamp(getDuration() * DURATION_MULTIPLIER, MIN_DURATION, MAX_DURATION));
@@ -174,16 +174,16 @@ class SPPERequester_HitReceived : SPPEffectTimed {
 */
 class SPPERequester_BloodLoss : SPPEffectAnimated {
 	private int sourcesCount = 0;
-	
+
 	override void onInit() {
 		op(PPOperators.ADD);
 		priority(eSPPEPriority.BLEEDING);
 	}
-	
+
 	override void onAnimate(float deltaTime) {
 		setChromAber(getEffectsIntensity() * 0.005 * Math.AbsFloat(Math.Sin(getTime() * Math.Min(sourcesCount, 5) * 2)));
 	}
-		
+
 	void setSourcesCount(int count) {
 		this.sourcesCount = count;
 	}

@@ -1,5 +1,5 @@
 modded class SUserConfigConstraints{
-	
+
 	static SUserConfigConstraints_Visual visual(bool reload = false) {
 		return SUserConfigConstraints_Visual.Cast(getInstance().load(SUserConfigConstraints_Visual, reload));
 	}
@@ -8,7 +8,7 @@ modded class SUserConfigConstraints{
 		super.onPreload();
 		SUserConfigConstraints.visual();
 	}
-	
+
 }
 
 modded class SyncSUserConfigConstraintsRPC {
