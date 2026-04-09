@@ -5,13 +5,17 @@ modded class DayZPlayerCameraIronsights {
 		updateDDOF(pDt, pOutResult);
 		updateCamAngles(pDt, pOutResult);
 	}
-	
+
 	override void AdjustCameraParameters(float pDt, inout DayZPlayerCameraResult pOutResult) { 
 		super.AdjustCameraParameters(pDt, pOutResult);
-		pOutResult.m_iDirectBoneMode = 3;
+		// HACK: needed as workaround for https://feedback.bistudio.com/T195618
+		if (userCfgVisual.getHeadLeanAngle() != 0) {
+			pOutResult.m_iDirectBoneMode = 3;
+		}
 	}
-	
+
 	override bool isHeadLeanEnabled() {
 		return true;
 	}
+
 }
