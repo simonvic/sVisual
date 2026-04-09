@@ -5,7 +5,7 @@ modded class BloodLoss {
 	
 	override void OnInit() {
 		super.OnInit();
-		if (!GetGame().IsDedicatedServer()) {
+		if (!g_Game.IsDedicatedServer()) {
 			Class.CastTo(m_ppeBleeding, PPERequesterBank.GetRequester(SPPERequester_BloodLoss));	
 			m_coBleeding = new SCOBleeding();
 		}

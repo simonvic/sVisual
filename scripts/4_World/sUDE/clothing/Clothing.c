@@ -36,7 +36,7 @@ modded class Clothing {
 	}
 	
 	protected void swapOverlayByHealthLevel(int oldLevel, int newLevel, string zone) {
-		if (!GetGame().IsClient()) return;
+		if (!g_Game.IsClient()) return;
 		SCameraOverlay old = getOverlayByHealth(oldLevel);
 		if (old && old.isActive()) {
 			old.deactivate();

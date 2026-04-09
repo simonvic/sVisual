@@ -129,7 +129,7 @@ modded class DayZPlayerCameraBase {
 		
 		vector head = m_pPlayer.GetBonePositionWS(m_ddofStartBoneIdx);
 		m_ddofRaycast.from(head);
-		m_ddofRaycast.to(head + GetGame().GetCurrentCameraDirection() * 150);
+		m_ddofRaycast.to(head + g_Game.GetCurrentCameraDirection() * 150);
 		m_ddofRaycast.ignore(m_pPlayer, m_pPlayer.GetDrivingVehicle());
 
 		return vector.Distance(head, m_ddofRaycast.launch().getContactPosition());

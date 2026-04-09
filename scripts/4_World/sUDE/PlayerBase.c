@@ -5,7 +5,7 @@ modded class PlayerBase {
 	protected ref SCOUnconscious m_coUnconscious;
 
 	void PlayerBase() {
-		if (!GetGame().IsClient()) return;
+		if (!g_Game.IsClient()) return;
 		Class.CastTo(m_ppeHitAnim, PPERequesterBank.GetRequester(SPPERequester_HitReceived));
 		m_coSpawn = new SCOTimedSpawn();
 		m_coUnconscious = new SCOUnconscious();
@@ -13,7 +13,7 @@ modded class PlayerBase {
 	}
 
 	void ~PlayerBase() {
-		if (GetGame() && GetGame().IsClient()) {
+		if (g_Game && GetGame().IsClient()) {
 			SUserConfig.visual().getOption("showClothingOverlays").getOnValueChange().Remove(this.onClothingOverlayOptionToggle);
 		}
 	}

@@ -8,9 +8,9 @@ class SGameConfigVisual : SGameConfigBase{
 		array<ref SCameraOverlay> overlays = new array<ref SCameraOverlay>();
 		string path = "cfgVehicles " + type + " sUDE CameraOverlays";
 		int lastOverlay = -1;
-		for (int i=0; i<GetGame().ConfigGetChildrenCount(path); i++) {
+		for (int i=0; i<g_Game.ConfigGetChildrenCount(path); i++) {
 			string className;
-			GetGame().ConfigGetChildName(path, i, className);
+			g_Game.ConfigGetChildName(path, i, className);
 			lastOverlay++;
 			if (className == "overlay_"+lastOverlay) {
 				overlays.Insert(getCameraOverlay(path + " overlay_"+lastOverlay));
