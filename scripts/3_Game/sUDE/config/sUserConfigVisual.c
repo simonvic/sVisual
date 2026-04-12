@@ -44,7 +44,7 @@ class SUserConfigVisual : SUserConfigBase {
 	}
 
 	override void applyConstraints(SUserConfigConstraintsBase constraints) {
-		SLOG.d(""+this, "Applying constraints");
+		SLOG.i(""+this, "Applying constraints");
 		SUserConfigConstraints_Visual c = SUserConfigConstraints_Visual.Cast(constraints);
 		if (!c) {
 			SLOG.e(1, "Invalid constraints: " + constraints);
@@ -60,7 +60,7 @@ class SUserConfigVisual : SUserConfigBase {
 		getOption("bloomIntensity").setConstraint(c.getBloomIntensity());
 		getOption("headLeanAngle").setConstraint(c.getHeadLeanAngle());
 		getOption("showClothingOverlays").setConstraint(c.getShowClothingOverlays());
-		SLOG.d(1, "Done");
+		SLOG.i(1, "Done");
 	}
 
 	float getEffectsIntensity() {
