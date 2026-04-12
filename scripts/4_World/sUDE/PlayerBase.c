@@ -9,43 +9,6 @@ modded class PlayerBase {
 		Class.CastTo(m_ppeHitAnim, PPERequesterBank.GetRequester(SPPERequester_HitReceived));
 		m_coSpawn = new SCOTimedSpawn();
 		m_coUnconscious = new SCOUnconscious();
-		SUserConfig.visual().getOption("showClothingOverlays").getOnValueChange().Insert(this.onClothingOverlayOptionToggle, EScriptInvokerInsertFlags.UNIQUE);
-	}
-
-	void ~PlayerBase() {
-		if (g_Game && GetGame().IsClient()) {
-			SUserConfig.visual().getOption("showClothingOverlays").getOnValueChange().Remove(this.onClothingOverlayOptionToggle);
-		}
-	}
-
-	// TODO: move to clothing
-	override void EEItemAttached(EntityAI item, string slot_name) {
-		super.EEItemAttached(item, slot_name);
-		if (GetInstanceType() != DayZPlayerInstanceType.INSTANCETYPE_CLIENT) return;
-		if (!SUserConfig.visual().isShowClothingOverlaysEnabled()) return;
-
-		Clothing clothing = Clothing.Cast(item);
-		if (clothing && clothing.hasOverlays()) {
-			SCameraOverlay overlay = clothing.getOverlayByCurrentHealth();
-			if (overlay) {
-				overlay.activate();
-			}
-		}
-	}
-
-	// TODO: move to clothing
-	override void EEItemDetached(EntityAI item, string slot_name) {
-		super.EEItemDetached(item, slot_name);
-		if (GetInstanceType() != DayZPlayerInstanceType.INSTANCETYPE_CLIENT) return;
-		if (!SUserConfig.visual().isShowClothingOverlaysEnabled()) return;
-
-		Clothing clothing = Clothing.Cast(item);
-		if (clothing && clothing.hasOverlays()) {
-			SCameraOverlay overlay = clothing.getOverlayByCurrentHealth();
-			if (overlay) {
-				overlay.deactivate();
-			}
-		}
 	}
 
 	override void OnReceivedHit(ImpactEffectsData hitData) {
@@ -67,32 +30,28 @@ modded class PlayerBase {
 		PPERequesterBank.GetRequester(SPPERequester_Bloom).Start();
 		PPERequesterBank.GetRequester(SPPERequester_MotionBlur).Start();
 		SCameraOverlaysManager.getInstance().deactivateAll();
-		if (SUserConfig.visual().isShowClothingOverlaysEnabled()) {
-			checkForClothingOverlays();
-		}
+		initClothingOverlays();
 		playSpawnVisuals();
 	}
 
+	/*!
+	 * Activate visual effects on spawn
+	 */
 	protected void playSpawnVisuals() {
 		m_coSpawn.activate();
 	}
 
-	protected void onClothingOverlayOptionToggle(bool previousValue, bool newValue) {
-		checkForClothingOverlays(newValue);
-	}
-
-	protected void checkForClothingOverlays(bool activate = true) {
+	/*!
+	 * Iterate over player attachment and, if the attachment is Clothing and has overlays, update
+	 * their visibility.
+	 * This is invoked only OnPlayerLoaded and it's needed to handle overlays during player
+	 * initialization phase
+	 */
+	protected void initClothingOverlays() {
 		for (int i=0; i<GetInventory().AttachmentCount(); i++ ) {
 			Clothing clothing = Clothing.Cast(GetInventory().GetAttachmentFromIndex(i));
 			if (clothing && clothing.hasOverlays()) {
-				SCameraOverlay overlay = clothing.getOverlayByCurrentHealth();
-				if (overlay) {
-					if (activate) {
-						overlay.activate();
-					} else {
-						overlay.deactivate();
-					}
-				}
+				clothing.onPlayerLoad();
 			}
 		}
 	}
