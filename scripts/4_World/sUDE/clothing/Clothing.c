@@ -112,7 +112,7 @@ modded class Clothing {
 	void onPlayerLoad() {
 		m_isAttachedToPlayer = true;
 		SUserConfigVisual userCfg = SUserConfig.visual();
-		userCfg.getOption("showClothingOverlays").getOnValueChange().Insert(this.onClothingOverlayOptionToggle, EScriptInvokerInsertFlags.UNIQUE);
+		userCfg.getOption("showClothingOverlays").getOnValueChange().Insert(this.onClothingOverlayOptionToggle);
 		if (userCfg.isShowClothingOverlaysEnabled()) {
 			updateOverlayVisibility();
 		}
@@ -127,7 +127,7 @@ modded class Clothing {
 		m_isAttachedToPlayer = true;
 		if (hasOverlays()) {
 			SUserConfigVisual userCfg = SUserConfig.visual();
-			userCfg.getOption("showClothingOverlays").getOnValueChange().Insert(this.onClothingOverlayOptionToggle, EScriptInvokerInsertFlags.UNIQUE);
+			userCfg.getOption("showClothingOverlays").getOnValueChange().Insert(this.onClothingOverlayOptionToggle);
 			if (userCfg.isShowClothingOverlaysEnabled()) {
 				updateOverlayVisibility();
 			}
