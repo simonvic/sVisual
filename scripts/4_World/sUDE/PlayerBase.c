@@ -1,14 +1,50 @@
 modded class PlayerBase {
 
 	protected SPPERequester_HitReceived m_ppeHitAnim;
+	protected SPPERequester_BloodLoss m_ppeBleeding;
 	protected ref SCOTimedSpawn m_coSpawn;
 	protected ref SCOUnconscious m_coUnconscious;
+	protected ref SCOBleeding m_coBleeding;
 
 	void PlayerBase() {
 		if (!g_Game.IsClient()) return;
 		Class.CastTo(m_ppeHitAnim, PPERequesterBank.GetRequester(SPPERequester_HitReceived));
+		Class.CastTo(m_ppeBleeding, PPERequesterBank.GetRequester(SPPERequester_BloodLoss));
 		m_coSpawn = new SCOTimedSpawn();
 		m_coUnconscious = new SCOUnconscious();
+		m_coBleeding = new SCOBleeding();
+	}
+
+	override void OnBleedingBegin() {
+		super.OnBleedingBegin();
+		if (g_Game.IsDedicatedServer()) return;
+		if (!IsControlledPlayer()) return;
+		m_ppeBleeding.activate();
+		m_coBleeding.activate();
+	}
+
+	override void OnBleedingEnd() {
+		super.OnBleedingEnd();
+		if (g_Game.IsDedicatedServer()) return;
+		if (!IsControlledPlayer()) return;
+		m_ppeBleeding.deactivate();
+		m_coBleeding.deactivate();
+	}
+
+	override void OnBleedingSourceAdded(){
+		super.OnBleedingSourceAdded();
+		if (g_Game.IsDedicatedServer()) return;
+		if (!IsControlledPlayer()) return;
+		m_ppeBleeding.setSourcesCount(m_BleedingSourceCount);
+		m_coBleeding.setSourcesCount(m_BleedingSourceCount);
+	}
+
+	override void OnBleedingSourceRemoved(){
+		super.OnBleedingSourceRemoved();
+		if (g_Game.IsDedicatedServer()) return;
+		if (!IsControlledPlayer()) return;
+		m_ppeBleeding.setSourcesCount(m_BleedingSourceCount);
+		m_coBleeding.setSourcesCount(m_BleedingSourceCount);
 	}
 
 	override void OnReceivedHit(ImpactEffectsData hitData) {
