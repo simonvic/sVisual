@@ -191,3 +191,18 @@ class SUCOption_ShowClothingOverlays : SUserConfigOption<bool> {
 		SUserConfig.visual().setShowClothingOverlays(newValue);
 	}
 }
+
+/**
+*	@brief Option to toggle visibility of bleeding overlay
+*/
+class SUCOption_ShowBleedingOverlay : SUserConfigOption<bool> {
+	void SUCOption_ShowBleedingOverlay(bool value, SConstraintBase constraint = null, SUserConfigOptionInfo info = null) {
+		if (!info) {
+			m_info = new SUserConfigOptionInfo("#STR_SUDE_LAYOUT_OPTIONS_SHOW_BLEEDING_OVERLAY", "#STR_SUDE_LAYOUT_OPTIONS_SHOW_BLEEDING_OVERLAY_DESCRIPTION")
+		}
+	}
+
+	override void onValueChange(bool previousValue, bool newValue) {
+		SUserConfig.visual().setShowBleedingOverlay(newValue);
+	}
+}

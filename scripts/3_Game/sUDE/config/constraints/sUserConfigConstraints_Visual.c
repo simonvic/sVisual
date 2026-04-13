@@ -27,6 +27,7 @@ class SUserConfigConstraints_Visual : SUserConfigConstraintsBase {
 	protected ref SConstraintPrimitiveMinMaxNumeric  bloomIntensity       = new SConstraintPrimitiveMinMaxNumeric(0, 1);
 	protected ref SConstraintPrimitiveMinMaxNumeric  headLeanAngle        = new SConstraintPrimitiveMinMaxNumeric(0, 45);
 	protected ref SConstraintSwitch                  showClothingOverlays = new SConstraintSwitch(true);
+	protected ref SConstraintSwitch                  showBleedingOverlay  = new SConstraintSwitch(true);
 	///////////////////////////////////////
 
 	SConstraintPrimitiveMinMaxNumeric getEffectsIntensity() {
@@ -67,6 +68,10 @@ class SUserConfigConstraints_Visual : SUserConfigConstraintsBase {
 
 	SConstraintSwitch getShowClothingOverlays() {
 		return showClothingOverlays;
+	}
+
+	SConstraintSwitch getShowBleedingOverlay() {
+		return showBleedingOverlay;
 	}
 
 }

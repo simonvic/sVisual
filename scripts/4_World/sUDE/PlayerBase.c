@@ -13,6 +13,19 @@ modded class PlayerBase {
 		m_coSpawn = new SCOTimedSpawn();
 		m_coUnconscious = new SCOUnconscious();
 		m_coBleeding = new SCOBleeding();
+		SUserConfig.visual().getOption("showBleedingOverlay").getOnValueChange().Insert(this.onBleedingOverlayOptionToggle, EScriptInvokerInsertFlags.UNIQUE);
+	}
+
+	protected void onBleedingOverlayOptionToggle(bool prevValue, bool newValue) {
+		if (newValue) {
+			if (IsBleeding()) {
+				m_coBleeding.setSourcesCount(m_BleedingSourceCount);
+				m_coBleeding.activate();
+				m_ppeBleeding.activate(); // NOTE: reactivate ppe as well to sync the animations
+			}
+		} else {
+			m_coBleeding.deactivate();
+		}
 	}
 
 	override void OnBleedingBegin() {
@@ -20,7 +33,9 @@ modded class PlayerBase {
 		if (g_Game.IsDedicatedServer()) return;
 		if (!IsControlledPlayer()) return;
 		m_ppeBleeding.activate();
-		m_coBleeding.activate();
+		if (SUserConfig.visual().isShowBleedingOverlayEnabled()) {
+			m_coBleeding.activate();
+		}
 	}
 
 	override void OnBleedingEnd() {

@@ -55,7 +55,7 @@ FrameWidgetClass sude_svisual_tab_root {
      {
       PanelWidgetClass ct_camera {
        ignorepointer 1
-       color 0 0 0 0.7843
+       color 0 0 0 0.784
        position 0 0
        size 1 48
        hexactpos 0
@@ -79,7 +79,7 @@ FrameWidgetClass sude_svisual_tab_root {
       }
       GridSpacerWidgetClass c_body_camera {
        ignorepointer 1
-       color 0 0 0 0.5098
+       color 0 0 0 0.51
        position 0 0
        size 1 1
        hexactpos 0
@@ -122,7 +122,7 @@ FrameWidgetClass sude_svisual_tab_root {
           }
           SliderWidgetClass headbob {
            visible 0
-           color 1 1 1 0.2706
+           color 1 1 1 0.271
            size 1 24
            hexactpos 0
            vexactpos 0
@@ -138,7 +138,7 @@ FrameWidgetClass sude_svisual_tab_root {
            {
             TextWidgetClass headbob_value {
              ignorepointer 1
-             color 0.9412 0.3294 0.298 1
+             color 0.941 0.329 0.298 1
              position 0 0
              size 1 1
              hexactpos 0
@@ -184,7 +184,7 @@ FrameWidgetClass sude_svisual_tab_root {
            "text valign" center
           }
           SliderWidgetClass headbobIdle {
-           color 1 1 1 0.2706
+           color 1 1 1 0.271
            size 1 24
            hexactpos 0
            vexactpos 0
@@ -200,7 +200,7 @@ FrameWidgetClass sude_svisual_tab_root {
            {
             TextWidgetClass headbobIdle_value {
              ignorepointer 1
-             color 0.9412 0.3294 0.298 1
+             color 0.941 0.329 0.298 1
              position 0 0
              size 1 1
              hexactpos 0
@@ -246,7 +246,7 @@ FrameWidgetClass sude_svisual_tab_root {
            "text valign" center
           }
           SliderWidgetClass headbobWalk {
-           color 1 1 1 0.2706
+           color 1 1 1 0.271
            size 1 24
            hexactpos 0
            vexactpos 0
@@ -262,7 +262,7 @@ FrameWidgetClass sude_svisual_tab_root {
            {
             TextWidgetClass headbobWalk_value {
              ignorepointer 1
-             color 0.9412 0.3294 0.298 1
+             color 0.941 0.329 0.298 1
              position 0 0
              size 1 1
              hexactpos 0
@@ -308,7 +308,7 @@ FrameWidgetClass sude_svisual_tab_root {
            "text valign" center
           }
           SliderWidgetClass headbobRun {
-           color 1 1 1 0.2706
+           color 1 1 1 0.271
            size 1 24
            hexactpos 0
            vexactpos 0
@@ -324,7 +324,7 @@ FrameWidgetClass sude_svisual_tab_root {
            {
             TextWidgetClass headbobRun_value {
              ignorepointer 1
-             color 0.9412 0.3294 0.298 1
+             color 0.941 0.329 0.298 1
              position 0 0
              size 1 1
              hexactpos 0
@@ -371,7 +371,7 @@ FrameWidgetClass sude_svisual_tab_root {
            "text valign" center
           }
           SliderWidgetClass headbobSprint {
-           color 1 1 1 0.2706
+           color 1 1 1 0.271
            size 1 24
            hexactpos 0
            vexactpos 0
@@ -387,7 +387,7 @@ FrameWidgetClass sude_svisual_tab_root {
            {
             TextWidgetClass headbobSprint_value {
              ignorepointer 1
-             color 0.9412 0.3294 0.298 1
+             color 0.941 0.329 0.298 1
              position 0 0
              size 1 1
              hexactpos 0
@@ -469,7 +469,7 @@ FrameWidgetClass sude_svisual_tab_root {
            "text valign" center
           }
           SliderWidgetClass headLean {
-           color 1 1 1 0.2706
+           color 1 1 1 0.271
            size 1 24
            hexactpos 0
            vexactpos 0
@@ -484,7 +484,7 @@ FrameWidgetClass sude_svisual_tab_root {
            {
             TextWidgetClass headLean_value {
              ignorepointer 1
-             color 0.9412 0.3294 0.298 1
+             color 0.941 0.329 0.298 1
              position 0 0
              size 1 1
              hexactpos 0
@@ -521,7 +521,7 @@ FrameWidgetClass sude_svisual_tab_root {
      {
       PanelWidgetClass ct_ppeffects {
        ignorepointer 1
-       color 0 0 0 0.7843
+       color 0 0 0 0.784
        position 0 0
        size 1 48
        hexactpos 0
@@ -545,7 +545,7 @@ FrameWidgetClass sude_svisual_tab_root {
       }
       GridSpacerWidgetClass c_body_ppeffects {
        ignorepointer 1
-       color 0 0 0 0.5098
+       color 0 0 0 0.51
        position 0 0
        size 1 1
        hexactpos 0
@@ -586,7 +586,7 @@ FrameWidgetClass sude_svisual_tab_root {
            "exact text" 0
           }
           SliderWidgetClass effectsIntensity {
-           color 1 1 1 0.2706
+           color 1 1 1 0.271
            size 1 24
            hexactpos 0
            vexactpos 0
@@ -602,7 +602,7 @@ FrameWidgetClass sude_svisual_tab_root {
            {
             TextWidgetClass effectsIntensity_value {
              ignorepointer 1
-             color 0.9412 0.3294 0.298 1
+             color 0.941 0.329 0.298 1
              position 0 0
              size 1 1
              hexactpos 0
@@ -646,7 +646,7 @@ FrameWidgetClass sude_svisual_tab_root {
            "exact text" 0
           }
           SliderWidgetClass ddof {
-           color 1 1 1 0.2706
+           color 1 1 1 0.271
            size 1 24
            hexactpos 0
            vexactpos 0
@@ -662,7 +662,7 @@ FrameWidgetClass sude_svisual_tab_root {
            {
             TextWidgetClass ddof_value {
              ignorepointer 1
-             color 0.9412 0.3294 0.298 1
+             color 0.941 0.329 0.298 1
              position 0 0
              size 1 1
              hexactpos 0
@@ -780,7 +780,7 @@ FrameWidgetClass sude_svisual_tab_root {
            "exact text" 0
           }
           SliderWidgetClass motionblur {
-           color 1 1 1 0.2706
+           color 1 1 1 0.271
            size 1 24
            hexactpos 0
            vexactpos 0
@@ -796,7 +796,7 @@ FrameWidgetClass sude_svisual_tab_root {
            {
             TextWidgetClass motionblur_value {
              ignorepointer 1
-             color 0.9412 0.3294 0.298 1
+             color 0.941 0.329 0.298 1
              position 0 0
              size 1 1
              hexactpos 0
@@ -840,7 +840,7 @@ FrameWidgetClass sude_svisual_tab_root {
            "exact text" 0
           }
           SliderWidgetClass bloom {
-           color 1 1 1 0.2706
+           color 1 1 1 0.271
            size 1 24
            hexactpos 0
            vexactpos 0
@@ -856,7 +856,7 @@ FrameWidgetClass sude_svisual_tab_root {
            {
             TextWidgetClass bloom_value {
              ignorepointer 1
-             color 0.9412 0.3294 0.298 1
+             color 0.941 0.329 0.298 1
              position 0 0
              size 1 1
              hexactpos 0
@@ -873,6 +873,64 @@ FrameWidgetClass sude_svisual_tab_root {
           }
          }
         }
+       }
+      }
+     }
+    }
+    GridSpacerWidgetClass c_overlays {
+     ignorepointer 1
+     position 0 0
+     size 1 1
+     hexactpos 0
+     vexactpos 0
+     hexactsize 0
+     vexactsize 0
+     Padding 0
+     Margin 0
+     "Size To Content V" 1
+     Columns 1
+     Rows 2
+     {
+      PanelWidgetClass ct_overlays {
+       ignorepointer 1
+       color 0 0 0 0.784
+       position 0 0
+       size 1 48
+       hexactpos 0
+       vexactpos 0
+       hexactsize 0
+       vexactsize 1
+       style DayZDefaultPanelTop
+       {
+        TextWidgetClass t_overlays {
+         ignorepointer 1
+         size 1 1
+         hexactpos 0
+         vexactpos 0
+         hexactsize 0
+         vexactsize 0
+         text "#STR_SUDE_LAYOUT_OPTIONS_OVERLAYS"
+         "text halign" center
+         "text valign" center
+        }
+       }
+      }
+      GridSpacerWidgetClass c_body_overlays {
+       ignorepointer 1
+       color 0 0 0 0.51
+       position 0 0
+       size 1 1
+       hexactpos 0
+       vexactpos 0
+       hexactsize 0
+       vexactsize 0
+       style DayZDefaultPanel
+       Padding 8
+       Margin 8
+       "Size To Content V" 1
+       Columns 1
+       Rows 2
+       {
         GridSpacerWidgetClass c_showClothingOverlays {
          ignorepointer 1
          size 1 48
@@ -901,6 +959,43 @@ FrameWidgetClass sude_svisual_tab_root {
            "text valign" center
           }
           CheckBoxWidgetClass showClothingOverlays {
+           position 0 0
+           size 1 24
+           hexactpos 0
+           vexactpos 0
+           hexactsize 0
+           vexactsize 1
+          }
+         }
+        }
+        GridSpacerWidgetClass c_showBleedingOverlay {
+         ignorepointer 1
+         size 1 48
+         hexactpos 0
+         vexactpos 0
+         hexactsize 0
+         vexactsize 1
+         Padding 0
+         Margin 0
+         "Size To Content V" 1
+         content_valign center
+         Columns 2
+         Rows 1
+         {
+          TextWidgetClass t_showBleedingOverlay {
+           ignorepointer 1
+           position 0 0
+           size 1 1
+           hexactpos 0
+           vexactpos 0
+           hexactsize 0
+           vexactsize 0
+           text "#STR_SUDE_LAYOUT_OPTIONS_SHOW_BLEEDING_OVERLAY"
+           "size to text h" 0
+           "size to text v" 0
+           "text valign" center
+          }
+          CheckBoxWidgetClass showBleedingOverlay {
            position 0 0
            size 1 24
            hexactpos 0

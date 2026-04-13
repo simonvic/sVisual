@@ -26,6 +26,7 @@ class SUserConfigVisual : SUserConfigBase {
 	protected float bloomIntensity = 0.0;
 	protected float headLeanAngle = 0.0;
 	protected bool showClothingOverlays = true;
+	protected bool showBleedingOverlay = true;
 	///////////////////////////////////////
 
 
@@ -41,6 +42,7 @@ class SUserConfigVisual : SUserConfigBase {
 		registerOption("bloomIntensity",       new SUCOption_BloomIntensity(bloomIntensity));
 		registerOption("headLeanAngle",        new SUCOption_HeadleanAngle(headLeanAngle));
 		registerOption("showClothingOverlays", new SUCOption_ShowClothingOverlays(showClothingOverlays));
+		registerOption("showBleedingOverlay",  new SUCOption_ShowBleedingOverlay(showBleedingOverlay));
 	}
 
 	override void applyConstraints(SUserConfigConstraintsBase constraints) {
@@ -60,6 +62,7 @@ class SUserConfigVisual : SUserConfigBase {
 		getOption("bloomIntensity").setConstraint(c.getBloomIntensity());
 		getOption("headLeanAngle").setConstraint(c.getHeadLeanAngle());
 		getOption("showClothingOverlays").setConstraint(c.getShowClothingOverlays());
+		getOption("showBleedingOverlay").setConstraint(c.getShowBleedingOverlay());
 		SLOG.i(1, "Done");
 	}
 
@@ -141,6 +144,14 @@ class SUserConfigVisual : SUserConfigBase {
 
 	void setShowClothingOverlays(bool enabled) {
 		showClothingOverlays = enabled;
+	}
+
+	bool isShowBleedingOverlayEnabled() {
+		return showBleedingOverlay;
+	}
+
+	void setShowBleedingOverlay(bool enabled) {
+		showBleedingOverlay = enabled;
 	}
 
 

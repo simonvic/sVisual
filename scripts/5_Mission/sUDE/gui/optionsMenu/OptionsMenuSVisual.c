@@ -27,6 +27,7 @@ class OptionsMenuSVisual : SOptionsMenuBase{
 	protected ref SliderWidget    m_bloomSlider;
 	protected ref SliderWidget    m_headLeanSlider;
 	protected ref CheckBoxWidget  m_showClothingOverlays;
+	protected ref CheckBoxWidget  m_showBleedingOverlay;
 
 	override void onInit() {
 		super.onInit();
@@ -52,6 +53,7 @@ class OptionsMenuSVisual : SOptionsMenuBase{
 		initOptionWidget(m_bloomSlider,             "bloom",                getUserConfig().getOptionFloat("bloomIntensity"));
 		initOptionWidget(m_headLeanSlider,          "headLean",             getUserConfig().getOptionFloat("headLeanAngle"));
 		initOptionWidget(m_showClothingOverlays,    "showClothingOverlays", getUserConfig().getOptionBool("showClothingOverlays"));
+		initOptionWidget(m_showBleedingOverlay,     "showBleedingOverlay",  getUserConfig().getOptionBool("showBleedingOverlay"));
 	}
 
 }
