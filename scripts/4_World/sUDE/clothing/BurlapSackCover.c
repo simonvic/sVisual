@@ -5,6 +5,7 @@ modded class BurlapSackCover {
 	override void OnRemovedFromHead(PlayerBase player) {
 		super.OnRemovedFromHead(player);
 		if (!g_Game.IsClient()) return;
+		if (player != g_Game.GetPlayer()) return; // not remote player
 		m_isAttachedToPlayer = false;
 		updateOverlayVisibility();
 	}
@@ -12,6 +13,7 @@ modded class BurlapSackCover {
 	override void HandleAttachedToHead() {
 		super.HandleAttachedToHead();
 		if (!g_Game.IsClient()) return;
+		if (!m_Player || m_Player != g_Game.GetPlayer()) return;  // not remote player
 		m_isAttachedToPlayer = true;
 		updateOverlayVisibility();
 	}
